@@ -62,9 +62,26 @@ export const V1_AFTER_06 = {
   ],
 };
 
+/** 計画17（わからない）追加後・計画12（習熟度）より前の形式（mastery なし） */
+export const V1_AFTER_17 = {
+  ...V1_AFTER_06,
+  history: {
+    "2026-06-11": {
+      "math-shiki-keisan/q1": {
+        correct: 1,
+        wrong: 0,
+        dontKnow: 1,
+        hints: 2,
+        timeMs: 45000,
+      },
+    },
+  },
+};
+
 export const ALL_FIXTURES: Record<string, unknown> = {
   "v1-initial": V1_INITIAL,
   "v1-after-04": V1_AFTER_04,
   "v1-after-01": V1_AFTER_01,
   "v1-after-06": V1_AFTER_06,
+  "v1-after-17": V1_AFTER_17,
 };

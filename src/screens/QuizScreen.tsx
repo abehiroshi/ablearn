@@ -14,6 +14,7 @@ import {
 } from "../components/QuestionViews";
 import Abler from "../components/Abler";
 import ScratchPad from "../components/ScratchPad";
+import { RANK_LABELS } from "../lib/mastery";
 
 interface Feedback {
   correct: boolean;
@@ -21,6 +22,8 @@ interface Feedback {
   correctText?: string;
   /** 「わからない」経由（責めずに解説・ヒントを見せる） */
   dontKnow?: boolean;
+  /** 概念の段位が上がった（習熟度エンジン） */
+  promotedTo?: number | null;
 }
 
 interface Props {
@@ -34,8 +37,10 @@ interface Props {
     recordStat: boolean,
     timeMs: number,
     hintsUsed: number,
-    dontKnow?: boolean
-  ) => void;
+    dontKnow?: boolean,
+    concept?: string,
+    hintsTotal?: number
+  ) => { promotedTo: number | null };
   onFinish: (score: number) => void;
   onClose: () => void;
 }
@@ -84,14 +89,17 @@ export default function QuizScreen({
       else if (hintsShown > 0) xp = XP_RETRY_CORRECT;
       else xp = isFirst ? XP_FIRST_CORRECT : XP_RETRY_CORRECT;
     }
-    onAnswer(
+    const { promotedTo } = onAnswer(
       current.setId,
       current.question.id,
       correct,
       xp,
       isFirst,
       timeMs,
-      hintsShown
+      hintsShown,
+      false,
+      current.question.concept,
+      current.question.hints?.length ?? 0
     );
     setSessionXp((v) => v + xp);
 
@@ -99,7 +107,7 @@ export default function QuizScreen({
     if (current.question.type === "flashcard") {
       advance(correct);
     } else {
-      setFeedback({ correct, correctText });
+      setFeedback({ correct, correctText, promotedTo });
       // スマホのオーバーレイがフィードバックを隠さないように閉じる
       setScratchOpen(false);
     }
@@ -120,7 +128,9 @@ export default function QuizScreen({
       isFirst,
       timeMs,
       hintsShown,
-      true
+      true,
+      current.question.concept,
+      current.question.hints?.length ?? 0
     );
     const q = current.question;
     const correctText =
@@ -318,6 +328,11 @@ export default function QuizScreen({
                       ? "だいじょうぶ！いっしょに確認しよう"
                       : "ざんねん…"}
                 </div>
+                {feedback.promotedTo != null && (
+                  <div className="rank-up">
+                    📈 ランクアップ！「{RANK_LABELS[feedback.promotedTo]}」になった！
+                  </div>
+                )}
                 {!feedback.correct && feedback.correctText && (
                   <div className="explanation">
                     <strong>正解: </strong>

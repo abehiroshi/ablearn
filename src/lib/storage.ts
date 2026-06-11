@@ -72,6 +72,17 @@ export interface AppState {
   currentUnits: Record<string, string[]>;
   test: TestPlan | null;
   mockResults: MockResult[];
+  /** concept → 習熟度（計画12。型は src/lib/mastery.ts の ConceptMastery） */
+  mastery: Record<
+    string,
+    {
+      level: number;
+      streak: number;
+      lastCorrectDate: string;
+      dueDate: string;
+      setId: string;
+    }
+  >;
 }
 
 const KEY = "ablearn:v1";
@@ -87,6 +98,7 @@ export function emptyState(): AppState {
     currentUnits: {},
     test: null,
     mockResults: [],
+    mastery: {},
   };
 }
 

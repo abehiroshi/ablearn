@@ -545,6 +545,19 @@ input {
   color: var(--accent);
 }
 
+.rank-up {
+  display: inline-block;
+  background: #fff7e0;
+  border: 1.5px solid #f0dca0;
+  color: #b07d00;
+  font-size: 13px;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 4px 12px;
+  margin-bottom: 6px;
+  animation: fadein 0.3s ease;
+}
+
 .giveup-btn {
   display: block;
   margin: 14px auto 0;

@@ -17,6 +17,7 @@ import {
   wrongQuestionKeys,
 } from "./lib/storage";
 import { recommend } from "./lib/recommend";
+import { applyAnswer, buildAdaptiveItems, emptyMastery } from "./lib/mastery";
 import { shuffle } from "./lib/quiz";
 import HomeScreen from "./screens/HomeScreen";
 import LibraryScreen from "./screens/LibraryScreen";
@@ -110,7 +111,8 @@ export default function App() {
       setSession({
         title: set.title,
         setId: meta.id,
-        items: set.questions.map((q) => ({ question: q, setId: meta.id })),
+        // 概念ラダーは習熟度の段に合わせた変種に絞る（concept 無しは従来どおり）
+        items: buildAdaptiveItems(set.questions, meta.id, state),
       });
     } catch (e) {
       alert(String(e));
@@ -165,8 +167,24 @@ export default function App() {
     recordStat: boolean,
     timeMs: number,
     hintsUsed: number,
-    dontKnow = false
-  ) {
+    dontKnow = false,
+    concept?: string,
+    hintsTotal = 0
+  ): { promotedTo: number | null } {
+    const signal = {
+      correct,
+      dontKnow,
+      hintsUsed,
+      hintsTotal,
+      today: todayKey(),
+    };
+    // 昇格したかを呼び出し元（フィードバック表示）に返す
+    let promotedTo: number | null = null;
+    if (concept) {
+      const cur = state.mastery[concept] ?? emptyMastery();
+      const next = applyAnswer(cur, signal);
+      if (next.level > cur.level) promotedTo = next.level;
+    }
     setState((prev) => {
       // 「わからない」も復習対象には不正解として入れる（履歴では区別する）
       let s = recordStat
@@ -182,8 +200,19 @@ export default function App() {
       );
       s = addDailyLog(s, { answered: 1, correct: correct ? 1 : 0, xp });
       s = { ...s, xp: s.xp + xp };
+      if (concept) {
+        const cur = prev.mastery[concept] ?? emptyMastery();
+        s = {
+          ...s,
+          mastery: {
+            ...s.mastery,
+            [concept]: { ...applyAnswer(cur, signal), setId },
+          },
+        };
+      }
       return touchStreak(s);
     });
+    return { promotedTo };
   }
 
   function handleFinish(score: number) {

@@ -1,8 +1,8 @@
 # 習熟度エンジン（昇降格・適応出題・SRS）
 
-- 状態: 未着手
+- 状態: 完了（2026-06-12）
 - 触るファイル範囲: `src/lib/`（recommend.ts ほか）・`src/screens/QuizScreen.tsx`
-- 引き継ぎメモ: 出し分けは `QuizItem.asInput` を立てる（11で実装済み、QuizScreen が対応）。模擬テスト（MockTestScreen）は独自に items を組むため、習熟度に応じた形式出し分けを模擬テストにも反映するかはこの計画で判断する（11のBreakerレビュー指摘）
+- 引き継ぎメモ: エンジンは `src/lib/mastery.ts`（定数 PROMOTE_GAP_DAYS=3 / REVIEW_INTERVALS=[3,7,14] はここで調整）。習熟度を更新するのは通常クイズと復習（模擬テスト・レッスンは concept を渡さない設計で更新されない）。模擬テストへの形式出し分けは「本番に近い形＝choiceのまま」と判断し反映しない。段位表示は Stats の集計カード＋昇格時のフィードバック内ランクアップ。昇降格ルールは docs/spec.md に追記済み・mastery.test.ts で15テスト化
 
 ## 目的
 

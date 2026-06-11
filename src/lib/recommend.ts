@@ -4,6 +4,7 @@
 
 import type { ContentIndex, SetMeta, Subject } from "../types";
 import type { AppState, TestPlan } from "./storage";
+import { dueSetIds } from "./mastery";
 
 export interface Recommendation {
   meta: SetMeta;
@@ -99,6 +100,29 @@ export function recommend(
             weight: 0,
             reason: `授業中: ${unit.name}`,
           });
+        }
+      }
+    }
+    // 間隔反復: 定着確認の時期が来た概念のセットを最優先で混ぜる
+    const due = dueSetIds(state, today);
+    if (due.size > 0) {
+      for (const subject of index.subjects) {
+        for (const unit of subject.units) {
+          for (const meta of unit.sets) {
+            if (!due.has(meta.id)) continue;
+            const existing = candidates.find((c) => c.meta.id === meta.id);
+            if (existing) {
+              existing.weight = -1;
+              existing.reason = "定着チェックの時期だよ";
+            } else {
+              candidates.push({
+                meta,
+                subject,
+                weight: -1,
+                reason: "定着チェックの時期だよ",
+              });
+            }
+          }
         }
       }
     }

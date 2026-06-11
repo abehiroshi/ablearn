@@ -8,6 +8,7 @@ import {
   todayKey,
 } from "../lib/storage";
 import { subjectAccuracy, unitAccuracy, unitGrowth } from "../lib/stats";
+import { RANK_LABELS, rankCounts } from "../lib/mastery";
 import {
   AccuracyBars,
   EmptyChart,
@@ -145,6 +146,22 @@ export default function StatsScreen({ index, state, onImport }: Props) {
           </>
         )}
       </div>
+
+      {Object.keys(state.mastery).length > 0 && (
+        <div className="card">
+          <div style={{ fontWeight: 700, marginBottom: 8 }}>概念の段位</div>
+          {rankCounts(state).map((n, level) => (
+            <div key={level} className="list-row">
+              <span>{["🥉", "🥈", "🥇"][level]}</span>
+              <span style={{ flex: 1 }}>{RANK_LABELS[level]}</span>
+              <span style={{ fontWeight: 700 }}>{n}個</span>
+            </div>
+          ))}
+          <p className="muted" style={{ fontSize: 12, marginBottom: 0 }}>
+            ヒントなしで日をあけて正解すると段位が上がるよ
+          </p>
+        </div>
+      )}
 
       <div className="card">
         <div style={{ fontWeight: 700, marginBottom: 8 }}>成長グラフ</div>
