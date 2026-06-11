@@ -12,6 +12,7 @@ import {
   OrderView,
 } from "../components/QuestionViews";
 import Abler from "../components/Abler";
+import ScratchPad from "../components/ScratchPad";
 
 interface Feedback {
   correct: boolean;
@@ -48,6 +49,8 @@ export default function QuizScreen({
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [finished, setFinished] = useState(false);
   const [sessionXp, setSessionXp] = useState(0);
+  // 手書き計算余白（スマホはオーバーレイ開閉、タブレット横画面では常時表示）
+  const [scratchOpen, setScratchOpen] = useState(false);
   // セッション内の初回解答の結果（スコア計算用）。再描画不要なので ref
   const firstResults = useRef(new Map<string, boolean>());
   // 現在の問題が表示された時刻。解答時間（表示→確定）の計測用
@@ -80,6 +83,8 @@ export default function QuizScreen({
       advance(correct);
     } else {
       setFeedback({ correct, correctText });
+      // スマホのオーバーレイがフィードバックを隠さないように閉じる
+      setScratchOpen(false);
     }
   }
 
@@ -170,9 +175,17 @@ export default function QuizScreen({
         <span className="muted" style={{ fontWeight: 700 }}>
           {Math.min(done + 1, total)}/{total}
         </span>
+        <button
+          className="scratch-toggle"
+          aria-label="計算用紙"
+          onClick={() => setScratchOpen((v) => !v)}
+        >
+          ✏️
+        </button>
       </div>
 
-      <div className="quiz-body">
+      <div className="quiz-columns">
+        <div className="quiz-body">
         <div className="muted" style={{ fontSize: 13 }}>
           {title}
         </div>
@@ -227,6 +240,14 @@ export default function QuizScreen({
             </button>
           </div>
         )}
+        </div>
+
+        <div className={`scratch-panel ${scratchOpen ? "open" : ""}`}>
+          <ScratchPad
+            resetKey={keyOf(current)}
+            onClose={() => setScratchOpen(false)}
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 # 手書き計算余白（クイズ画面のタブレット対応込み）
 
-- 状態: 未着手
+- 状態: 完了（2026-06-12）
 - 触るファイル範囲: `src/screens/QuizScreen.tsx`・`src/components/`・`src/styles.css`
-- 引き継ぎメモ: なし
+- 引き継ぎメモ: 実装は `src/components/ScratchPad.tsx`。受け入れ条件のうち「スタイラスで遅延なく書ける」はタブレット実機での確認が残り（desynchronized context＋coalesced events で対策済み。シミュレートでは検証済み）。解答確定時はオーバーレイを自動で閉じる（フィードバックが隠れる罠の防止）
 
 ## 目的
 
