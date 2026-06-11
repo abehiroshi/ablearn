@@ -195,6 +195,52 @@ export function recordSetResult(
   };
 }
 
+// ===== バックアップ（エクスポート/インポート） =====
+// AppState の中身には立ち入らず、全体を不透明に入出力する。
+
+const SCHEMA_VERSION = 1;
+
+export interface BackupFile {
+  app: "ablearn";
+  schemaVersion: number;
+  exportedAt: string;
+  state: AppState;
+}
+
+export function makeBackup(state: AppState): BackupFile {
+  return {
+    app: "ablearn",
+    schemaVersion: SCHEMA_VERSION,
+    exportedAt: new Date().toISOString(),
+    state,
+  };
+}
+
+/** バックアップ JSON を検証して返す。不正なら日本語メッセージで throw */
+export function parseBackup(json: string): BackupFile {
+  let obj: unknown;
+  try {
+    obj = JSON.parse(json);
+  } catch {
+    throw new Error("JSONファイルとして読み込めませんでした");
+  }
+  const b = obj as Partial<BackupFile>;
+  if (!b || b.app !== "ablearn" || typeof b.state !== "object" || !b.state) {
+    throw new Error("Ablearn のバックアップファイルではありません");
+  }
+  if (typeof b.schemaVersion !== "number" || b.schemaVersion > SCHEMA_VERSION) {
+    throw new Error(
+      "このバックアップは新しいバージョンのアプリで作られています"
+    );
+  }
+  const s = b.state as Partial<AppState>;
+  if (typeof s.xp !== "number" || typeof s.dailyLog !== "object") {
+    throw new Error("バックアップの中身が壊れています");
+  }
+  // 旧バージョンのバックアップでも欠けたフィールドを補う
+  return { ...(b as BackupFile), state: { ...emptyState(), ...b.state } };
+}
+
 /** 当日の問題別履歴に1解答分を加算する（リトライも含めすべての解答が対象） */
 export function recordHistory(
   state: AppState,

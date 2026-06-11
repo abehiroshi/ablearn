@@ -737,6 +737,15 @@ input {
   border-bottom: none;
 }
 
+/* ===== バックアップ ===== */
+.import-confirm {
+  margin-top: 12px;
+  padding: 12px;
+  border: 2px solid var(--accent);
+  border-radius: 14px;
+  background: var(--accent-soft);
+}
+
 /* ===== マスコット Abler ===== */
 .abler {
   display: block;

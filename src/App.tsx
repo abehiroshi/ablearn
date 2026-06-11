@@ -222,7 +222,9 @@ export default function App() {
           onStart={startReview}
         />
       )}
-      {tab === "stats" && <StatsScreen state={state} />}
+      {tab === "stats" && (
+        <StatsScreen state={state} onImport={(s) => setState(s)} />
+      )}
 
       <nav className="tabbar">
         {TABS.map((t) => (

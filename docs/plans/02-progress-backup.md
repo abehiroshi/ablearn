@@ -1,8 +1,8 @@
 # 進捗バックアップ（エクスポート/インポート）
 
-- 状態: 未着手
+- 状態: 完了（2026-06-12）
 - 触るファイル範囲: `src/lib/storage.ts`・`src/screens/StatsScreen.tsx`（＋必要なら `src/styles.css`）
-- 引き継ぎメモ: なし
+- 引き継ぎメモ: `makeBackup`/`parseBackup` は `src/lib/storage.ts`。スキーマバージョン1。検証は外形のみ（app名・バージョン・xp/dailyLogの型）で、中身は計画どおり不透明に扱う。タブレット実機（iOS Safari/PWA）でエクスポートのダウンロード挙動を一度確認すること（download属性の扱いが環境依存）
 
 ## 目的
 

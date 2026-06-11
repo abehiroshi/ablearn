@@ -1,14 +1,48 @@
-import { useMemo } from "react";
-import type { AppState } from "../lib/storage";
-import { currentStreak } from "../lib/storage";
+import { useMemo, useRef, useState } from "react";
+import type { AppState, BackupFile } from "../lib/storage";
+import {
+  currentStreak,
+  makeBackup,
+  parseBackup,
+  todayKey,
+} from "../lib/storage";
 
 interface Props {
   state: AppState;
+  onImport: (state: AppState) => void;
 }
 
 const DOW = ["日", "月", "火", "水", "木", "金", "土"];
 
-export default function StatsScreen({ state }: Props) {
+export default function StatsScreen({ state, onImport }: Props) {
+  const fileInput = useRef<HTMLInputElement>(null);
+  // インポート確認待ちのバックアップ（null = 確認中でない）
+  const [pending, setPending] = useState<BackupFile | null>(null);
+  const [importError, setImportError] = useState<string | null>(null);
+
+  function exportBackup() {
+    const blob = new Blob([JSON.stringify(makeBackup(state), null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `ablearn-backup-${todayKey()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  async function pickBackup(file: File | undefined) {
+    setImportError(null);
+    setPending(null);
+    if (!file) return;
+    try {
+      setPending(parseBackup(await file.text()));
+    } catch (e) {
+      setImportError(e instanceof Error ? e.message : String(e));
+    }
+  }
+
   // 直近7日（今日を含む）の学習量
   const week = useMemo(() => {
     const days: { label: string; answered: number; xp: number }[] = [];
@@ -89,6 +123,95 @@ export default function StatsScreen({ state }: Props) {
           <span style={{ flex: 1 }}>学習した日数</span>
           <span style={{ fontWeight: 700 }}>{totals.days}日</span>
         </div>
+      </div>
+
+      <div className="card">
+        <div style={{ fontWeight: 700, marginBottom: 4 }}>バックアップ</div>
+        <p className="muted" style={{ marginTop: 0 }}>
+          端末をかえるとき・データが消えたときのために、記録をファイルに残せるよ
+        </p>
+        <div className="row">
+          <button
+            className="secondary-btn"
+            style={{ flex: 1 }}
+            onClick={exportBackup}
+          >
+            エクスポート
+          </button>
+          <button
+            className="secondary-btn"
+            style={{ flex: 1 }}
+            onClick={() => fileInput.current?.click()}
+          >
+            インポート
+          </button>
+        </div>
+        <input
+          ref={fileInput}
+          type="file"
+          accept="application/json,.json"
+          style={{ display: "none" }}
+          onChange={(e) => {
+            void pickBackup(e.target.files?.[0]);
+            e.target.value = ""; // 同じファイルを選び直せるように
+          }}
+        />
+        {importError && (
+          <p style={{ color: "var(--red)", fontSize: 14, marginBottom: 0 }}>
+            {importError}
+          </p>
+        )}
+        {pending && (
+          <div className="import-confirm">
+            <div style={{ fontWeight: 700, marginBottom: 6 }}>
+              このバックアップで上書きする？
+            </div>
+            <div className="list-row">
+              <span style={{ flex: 1 }}>エクスポート日時</span>
+              <span style={{ fontWeight: 700 }}>
+                {new Date(pending.exportedAt).toLocaleString("ja-JP")}
+              </span>
+            </div>
+            <div className="list-row">
+              <span style={{ flex: 1 }}>XP</span>
+              <span style={{ fontWeight: 700 }}>{pending.state.xp}</span>
+            </div>
+            <div className="list-row">
+              <span style={{ flex: 1 }}>学習した日数</span>
+              <span style={{ fontWeight: 700 }}>
+                {Object.keys(pending.state.dailyLog).length}日
+              </span>
+            </div>
+            <div className="list-row">
+              <span style={{ flex: 1 }}>問題の成績</span>
+              <span style={{ fontWeight: 700 }}>
+                {Object.keys(pending.state.questionStats).length}件
+              </span>
+            </div>
+            <p className="muted" style={{ fontSize: 13 }}>
+              いまの記録は消えて、このファイルの内容になります
+            </p>
+            <div className="row">
+              <button
+                className="secondary-btn"
+                style={{ flex: 1 }}
+                onClick={() => setPending(null)}
+              >
+                やめる
+              </button>
+              <button
+                className="primary-btn"
+                style={{ flex: 1 }}
+                onClick={() => {
+                  onImport(pending.state);
+                  setPending(null);
+                }}
+              >
+                上書きして復元
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
