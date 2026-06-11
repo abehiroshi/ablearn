@@ -153,6 +153,57 @@ input {
   padding: 0 4px;
 }
 
+/* ===== フッタナビ（アイコン案C: ミニマル・丸形ベース） ===== */
+.fnav button {
+  gap: 3px;
+  color: #2d4a7f;
+  opacity: 0.72;
+}
+
+.fnav button.active {
+  color: #2d4a7f;
+  opacity: 1;
+  font-weight: 700;
+}
+
+.fnav-pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 28px;
+  border-radius: 999px;
+  transition: background 0.15s;
+}
+
+.fnav button.active .fnav-pill {
+  background: #f5e6c8;
+}
+
+.fnav-icon {
+  width: 23px;
+  height: 23px;
+  display: block;
+}
+
+/* 選択中はアクセント色も濃紺に寄せる（案Cの選択中イメージ） */
+.fnav button.active .ic-teal {
+  stroke: #2d4a7f;
+}
+
+.fnav button.active .ic-teal-fill,
+.fnav button.active .ic-brown {
+  fill: #2d4a7f;
+}
+
+.fnav .badge {
+  position: absolute;
+  top: -5px;
+  right: -7px;
+  transform: none;
+}
+
 /* ===== ホーム ===== */
 .hero {
   display: flex;

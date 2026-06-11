@@ -27,8 +27,9 @@ import QuizScreen from "./screens/QuizScreen";
 import TestSetupScreen from "./screens/TestSetupScreen";
 import MockTestScreen from "./screens/MockTestScreen";
 import LessonScreen from "./screens/LessonScreen";
+import FooterNav from "./components/FooterNav";
 
-export type Tab = "home" | "library" | "review" | "stats";
+export type Tab = "home" | "library" | "mock" | "review" | "stats";
 
 export interface QuizItem {
   question: Question;
@@ -53,13 +54,6 @@ export interface LessonSession {
   steps: LessonStep[];
 }
 
-const TABS: { id: Tab; icon: string; label: string }[] = [
-  { id: "home", icon: "🏠", label: "ホーム" },
-  { id: "library", icon: "📚", label: "学習" },
-  { id: "review", icon: "🔁", label: "復習" },
-  { id: "stats", icon: "📈", label: "記録" },
-];
-
 const REVIEW_SESSION_MAX = 20;
 
 export default function App() {
@@ -70,7 +64,6 @@ export default function App() {
   const [session, setSession] = useState<Session | null>(null);
   const [lesson, setLesson] = useState<LessonSession | null>(null);
   const [editingTest, setEditingTest] = useState(false);
-  const [mockOpen, setMockOpen] = useState(false);
   // ホームの教科一覧から Library を開いたとき、その教科を最初から表示する
   const [libraryFocus, setLibraryFocus] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -277,7 +270,6 @@ export default function App() {
           onGoLibrary={() => setTab("library")}
           onEditTest={() => setEditingTest(true)}
           onClearTest={clearTest}
-          onStartMock={() => setMockOpen(true)}
           onOpenSubject={(id) => {
             setLibraryFocus(id);
             setTab("library");
@@ -305,35 +297,25 @@ export default function App() {
       {tab === "stats" && (
         <StatsScreen index={index} state={state} onImport={(s) => setState(s)} />
       )}
-
-      <nav className="tabbar">
-        {TABS.map((t) => (
-          <button
-            key={t.id}
-            className={tab === t.id ? "active" : ""}
-            onClick={() => {
-              setLibraryFocus(null); // タブから開くときは教科一覧から
-              setTab(t.id);
-            }}
-          >
-            <span className="tab-icon">{t.icon}</span>
-            {t.label}
-            {t.id === "review" && wrongKeys.length > 0 && (
-              <span className="badge">{wrongKeys.length}</span>
-            )}
-          </button>
-        ))}
-      </nav>
-
-      {mockOpen && (
+      {tab === "mock" && (
         <MockTestScreen
+          asTab
           index={index}
           state={state}
           onAnswer={handleAnswer}
           onFinishMock={finishMock}
-          onClose={() => setMockOpen(false)}
+          onClose={() => setTab("home")}
         />
       )}
+
+      <FooterNav
+        active={tab}
+        reviewCount={wrongKeys.length}
+        onSelect={(id) => {
+          setLibraryFocus(null); // タブから開くときは教科一覧から
+          setTab(id);
+        }}
+      />
 
       {editingTest && (
         <TestSetupScreen

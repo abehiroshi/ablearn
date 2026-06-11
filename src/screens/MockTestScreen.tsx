@@ -19,6 +19,8 @@ interface Item {
 }
 
 interface Props {
+  /** フッタのタブとして表示（セットアップを通常画面で出し、もどるボタンを出さない） */
+  asTab?: boolean;
   index: ContentIndex;
   state: AppState;
   /** QuizScreen と同じ。解答履歴・成績・XPを通常どおり記録する */
@@ -57,6 +59,7 @@ function questionText(q: Question): string {
 }
 
 export default function MockTestScreen({
+  asTab = false,
   index,
   state,
   onAnswer,
@@ -230,14 +233,16 @@ export default function MockTestScreen({
   // ===== 画面 =====
 
   if (!items) {
-    // セットアップ
+    // セットアップ（タブ表示のときはフッタが見える通常画面として出す）
     return (
-      <div className="modal-screen">
-        <div className="row" style={{ marginBottom: 8 }}>
-          <button className="back-btn" style={{ margin: 0 }} onClick={onClose}>
-            ‹ もどる
-          </button>
-        </div>
+      <div className={asTab ? "screen" : "modal-screen"}>
+        {!asTab && (
+          <div className="row" style={{ marginBottom: 8 }}>
+            <button className="back-btn" style={{ margin: 0 }} onClick={onClose}>
+              ‹ もどる
+            </button>
+          </div>
+        )}
         <h1 className="screen-title" style={{ marginTop: 0 }}>
           🎯 模擬テスト
         </h1>

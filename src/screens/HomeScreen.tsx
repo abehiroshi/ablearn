@@ -17,7 +17,6 @@ interface Props {
   onGoLibrary: () => void;
   onEditTest: () => void;
   onClearTest: () => void;
-  onStartMock: () => void;
   /** タブレットの教科一覧から直接その教科を開く */
   onOpenSubject: (subjectId: string) => void;
 }
@@ -41,7 +40,6 @@ export default function HomeScreen({
   onGoLibrary,
   onEditTest,
   onClearTest,
-  onStartMock,
   onOpenSubject,
 }: Props) {
   const today = todayKey();
@@ -133,13 +131,6 @@ export default function HomeScreen({
                 ? `テスト期間中（次まであと${countdown}日）`
                 : `あと ${countdown} 日`}
           </div>
-          <button
-            className="secondary-btn"
-            style={{ marginBottom: 10 }}
-            onClick={onStartMock}
-          >
-            🎯 模擬テストに挑戦
-          </button>
           <div className="schedule">
             {state.test!.days.map((day, i) => {
               const passed = day.date < today;
@@ -228,18 +219,13 @@ export default function HomeScreen({
         教科から選ぶ
       </button>
 
-      {!testActive && (
+      {/* 模擬テストへの導線はフッタの「テスト」タブに一本化（計画16） */}
+      {!testActive && !testOver && (
         <button
           className="ghost-btn"
           style={{ marginTop: 10 }}
-          onClick={onStartMock}
+          onClick={onEditTest}
         >
-          🎯 模擬テストに挑戦
-        </button>
-      )}
-
-      {!testActive && !testOver && (
-        <button className="ghost-btn" onClick={onEditTest}>
           📝 次のテストを登録する
         </button>
       )}
