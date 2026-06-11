@@ -1,4 +1,4 @@
-// マスコット Abler の設定画シート (assets/image.png) から
+// マスコット Abler の設定画シート (assets/original.png) から
 // 各ポーズ・表情を切り出して public/abler/ (WebP) と PWA アイコンを生成する。
 // 使い方: node scripts/abler-build.mjs（要 cwebp: brew install webp）
 import { deflateSync, inflateSync } from "node:zlib";
@@ -249,22 +249,6 @@ function resize(img, dw, dh) {
 // ===== 切り出し定義（シートのサイズごとに座標を持つ） =====
 
 const CROP_PROFILES = {
-  // 旧シート（透過済み・水彩調になってしまった変換版）
-  "1536x1024": {
-    main: [40, 80, 420, 690],
-    benkyou: [455, 85, 740, 430],
-    kangaechu: [740, 110, 1015, 430],
-    dekita: [1000, 70, 1265, 430],
-    mukatteru: [1265, 90, 1520, 430],
-    nikkori: [430, 480, 630, 680],
-    uun: [630, 480, 805, 680],
-    odoroki: [805, 480, 975, 680],
-    hirameita: [975, 480, 1150, 680],
-    iine: [1150, 480, 1330, 680],
-    kuyashii: [1330, 480, 1510, 680],
-    fukushu: [545, 740, 760, 1000],
-    ganbare: [730, 740, 950, 1000],
-  },
   // オリジナルシート（背景不透過）
   "1402x1122": {
     main: [30, 130, 320, 670],
