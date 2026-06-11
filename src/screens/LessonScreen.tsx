@@ -8,6 +8,7 @@ import {
   OrderView,
 } from "../components/QuestionViews";
 import Abler from "../components/Abler";
+import type { Milestone } from "../lib/milestones";
 
 interface Feedback {
   correct: boolean;
@@ -27,7 +28,7 @@ interface Props {
     recordStat: boolean,
     timeMs: number,
     hintsUsed: number
-  ) => void;
+  ) => { milestones: Milestone[] };
   /** 最後まで進めたときに1回呼ばれる（完了の記録） */
   onFinish: (score: number) => void;
   onClose: () => void;
@@ -49,6 +50,7 @@ export default function LessonScreen({
   // 問題ステップの正解数（完了スコア用）
   const results = useRef<boolean[]>([]);
   const reported = useRef(false);
+  const milestones = useRef<Milestone[]>([]);
 
   const total = steps.length;
   const step = steps[pos];
@@ -57,7 +59,7 @@ export default function LessonScreen({
     if (feedback || finished || step.type === "card") return;
     results.current.push(correct);
     const xp = correct ? XP_LESSON : 0;
-    onAnswer(
+    const res = onAnswer(
       setId,
       step.id,
       correct,
@@ -66,6 +68,7 @@ export default function LessonScreen({
       Date.now() - shownAt.current,
       0
     );
+    milestones.current.push(...res.milestones);
     setSessionXp((v) => v + xp);
     // 間違えてもその場で解説して先へ進む（リトライはしない）
     setFeedback({ correct, correctText });
@@ -99,6 +102,15 @@ export default function LessonScreen({
             <Abler pose="dekita" size={150} />
           </div>
           <div className="result-title">レッスン完了！</div>
+          {milestones.current.length > 0 && (
+            <div className="milestone-list">
+              {milestones.current.map((m) => (
+                <div key={m.id} className={`milestone ${m.big ? "big" : ""}`}>
+                  {m.emoji} {m.label}
+                </div>
+              ))}
+            </div>
+          )}
           <div className="result-stats">
             <div className="stat-card">
               <div className="num">

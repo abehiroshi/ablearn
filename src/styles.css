@@ -596,6 +596,49 @@ input {
   color: var(--accent);
 }
 
+/* 節目の祝福（チップ・バッジ棚） */
+.milestone-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 4px 0 16px;
+}
+
+.milestone {
+  display: inline-block;
+  background: #fff7e0;
+  border: 1.5px solid #f0dca0;
+  color: #b07d00;
+  font-size: 13px;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 5px 12px;
+  animation: fadein 0.3s ease;
+}
+
+.milestone.big {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-size: 14px;
+}
+
+.badge-shelf {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.unit-pct {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-2);
+}
+
 .rank-up {
   display: inline-block;
   background: #fff7e0;

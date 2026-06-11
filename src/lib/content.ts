@@ -17,6 +17,22 @@ export function loadSet(meta: SetMeta): Promise<QuestionSet> {
   return fetchJson<QuestionSet>(`content/${currentCollection()}/${meta.file}`);
 }
 
+/** 全セットを読み込む（達成度の分母計算用。起動後にバックグラウンドで呼ぶ） */
+export async function loadAllSets(
+  index: ContentIndex
+): Promise<Record<string, QuestionSet>> {
+  const metas = index.subjects.flatMap((s) =>
+    s.units.flatMap((u) => u.sets)
+  );
+  const sets: Record<string, QuestionSet> = {};
+  await Promise.all(
+    metas.map(async (meta) => {
+      sets[meta.id] = await loadSet(meta);
+    })
+  );
+  return sets;
+}
+
 /** index 全体から setId → { meta, subject } の逆引きを作る */
 export function buildSetLookup(
   index: ContentIndex

@@ -10,6 +10,13 @@ import {
 import { subjectAccuracy, unitAccuracy, unitGrowth } from "../lib/stats";
 import { RANK_LABELS, rankCounts } from "../lib/mastery";
 import {
+  ContentCounts,
+  describeMilestone,
+  totalAnswers,
+  touchedCounts,
+  weekAnswers,
+} from "../lib/milestones";
+import {
   AccuracyBars,
   EmptyChart,
   GrowthChart,
@@ -20,12 +27,13 @@ import {
 interface Props {
   index: ContentIndex;
   state: AppState;
+  counts: ContentCounts | null;
   onImport: (state: AppState) => void;
 }
 
 const DOW = ["日", "月", "火", "水", "木", "金", "土"];
 
-export default function StatsScreen({ index, state, onImport }: Props) {
+export default function StatsScreen({ index, state, counts, onImport }: Props) {
   const bySubject = useMemo(
     () => subjectAccuracy(index, state),
     [index, state.questionStats]
@@ -192,15 +200,48 @@ export default function StatsScreen({ index, state, onImport }: Props) {
       </div>
 
       <div className="card">
+        <div style={{ fontWeight: 700, marginBottom: 4 }}>つみあげ</div>
         <div className="list-row">
           <span style={{ flex: 1 }}>解いた問題の合計</span>
           <span style={{ fontWeight: 700 }}>{totals.answered}問</span>
         </div>
         <div className="list-row">
+          <span style={{ flex: 1 }}>この7日間の取組</span>
+          <span style={{ fontWeight: 700 }}>{weekAnswers(state)}問</span>
+        </div>
+        <div className="list-row">
           <span style={{ flex: 1 }}>学習した日数</span>
           <span style={{ fontWeight: 700 }}>{totals.days}日</span>
         </div>
+        <div className="list-row">
+          <span style={{ flex: 1 }}>取り組んだ単元</span>
+          <span style={{ fontWeight: 700 }}>
+            {touchedCounts(state, counts).units}単元 /{" "}
+            {touchedCounts(state, counts).subjects}教科
+          </span>
+        </div>
+        <div className="list-row">
+          <span style={{ flex: 1 }}>累計の解答回数（リトライ込み）</span>
+          <span style={{ fontWeight: 700 }}>{totalAnswers(state)}回</span>
+        </div>
       </div>
+
+      {state.celebrated.length > 0 && (
+        <div className="card">
+          <div style={{ fontWeight: 700, marginBottom: 8 }}>バッジ棚</div>
+          <div className="badge-shelf">
+            {state.celebrated.map((id) => {
+              const m = describeMilestone(id, counts);
+              if (!m) return null;
+              return (
+                <span key={id} className={`milestone ${m.big ? "big" : ""}`}>
+                  {m.emoji} {m.label}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       <div className="card">
         <div style={{ fontWeight: 700, marginBottom: 4 }}>バックアップ</div>

@@ -74,6 +74,8 @@ export interface AppState {
   currentUnits: Record<string, string[]>;
   test: TestPlan | null;
   mockResults: MockResult[];
+  /** 祝福済みの節目ID（計画18。同じ節目を二度祝福しない） */
+  celebrated: string[];
   /** concept → 習熟度（計画12。型は src/lib/mastery.ts の ConceptMastery） */
   mastery: Record<
     string,
@@ -101,6 +103,7 @@ export function emptyState(): AppState {
     currentUnits: {},
     test: null,
     mockResults: [],
+    celebrated: [],
     mastery: {},
   };
 }

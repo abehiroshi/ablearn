@@ -1,6 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import type { ContentIndex, LessonStep, Question, SetMeta } from "./types";
-import { buildSetLookup, loadIndex, loadSet } from "./lib/content";
+import { buildSetLookup, loadAllSets, loadIndex, loadSet } from "./lib/content";
+import {
+  ContentCounts,
+  Milestone,
+  answeredMilestones,
+  buildContentCounts,
+} from "./lib/milestones";
 import {
   AppState,
   MockResult,
@@ -67,6 +73,8 @@ export default function App() {
   // ホームの教科一覧から Library を開いたとき、その教科を最初から表示する
   const [libraryFocus, setLibraryFocus] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  // 達成度の分母（全セットの問題数）。読み込み完了まで達成度系は出さない
+  const [counts, setCounts] = useState<ContentCounts | null>(null);
 
   useEffect(() => saveState(state), [state]);
   useEffect(() => {
@@ -74,6 +82,21 @@ export default function App() {
       .then(setIndex)
       .catch((e) => setLoadError(String(e)));
   }, []);
+  useEffect(() => {
+    if (!index) return;
+    let cancelled = false;
+    const load = () =>
+      loadAllSets(index).then((sets) => {
+        if (!cancelled) setCounts(buildContentCounts(index, sets));
+      });
+    // 失敗すると達成度の節目を逃す（単調増加で再到達できない）ため1回だけリトライ
+    load().catch(() => {
+      setTimeout(() => void load().catch(() => {}), 5000);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [index]);
 
   const lookup = useMemo(
     () => (index ? buildSetLookup(index) : new Map()),
@@ -163,7 +186,7 @@ export default function App() {
     dontKnow = false,
     concept?: string,
     hintsTotal = 0
-  ): { promotedTo: number | null } {
+  ): { promotedTo: number | null; milestones: Milestone[] } {
     const signal = {
       correct,
       dontKnow,
@@ -171,13 +194,19 @@ export default function App() {
       hintsTotal,
       today: todayKey(),
     };
-    // 昇格したかを呼び出し元（フィードバック表示）に返す
+    // 昇格したか・跨いだ節目を呼び出し元（フィードバック/結果表示）に返す
     let promotedTo: number | null = null;
     if (concept) {
       const cur = state.mastery[concept] ?? emptyMastery();
       const next = applyAnswer(cur, signal);
       if (next.level > cur.level) promotedTo = next.level;
     }
+    const milestones = answeredMilestones(state, {
+      setId,
+      questionId,
+      correct,
+      counts,
+    });
     setState((prev) => {
       // 「わからない」も復習対象には不正解として入れる（履歴では区別する）
       let s = recordStat
@@ -203,9 +232,16 @@ export default function App() {
           },
         };
       }
+      if (milestones.length > 0) {
+        // 祝福は一度だけ: 跨いだ節目を祝福済みとして記録
+        const ids = milestones
+          .map((m) => m.id)
+          .filter((id) => !prev.celebrated.includes(id));
+        s = { ...s, celebrated: [...s.celebrated, ...ids] };
+      }
       return touchStreak(s);
     });
-    return { promotedTo };
+    return { promotedTo, milestones };
   }
 
   function handleFinish(score: number) {
@@ -274,6 +310,7 @@ export default function App() {
             setLibraryFocus(id);
             setTab("library");
           }}
+          counts={counts}
         />
       )}
       {tab === "library" && (
@@ -284,6 +321,7 @@ export default function App() {
           onStartSet={startSet}
           onToggleUnit={toggleUnit}
           focusSubjectId={libraryFocus}
+          counts={counts}
         />
       )}
       {tab === "review" && (
@@ -295,7 +333,12 @@ export default function App() {
         />
       )}
       {tab === "stats" && (
-        <StatsScreen index={index} state={state} onImport={(s) => setState(s)} />
+        <StatsScreen
+          index={index}
+          state={state}
+          counts={counts}
+          onImport={(s) => setState(s)}
+        />
       )}
       {tab === "mock" && (
         <MockTestScreen

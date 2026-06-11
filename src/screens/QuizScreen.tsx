@@ -15,6 +15,7 @@ import {
 import Abler from "../components/Abler";
 import ScratchPad from "../components/ScratchPad";
 import { RANK_LABELS } from "../lib/mastery";
+import type { Milestone } from "../lib/milestones";
 
 interface Feedback {
   correct: boolean;
@@ -24,6 +25,8 @@ interface Feedback {
   dontKnow?: boolean;
   /** 概念の段位が上がった（習熟度エンジン） */
   promotedTo?: number | null;
+  /** この解答で跨いだ節目（軽いチップで祝福） */
+  milestones?: Milestone[];
 }
 
 interface Props {
@@ -40,7 +43,7 @@ interface Props {
     dontKnow?: boolean,
     concept?: string,
     hintsTotal?: number
-  ) => { promotedTo: number | null };
+  ) => { promotedTo: number | null; milestones: Milestone[] };
   onFinish: (score: number) => void;
   onClose: () => void;
 }
@@ -67,6 +70,8 @@ export default function QuizScreen({
   const firstResults = useRef(new Map<string, boolean>());
   // 現在の問題が表示された時刻。解答時間（表示→確定）の計測用
   const shownAt = useRef(Date.now());
+  // セッション中に跨いだ節目（結果画面でまとめて祝福）
+  const sessionMilestones = useRef<Milestone[]>([]);
 
   const total = items.length;
   const current = queue[0];
@@ -89,7 +94,7 @@ export default function QuizScreen({
       else if (hintsShown > 0) xp = XP_RETRY_CORRECT;
       else xp = isFirst ? XP_FIRST_CORRECT : XP_RETRY_CORRECT;
     }
-    const { promotedTo } = onAnswer(
+    const { promotedTo, milestones } = onAnswer(
       current.setId,
       current.question.id,
       correct,
@@ -101,13 +106,14 @@ export default function QuizScreen({
       current.question.concept,
       current.question.hints?.length ?? 0
     );
+    sessionMilestones.current.push(...milestones);
     setSessionXp((v) => v + xp);
 
     // フラッシュカードは自己申告なのでフィードバックを挟まず次へ
     if (current.question.type === "flashcard") {
       advance(correct);
     } else {
-      setFeedback({ correct, correctText, promotedTo });
+      setFeedback({ correct, correctText, promotedTo, milestones });
       // スマホのオーバーレイがフィードバックを隠さないように閉じる
       setScratchOpen(false);
     }
@@ -181,6 +187,15 @@ export default function QuizScreen({
           <div className="result-title">
             {score === 100 ? "パーフェクト！" : "おつかれさま！"}
           </div>
+          {sessionMilestones.current.length > 0 && (
+            <div className="milestone-list">
+              {sessionMilestones.current.map((m) => (
+                <div key={m.id} className={`milestone ${m.big ? "big" : ""}`}>
+                  {m.emoji} {m.label}
+                </div>
+              ))}
+            </div>
+          )}
           <div className="result-stats">
             <div className="stat-card">
               <div className="num">{score}%</div>
@@ -333,6 +348,11 @@ export default function QuizScreen({
                     📈 ランクアップ！「{RANK_LABELS[feedback.promotedTo]}」になった！
                   </div>
                 )}
+                {feedback.milestones?.map((m) => (
+                  <div key={m.id} className="rank-up">
+                    {m.emoji} {m.label}
+                  </div>
+                ))}
                 {!feedback.correct && feedback.correctText && (
                   <div className="explanation">
                     <strong>正解: </strong>

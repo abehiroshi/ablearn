@@ -3,6 +3,11 @@ import type { AppState } from "../lib/storage";
 import { todayKey } from "../lib/storage";
 import type { Recommendation } from "../lib/recommend";
 import { daysBetweenISO, isTestActive, isTestOver } from "../lib/recommend";
+import {
+  ContentCounts,
+  achievedCount,
+  achievementPct,
+} from "../lib/milestones";
 import Abler from "../components/Abler";
 
 interface Props {
@@ -19,6 +24,7 @@ interface Props {
   onClearTest: () => void;
   /** タブレットの教科一覧から直接その教科を開く */
   onOpenSubject: (subjectId: string) => void;
+  counts: ContentCounts | null;
 }
 
 const DOW = ["日", "月", "火", "水", "木", "金", "土"];
@@ -41,6 +47,7 @@ export default function HomeScreen({
   onEditTest,
   onClearTest,
   onOpenSubject,
+  counts,
 }: Props) {
   const today = todayKey();
   const testActive = isTestActive(state.test, today);
@@ -57,6 +64,18 @@ export default function HomeScreen({
   const countdown =
     firstRemaining !== undefined ? daysBetweenISO(today, firstRemaining) : null;
   const started = testActive && state.test!.days.some((d) => d.date < today);
+
+  // テスト範囲の達成度（文脈に合う数字をホームに少しだけ出す）
+  const rangePct = (() => {
+    if (!testActive || !counts) return null;
+    const rangeIds = new Set(Object.values(state.test!.range).flat());
+    let total = 0;
+    for (const id of rangeIds) total += counts.setTotals[id] ?? 0;
+    return achievementPct(
+      achievedCount(state, (sid) => rangeIds.has(sid)),
+      total
+    );
+  })();
 
   const greeting = testActive
     ? countdown === 0
@@ -131,6 +150,20 @@ export default function HomeScreen({
                 ? `テスト期間中（次まであと${countdown}日）`
                 : `あと ${countdown} 日`}
           </div>
+          {rangePct !== null && (
+            <div className="row" style={{ gap: 8, marginBottom: 8 }}>
+              <span className="muted" style={{ fontSize: 13 }}>
+                範囲の達成度
+              </span>
+              <span className="acc-track" style={{ flex: 1 }}>
+                <span
+                  className="acc-fill"
+                  style={{ width: `${rangePct}%`, background: "var(--accent)" }}
+                />
+              </span>
+              <span style={{ fontWeight: 700, fontSize: 13 }}>{rangePct}%</span>
+            </div>
+          )}
           <div className="schedule">
             {state.test!.days.map((day, i) => {
               const passed = day.date < today;

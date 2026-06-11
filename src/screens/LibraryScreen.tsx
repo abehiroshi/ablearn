@@ -1,6 +1,11 @@
 import { useState } from "react";
 import type { ContentIndex, SetMeta, Subject } from "../types";
 import type { AppState } from "../lib/storage";
+import {
+  ContentCounts,
+  achievedCount,
+  achievementPct,
+} from "../lib/milestones";
 
 interface Props {
   index: ContentIndex;
@@ -9,6 +14,8 @@ interface Props {
   onToggleUnit: (subjectId: string, unitId: string) => void;
   /** ホームの教科一覧から開いたときの初期表示教科 */
   focusSubjectId?: string | null;
+  /** 達成度の分母（読み込み中は null = バー非表示） */
+  counts: ContentCounts | null;
 }
 
 export default function LibraryScreen({
@@ -17,6 +24,7 @@ export default function LibraryScreen({
   onStartSet,
   onToggleUnit,
   focusSubjectId,
+  counts,
 }: Props) {
   const [subject, setSubject] = useState<Subject | null>(
     () => index.subjects.find((s) => s.id === focusSubjectId) ?? null
@@ -36,10 +44,30 @@ export default function LibraryScreen({
           いま授業でやっている単元に「授業中」マークをつけると、
           ホームのおすすめに出るよ
         </p>
-        {subject.units.map((unit) => (
+        {subject.units.map((unit) => {
+          // 達成度 = 一度でも正解した問題 ÷ 単元の全問題（下がらない数字）
+          const unitKey = `${subject.id}/${unit.id}`;
+          const pct = counts
+            ? achievementPct(
+                achievedCount(state, (sid) => counts.setToUnit[sid] === unitKey),
+                counts.unitTotals[unitKey] ?? 0
+              )
+            : null;
+          return (
           <div key={unit.id}>
             <div className="unit-header row" style={{ gap: 8 }}>
               <span style={{ flex: 1 }}>{unit.name}</span>
+              {pct !== null && (
+                <span className="unit-pct">
+                  <span className="acc-track" style={{ width: 56 }}>
+                    <span
+                      className="acc-fill"
+                      style={{ width: `${pct}%`, background: "var(--accent)" }}
+                    />
+                  </span>
+                  {pct}%
+                </span>
+              )}
               <button
                 className={`unit-toggle ${currentIds.includes(unit.id) ? "active" : ""}`}
                 onClick={() => onToggleUnit(subject.id, unit.id)}
@@ -95,7 +123,8 @@ export default function LibraryScreen({
             })}
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
     );
   }

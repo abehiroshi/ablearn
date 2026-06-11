@@ -12,6 +12,7 @@ import {
   OrderView,
 } from "../components/QuestionViews";
 import Abler from "../components/Abler";
+import type { Milestone } from "../lib/milestones";
 
 interface Item {
   question: Question;
@@ -32,7 +33,7 @@ interface Props {
     recordStat: boolean,
     timeMs: number,
     hintsUsed: number
-  ) => void;
+  ) => { milestones: Milestone[] };
   onFinishMock: (result: MockResult) => void;
   onClose: () => void;
 }
@@ -130,6 +131,8 @@ export default function MockTestScreen({
   const results = useRef<(boolean | null)[]>([]);
   const [finished, setFinished] = useState(false);
   const savedResult = useRef<MockResult | null>(null);
+  // 跨いだ節目。実施中は見せず（正誤が漏れる）、結果画面でまとめて祝福
+  const milestones = useRef<Milestone[]>([]);
 
   async function start() {
     if (busy || pool.length === 0) return;
@@ -190,7 +193,7 @@ export default function MockTestScreen({
     const q = items[pos].question;
     let xp = 0;
     if (correct) xp = q.type === "flashcard" ? XP_FLASHCARD : XP_FIRST_CORRECT;
-    onAnswer(
+    const res = onAnswer(
       items[pos].setId,
       q.id,
       correct,
@@ -199,6 +202,7 @@ export default function MockTestScreen({
       Date.now() - shownAt.current,
       0 // 模擬テストにヒントはない
     );
+    milestones.current.push(...res.milestones);
     shownAt.current = Date.now();
     if (pos + 1 >= items.length) {
       setFinished(true);
@@ -355,6 +359,15 @@ export default function MockTestScreen({
               {r?.correct}/{r?.total}問正解 ・ {rangeLabel}
               {best !== null && score > best && " ・ ベスト更新！"}
             </p>
+            {milestones.current.length > 0 && (
+              <div className="milestone-list">
+                {milestones.current.map((m) => (
+                  <div key={m.id} className={`milestone ${m.big ? "big" : ""}`}>
+                    {m.emoji} {m.label}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="card">
