@@ -5,6 +5,12 @@
 
 export type QuestionType = "choice" | "input" | "flashcard" | "order";
 
+/** 外部リンク（授業動画・解説サイトなど）。親が選定したものだけを入れる */
+export interface ContentLink {
+  label: string;
+  url: string;
+}
+
 export interface BaseQuestion {
   id: string;
   type: QuestionType;
@@ -14,6 +20,12 @@ export interface BaseQuestion {
   difficulty?: 1 | 2 | 3;
   /** 段階的ヒント。弱→強の順 */
   hints?: string[];
+  /**
+   * 概念ID。同じ concept を持つ問題群が1つの「概念ラダー」になる。
+   * 変種は実行時生成ではなく、作成時に複数作って同じ concept に並べる
+   */
+  concept?: string;
+  links?: ContentLink[];
 }
 
 /** 選択式（4択など） */
@@ -23,6 +35,11 @@ export interface ChoiceQuestion extends BaseQuestion {
   choices: string[];
   /** choices 内の正解インデックス */
   answer: number;
+  /**
+   * 受理表記のリスト。あれば同じ問題を習熟度に応じて
+   * input（自力入力）形式でも出題できる
+   */
+  answers?: string[];
 }
 
 /** 入力式（記述・一問一答） */
@@ -92,6 +109,8 @@ export interface Unit {
   id: string;
   name: string;
   sets: SetMeta[];
+  /** 授業で使われている動画・解説サイトなどへの導線 */
+  links?: ContentLink[];
 }
 
 export interface Subject {

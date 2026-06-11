@@ -4,6 +4,7 @@ import {
   XP_FIRST_CORRECT,
   XP_FLASHCARD,
   XP_RETRY_CORRECT,
+  choiceAsInput,
 } from "../lib/quiz";
 import {
   ChoiceView,
@@ -166,7 +167,11 @@ export default function QuizScreen({
   }
 
   if (!current) return null;
-  const q = current.question;
+  // answers つき choice は input 形式でも出せる（asInput は12の出し分けが立てる）
+  const q =
+    current.asInput && current.question.type === "choice"
+      ? (choiceAsInput(current.question) ?? current.question)
+      : current.question;
   const viewKey = `${keyOf(current)}#${attempt}`;
 
   return (
@@ -266,6 +271,21 @@ export default function QuizScreen({
                 )}
                 {q.explanation && (
                   <div className="explanation">{q.explanation}</div>
+                )}
+                {q.links && q.links.length > 0 && (
+                  <div className="link-row">
+                    {q.links.map((l) => (
+                      <a
+                        key={l.url}
+                        className="link-chip"
+                        href={l.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        ▶ {l.label}
+                      </a>
+                    ))}
+                  </div>
                 )}
               </div>
             </div>

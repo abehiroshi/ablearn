@@ -47,6 +47,21 @@ export default function LibraryScreen({
                 {currentIds.includes(unit.id) ? "✓ 授業中" : "授業中にする"}
               </button>
             </div>
+            {unit.links && unit.links.length > 0 && (
+              <div className="link-row" style={{ margin: "0 4px 8px" }}>
+                {unit.links.map((l) => (
+                  <a
+                    key={l.url}
+                    className="link-chip"
+                    href={l.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ▶ {l.label}
+                  </a>
+                ))}
+              </div>
+            )}
             <div className="set-grid">
             {unit.sets.map((meta) => {
               const rec = state.setRecords[meta.id];

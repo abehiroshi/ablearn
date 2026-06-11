@@ -1,5 +1,26 @@
 // 解答判定・シャッフルなどクイズ進行のユーティリティ
 
+import type { ChoiceQuestion, InputQuestion } from "../types";
+
+/**
+ * answers（受理表記）を持つ choice 問題を input 形式に変換する。
+ * どちらの形式で出すかの判断は習熟度エンジン（計画12）側で行う。
+ */
+export function choiceAsInput(q: ChoiceQuestion): InputQuestion | null {
+  if (!q.answers || q.answers.length === 0) return null;
+  return {
+    id: q.id,
+    type: "input",
+    question: q.question,
+    answers: q.answers,
+    explanation: q.explanation,
+    difficulty: q.difficulty,
+    hints: q.hints,
+    concept: q.concept,
+    links: q.links,
+  };
+}
+
 export function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {

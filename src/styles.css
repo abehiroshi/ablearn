@@ -737,6 +737,28 @@ input {
   border-bottom: none;
 }
 
+/* ===== 外部リンク（授業動画など） ===== */
+.link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.link-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+}
+
 /* ===== レッスン ===== */
 .lesson-card {
   background: var(--card);

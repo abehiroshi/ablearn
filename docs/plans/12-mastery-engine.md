@@ -2,7 +2,7 @@
 
 - 状態: 未着手
 - 触るファイル範囲: `src/lib/`（recommend.ts ほか）・`src/screens/QuizScreen.tsx`
-- 引き継ぎメモ: なし
+- 引き継ぎメモ: 出し分けは `QuizItem.asInput` を立てる（11で実装済み、QuizScreen が対応）。模擬テスト（MockTestScreen）は独自に items を組むため、習熟度に応じた形式出し分けを模擬テストにも反映するかはこの計画で判断する（11のBreakerレビュー指摘）
 
 ## 目的
 

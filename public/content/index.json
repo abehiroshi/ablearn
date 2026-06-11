@@ -129,6 +129,12 @@
               "name": "化学変化と質量",
               "file": "science/kagaku-shitsuryou.json"
             }
+          ],
+          "links": [
+            {
+              "label": "ぽにょん（授業で使ってる理科チャンネル）",
+              "url": "https://www.youtube.com/@ponyoani"
+            }
           ]
         }
       ]

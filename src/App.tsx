@@ -32,6 +32,11 @@ export type Tab = "home" | "library" | "review" | "stats";
 export interface QuizItem {
   question: Question;
   setId: string;
+  /**
+   * answers を持つ choice 問題を input（自力入力）形式で出すフラグ。
+   * 出し分けの判断は習熟度エンジン（計画12）が行う
+   */
+  asInput?: boolean;
 }
 
 export interface Session {
