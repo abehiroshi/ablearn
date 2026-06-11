@@ -8,6 +8,9 @@ import {
   checkInputAnswer,
   checkOrder,
   choiceAsInput,
+  emptyStruggle,
+  isStruggling,
+  nextStruggle,
   normalizeAnswer,
   shuffle,
 } from "./quiz";
@@ -83,5 +86,31 @@ describe("choiceAsInput（概念ラダー: choice/input 両用）", () => {
   it("answers が無い・空なら null（choice のまま出す）", () => {
     expect(choiceAsInput(base)).toBeNull();
     expect(choiceAsInput({ ...base, answers: [] })).toBeNull();
+  });
+});
+
+describe("つまずき検知（計画13）", () => {
+  it("3回連続不正解で誘導（途中で正解すれば連続が切れる）", () => {
+    let c = emptyStruggle();
+    c = nextStruggle(c, { correct: false, usedAllHints: false });
+    c = nextStruggle(c, { correct: false, usedAllHints: false });
+    expect(isStruggling(c)).toBe(false);
+    c = nextStruggle(c, { correct: false, usedAllHints: false });
+    expect(isStruggling(c)).toBe(true);
+
+    let d = emptyStruggle();
+    d = nextStruggle(d, { correct: false, usedAllHints: false });
+    d = nextStruggle(d, { correct: false, usedAllHints: false });
+    d = nextStruggle(d, { correct: true, usedAllHints: false });
+    d = nextStruggle(d, { correct: false, usedAllHints: false });
+    expect(isStruggling(d)).toBe(false);
+  });
+
+  it("ヒントを使い切った不正解2回でも誘導（連続でなくてよい）", () => {
+    let c = emptyStruggle();
+    c = nextStruggle(c, { correct: false, usedAllHints: true });
+    c = nextStruggle(c, { correct: true, usedAllHints: false });
+    c = nextStruggle(c, { correct: false, usedAllHints: true });
+    expect(isStruggling(c)).toBe(true);
   });
 });

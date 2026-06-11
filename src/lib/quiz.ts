@@ -61,6 +61,43 @@ export function checkOrder(selected: string[], correct: string[]): boolean {
   return selected.every((t, i) => t === correct[i]);
 }
 
+// ===== つまずき検知（計画13） =====
+// 同一概念（concept が無ければ問題単位）でのセッション内カウンタ。
+// 閾値は体感に合わせて調整可能な定数にしておく。
+
+/** 連続不正解がこの回数に達したらレッスンへ誘導 */
+export const STRUGGLE_WRONG_STREAK = 3;
+/** ヒントを使い切った不正解がこの回数に達したら誘導 */
+export const STRUGGLE_FULL_HINT_WRONG = 2;
+
+export interface StruggleCounter {
+  wrongStreak: number;
+  fullHintWrong: number;
+}
+
+export function emptyStruggle(): StruggleCounter {
+  return { wrongStreak: 0, fullHintWrong: 0 };
+}
+
+/** 1解答ぶんカウンタを進める（わからない も不正解として数える） */
+export function nextStruggle(
+  c: StruggleCounter,
+  result: { correct: boolean; usedAllHints: boolean }
+): StruggleCounter {
+  if (result.correct) return { ...c, wrongStreak: 0 };
+  return {
+    wrongStreak: c.wrongStreak + 1,
+    fullHintWrong: c.fullHintWrong + (result.usedAllHints ? 1 : 0),
+  };
+}
+
+export function isStruggling(c: StruggleCounter): boolean {
+  return (
+    c.wrongStreak >= STRUGGLE_WRONG_STREAK ||
+    c.fullHintWrong >= STRUGGLE_FULL_HINT_WRONG
+  );
+}
+
 // XP 設計: 1発正解 +10 / セッション内リトライで正解 +5 / フラッシュカード「覚えた」 +5
 // レッスン内の正解 +2（採点プレッシャーを下げる）
 export const XP_FIRST_CORRECT = 10;

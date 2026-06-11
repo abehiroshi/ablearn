@@ -1,10 +1,15 @@
 import { useRef, useState } from "react";
 import type { QuizItem } from "../App";
+import type { ContentLink, SetMeta } from "../types";
 import {
+  StruggleCounter,
   XP_FIRST_CORRECT,
   XP_FLASHCARD,
   XP_RETRY_CORRECT,
   choiceAsInput,
+  emptyStruggle,
+  isStruggling,
+  nextStruggle,
 } from "../lib/quiz";
 import {
   ChoiceView,
@@ -27,6 +32,8 @@ interface Feedback {
   promotedTo?: number | null;
   /** この解答で跨いだ節目（軽いチップで祝福） */
   milestones?: Milestone[];
+  /** つまずき検知（計画13）: レッスンや授業動画への誘導 */
+  struggle?: { lesson: SetMeta | null; links: ContentLink[] };
 }
 
 interface Props {
@@ -46,6 +53,10 @@ interface Props {
   ) => { promotedTo: number | null; milestones: Milestone[] };
   onFinish: (score: number) => void;
   onClose: () => void;
+  /** setId からその単元のレッスン/外部リンクを引く（つまずき誘導用） */
+  lessonFor?: (setId: string) => SetMeta | null;
+  unitLinksFor?: (setId: string) => ContentLink[];
+  onStartLesson?: (meta: SetMeta) => void;
 }
 
 export default function QuizScreen({
@@ -54,6 +65,9 @@ export default function QuizScreen({
   onAnswer,
   onFinish,
   onClose,
+  lessonFor,
+  unitLinksFor,
+  onStartLesson,
 }: Props) {
   // 先頭が現在の問題。不正解はキューの最後に回して正解するまで繰り返す
   const [queue, setQueue] = useState<QuizItem[]>(items);
@@ -72,12 +86,40 @@ export default function QuizScreen({
   const shownAt = useRef(Date.now());
   // セッション中に跨いだ節目（結果画面でまとめて祝福）
   const sessionMilestones = useRef<Milestone[]>([]);
+  // つまずき検知のカウンタ（概念単位。conceptが無ければ問題単位）
+  const struggles = useRef(new Map<string, StruggleCounter>());
+  // 誘導は同じキーにつきセッション内1回だけ（無視した後に毎回出るとうるさい）
+  const struggleShown = useRef(new Set<string>());
 
   const total = items.length;
   const current = queue[0];
 
   function keyOf(item: QuizItem): string {
     return `${item.setId}/${item.question.id}`;
+  }
+
+  /**
+   * つまずきカウンタを進め、誘導を出すべきなら誘導先を返す。
+   * 「繰り返し外し続ける体験」を断つための導線（無視して続けることもできる）
+   */
+  function trackStruggle(
+    correct: boolean
+  ): { lesson: SetMeta | null; links: ContentLink[] } | undefined {
+    const q = current!.question;
+    const key = q.concept ?? keyOf(current!);
+    const hintsTotal = q.hints?.length ?? 0;
+    const next = nextStruggle(struggles.current.get(key) ?? emptyStruggle(), {
+      correct,
+      usedAllHints: hintsTotal > 0 && hintsShown >= hintsTotal,
+    });
+    struggles.current.set(key, next);
+    if (correct || !isStruggling(next) || struggleShown.current.has(key))
+      return undefined;
+    const lesson = lessonFor?.(current!.setId) ?? null;
+    const links = unitLinksFor?.(current!.setId) ?? [];
+    if (!lesson && links.length === 0) return undefined;
+    struggleShown.current.add(key);
+    return { lesson, links };
   }
 
   function submit(correct: boolean, correctText?: string) {
@@ -109,11 +151,13 @@ export default function QuizScreen({
     sessionMilestones.current.push(...milestones);
     setSessionXp((v) => v + xp);
 
+    const struggle = trackStruggle(correct);
+
     // フラッシュカードは自己申告なのでフィードバックを挟まず次へ
     if (current.question.type === "flashcard") {
       advance(correct);
     } else {
-      setFeedback({ correct, correctText, promotedTo, milestones });
+      setFeedback({ correct, correctText, promotedTo, milestones, struggle });
       // スマホのオーバーレイがフィードバックを隠さないように閉じる
       setScratchOpen(false);
     }
@@ -147,7 +191,9 @@ export default function QuizScreen({
           : q.type === "order"
             ? q.tokens.join(" ")
             : undefined;
-    setFeedback({ correct: false, dontKnow: true, correctText });
+    // わからない もつまずきのシグナルとして数える
+    const struggle = trackStruggle(false);
+    setFeedback({ correct: false, dontKnow: true, correctText, struggle });
     setScratchOpen(false);
   }
 
@@ -371,6 +417,37 @@ export default function QuizScreen({
                       ))}
                     </div>
                   )}
+                {feedback.struggle && (
+                  <div className="struggle-box">
+                    <div style={{ fontWeight: 700, marginBottom: 8 }}>
+                      なんどもむずかしいときは、きほんにもどるのが近道だよ！
+                    </div>
+                    {feedback.struggle.lesson ? (
+                      <button
+                        className="secondary-btn"
+                        onClick={() =>
+                          onStartLesson?.(feedback.struggle!.lesson!)
+                        }
+                      >
+                        📖 {feedback.struggle.lesson.name}
+                      </button>
+                    ) : (
+                      <div className="link-row" style={{ marginTop: 0 }}>
+                        {feedback.struggle.links.map((l) => (
+                          <a
+                            key={l.url}
+                            className="link-chip"
+                            href={l.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            ▶ {l.label}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
                 {q.links && q.links.length > 0 && (
                   <div className="link-row">
                     {q.links.map((l) => (

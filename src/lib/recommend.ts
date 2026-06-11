@@ -2,7 +2,7 @@
 // 日常モードは進行中単元、テストモードはテスト範囲を対象に、
 // 同じ並べ替え（未挑戦 → ベストスコアが低い順)に教科の重みを掛ける。
 
-import type { ContentIndex, SetMeta, Subject } from "../types";
+import type { ContentIndex, ContentLink, SetMeta, Subject } from "../types";
 import type { AppState, TestPlan } from "./storage";
 import { dueSetIds } from "./mastery";
 
@@ -11,9 +11,13 @@ export interface Recommendation {
   subject: Subject;
   /** 表示用: なぜおすすめか（例: 「数学まであと2日」） */
   reason: string;
+  /** 予習用の外部導線（レッスンが無い新しい単元のとき。計画13） */
+  links?: ContentLink[];
 }
 
 const MAX_RECOMMEND = 3;
+/** 単元の解答実績がこの問数未満なら「新しい単元」として予習（レッスン）を先に出す */
+export const PREVIEW_MIN_ANSWERS = 3;
 
 /** テストの最終日（"YYYY-MM-DD"）。日程が空なら null */
 export function testLastDay(test: TestPlan): string | null {
@@ -93,12 +97,28 @@ export function recommend(
       const unitIds = state.currentUnits[subject.id] ?? [];
       for (const unit of subject.units) {
         if (!unitIds.includes(unit.id)) continue;
+        // 新しい単元（演習実績がほぼない）はレッスンを先に出す（予習フロー・計画13）
+        const setIds = new Set(unit.sets.map((m) => m.id));
+        const answered = Object.values(state.questionStats).filter((s) =>
+          setIds.has(s.setId)
+        ).length;
+        const fresh = answered < PREVIEW_MIN_ANSWERS;
+        const hasLesson = unit.sets.some((m) => m.kind === "lesson");
         for (const meta of unit.sets) {
+          const previewLesson =
+            fresh && meta.kind === "lesson" && !state.setRecords[meta.id];
           candidates.push({
             meta,
             subject,
-            weight: 0,
-            reason: `授業中: ${unit.name}`,
+            weight: previewLesson ? -2 : 0,
+            reason: previewLesson
+              ? "まずはレッスンから！"
+              : `授業中: ${unit.name}`,
+            // レッスンが無い新しい単元では授業動画などの導線を添える
+            links:
+              fresh && !hasLesson && unit.links && unit.links.length > 0
+                ? unit.links
+                : undefined,
           });
         }
       }

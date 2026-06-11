@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import type { ContentIndex, LessonStep, Question, SetMeta } from "./types";
+import type { ContentIndex, ContentLink, LessonStep, Question, SetMeta } from "./types";
 import { buildSetLookup, loadAllSets, loadIndex, loadSet } from "./lib/content";
 import {
   ContentCounts,
@@ -103,6 +103,24 @@ export default function App() {
     [index]
   );
   const wrongKeys = useMemo(() => wrongQuestionKeys(state), [state]);
+
+  /** setId → その単元のレッスン・外部リンク（つまずき誘導用。計画13） */
+  const unitGuide = useMemo(() => {
+    const map = new Map<
+      string,
+      { lesson: SetMeta | null; links: ContentLink[] }
+    >();
+    if (!index) return map;
+    for (const subject of index.subjects) {
+      for (const unit of subject.units) {
+        const lesson = unit.sets.find((m) => m.kind === "lesson") ?? null;
+        for (const meta of unit.sets) {
+          map.set(meta.id, { lesson, links: unit.links ?? [] });
+        }
+      }
+    }
+    return map;
+  }, [index]);
 
   /** 今日のおすすめ（日常: 進行中単元 / テストモード: 範囲×試験日が近い教科優先） */
   const recommendations = useMemo(
@@ -377,6 +395,9 @@ export default function App() {
           onAnswer={handleAnswer}
           onFinish={handleFinish}
           onClose={() => setSession(null)}
+          lessonFor={(setId) => unitGuide.get(setId)?.lesson ?? null}
+          unitLinksFor={(setId) => unitGuide.get(setId)?.links ?? []}
+          onStartLesson={(meta) => void startSet(meta)}
         />
       )}
 

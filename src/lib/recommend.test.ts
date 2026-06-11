@@ -146,3 +146,77 @@ describe("recommend: テストモード", () => {
     expect(recs[0].reason).toContain("連立方程式");
   });
 });
+
+describe("予習フロー（計画13）", () => {
+  const INDEX13: ContentIndex = {
+    subjects: [
+      {
+        id: "math",
+        name: "数学",
+        color: "#4f7cff",
+        icon: "📐",
+        units: [
+          {
+            id: "u1",
+            name: "連立方程式",
+            sets: [
+              { id: "lesson1", name: "レッスン", file: "f", kind: "lesson" },
+              { id: "m1", name: "演習1", file: "f" },
+            ],
+          },
+          {
+            id: "u2",
+            name: "式の計算",
+            sets: [{ id: "m2", name: "演習2", file: "f" }],
+            links: [{ label: "授業動画", url: "https://example.com" }],
+          },
+        ],
+      },
+    ],
+  };
+
+  it("新しい単元（演習実績なし）ではおすすめの先頭がレッスンになる", () => {
+    const state: AppState = {
+      ...emptyState(),
+      currentUnits: { math: ["u1"] },
+    };
+    const recs = recommend(INDEX13, state, TODAY);
+    expect(recs[0].meta.id).toBe("lesson1");
+    expect(recs[0].reason).toContain("レッスン");
+  });
+
+  it("演習実績が貯まる/レッスン完了後は通常の並びに戻る", () => {
+    const practiced: AppState = {
+      ...emptyState(),
+      currentUnits: { math: ["u1"] },
+      questionStats: Object.fromEntries(
+        ["q1", "q2", "q3"].map((q) => [
+          `m1/${q}`,
+          { setId: "m1", correct: 1, wrong: 0, lastCorrect: true, updatedAt: "" },
+        ])
+      ),
+    };
+    const recs = recommend(INDEX13, practiced, TODAY);
+    expect(recs[0].reason).not.toContain("まずはレッスン");
+
+    const done: AppState = {
+      ...emptyState(),
+      currentUnits: { math: ["u1"] },
+      setRecords: {
+        lesson1: { attempts: 1, best: 100, lastScore: 100, lastAt: "" },
+      },
+    };
+    expect(recommend(INDEX13, done, TODAY)[0].reason).not.toContain(
+      "まずはレッスン"
+    );
+  });
+
+  it("レッスンが無い新しい単元では単元の links を添える", () => {
+    const state: AppState = {
+      ...emptyState(),
+      currentUnits: { math: ["u2"] },
+    };
+    const recs = recommend(INDEX13, state, TODAY);
+    expect(recs[0].links?.[0].label).toBe("授業動画");
+  });
+});

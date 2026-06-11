@@ -1,8 +1,8 @@
 # つまずき誘導と予習フロー
 
-- 状態: 未着手
+- 状態: 完了（2026-06-12）
 - 触るファイル範囲: `src/lib/recommend.ts`・`src/screens/`（QuizScreen・HomeScreen）
-- 引き継ぎメモ: なし
+- 引き継ぎメモ: 閾値定数は `src/lib/quiz.ts`（STRUGGLE_WRONG_STREAK=3 / STRUGGLE_FULL_HINT_WRONG=2）、予習判定は `src/lib/recommend.ts` の PREVIEW_MIN_ANSWERS=3。誘導は同一キー（concept または問題）につきセッション内1回だけ表示（うるささ対策）。「わからない」も不正解として数える。レッスンはクイズの上に重ねて開き、閉じると演習に復帰する設計。flashcard はフィードバックが無いためカウントのみで誘導表示はされない
 
 ## 目的
 

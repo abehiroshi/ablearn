@@ -194,8 +194,8 @@ export default function HomeScreen({
             きょうのおすすめ
           </div>
           {recommendations.map((rec) => (
+            <div key={rec.meta.id}>
             <button
-              key={rec.meta.id}
               className="rec-row"
               onClick={() => onStartSet(rec.meta)}
             >
@@ -228,6 +228,23 @@ export default function HomeScreen({
               </span>
               <span className="chevron">›</span>
             </button>
+            {/* レッスンが無い新しい単元では授業動画などの予習導線を添える（計画13） */}
+            {rec.links && (
+              <div className="link-row" style={{ margin: "0 0 8px 50px" }}>
+                {rec.links.map((l) => (
+                  <a
+                    key={l.url}
+                    className="link-chip"
+                    href={l.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ▶ {l.label}
+                  </a>
+                ))}
+              </div>
+            )}
+            </div>
           ))}
         </div>
       )}
