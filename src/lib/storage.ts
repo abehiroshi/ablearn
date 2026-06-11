@@ -18,7 +18,9 @@ export interface QuestionStat {
 export interface QuestionDayStat {
   correct: number;
   wrong: number;
-  /** 予約フィールド。記録開始は難易度・ヒント（計画07）の実装後 */
+  /** 「わからない」を選んだ回数。当て推量の誤答と区別する（計画17） */
+  dontKnow: number;
+  /** ヒント使用数（計画07で記録開始） */
   hints: number;
   /** 問題表示から解答確定までの合計（ms） */
   timeMs: number;
@@ -253,19 +255,28 @@ export function parseBackup(json: string): BackupFile {
   return { ...(b as BackupFile), state: { ...emptyState(), ...b.state } };
 }
 
-/** 当日の問題別履歴に1解答分を加算する（リトライも含めすべての解答が対象） */
+/**
+ * 当日の問題別履歴に1解答分を加算する（リトライも含めすべての解答が対象）。
+ * result: true=正解 / false=不正解 / "dontKnow"=わからない（不正解と区別して記録）
+ */
 export function recordHistory(
   state: AppState,
   setId: string,
   questionId: string,
-  isCorrect: boolean,
+  result: boolean | "dontKnow",
   timeMs: number,
   hints = 0
 ): AppState {
   const day = todayKey();
   const key = `${setId}/${questionId}`;
   const dayStats = state.history[day] ?? {};
-  const cur = dayStats[key] ?? { correct: 0, wrong: 0, hints: 0, timeMs: 0 };
+  const cur = dayStats[key] ?? {
+    correct: 0,
+    wrong: 0,
+    dontKnow: 0,
+    hints: 0,
+    timeMs: 0,
+  };
   return {
     ...state,
     history: {
@@ -273,8 +284,10 @@ export function recordHistory(
       [day]: {
         ...dayStats,
         [key]: {
-          correct: cur.correct + (isCorrect ? 1 : 0),
-          wrong: cur.wrong + (isCorrect ? 0 : 1),
+          correct: cur.correct + (result === true ? 1 : 0),
+          wrong: cur.wrong + (result === false ? 1 : 0),
+          // 計画17より前の記録には dontKnow が無い
+          dontKnow: (cur.dontKnow ?? 0) + (result === "dontKnow" ? 1 : 0),
           hints: cur.hints + hints,
           timeMs: cur.timeMs + Math.max(0, Math.round(timeMs)),
         },

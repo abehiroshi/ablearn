@@ -536,6 +536,26 @@ input {
   background: var(--red-soft);
 }
 
+/* 「わからない」: 責めない中立トーン */
+.feedback.neutral {
+  background: var(--accent-soft);
+}
+
+.feedback.neutral .head {
+  color: var(--accent);
+}
+
+.giveup-btn {
+  display: block;
+  margin: 14px auto 0;
+  color: var(--text-2);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--bg);
+}
+
 .feedback .head {
   font-size: 18px;
   font-weight: 800;

@@ -104,6 +104,7 @@ describe("日次ログと解答履歴", () => {
     expect(s.history[todayKey()]["set1/q1"]).toEqual({
       correct: 1,
       wrong: 1,
+      dontKnow: 0,
       hints: 2,
       timeMs: 15000,
     });
@@ -112,6 +113,37 @@ describe("日次ログと解答履歴", () => {
   it("recordHistory は負の時間を 0 に丸める", () => {
     const s = recordHistory(emptyState(), "set1", "q1", true, -500, 0);
     expect(s.history[todayKey()]["set1/q1"].timeMs).toBe(0);
+  });
+
+  it("「わからない」は不正解と区別して記録される（計画17）", () => {
+    let s = recordHistory(emptyState(), "set1", "q1", "dontKnow", 8000, 0);
+    s = recordHistory(s, "set1", "q1", false, 4000, 0);
+    expect(s.history[todayKey()]["set1/q1"]).toEqual({
+      correct: 0,
+      wrong: 1,
+      dontKnow: 1,
+      hints: 0,
+      timeMs: 12000,
+    });
+  });
+
+  it("dontKnow フィールドの無い旧履歴に加算しても壊れない", () => {
+    const old: AppState = {
+      ...emptyState(),
+      history: {
+        [todayKey()]: {
+          "set1/q1": {
+            correct: 1,
+            wrong: 0,
+            hints: 0,
+            timeMs: 1000,
+          } as never, // 計画17より前の形式（dontKnow なし）
+        },
+      },
+    };
+    const s = recordHistory(old, "set1", "q1", "dontKnow", 1000, 0);
+    expect(s.history[todayKey()]["set1/q1"].dontKnow).toBe(1);
+    expect(s.history[todayKey()]["set1/q1"].correct).toBe(1);
   });
 });
 

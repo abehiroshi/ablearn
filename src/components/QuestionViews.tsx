@@ -9,17 +9,29 @@ import { checkInputAnswer, checkOrder, shuffle } from "../lib/quiz";
 
 type Submit = (correct: boolean, correctText?: string) => void;
 
+/** 「わからない」ボタン。onGiveUp が渡された画面（通常クイズ）だけに出す */
+function GiveUpButton({ onGiveUp }: { onGiveUp?: () => void }) {
+  if (!onGiveUp) return null;
+  return (
+    <button className="giveup-btn" onClick={onGiveUp}>
+      🤔 わからない（答えを見る）
+    </button>
+  );
+}
+
 // ===== 選択式 =====
 
 export function ChoiceView({
   question,
   onSubmit,
   reveal = true,
+  onGiveUp,
 }: {
   question: ChoiceQuestion;
   onSubmit: Submit;
   /** false なら選択後も正誤の色付けをしない（模擬テスト用） */
   reveal?: boolean;
+  onGiveUp?: () => void;
 }) {
   // 表示順をシャッフルしつつ正解インデックスを追跡する
   const order = useMemo(
@@ -59,6 +71,7 @@ export function ChoiceView({
           );
         })}
       </div>
+      {chosen === null && <GiveUpButton onGiveUp={onGiveUp} />}
     </>
   );
 }
@@ -69,10 +82,12 @@ export function InputView({
   question,
   disabled,
   onSubmit,
+  onGiveUp,
 }: {
   question: InputQuestion;
   disabled: boolean;
   onSubmit: Submit;
+  onGiveUp?: () => void;
 }) {
   const [value, setValue] = useState("");
 
@@ -102,6 +117,7 @@ export function InputView({
       >
         答える
       </button>
+      {!disabled && <GiveUpButton onGiveUp={onGiveUp} />}
     </>
   );
 }
@@ -162,10 +178,12 @@ export function OrderView({
   question,
   disabled,
   onSubmit,
+  onGiveUp,
 }: {
   question: OrderQuestion;
   disabled: boolean;
   onSubmit: Submit;
+  onGiveUp?: () => void;
 }) {
   // 同じ単語が複数あっても区別できるよう、元インデックスで管理する
   const pool = useMemo(
@@ -229,6 +247,7 @@ export function OrderView({
       >
         答える
       </button>
+      {!disabled && <GiveUpButton onGiveUp={onGiveUp} />}
     </>
   );
 }

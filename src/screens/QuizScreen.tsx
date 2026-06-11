@@ -19,6 +19,8 @@ interface Feedback {
   correct: boolean;
   /** 不正解時に表示する正解 */
   correctText?: string;
+  /** 「わからない」経由（責めずに解説・ヒントを見せる） */
+  dontKnow?: boolean;
 }
 
 interface Props {
@@ -31,7 +33,8 @@ interface Props {
     xp: number,
     recordStat: boolean,
     timeMs: number,
-    hintsUsed: number
+    hintsUsed: number,
+    dontKnow?: boolean
   ) => void;
   onFinish: (score: number) => void;
   onClose: () => void;
@@ -100,6 +103,36 @@ export default function QuizScreen({
       // スマホのオーバーレイがフィードバックを隠さないように閉じる
       setScratchOpen(false);
     }
+  }
+
+  /** 「わからない」: 罰ではなく学びへの近道。解説と全ヒントを見せて再出題キューへ */
+  function giveUp() {
+    if (feedback || finished || !current) return;
+    const key = keyOf(current);
+    const isFirst = !firstResults.current.has(key);
+    if (isFirst) firstResults.current.set(key, false);
+    const timeMs = Date.now() - shownAt.current;
+    onAnswer(
+      current.setId,
+      current.question.id,
+      false,
+      0, // XPは0だが減点もなし
+      isFirst,
+      timeMs,
+      hintsShown,
+      true
+    );
+    const q = current.question;
+    const correctText =
+      q.type === "choice"
+        ? q.choices[q.answer]
+        : q.type === "input"
+          ? q.answers[0]
+          : q.type === "order"
+            ? q.tokens.join(" ")
+            : undefined;
+    setFeedback({ correct: false, dontKnow: true, correctText });
+    setScratchOpen(false);
   }
 
   function advance(correct: boolean) {
@@ -210,7 +243,12 @@ export default function QuizScreen({
         </div>
 
         {q.type === "choice" && (
-          <ChoiceView key={viewKey} question={q} onSubmit={submit} />
+          <ChoiceView
+            key={viewKey}
+            question={q}
+            onSubmit={submit}
+            onGiveUp={giveUp}
+          />
         )}
         {q.type === "input" && (
           <InputView
@@ -218,6 +256,7 @@ export default function QuizScreen({
             question={q}
             disabled={!!feedback}
             onSubmit={submit}
+            onGiveUp={giveUp}
           />
         )}
         {q.type === "flashcard" && (
@@ -229,6 +268,7 @@ export default function QuizScreen({
             question={q}
             disabled={!!feedback}
             onSubmit={submit}
+            onGiveUp={giveUp}
           />
         )}
 
@@ -256,12 +296,27 @@ export default function QuizScreen({
         )}
 
         {feedback && (
-          <div className={`feedback ${feedback.correct ? "ok" : "ng"}`}>
+          <div
+            className={`feedback ${feedback.correct ? "ok" : feedback.dontKnow ? "neutral" : "ng"}`}
+          >
             <div className="row" style={{ alignItems: "flex-start" }}>
-              <Abler pose={feedback.correct ? "iine" : "kuyashii"} size={60} />
+              <Abler
+                pose={
+                  feedback.correct
+                    ? "iine"
+                    : feedback.dontKnow
+                      ? "kangaechu"
+                      : "kuyashii"
+                }
+                size={60}
+              />
               <div style={{ flex: 1 }}>
                 <div className="head">
-                  {feedback.correct ? "せいかい！ 🎉" : "ざんねん…"}
+                  {feedback.correct
+                    ? "せいかい！ 🎉"
+                    : feedback.dontKnow
+                      ? "だいじょうぶ！いっしょに確認しよう"
+                      : "ざんねん…"}
                 </div>
                 {!feedback.correct && feedback.correctText && (
                   <div className="explanation">
@@ -272,6 +327,15 @@ export default function QuizScreen({
                 {q.explanation && (
                   <div className="explanation">{q.explanation}</div>
                 )}
+                {feedback.dontKnow &&
+                  q.hints &&
+                  q.hints.length > 0 && (
+                    <div className="explanation">
+                      {q.hints.map((h, i) => (
+                        <div key={i}>💡 {h}</div>
+                      ))}
+                    </div>
+                  )}
                 {q.links && q.links.length > 0 && (
                   <div className="link-row">
                     {q.links.map((l) => (

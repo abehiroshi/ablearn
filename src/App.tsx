@@ -164,13 +164,22 @@ export default function App() {
     xp: number,
     recordStat: boolean,
     timeMs: number,
-    hintsUsed: number
+    hintsUsed: number,
+    dontKnow = false
   ) {
     setState((prev) => {
+      // 「わからない」も復習対象には不正解として入れる（履歴では区別する）
       let s = recordStat
         ? recordQuestion(prev, setId, questionId, correct)
         : prev;
-      s = recordHistory(s, setId, questionId, correct, timeMs, hintsUsed);
+      s = recordHistory(
+        s,
+        setId,
+        questionId,
+        dontKnow ? "dontKnow" : correct,
+        timeMs,
+        hintsUsed
+      );
       s = addDailyLog(s, { answered: 1, correct: correct ? 1 : 0, xp });
       s = { ...s, xp: s.xp + xp };
       return touchStreak(s);

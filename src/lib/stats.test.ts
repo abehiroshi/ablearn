@@ -64,10 +64,10 @@ describe("unitGrowth（累積正答率の時系列）", () => {
     const state: AppState = {
       ...emptyState(),
       history: {
-        "2026-06-10": { "m1/q1": { correct: 1, wrong: 1, hints: 0, timeMs: 0 } },
-        "2026-06-11": { "m1/q1": { correct: 1, wrong: 0, hints: 0, timeMs: 0 } },
+        "2026-06-10": { "m1/q1": { correct: 1, wrong: 1, dontKnow: 0, hints: 0, timeMs: 0 } },
+        "2026-06-11": { "m1/q1": { correct: 1, wrong: 0, dontKnow: 0, hints: 0, timeMs: 0 } },
         "2026-06-12": {
-          "m2/q1": { correct: 1, wrong: 0, hints: 0, timeMs: 0 },
+          "m2/q1": { correct: 1, wrong: 0, dontKnow: 0, hints: 0, timeMs: 0 },
         },
       },
     };
