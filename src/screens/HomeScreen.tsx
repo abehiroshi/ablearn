@@ -188,13 +188,18 @@ export default function HomeScreen({
               </span>
               <span style={{ flex: 1 }}>
                 <span style={{ fontWeight: 700, display: "block" }}>
+                  {rec.meta.kind === "lesson" && "📖 "}
                   {rec.meta.name}
                 </span>
                 <span className="muted" style={{ fontSize: 12 }}>
                   {rec.reason}
-                  {state.setRecords[rec.meta.id]
-                    ? ` ・ ベスト ${state.setRecords[rec.meta.id].best}%`
-                    : " ・ 未挑戦"}
+                  {rec.meta.kind === "lesson"
+                    ? state.setRecords[rec.meta.id]
+                      ? " ・ 完了"
+                      : " ・ 未学習"
+                    : state.setRecords[rec.meta.id]
+                      ? ` ・ ベスト ${state.setRecords[rec.meta.id].best}%`
+                      : " ・ 未挑戦"}
                 </span>
               </span>
               <span className="chevron">›</span>

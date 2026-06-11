@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import type { ContentIndex, Question, SetMeta } from "./types";
+import type { ContentIndex, LessonStep, Question, SetMeta } from "./types";
 import { buildSetLookup, loadIndex, loadSet } from "./lib/content";
 import {
   AppState,
@@ -25,6 +25,7 @@ import StatsScreen from "./screens/StatsScreen";
 import QuizScreen from "./screens/QuizScreen";
 import TestSetupScreen from "./screens/TestSetupScreen";
 import MockTestScreen from "./screens/MockTestScreen";
+import LessonScreen from "./screens/LessonScreen";
 
 export type Tab = "home" | "library" | "review" | "stats";
 
@@ -38,6 +39,12 @@ export interface Session {
   items: QuizItem[];
   /** 通常セッション（単一セット）のときだけセットIDを持つ */
   setId: string | null;
+}
+
+export interface LessonSession {
+  title: string;
+  setId: string;
+  steps: LessonStep[];
 }
 
 const TABS: { id: Tab; icon: string; label: string }[] = [
@@ -55,6 +62,7 @@ export default function App() {
   const [state, setState] = useState<AppState>(loadState);
   const [tab, setTab] = useState<Tab>("home");
   const [session, setSession] = useState<Session | null>(null);
+  const [lesson, setLesson] = useState<LessonSession | null>(null);
   const [editingTest, setEditingTest] = useState(false);
   const [mockOpen, setMockOpen] = useState(false);
   // ホームの教科一覧から Library を開いたとき、その教科を最初から表示する
@@ -85,6 +93,15 @@ export default function App() {
     setBusy(true);
     try {
       const set = await loadSet(meta);
+      if (set.kind === "lesson") {
+        const steps = set.steps ?? [];
+        if (steps.length === 0) {
+          alert("レッスンの中身がありません");
+          return;
+        }
+        setLesson({ title: set.title, setId: meta.id, steps });
+        return;
+      }
       setSession({
         title: set.title,
         setId: meta.id,
@@ -115,7 +132,7 @@ export default function App() {
         const entry = lookup.get(setId);
         if (!entry) continue; // コンテンツ更新で消えたセットは無視
         const set = await loadSet(entry.meta);
-        for (const q of set.questions) {
+        for (const q of set.questions ?? []) {
           if (qIds.has(q.id)) items.push({ question: q, setId });
         }
       }
@@ -292,6 +309,19 @@ export default function App() {
           onAnswer={handleAnswer}
           onFinish={handleFinish}
           onClose={() => setSession(null)}
+        />
+      )}
+
+      {lesson && (
+        <LessonScreen
+          title={lesson.title}
+          setId={lesson.setId}
+          steps={lesson.steps}
+          onAnswer={handleAnswer}
+          onFinish={(score) =>
+            setState((prev) => recordSetResult(prev, lesson.setId, score))
+          }
+          onClose={() => setLesson(null)}
         />
       )}
     </>

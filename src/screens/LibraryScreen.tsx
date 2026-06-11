@@ -50,14 +50,22 @@ export default function LibraryScreen({
             <div className="set-grid">
             {unit.sets.map((meta) => {
               const rec = state.setRecords[meta.id];
+              const isLesson = meta.kind === "lesson";
               return (
                 <button
                   key={meta.id}
                   className="set-row"
                   onClick={() => onStartSet(meta)}
                 >
-                  <span style={{ fontWeight: 600, flex: 1 }}>{meta.name}</span>
-                  {rec ? (
+                  <span style={{ fontWeight: 600, flex: 1 }}>
+                    {isLesson && <span className="lesson-pill">📖 レッスン</span>}
+                    {meta.name}
+                  </span>
+                  {isLesson ? (
+                    <span className={`score-pill ${rec ? "done" : ""}`}>
+                      {rec ? "完了" : "未学習"}
+                    </span>
+                  ) : rec ? (
                     <span
                       className={`score-pill ${rec.best >= 80 ? "done" : ""}`}
                     >

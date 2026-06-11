@@ -41,6 +41,8 @@ export function checkOrder(selected: string[], correct: string[]): boolean {
 }
 
 // XP 設計: 1発正解 +10 / セッション内リトライで正解 +5 / フラッシュカード「覚えた」 +5
+// レッスン内の正解 +2（採点プレッシャーを下げる）
 export const XP_FIRST_CORRECT = 10;
 export const XP_RETRY_CORRECT = 5;
 export const XP_FLASHCARD = 5;
+export const XP_LESSON = 2;

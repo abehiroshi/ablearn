@@ -28,6 +28,12 @@
           "name": "連立方程式",
           "sets": [
             {
+              "id": "math-lesson-renritsu",
+              "name": "レッスン: 連立方程式のとき方",
+              "file": "math/lesson-renritsu.json",
+              "kind": "lesson"
+            },
+            {
               "id": "math-renritsu-basic",
               "name": "連立方程式の基本",
               "file": "math/renritsu-basic.json"

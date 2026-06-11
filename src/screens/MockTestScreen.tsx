@@ -78,16 +78,17 @@ export default function MockTestScreen({
   });
   const [busy, setBusy] = useState(false);
 
-  // 出題対象のセットと範囲ラベル
+  // 出題対象のセットと範囲ラベル（レッスンは教材なので出題しない）
   const { pool, rangeLabel } = useMemo(() => {
     const metas: SetMeta[] = [];
+    const exercise = (m: SetMeta) => m.kind !== "lesson";
     if (testActive) {
       const range = state.test!.range;
       for (const subject of index.subjects) {
         const ids = new Set(range[subject.id] ?? []);
         for (const unit of subject.units) {
           for (const meta of unit.sets) {
-            if (ids.has(meta.id)) metas.push(meta);
+            if (ids.has(meta.id) && exercise(meta)) metas.push(meta);
           }
         }
       }
@@ -98,7 +99,7 @@ export default function MockTestScreen({
       for (const unit of subject.units) {
         if (!pickedUnits.has(`${subject.id}/${unit.id}`)) continue;
         names.push(unit.name);
-        metas.push(...unit.sets);
+        metas.push(...unit.sets.filter(exercise));
       }
     }
     const label =

@@ -54,12 +54,27 @@ export type Question =
   | FlashcardQuestion
   | OrderQuestion;
 
+/** レッスンの解説カード */
+export interface LessonCard {
+  id: string;
+  type: "card";
+  title?: string;
+  body: string;
+}
+
+/** レッスンのステップ: 解説カードか既存形式の問題 */
+export type LessonStep = LessonCard | Question;
+
 /** 問題セット（1ファイル = 1セット） */
 export interface QuestionSet {
   id: string;
   title: string;
   description?: string;
+  /** 未設定は演習。"lesson" は解説カード混在のステップ列 */
+  kind?: "exercise" | "lesson";
   questions: Question[];
+  /** kind: "lesson" のときのステップ列（questions の代わり） */
+  steps?: LessonStep[];
 }
 
 // ===== コンテンツ目次（content/index.json） =====
@@ -69,6 +84,8 @@ export interface SetMeta {
   name: string;
   /** content/ からの相対パス */
   file: string;
+  /** Library での見分けと出題対象の判定に使う */
+  kind?: "lesson";
 }
 
 export interface Unit {
