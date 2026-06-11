@@ -243,7 +243,7 @@ export default function App() {
         />
       )}
       {tab === "stats" && (
-        <StatsScreen state={state} onImport={(s) => setState(s)} />
+        <StatsScreen index={index} state={state} onImport={(s) => setState(s)} />
       )}
 
       <nav className="tabbar">

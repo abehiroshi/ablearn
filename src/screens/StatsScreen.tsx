@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from "react";
+import type { ContentIndex } from "../types";
 import type { AppState, BackupFile } from "../lib/storage";
 import {
   currentStreak,
@@ -6,15 +7,36 @@ import {
   parseBackup,
   todayKey,
 } from "../lib/storage";
+import { subjectAccuracy, unitAccuracy, unitGrowth } from "../lib/stats";
+import {
+  AccuracyBars,
+  EmptyChart,
+  GrowthChart,
+  Heatmap,
+  Radar,
+} from "../components/Charts";
 
 interface Props {
+  index: ContentIndex;
   state: AppState;
   onImport: (state: AppState) => void;
 }
 
 const DOW = ["日", "月", "火", "水", "木", "金", "土"];
 
-export default function StatsScreen({ state, onImport }: Props) {
+export default function StatsScreen({ index, state, onImport }: Props) {
+  const bySubject = useMemo(
+    () => subjectAccuracy(index, state),
+    [index, state.questionStats]
+  );
+  const byUnit = useMemo(
+    () => unitAccuracy(index, state),
+    [index, state.questionStats]
+  );
+  const growth = useMemo(
+    () => unitGrowth(index, state),
+    [index, state.history]
+  );
   const fileInput = useRef<HTMLInputElement>(null);
   // インポート確認待ちのバックアップ（null = 確認中でない）
   const [pending, setPending] = useState<BackupFile | null>(null);
@@ -96,6 +118,43 @@ export default function StatsScreen({ state, onImport }: Props) {
       </div>
 
       <div className="stats-grid">
+      <div className="card">
+        <div style={{ fontWeight: 700, marginBottom: 8 }}>学習カレンダー</div>
+        {Object.keys(state.dailyLog).length === 0 ? (
+          <EmptyChart message="学習するとここに草が生えるよ" />
+        ) : (
+          <Heatmap dailyLog={state.dailyLog} />
+        )}
+      </div>
+
+      <div className="card">
+        <div style={{ fontWeight: 700, marginBottom: 8 }}>得意と不得意</div>
+        {bySubject.length === 0 ? (
+          <EmptyChart message="問題を解くと教科ごとの正答率が見えるよ" />
+        ) : bySubject.length >= 3 ? (
+          <Radar items={bySubject} />
+        ) : (
+          <AccuracyBars items={bySubject} />
+        )}
+        {byUnit.length > 0 && (
+          <>
+            <div className="muted" style={{ fontWeight: 700, margin: "12px 0 6px" }}>
+              単元別（にがてな順）
+            </div>
+            <AccuracyBars items={byUnit.slice(0, 5)} />
+          </>
+        )}
+      </div>
+
+      <div className="card">
+        <div style={{ fontWeight: 700, marginBottom: 8 }}>成長グラフ</div>
+        {growth.dates.length < 2 || growth.series.length === 0 ? (
+          <EmptyChart message="記録が貯まると、単元ごとの伸びが見えるよ" />
+        ) : (
+          <GrowthChart dates={growth.dates} series={growth.series} />
+        )}
+      </div>
+
       <div className="card">
         <div style={{ fontWeight: 700, marginBottom: 8 }}>この1週間</div>
         <div className="bar-chart">

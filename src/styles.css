@@ -810,6 +810,128 @@ input {
   color: var(--red);
 }
 
+/* ===== 可視化（カレンダー・レーダー・成長） ===== */
+.chart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 18px 0;
+  text-align: center;
+}
+
+.chart-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.heatmap {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.heat-cell {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 3px;
+  background: var(--bg);
+}
+
+.heat-cell.l1 {
+  background: #c9d8ff;
+}
+
+.heat-cell.l2 {
+  background: #93b1ff;
+}
+
+.heat-cell.l3 {
+  background: #5d8aff;
+}
+
+.heat-cell.l4 {
+  background: #2f63f0;
+}
+
+.heat-cell.future {
+  background: transparent;
+}
+
+.heat-legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  justify-content: flex-end;
+  margin-top: 8px;
+  font-size: 11px;
+}
+
+.heat-legend .heat-cell {
+  width: 12px;
+  height: 12px;
+}
+
+.acc-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.acc-label {
+  width: 9em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+.acc-track {
+  flex: 1;
+  height: 10px;
+  border-radius: 5px;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.acc-fill {
+  display: block;
+  height: 100%;
+  border-radius: 5px;
+}
+
+.acc-pct {
+  width: 3em;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+}
+
 /* ===== バックアップ ===== */
 .import-confirm {
   margin-top: 12px;
