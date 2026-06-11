@@ -1,0 +1,51 @@
+{
+  "id": "sci-kagaku-hannoushiki",
+  "title": "化学反応式の係数",
+  "description": "化学反応式の係数合わせ（概念ファミリーの実例。生成手順は docs/content-generation.md）",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "choice",
+      "question": "水の電気分解の化学反応式。2H₂O → ?H₂ + O₂ の ? に入る係数は？",
+      "choices": ["2", "1", "3", "4"],
+      "answer": 0,
+      "answers": ["2", "２"],
+      "concept": "sci-kagaku-keisuu",
+      "difficulty": 1,
+      "explanation": "左の水素原子は 2H₂O で4個。右も4個にするには H₂（水素原子2個）が2つ必要。",
+      "hints": [
+        "矢印の左右で、原子の種類と数が同じになるように合わせる",
+        "左の水素原子は 2×2=4個。H₂ をいくつにすれば4個になる？"
+      ]
+    },
+    {
+      "id": "q2",
+      "type": "input",
+      "question": "マグネシウムの燃焼。?Mg + O₂ → 2MgO の ? に入る係数を数字で答えよう",
+      "answers": ["2", "２"],
+      "placeholder": "数字で答えよう",
+      "concept": "sci-kagaku-keisuu",
+      "difficulty": 2,
+      "explanation": "右の MgO が2つなので Mg 原子は2個。左も Mg を2個にする。酸素は左右とも2個でつり合う。",
+      "hints": [
+        "まず右side の Mg 原子の数を数えよう",
+        "2MgO には Mg が2個。左の Mg も2個必要"
+      ]
+    },
+    {
+      "id": "q3",
+      "type": "choice",
+      "question": "水素と酸素から水ができる反応 2H₂ + O₂ → 2H₂O で、水素分子が4個反応したとき、できる水分子は何個？",
+      "choices": ["4個", "2個", "6個", "8個"],
+      "answer": 0,
+      "answers": ["4", "４", "4個"],
+      "concept": "sci-kagaku-keisuu",
+      "difficulty": 3,
+      "explanation": "係数の比は H₂ : H₂O = 2 : 2 = 1 : 1。水素分子4個なら水分子も4個できる。",
+      "hints": [
+        "係数は分子の個数の比を表している",
+        "H₂ と H₂O の係数はどちらも2。比は 1:1 だから…"
+      ]
+    }
+  ]
+}

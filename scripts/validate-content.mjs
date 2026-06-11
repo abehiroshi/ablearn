@@ -1,12 +1,17 @@
-// コンテンツ JSON の整合性チェック。
-// 使い方: node scripts/validate-content.mjs
+// コンテンツ JSON の整合性チェック。要 Node 18+（fetch・トップレベル await）。
+// 使い方: node scripts/validate-content.mjs [--links]
+//   --links: links の URL の死活チェックも行う（ネットワーク必須。CIでは実行しない）
 // AI でコンテンツを生成・追加したあと、push 前に必ず実行する。
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
+const CHECK_LINKS = process.argv.includes("--links");
 const CONTENT = "public/content";
 const errors = [];
+const warnings = [];
 const err = (msg) => errors.push(msg);
+const warn = (msg) => warnings.push(msg);
+const allUrls = new Map(); // url → 出どころラベル
 
 // コレクション一覧（計画22）。各コレクションの index.json を検証する
 const { collections } = JSON.parse(
@@ -44,8 +49,12 @@ function checkLinks(label, links) {
     if (!l.label || !l.url) err(`${label}: links に label/url がない`);
     else if (!/^https?:\/\//.test(l.url))
       err(`${label}: links.url が http(s) でない (${l.url})`);
+    else if (!allUrls.has(l.url)) allUrls.set(l.url, label);
   }
 }
+
+/** CJK漢字を含むか（answers の別表記網羅チェック用） */
+const hasKanji = (s) => /[一-鿿]/.test(s);
 
 const seenSetIds = new Set();
 const seenColors = new Map();
@@ -115,6 +124,14 @@ for (const subject of index.subjects) {
             if (!q.question) err(`${ql}: question がない`);
             if (!Array.isArray(q.answers) || q.answers.length === 0)
               err(`${ql}: answers が空`);
+            // 形式チェック: 漢字を含む正解1つだけだと、ひらがな解答が不正解になりやすい
+            else if (
+              q.answers.every((a) => hasKanji(a)) &&
+              q.answers.length === 1
+            )
+              warn(
+                `${ql}: answers が漢字表記1つだけ（ひらがな等の別表記の網羅を検討）`
+              );
             break;
           case "flashcard":
             if (!q.front || !q.back) err(`${ql}: front/back がない`);
@@ -123,6 +140,11 @@ for (const subject of index.subjects) {
             if (!q.question) err(`${ql}: question がない`);
             if (!Array.isArray(q.tokens) || q.tokens.length < 2)
               err(`${ql}: tokens が2つ未満`);
+            // 並びの一意性は自動証明できない。重複トークンは別解を生みやすいので注意を出す
+            else if (new Set(q.tokens).size !== q.tokens.length)
+              warn(
+                `${ql}: tokens に重複がある（「別の正しい並べ方」が無いか確認。チャンク化で一意にできる）`
+              );
             break;
           case "card": // レッスンの解説カード
             if (!q.body) err(`${ql}: body がない`);
@@ -157,11 +179,38 @@ totalSubjects += index.subjects.length;
 totalSets += seenSetIds.size;
 }
 
+// links の死活チェック（--links 指定時のみ。ネットワーク必須なので CI ゲートには含めない）
+if (CHECK_LINKS) {
+  for (const [url, label] of allUrls) {
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 10000);
+      const res = await fetch(url, {
+        redirect: "follow",
+        signal: ctrl.signal,
+        // bot 判定での 403 誤検出を減らす
+        headers: { "User-Agent": "Mozilla/5.0 (compatible; ablearn-validate)" },
+      });
+      clearTimeout(timer);
+      if ([403, 405, 429].includes(res.status))
+        // bot 対策の可能性があるため死リンク断定はしない
+        warn(`${label}: リンクの確認が必要 ${url} (${res.status}。ブラウザで開いて確認)`);
+      else if (res.status >= 400)
+        err(`${label}: 死リンク ${url} (${res.status})`);
+      else console.log(`link ok: ${url} (${res.status})`);
+    } catch (e) {
+      err(`${label}: リンクに到達できない ${url} (${e.message ?? e})`);
+    }
+  }
+}
+
+for (const w of warnings) console.warn("注意: " + w);
 if (errors.length) {
   console.error(`NG: ${errors.length} 件`);
   for (const e of errors) console.error(" - " + e);
   process.exit(1);
 }
 console.log(
-  `OK: ${collections.length} コレクション / ${totalSubjects} 教科 / ${totalSets} セット`
+  `OK: ${collections.length} コレクション / ${totalSubjects} 教科 / ${totalSets} セット` +
+    (warnings.length ? `（注意 ${warnings.length} 件）` : "")
 );

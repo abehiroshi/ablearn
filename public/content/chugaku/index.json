@@ -128,22 +128,72 @@
               "id": "sci-kagaku-shitsuryou",
               "name": "化学変化と質量",
               "file": "science/kagaku-shitsuryou.json"
+            },
+            {
+              "id": "sci-lesson-hannoushiki",
+              "name": "レッスン: 化学反応式のつくり方",
+              "file": "science/lesson-hannoushiki.json",
+              "kind": "lesson"
+            },
+            {
+              "id": "sci-kagaku-hannoushiki",
+              "name": "化学反応式の係数",
+              "file": "science/kagaku-hannoushiki.json"
             }
           ],
           "links": [
-            { "label": "動画c1: 炭酸水素ナトリウムの加熱（分解）", "url": "https://youtu.be/IXNIsa4XG1E" },
-            { "label": "動画c2: 酸化銀の加熱", "url": "https://youtu.be/1dd-nLg7ppE" },
-            { "label": "動画c3: 水の電気分解", "url": "https://youtu.be/pLMMAB2zGfM" },
-            { "label": "動画c4: 物質をつくる原子", "url": "https://youtu.be/SNUgSffqcoQ" },
-            { "label": "動画c5: 原子・分子と化学式", "url": "https://youtu.be/xWb_q_-UEqQ" },
-            { "label": "動画c6: 鉄と硫黄の化合（硫化鉄）", "url": "https://youtu.be/UUpIGQuHGa8" },
-            { "label": "動画c7: 化学反応式の書き方", "url": "https://youtu.be/qII2qvsRYYk" },
-            { "label": "動画c8: 酸化と酸化物", "url": "https://youtu.be/F-DuGf5GuzQ" },
-            { "label": "動画c9: 酸化銅の還元", "url": "https://youtu.be/4bPIsRS82Hs" },
-            { "label": "動画c10: 質量保存の法則", "url": "https://youtu.be/ARkkspO8SsM" },
-            { "label": "動画c11: 結びつく質量の比（銅・マグネシウム）", "url": "https://youtu.be/tuC-_DDEVdk" },
-            { "label": "動画c12: 発熱反応と吸熱反応", "url": "https://youtu.be/jxUoTQ9w3uY" },
-            { "label": "ぽにょん（チャンネル全体）", "url": "https://www.youtube.com/@ponyoani" }
+            {
+              "label": "動画c1: 炭酸水素ナトリウムの加熱（分解）",
+              "url": "https://youtu.be/IXNIsa4XG1E"
+            },
+            {
+              "label": "動画c2: 酸化銀の加熱",
+              "url": "https://youtu.be/1dd-nLg7ppE"
+            },
+            {
+              "label": "動画c3: 水の電気分解",
+              "url": "https://youtu.be/pLMMAB2zGfM"
+            },
+            {
+              "label": "動画c4: 物質をつくる原子",
+              "url": "https://youtu.be/SNUgSffqcoQ"
+            },
+            {
+              "label": "動画c5: 原子・分子と化学式",
+              "url": "https://youtu.be/xWb_q_-UEqQ"
+            },
+            {
+              "label": "動画c6: 鉄と硫黄の化合（硫化鉄）",
+              "url": "https://youtu.be/UUpIGQuHGa8"
+            },
+            {
+              "label": "動画c7: 化学反応式の書き方",
+              "url": "https://youtu.be/qII2qvsRYYk"
+            },
+            {
+              "label": "動画c8: 酸化と酸化物",
+              "url": "https://youtu.be/F-DuGf5GuzQ"
+            },
+            {
+              "label": "動画c9: 酸化銅の還元",
+              "url": "https://youtu.be/4bPIsRS82Hs"
+            },
+            {
+              "label": "動画c10: 質量保存の法則",
+              "url": "https://youtu.be/ARkkspO8SsM"
+            },
+            {
+              "label": "動画c11: 結びつく質量の比（銅・マグネシウム）",
+              "url": "https://youtu.be/tuC-_DDEVdk"
+            },
+            {
+              "label": "動画c12: 発熱反応と吸熱反応",
+              "url": "https://youtu.be/jxUoTQ9w3uY"
+            },
+            {
+              "label": "ぽにょん（チャンネル全体）",
+              "url": "https://www.youtube.com/@ponyoani"
+            }
           ]
         }
       ]

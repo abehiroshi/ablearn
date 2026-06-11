@@ -18,6 +18,7 @@
 ## コンテンツの追加・更新
 
 問題・解説はアプリ本体と分離されており、`public/content/<コレクション>/` に JSON を置くだけで更新できる。
+AIで生成する場合の手順・プロンプトは [docs/content-generation.md](docs/content-generation.md)（概念ファミリーの生成手順書）。
 
 1. `public/content/<コレクション>/<教科>/<セット名>.json` に問題セットを作成（スキーマは [src/types.ts](src/types.ts) を参照）
 2. `public/content/<コレクション>/index.json` の該当教科・単元に `{ id, name, file }` を追加
