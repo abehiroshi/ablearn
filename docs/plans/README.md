@@ -16,7 +16,8 @@
 11. [11 概念ラダーのスキーマ拡張](11-concept-schema.md) — concept・choice/input両用・links（完了済み）
 12. [15 自動テストとCIゲート](15-tests-and-ci.md) — 回帰防止の基盤。12以降の中核変更より先に入れる
 13. [17 「わからない」選択肢](17-dont-know-option.md) — 当て推量対策。12の習熟度がきれいなデータで動くよう12より先
-14. [12 習熟度エンジン](12-mastery-engine.md) — 昇降格・適応出題・SRS統合
+14. [22 コンテンツコレクション](22-collections.md) — URL分離（/chugaku/ 等）と進捗キーの名前空間化。**未使用期間中に入れる破壊的変更のため最優先**
+15. [12 習熟度エンジン](12-mastery-engine.md) — 昇降格・適応出題・SRS統合
 15. [16 フッタナビゲーション](16-footer-nav.md) — アイコン案CのSVG起こし
 16. [18 数字の体系・達成度・祝福](18-metrics-and-milestones.md) — 単調増加メトリクス＋チェックポイント/キリ番＋バッジ
 17. [13 つまずき誘導と予習フロー](13-struggle-and-preview.md) — 既存部品の接続
