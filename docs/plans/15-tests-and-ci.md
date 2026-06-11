@@ -1,8 +1,8 @@
 # 自動テストとCIゲート（回帰防止の基盤）
 
-- 状態: 未着手
+- 状態: 完了（2026-06-12）
 - 触るファイル範囲: `src/lib/` のテスト追加・`docs/spec.md`（新規）・`.github/workflows/`・`scripts/`・`package.json`
-- 引き継ぎメモ: なし
+- 引き継ぎメモ: Vitest 2.x・`npm test`（35テスト）。互換フィクスチャは `src/lib/__fixtures__/appstate.ts`（スキーマ変更時はここに変更前形式を追加）。コンテンツ検証は既存 `scripts/validate-content.mjs` を lesson/新フィールド対応に拡張し `npm run validate:content` 化。CI は check ジョブ（tsc＋test＋validate:content）→ build → deploy の直列。spec.md への昇降格ルール追記は12の実装時
 
 ## 目的
 
