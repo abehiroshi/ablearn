@@ -103,6 +103,9 @@ export default function LibraryScreen({
                   <span style={{ fontWeight: 600, flex: 1 }}>
                     {isLesson && <span className="lesson-pill">📖 レッスン</span>}
                     {meta.name}
+                    {meta.origin && (
+                      <span className="origin-pill">📋 {meta.origin}</span>
+                    )}
                   </span>
                   {isLesson ? (
                     <span className={`score-pill ${rec ? "done" : ""}`}>

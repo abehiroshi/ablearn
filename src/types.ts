@@ -103,6 +103,8 @@ export interface SetMeta {
   file: string;
   /** Library での見分けと出題対象の判定に使う */
   kind?: "lesson";
+  /** 出典（学校テスト由来のセット等。例: "2026-06-10 数学小テスト"）。S系タスクで付与 */
+  origin?: string;
 }
 
 export interface Unit {

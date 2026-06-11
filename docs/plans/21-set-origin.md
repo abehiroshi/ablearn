@@ -1,8 +1,8 @@
 # 出典つきセット（学校テスト由来の問題と再テスト導線）
 
-- 状態: 未着手
+- 状態: 完了（2026-06-12）
 - 触るファイル範囲: `src/types.ts`・`src/screens/LibraryScreen.tsx`・`scripts/validate-content.mjs`
-- 引き継ぎメモ: 運用フローは `assets/TASKS.md` のS系ルールを参照
+- 引き継ぎメモ: `SetMeta.origin`（40文字以内・validator が型と長さを検証）。Library のセット行に 📋 バッジで表示。S系の生成時は index.json の該当セットに origin を付けるだけ。運用フローは `assets/TASKS.md` のS系ルールを参照
 
 ## 目的
 

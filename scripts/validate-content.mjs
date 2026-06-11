@@ -75,6 +75,13 @@ for (const subject of index.subjects) {
       const label = `${subject.id}/${unit.id}/${meta.id}`;
       if (seenSetIds.has(meta.id)) err(`${label}: セットID重複`);
       seenSetIds.add(meta.id);
+      // 出典（計画21）: 文字列・表示が崩れない長さ
+      if (meta.origin !== undefined) {
+        if (typeof meta.origin !== "string" || meta.origin.length === 0)
+          err(`${label}: origin が文字列でない`);
+        else if (meta.origin.length > 40)
+          err(`${label}: origin が長すぎる（40文字以内。"${meta.origin.slice(0, 20)}…"）`);
+      }
 
       const path = join(ROOT, meta.file);
       if (!existsSync(path)) {
