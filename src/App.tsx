@@ -57,6 +57,8 @@ export default function App() {
   const [session, setSession] = useState<Session | null>(null);
   const [editingTest, setEditingTest] = useState(false);
   const [mockOpen, setMockOpen] = useState(false);
+  // ホームの教科一覧から Library を開いたとき、その教科を最初から表示する
+  const [libraryFocus, setLibraryFocus] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   useEffect(() => saveState(state), [state]);
@@ -216,14 +218,20 @@ export default function App() {
           onEditTest={() => setEditingTest(true)}
           onClearTest={clearTest}
           onStartMock={() => setMockOpen(true)}
+          onOpenSubject={(id) => {
+            setLibraryFocus(id);
+            setTab("library");
+          }}
         />
       )}
       {tab === "library" && (
         <LibraryScreen
+          key={libraryFocus ?? "none"}
           index={index}
           state={state}
           onStartSet={startSet}
           onToggleUnit={toggleUnit}
+          focusSubjectId={libraryFocus}
         />
       )}
       {tab === "review" && (
@@ -243,7 +251,10 @@ export default function App() {
           <button
             key={t.id}
             className={tab === t.id ? "active" : ""}
-            onClick={() => setTab(t.id)}
+            onClick={() => {
+              setLibraryFocus(null); // タブから開くときは教科一覧から
+              setTab(t.id);
+            }}
           >
             <span className="tab-icon">{t.icon}</span>
             {t.label}

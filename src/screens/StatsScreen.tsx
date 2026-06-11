@@ -95,6 +95,7 @@ export default function StatsScreen({ state, onImport }: Props) {
         </div>
       </div>
 
+      <div className="stats-grid">
       <div className="card">
         <div style={{ fontWeight: 700, marginBottom: 8 }}>この1週間</div>
         <div className="bar-chart">
@@ -212,6 +213,7 @@ export default function StatsScreen({ state, onImport }: Props) {
             </div>
           </div>
         )}
+      </div>
       </div>
     </div>
   );

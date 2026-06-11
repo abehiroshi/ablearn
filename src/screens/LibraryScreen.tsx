@@ -7,6 +7,8 @@ interface Props {
   state: AppState;
   onStartSet: (meta: SetMeta) => void;
   onToggleUnit: (subjectId: string, unitId: string) => void;
+  /** ホームの教科一覧から開いたときの初期表示教科 */
+  focusSubjectId?: string | null;
 }
 
 export default function LibraryScreen({
@@ -14,8 +16,11 @@ export default function LibraryScreen({
   state,
   onStartSet,
   onToggleUnit,
+  focusSubjectId,
 }: Props) {
-  const [subject, setSubject] = useState<Subject | null>(null);
+  const [subject, setSubject] = useState<Subject | null>(
+    () => index.subjects.find((s) => s.id === focusSubjectId) ?? null
+  );
 
   if (subject) {
     const currentIds = state.currentUnits[subject.id] ?? [];
@@ -42,6 +47,7 @@ export default function LibraryScreen({
                 {currentIds.includes(unit.id) ? "✓ 授業中" : "授業中にする"}
               </button>
             </div>
+            <div className="set-grid">
             {unit.sets.map((meta) => {
               const rec = state.setRecords[meta.id];
               return (
@@ -64,6 +70,7 @@ export default function LibraryScreen({
                 </button>
               );
             })}
+            </div>
           </div>
         ))}
       </div>
@@ -78,6 +85,7 @@ export default function LibraryScreen({
           {index.title}
         </p>
       )}
+      <div className="subject-grid">
       {index.subjects.map((s) => {
         const setCount = s.units.reduce((n, u) => n + u.sets.length, 0);
         return (
@@ -102,6 +110,7 @@ export default function LibraryScreen({
           </button>
         );
       })}
+      </div>
     </div>
   );
 }

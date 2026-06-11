@@ -18,6 +18,8 @@ interface Props {
   onEditTest: () => void;
   onClearTest: () => void;
   onStartMock: () => void;
+  /** タブレットの教科一覧から直接その教科を開く */
+  onOpenSubject: (subjectId: string) => void;
 }
 
 const DOW = ["日", "月", "火", "水", "木", "金", "土"];
@@ -40,6 +42,7 @@ export default function HomeScreen({
   onEditTest,
   onClearTest,
   onStartMock,
+  onOpenSubject,
 }: Props) {
   const today = todayKey();
   const testActive = isTestActive(state.test, today);
@@ -73,6 +76,8 @@ export default function HomeScreen({
     <div className="screen">
       <h1 className="screen-title">Ablearn</h1>
 
+      <div className="home-grid">
+      <div className="home-main">
       <div className="card abler-card">
         <Abler pose="main" size={104} />
         <div className="abler-bubble">{greeting}</div>
@@ -211,7 +216,7 @@ export default function HomeScreen({
       )}
 
       <button
-        className="secondary-btn"
+        className="secondary-btn home-go-library"
         style={{ marginTop: 4 }}
         onClick={onGoLibrary}
       >
@@ -233,6 +238,33 @@ export default function HomeScreen({
           📝 次のテストを登録する
         </button>
       )}
+      </div>
+
+      {/* タブレットだけに出す教科一覧（スマホは「教科から選ぶ」） */}
+      <aside className="home-side">
+        <div className="muted" style={{ fontWeight: 700, margin: "0 4px 8px" }}>
+          教科から選ぶ
+        </div>
+        {subjects.map((s) => (
+          <button
+            key={s.id}
+            className="subject-card"
+            onClick={() => onOpenSubject(s.id)}
+          >
+            <span
+              className="subject-icon"
+              style={{ background: `${s.color}22` }}
+            >
+              {s.icon}
+            </span>
+            <span style={{ flex: 1 }}>
+              <span className="title">{s.name}</span>
+            </span>
+            <span className="chevron">›</span>
+          </button>
+        ))}
+      </aside>
+      </div>
     </div>
   );
 }
