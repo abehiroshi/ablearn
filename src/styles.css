@@ -737,6 +737,43 @@ input {
   border-bottom: none;
 }
 
+/* ===== 模擬テスト ===== */
+.mock-timer {
+  font-weight: 800;
+  font-size: 15px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.mock-timer.urgent {
+  color: var(--red);
+}
+
+.review-item {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.review-item:last-child {
+  border-bottom: none;
+}
+
+.review-mark {
+  font-weight: 800;
+  font-size: 18px;
+  width: 26px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.review-mark.ok {
+  color: var(--green);
+}
+
+.review-mark.ng {
+  color: var(--red);
+}
+
 /* ===== バックアップ ===== */
 .import-confirm {
   margin-top: 12px;

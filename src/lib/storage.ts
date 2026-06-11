@@ -46,6 +46,16 @@ export interface TestPlan {
   range: Record<string, string[]>;
 }
 
+/** 模擬テスト1回分の結果 */
+export interface MockResult {
+  at: string; // ISO 日時
+  score: number; // 100点換算
+  correct: number;
+  total: number;
+  rangeLabel: string;
+  durationMin: number;
+}
+
 export interface AppState {
   xp: number;
   streak: { count: number; lastDate: string };
@@ -59,6 +69,7 @@ export interface AppState {
   /** subjectId → いま授業でやっている単元ID群 */
   currentUnits: Record<string, string[]>;
   test: TestPlan | null;
+  mockResults: MockResult[];
 }
 
 const KEY = "ablearn:v1";
@@ -73,6 +84,7 @@ export function emptyState(): AppState {
     history: {},
     currentUnits: {},
     test: null,
+    mockResults: [],
   };
 }
 

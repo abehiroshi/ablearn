@@ -14,9 +14,12 @@ type Submit = (correct: boolean, correctText?: string) => void;
 export function ChoiceView({
   question,
   onSubmit,
+  reveal = true,
 }: {
   question: ChoiceQuestion;
   onSubmit: Submit;
+  /** false なら選択後も正誤の色付けをしない（模擬テスト用） */
+  reveal?: boolean;
 }) {
   // 表示順をシャッフルしつつ正解インデックスを追跡する
   const order = useMemo(
@@ -40,7 +43,7 @@ export function ChoiceView({
       <div className="choices">
         {order.map((oi) => {
           let cls = "choice-btn";
-          if (chosen !== null) {
+          if (chosen !== null && reveal) {
             if (oi === question.answer) cls += " correct";
             else if (oi === chosen) cls += " wrong";
           }

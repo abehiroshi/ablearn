@@ -3,6 +3,7 @@ import type { ContentIndex, Question, SetMeta } from "./types";
 import { buildSetLookup, loadIndex, loadSet } from "./lib/content";
 import {
   AppState,
+  MockResult,
   TestPlan,
   addDailyLog,
   currentStreak,
@@ -23,6 +24,7 @@ import ReviewScreen from "./screens/ReviewScreen";
 import StatsScreen from "./screens/StatsScreen";
 import QuizScreen from "./screens/QuizScreen";
 import TestSetupScreen from "./screens/TestSetupScreen";
+import MockTestScreen from "./screens/MockTestScreen";
 
 export type Tab = "home" | "library" | "review" | "stats";
 
@@ -54,6 +56,7 @@ export default function App() {
   const [tab, setTab] = useState<Tab>("home");
   const [session, setSession] = useState<Session | null>(null);
   const [editingTest, setEditingTest] = useState(false);
+  const [mockOpen, setMockOpen] = useState(false);
   const [busy, setBusy] = useState(false);
 
   useEffect(() => saveState(state), [state]);
@@ -177,6 +180,13 @@ export default function App() {
     setEditingTest(false);
   }
 
+  function finishMock(result: MockResult) {
+    setState((prev) => ({
+      ...prev,
+      mockResults: [...prev.mockResults, result],
+    }));
+  }
+
   if (loadError) {
     return (
       <div className="empty-note">
@@ -204,6 +214,7 @@ export default function App() {
           onGoLibrary={() => setTab("library")}
           onEditTest={() => setEditingTest(true)}
           onClearTest={clearTest}
+          onStartMock={() => setMockOpen(true)}
         />
       )}
       {tab === "library" && (
@@ -241,6 +252,16 @@ export default function App() {
           </button>
         ))}
       </nav>
+
+      {mockOpen && (
+        <MockTestScreen
+          index={index}
+          state={state}
+          onAnswer={handleAnswer}
+          onFinishMock={finishMock}
+          onClose={() => setMockOpen(false)}
+        />
+      )}
 
       {editingTest && (
         <TestSetupScreen
