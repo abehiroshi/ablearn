@@ -59,6 +59,8 @@ for (const subject of index.subjects) {
         set.kind === "lesson" ? (set.steps ?? []) : (set.questions ?? []);
       if (set.kind === "lesson" && meta.kind !== "lesson")
         err(`${label}: set は lesson だが index 側に kind がない`);
+      if (meta.kind === "lesson" && set.kind !== "lesson")
+        err(`${label}: index 側は lesson だが set に kind がない`);
       if (!Array.isArray(items) || items.length === 0) {
         err(`${label}: ${set.kind === "lesson" ? "steps" : "questions"} が空`);
         continue;
