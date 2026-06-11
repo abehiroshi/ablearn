@@ -17,7 +17,9 @@
 
 ## localStorage 後方互換の約束
 
-- キーは `ablearn:v1`。読み込みは常に `{ ...emptyState(), ...保存データ }` のマージで行い、
+- キーは `ablearn:<コレクション>:v1`（例: `ablearn:chugaku:v1`）。コレクション間で進捗は完全に独立し、
+  横断の共有要素（合算streak等）は持たない
+- 読み込みは常に `{ ...emptyState(), ...保存データ }` のマージで行い、
   **古い形式のデータを読んでも壊れない**
 - スキーマ（AppState）にフィールドを追加するときは、変更前の形式を
   `src/lib/__fixtures__/appstate.ts` にフィクスチャとして追加する
@@ -74,7 +76,8 @@
 
 ## バックアップ
 
-- エクスポートは `{ app: "ablearn", schemaVersion, exportedAt, state }`。AppState は不透明に全量入出力
+- エクスポートは `{ app: "ablearn", schemaVersion, collection, exportedAt, state }`。AppState は不透明に全量入出力
+- 別コレクションのバックアップはインポートを拒否する（collection 無しの旧バックアップは通す）
 - インポートは外形検証（app名・バージョン・xp/dailyLogの型）のみ。サマリ確認なしに上書きしない
 - 未知の（大きい）schemaVersion は拒否、古い形式は emptyState マージで補完
 

@@ -1,0 +1,10 @@
+{
+  "collections": [
+    {
+      "id": "chugaku",
+      "name": "中学教科書",
+      "icon": "🏫",
+      "description": "中学の定期テスト対策（5教科＋実技4教科）"
+    }
+  ]
+}

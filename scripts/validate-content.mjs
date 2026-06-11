@@ -4,10 +4,38 @@
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
-const ROOT = "public/content";
+const CONTENT = "public/content";
 const errors = [];
 const err = (msg) => errors.push(msg);
 
+// コレクション一覧（計画22）。各コレクションの index.json を検証する
+const { collections } = JSON.parse(
+  readFileSync(join(CONTENT, "collections.json"), "utf8")
+);
+if (!Array.isArray(collections) || collections.length === 0) {
+  console.error("NG: collections.json にコレクションがない");
+  process.exit(1);
+}
+
+let totalSubjects = 0;
+let totalSets = 0;
+for (const collection of collections) {
+  if (!collection.id || !collection.name)
+    err(`collections.json: id/name がない (${JSON.stringify(collection)})`);
+  const ROOT = join(CONTENT, collection.id);
+  if (!existsSync(join(ROOT, "index.json"))) {
+    err(`${collection.id}: index.json がない`);
+    continue;
+  }
+  // HTML エントリが無いとランディングのリンクが 404 になる
+  if (!existsSync(join(collection.id, "index.html")))
+    err(`${collection.id}: ${collection.id}/index.html（アプリのエントリ）がない`);
+  if (!existsSync(`public/manifest-${collection.id}.webmanifest`))
+    err(`${collection.id}: public/manifest-${collection.id}.webmanifest がない`);
+  validateCollection(ROOT, collection.id);
+}
+
+function validateCollection(ROOT, collectionId) {
 const index = JSON.parse(readFileSync(join(ROOT, "index.json"), "utf8"));
 
 function checkLinks(label, links) {
@@ -125,11 +153,15 @@ for (const subject of index.subjects) {
     }
   }
 }
+totalSubjects += index.subjects.length;
+totalSets += seenSetIds.size;
+}
 
 if (errors.length) {
   console.error(`NG: ${errors.length} 件`);
   for (const e of errors) console.error(" - " + e);
   process.exit(1);
 }
-const setCount = seenSetIds.size;
-console.log(`OK: ${index.subjects.length} 教科 / ${setCount} セット`);
+console.log(
+  `OK: ${collections.length} コレクション / ${totalSubjects} 教科 / ${totalSets} セット`
+);

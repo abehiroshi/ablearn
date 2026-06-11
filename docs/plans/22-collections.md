@@ -1,8 +1,8 @@
 # コンテンツコレクション（URL分離）
 
-- 状態: 未着手
+- 状態: 完了（2026-06-12）
 - 触るファイル範囲: `src/`（App・lib/content・lib/storage）・`public/content/` の配置替え・`vite.config.ts`・`public/manifest` 関連・`.github/workflows/`（必要なら）
-- 引き継ぎメモ: **未使用期間中に入れる前提の破壊的変更**（既存 localStorage キー・URLからの移行処理は作らない）。お子さんの利用開始前に完了させること
+- 引き継ぎメモ: 実装済み。コレクション判定は `src/lib/collection.ts`（URLパスの先頭セグメント。テスト環境は chugaku 固定）。新コレクション追加手順は README に記載（`<id>/index.html`＋vite input＋content/<id>/＋manifest-<id>＋collections.json。validator がエントリ・マニフェスト漏れを検出）。dev サーバーでは manifest の href が base 二重になるが本番ビルドは正常（既存の apple-touch-icon と同じ dev 限定の挙動）。PWA名 chugaku=「中学生問題集」反映済み
 
 ## 目的
 

@@ -1,4 +1,5 @@
 import type { ContentIndex, QuestionSet, SetMeta, Subject } from "../types";
+import { currentCollection } from "./collection";
 
 const BASE = import.meta.env.BASE_URL; // "/ablearn/" or "/"
 
@@ -9,11 +10,11 @@ async function fetchJson<T>(path: string): Promise<T> {
 }
 
 export function loadIndex(): Promise<ContentIndex> {
-  return fetchJson<ContentIndex>("content/index.json");
+  return fetchJson<ContentIndex>(`content/${currentCollection()}/index.json`);
 }
 
 export function loadSet(meta: SetMeta): Promise<QuestionSet> {
-  return fetchJson<QuestionSet>(`content/${meta.file}`);
+  return fetchJson<QuestionSet>(`content/${currentCollection()}/${meta.file}`);
 }
 
 /** index 全体から setId → { meta, subject } の逆引きを作る */

@@ -34,7 +34,7 @@ afterEach(() => {
 describe("localStorage 後方互換（最重要）", () => {
   for (const [name, fixture] of Object.entries(ALL_FIXTURES)) {
     it(`旧形式 ${name} を読み込んでも壊れない`, () => {
-      store.set("ablearn:v1", JSON.stringify(fixture));
+      store.set("ablearn:chugaku:v1", JSON.stringify(fixture));
       const state = loadState();
       // emptyState のキーがすべて揃う（スキーマを壊すとここで落ちる）
       for (const key of Object.keys(emptyState())) {
@@ -52,7 +52,7 @@ describe("localStorage 後方互換（最重要）", () => {
 
   it("空・壊れたJSON・未保存はすべて emptyState になる", () => {
     expect(loadState()).toEqual(emptyState());
-    store.set("ablearn:v1", "{ broken");
+    store.set("ablearn:chugaku:v1", "{ broken");
     expect(loadState()).toEqual(emptyState());
   });
 });
@@ -197,5 +197,17 @@ describe("バックアップ", () => {
         JSON.stringify({ app: "ablearn", schemaVersion: 999, state: { xp: 0, dailyLog: {} } })
       )
     ).toThrow("新しいバージョン");
+  });
+
+  it("別コレクションのバックアップは拒否する（計画22）", () => {
+    const backup = { ...makeBackup(emptyState()), collection: "eiken" };
+    expect(() => parseBackup(JSON.stringify(backup))).toThrow(
+      "別のコレクション"
+    );
+    // 自コレクション・コレクション情報なし（22以前）は通る
+    expect(() => parseBackup(JSON.stringify(makeBackup(emptyState())))).not.toThrow();
+    const legacy = { ...makeBackup(emptyState()) } as Record<string, unknown>;
+    delete legacy.collection;
+    expect(() => parseBackup(JSON.stringify(legacy))).not.toThrow();
   });
 });

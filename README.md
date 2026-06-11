@@ -6,12 +6,21 @@
 - 開発: `npm install` → `npm run dev`
 - デプロイ: main に push すると GitHub Actions が自動で GitHub Pages に公開
 
+## コレクション（URL分離）
+
+同じアプリで独立したコンテンツの世界を URL で分けて提供する（進捗も完全に独立）。
+
+- `/ablearn/` — コレクション一覧（`public/content/collections.json` で管理）
+- `/ablearn/chugaku/` — 中学教科書（PWA名「中学生問題集」）
+- コレクションを増やすときは `<id>/index.html` を作って `vite.config.ts` の input に追加し、
+  `public/content/<id>/index.json`・`public/manifest-<id>.webmanifest`・collections.json を用意する
+
 ## コンテンツの追加・更新
 
-問題・解説はアプリ本体と分離されており、`public/content/` に JSON を置くだけで更新できる。
+問題・解説はアプリ本体と分離されており、`public/content/<コレクション>/` に JSON を置くだけで更新できる。
 
-1. `public/content/<教科>/<セット名>.json` に問題セットを作成（スキーマは [src/types.ts](src/types.ts) を参照）
-2. `public/content/index.json` の該当教科・単元に `{ id, name, file }` を追加
+1. `public/content/<コレクション>/<教科>/<セット名>.json` に問題セットを作成（スキーマは [src/types.ts](src/types.ts) を参照）
+2. `public/content/<コレクション>/index.json` の該当教科・単元に `{ id, name, file }` を追加
 3. push すれば反映（アプリ側のコード変更は不要）
 
 ### 問題形式

@@ -1,5 +1,7 @@
 // localStorage への永続化。1人で使う前提なのでユーザー管理はしない。
 
+import { currentCollection } from "./collection";
+
 export interface DayLog {
   answered: number;
   correct: number;
@@ -85,7 +87,8 @@ export interface AppState {
   >;
 }
 
-const KEY = "ablearn:v1";
+// 進捗はコレクションごとに完全分離（計画22。移行処理は無し＝未使用期間中の破壊的変更）
+const KEY = `ablearn:${currentCollection()}:v1`;
 
 export function emptyState(): AppState {
   return {
@@ -229,6 +232,8 @@ const SCHEMA_VERSION = 1;
 export interface BackupFile {
   app: "ablearn";
   schemaVersion: number;
+  /** どのコレクションの進捗か（計画22より前のバックアップには無い） */
+  collection?: string;
   exportedAt: string;
   state: AppState;
 }
@@ -237,6 +242,7 @@ export function makeBackup(state: AppState): BackupFile {
   return {
     app: "ablearn",
     schemaVersion: SCHEMA_VERSION,
+    collection: currentCollection(),
     exportedAt: new Date().toISOString(),
     state,
   };
@@ -257,6 +263,15 @@ export function parseBackup(json: string): BackupFile {
   if (typeof b.schemaVersion !== "number" || b.schemaVersion > SCHEMA_VERSION) {
     throw new Error(
       "このバックアップは新しいバージョンのアプリで作られています"
+    );
+  }
+  // 別コレクションの進捗は混ぜない（22より前のバックアップは collection 無しで通す）
+  if (
+    typeof b.collection === "string" &&
+    b.collection !== currentCollection()
+  ) {
+    throw new Error(
+      `これは別のコレクション（${b.collection}）のバックアップです`
     );
   }
   const s = b.state as Partial<AppState>;
