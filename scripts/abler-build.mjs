@@ -1,8 +1,11 @@
 // マスコット Abler の設定画シート (assets/image.png) から
-// 各ポーズ・表情を切り出して public/abler/ と PWA アイコンを生成する。
-// 使い方: node scripts/abler-build.mjs
+// 各ポーズ・表情を切り出して public/abler/ (WebP) と PWA アイコンを生成する。
+// 使い方: node scripts/abler-build.mjs（要 cwebp: brew install webp）
 import { deflateSync, inflateSync } from "node:zlib";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
 // ===== PNG デコード（8bit RGBA / 非インターレースのみ対応） =====
 
@@ -273,8 +276,16 @@ for (const [name, [x0, y0, x1, y1]] of Object.entries(CROPS)) {
     const s = MAX / Math.max(img.w, img.h);
     img = resize(img, Math.round(img.w * s), Math.round(img.h * s));
   }
-  writeFileSync(`public/abler/${name}.png`, encodePng(img.w, img.h, img.rgba));
-  console.log(`abler/${name}.png ${img.w}x${img.h}`);
+  // PNG だと水彩タッチの画像が重い（合計1.7MB）ため WebP で出力する
+  const tmpPng = join(tmpdir(), `abler-${name}.png`);
+  writeFileSync(tmpPng, encodePng(img.w, img.h, img.rgba));
+  try {
+    execFileSync("cwebp", ["-q", "82", "-m", "6", "-quiet", tmpPng, "-o", `public/abler/${name}.webp`]);
+  } catch (e) {
+    throw new Error("cwebp が必要です: brew install webp", { cause: e });
+  }
+  rmSync(tmpPng);
+  console.log(`abler/${name}.webp ${img.w}x${img.h}`);
 }
 
 // ===== PWA アイコン: 顔アップを角丸背景に載せる =====

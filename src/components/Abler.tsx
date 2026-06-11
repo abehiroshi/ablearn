@@ -25,7 +25,7 @@ export default function Abler({ pose, size }: Props) {
   return (
     <img
       className="abler"
-      src={`${import.meta.env.BASE_URL}abler/${pose}.png`}
+      src={`${import.meta.env.BASE_URL}abler/${pose}.webp`}
       alt=""
       style={{ height: size }}
       draggable={false}

@@ -33,7 +33,7 @@ export default defineConfig({
       },
       workbox: {
         // アプリ本体はプリキャッシュ、コンテンツJSONはネットワーク優先で常に最新を取りに行く
-        globPatterns: ["**/*.{js,css,html,png,svg}"],
+        globPatterns: ["**/*.{js,css,html,png,svg,webp}"],
         runtimeCaching: [
           {
             urlPattern: /\/content\/.*\.json$/,

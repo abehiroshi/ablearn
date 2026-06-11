@@ -1,4 +1,4 @@
-# CLAUDE.md — Rakuten Room Automation Suite
+# CLAUDE.md — Ablearn
 
 Claude Code 固有の設定ファイル。エージェント共通の指示は [`AGENTS.md`](./AGENTS.md) を参照。
 
