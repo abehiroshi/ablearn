@@ -1,0 +1,87 @@
+{
+  "id": "math-shiki-keisan",
+  "title": "式の計算",
+  "description": "単項式・多項式の計算（新しい数学2 1章）",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "choice",
+      "question": "3x + 2y − x + 4y を計算すると？",
+      "choices": ["2x + 6y", "2x + 2y", "4x + 6y", "3x + 6y"],
+      "answer": 0,
+      "explanation": "同類項をまとめる。x の項: 3x − x = 2x。y の項: 2y + 4y = 6y。"
+    },
+    {
+      "id": "q2",
+      "type": "choice",
+      "question": "単項式 5x²y の次数は？",
+      "choices": ["3", "2", "1", "5"],
+      "answer": 0,
+      "explanation": "かけ合わされている文字の個数が次数。x が2個、y が1個で次数は3。係数の5は関係ない。"
+    },
+    {
+      "id": "q3",
+      "type": "input",
+      "question": "4a + 7b − 2a − 3b を計算すると？",
+      "answers": ["2a+4b", "4b+2a"],
+      "placeholder": "例: 3a+2b",
+      "explanation": "a の項: 4a − 2a = 2a。b の項: 7b − 3b = 4b。よって 2a + 4b。"
+    },
+    {
+      "id": "q4",
+      "type": "choice",
+      "question": "(3x + 2y) + (x − 5y) を計算すると？",
+      "choices": ["4x − 3y", "4x + 3y", "2x − 3y", "4x − 7y"],
+      "answer": 0,
+      "explanation": "かっこをはずして同類項をまとめる。3x + x = 4x、2y − 5y = −3y。"
+    },
+    {
+      "id": "q5",
+      "type": "choice",
+      "question": "(2a + b) − (a − 3b) を計算すると？",
+      "choices": ["a + 4b", "a − 2b", "3a − 2b", "a − 4b"],
+      "answer": 0,
+      "explanation": "ひく式は符号がすべて変わる。2a + b − a + 3b = a + 4b。−(−3b) = +3b に注意。"
+    },
+    {
+      "id": "q6",
+      "type": "choice",
+      "question": "3a × 4b を計算すると？",
+      "choices": ["12ab", "7ab", "12a + b", "34ab"],
+      "answer": 0,
+      "explanation": "係数どうし、文字どうしをかける。3 × 4 = 12、a × b = ab。"
+    },
+    {
+      "id": "q7",
+      "type": "choice",
+      "question": "6xy ÷ 2x を計算すると？",
+      "choices": ["3y", "3xy", "4y", "3x"],
+      "answer": 0,
+      "explanation": "6xy ÷ 2x = 6xy/2x。6 ÷ 2 = 3、x は約分されて消える。残るのは 3y。"
+    },
+    {
+      "id": "q8",
+      "type": "choice",
+      "question": "(−2a)² を計算すると？",
+      "choices": ["4a²", "−4a²", "2a²", "−2a²"],
+      "answer": 0,
+      "explanation": "(−2a)² = (−2a) × (−2a) = 4a²。負の数も2乗すると正になる。−2a² と書かれた場合は a だけ2乗するので別物。"
+    },
+    {
+      "id": "q9",
+      "type": "choice",
+      "question": "x = 2, y = −1 のとき、3x + 2y の値は？",
+      "choices": ["4", "8", "2", "−4"],
+      "answer": 0,
+      "explanation": "代入すると 3 × 2 + 2 × (−1) = 6 − 2 = 4。負の数の代入はかっこをつけて計算するとミスしにくい。"
+    },
+    {
+      "id": "q10",
+      "type": "choice",
+      "question": "2(3a − b) − 3(a − 2b) を計算すると？",
+      "choices": ["3a + 4b", "3a − 8b", "9a − 4b", "3a − 4b"],
+      "answer": 0,
+      "explanation": "分配法則でかっこをはずす。6a − 2b − 3a + 6b = 3a + 4b。−3 × (−2b) = +6b に注意。"
+    }
+  ]
+}

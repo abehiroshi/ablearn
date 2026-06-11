@@ -1,0 +1,19 @@
+{
+  "id": "eng-words-2",
+  "title": "重要単語 その2",
+  "description": "NEW HORIZON 2 1学期によく出る語句",
+  "questions": [
+    { "id": "w1", "type": "flashcard", "front": "abroad", "back": "外国へ、海外で" },
+    { "id": "w2", "type": "flashcard", "front": "local", "back": "地元の、その土地の" },
+    { "id": "w3", "type": "flashcard", "front": "traditional", "back": "伝統的な" },
+    { "id": "w4", "type": "flashcard", "front": "culture", "back": "文化" },
+    { "id": "w5", "type": "flashcard", "front": "future", "back": "未来、将来\n（in the future: 将来に）" },
+    { "id": "w6", "type": "flashcard", "front": "dream", "back": "夢" },
+    { "id": "w7", "type": "flashcard", "front": "language", "back": "言語、ことば" },
+    { "id": "w8", "type": "flashcard", "front": "communicate", "back": "伝え合う、コミュニケーションをとる" },
+    { "id": "w9", "type": "flashcard", "front": "volunteer", "back": "ボランティア" },
+    { "id": "w10", "type": "flashcard", "front": "environment", "back": "環境" },
+    { "id": "w11", "type": "flashcard", "front": "convenient", "back": "便利な" },
+    { "id": "w12", "type": "flashcard", "front": "prepare", "back": "準備する" }
+  ]
+}

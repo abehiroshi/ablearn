@@ -1,0 +1,71 @@
+{
+  "id": "math-shiki-riyou",
+  "title": "文字式の利用・等式の変形",
+  "description": "整数の性質の説明と等式変形（新しい数学2 1章）",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "choice",
+      "question": "n を整数とするとき、偶数を表す式はどれ？",
+      "choices": ["2n", "2n + 1", "n + 2", "n²"],
+      "answer": 0,
+      "explanation": "偶数は2の倍数なので 2 × 整数 = 2n。奇数は 2n + 1 で表す。"
+    },
+    {
+      "id": "q2",
+      "type": "choice",
+      "question": "連続する3つの整数 n, n+1, n+2 の和はどうなる？",
+      "choices": ["中央の数の3倍になる", "必ず偶数になる", "必ず奇数になる", "末尾の数の3倍になる"],
+      "answer": 0,
+      "explanation": "n + (n+1) + (n+2) = 3n + 3 = 3(n + 1)。n+1 は中央の数なので、和は中央の数の3倍。"
+    },
+    {
+      "id": "q3",
+      "type": "choice",
+      "question": "十の位が x、一の位が y の2けたの自然数を表す式は？",
+      "choices": ["10x + y", "x + y", "xy", "10y + x"],
+      "answer": 0,
+      "explanation": "例えば 36 = 10 × 3 + 6。十の位の数字は10倍して足す。位を入れかえた数は 10y + x。"
+    },
+    {
+      "id": "q4",
+      "type": "choice",
+      "question": "奇数 + 奇数 = 偶数 の説明。(2m+1) + (2n+1) = 2m + 2n + 2 = 2 × ( ? )。? に入る式は？",
+      "choices": ["m + n + 1", "m + n", "2m + 2n", "mn + 1"],
+      "answer": 0,
+      "explanation": "2m + 2n + 2 = 2(m + n + 1)。m + n + 1 は整数なので、2 × 整数 = 偶数といえる。"
+    },
+    {
+      "id": "q5",
+      "type": "choice",
+      "question": "V = abc を c について解くと？",
+      "choices": ["c = V/(ab)", "c = ab/V", "c = V − ab", "c = abV"],
+      "answer": 0,
+      "explanation": "両辺を ab でわると c = V/(ab)。「c について解く」= c = … の形に変形すること。"
+    },
+    {
+      "id": "q6",
+      "type": "choice",
+      "question": "ℓ = 2(a + b) を a について解くと？",
+      "choices": ["a = ℓ/2 − b", "a = ℓ − 2b", "a = 2ℓ − b", "a = ℓ/2 + b"],
+      "answer": 0,
+      "explanation": "両辺を2でわって ℓ/2 = a + b。b を移項して a = ℓ/2 − b。"
+    },
+    {
+      "id": "q7",
+      "type": "choice",
+      "question": "y = 3x − 6 を x について解くと？",
+      "choices": ["x = (y + 6)/3", "x = (y − 6)/3", "x = 3y + 6", "x = y/3 − 6"],
+      "answer": 0,
+      "explanation": "−6 を移項して y + 6 = 3x。両辺を3でわって x = (y + 6)/3。"
+    },
+    {
+      "id": "q8",
+      "type": "choice",
+      "question": "三角形の面積 S = ah/2 を h について解くと？",
+      "choices": ["h = 2S/a", "h = S/(2a)", "h = 2a/S", "h = S − 2a"],
+      "answer": 0,
+      "explanation": "両辺に2をかけて 2S = ah。両辺を a でわって h = 2S/a。"
+    }
+  ]
+}

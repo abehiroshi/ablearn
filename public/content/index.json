@@ -1,5 +1,5 @@
 {
-  "title": "中2 定期テスト対策",
+  "title": "中2 定期テスト対策（1学期）",
   "subjects": [
     {
       "id": "math",
@@ -8,6 +8,22 @@
       "icon": "📐",
       "units": [
         {
+          "id": "shiki",
+          "name": "式の計算",
+          "sets": [
+            {
+              "id": "math-shiki-keisan",
+              "name": "式の計算",
+              "file": "math/shiki-keisan.json"
+            },
+            {
+              "id": "math-shiki-riyou",
+              "name": "文字式の利用・等式の変形",
+              "file": "math/shiki-riyou.json"
+            }
+          ]
+        },
+        {
           "id": "renritsu",
           "name": "連立方程式",
           "sets": [
@@ -15,6 +31,11 @@
               "id": "math-renritsu-basic",
               "name": "連立方程式の基本",
               "file": "math/renritsu-basic.json"
+            },
+            {
+              "id": "math-renritsu-ouyou",
+              "name": "連立方程式の利用",
+              "file": "math/renritsu-ouyou.json"
             }
           ]
         }
@@ -27,8 +48,30 @@
       "icon": "🔤",
       "units": [
         {
+          "id": "unit1",
+          "name": "未来の表現と文構造（Unit 1）",
+          "sets": [
+            {
+              "id": "eng-mirai-bunkouzou",
+              "name": "未来の表現と文構造",
+              "file": "english/mirai-bunkouzou.json"
+            }
+          ]
+        },
+        {
+          "id": "unit2",
+          "name": "接続詞（Unit 2）",
+          "sets": [
+            {
+              "id": "eng-setsuzokushi",
+              "name": "接続詞",
+              "file": "english/setsuzokushi.json"
+            }
+          ]
+        },
+        {
           "id": "futeishi",
-          "name": "不定詞",
+          "name": "不定詞（Unit 3）",
           "sets": [
             {
               "id": "eng-futeishi-basic",
@@ -45,6 +88,11 @@
               "id": "eng-words-1",
               "name": "重要単語 その1",
               "file": "english/words-1.json"
+            },
+            {
+              "id": "eng-words-2",
+              "name": "重要単語 その2",
+              "file": "english/words-2.json"
             }
           ]
         }
@@ -61,9 +109,19 @@
           "name": "化学変化と原子・分子",
           "sets": [
             {
+              "id": "sci-genshi-bunshi",
+              "name": "原子・分子と化学式",
+              "file": "science/genshi-bunshi.json"
+            },
+            {
               "id": "sci-kagaku-basic",
               "name": "化学変化の基本",
               "file": "science/kagaku-henka.json"
+            },
+            {
+              "id": "sci-kagaku-shitsuryou",
+              "name": "化学変化と質量",
+              "file": "science/kagaku-shitsuryou.json"
             }
           ]
         }
@@ -76,13 +134,59 @@
       "icon": "🗾",
       "units": [
         {
-          "id": "edo",
-          "name": "歴史（江戸時代）",
+          "id": "chiri-nihon",
+          "name": "地理（日本の地域的特色）",
           "sets": [
+            {
+              "id": "soc-chiri-tokushoku",
+              "name": "日本の地域的特色",
+              "file": "social/chiri-nihon-tokushoku.json"
+            }
+          ]
+        },
+        {
+          "id": "edo",
+          "name": "歴史（近世）",
+          "sets": [
+            {
+              "id": "soc-rekishi-kinsei",
+              "name": "全国統一への動き",
+              "file": "social/rekishi-kinsei.json"
+            },
             {
               "id": "soc-edo-basic",
               "name": "江戸時代の基本",
               "file": "social/edo-basic.json"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "japanese",
+      "name": "国語",
+      "color": "#ff3b30",
+      "icon": "📖",
+      "units": [
+        {
+          "id": "kanji",
+          "name": "漢字",
+          "sets": [
+            {
+              "id": "jpn-kanji-1",
+              "name": "漢字の読み書き その1",
+              "file": "japanese/kanji-1.json"
+            }
+          ]
+        },
+        {
+          "id": "bunpou",
+          "name": "文法",
+          "sets": [
+            {
+              "id": "jpn-bunpou-doushi",
+              "name": "動詞の活用",
+              "file": "japanese/bunpou-doushi.json"
             }
           ]
         }

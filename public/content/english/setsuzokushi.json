@@ -1,0 +1,84 @@
+{
+  "id": "eng-setsuzokushi",
+  "title": "接続詞",
+  "description": "when / if / because / that（NEW HORIZON 2 Unit 2）",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "choice",
+      "question": "( ) I got home, my mother was cooking.\n「私が家に着いたとき、母は料理をしていた」",
+      "choices": ["When", "If", "That", "Because"],
+      "answer": 0,
+      "explanation": "「〜するとき」は when。when 〜 のまとまりが文の前半に来るときは、区切りにコンマを置く。"
+    },
+    {
+      "id": "q2",
+      "type": "choice",
+      "question": "( ) it is sunny tomorrow, let's go to the park.\n「もし明日晴れたら、公園に行こう」",
+      "choices": ["If", "That", "Because", "But"],
+      "answer": 0,
+      "explanation": "「もし〜なら」は if。"
+    },
+    {
+      "id": "q3",
+      "type": "choice",
+      "question": "I think ( ) this book is interesting.\n「私はこの本はおもしろいと思います」",
+      "choices": ["that", "when", "if", "because"],
+      "answer": 0,
+      "explanation": "「〜ということ」を表す that。I think (that) 〜 の that は省略できる。"
+    },
+    {
+      "id": "q4",
+      "type": "choice",
+      "question": "I stayed home ( ) I was sick.\n「病気だったので家にいました」",
+      "choices": ["because", "if", "that", "when"],
+      "answer": 0,
+      "explanation": "理由「〜だから」は because。"
+    },
+    {
+      "id": "q5",
+      "type": "choice",
+      "question": "If it ( ) tomorrow, we will not play outside.\n「もし明日雨が降ったら、外では遊びません」",
+      "choices": ["rains", "will rain", "rained", "raining"],
+      "answer": 0,
+      "explanation": "if のまとまりの中では、未来のことでも現在形で表す。if it will rain とは言わない。"
+    },
+    {
+      "id": "q6",
+      "type": "order",
+      "question": "「私は彼が親切だと思います」になるように並べよう",
+      "tokens": ["I", "think", "that", "he", "is kind"],
+      "explanation": "I think that 〜。that のあとは 主語 + 動詞 の文が続く。"
+    },
+    {
+      "id": "q7",
+      "type": "order",
+      "question": "「もし暇なら、私を手伝ってください」になるように並べよう",
+      "tokens": ["Please help me", "if", "you", "are free"],
+      "explanation": "Please help me if you are free. if 〜 は文の後半にも置ける（その場合コンマは不要）。"
+    },
+    {
+      "id": "q8",
+      "type": "order",
+      "question": "「私が彼に電話したとき、彼は眠っていました」になるように並べよう",
+      "tokens": ["He", "was sleeping", "when", "I called him"],
+      "explanation": "He was sleeping when I called him. 「〜していた」は過去進行形 was/were + ing。"
+    },
+    {
+      "id": "q9",
+      "type": "choice",
+      "question": "I hope ( ) you will like this present.\n「あなたがこのプレゼントを気に入ってくれるといいな」",
+      "choices": ["that", "because", "if", "but"],
+      "answer": 0,
+      "explanation": "hope (that) 〜 で「〜だといいなと思う」。think / know / hope などのあとに that の文が続く。"
+    },
+    {
+      "id": "q10",
+      "type": "choice",
+      "question": "I was watching TV ( ) my father came home.\n「父が帰宅したとき、私はテレビを見ていた」",
+      "choices": ["when", "that", "if", "or"],
+      "answer": 0,
+      "explanation": "「〜したとき」は when。過去進行形（was watching）と過去形（came）の組み合わせは定期テスト頻出。"
+    }
+  ]
+}

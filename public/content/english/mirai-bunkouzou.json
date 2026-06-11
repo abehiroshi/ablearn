@@ -1,0 +1,84 @@
+{
+  "id": "eng-mirai-bunkouzou",
+  "title": "未来の表現と文構造",
+  "description": "will / be going to / SVOO / SVOC（NEW HORIZON 2 Unit 1）",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "choice",
+      "question": "I ( ) visit Kyoto next week.\n「私は来週京都を訪れるつもりです」",
+      "choices": ["will", "am", "did", "was"],
+      "answer": 0,
+      "explanation": "未来のことは will + 動詞の原形。am だけでは未来を表せない（am going to なら可）。"
+    },
+    {
+      "id": "q2",
+      "type": "choice",
+      "question": "We are ( ) to play soccer tomorrow.\n「私たちは明日サッカーをする予定です」",
+      "choices": ["going", "go", "went", "goes"],
+      "answer": 0,
+      "explanation": "be going to + 動詞の原形 で「〜する予定だ」。前から決めていた予定によく使う。"
+    },
+    {
+      "id": "q3",
+      "type": "choice",
+      "question": "It ( ) be sunny tomorrow.\n「明日は晴れるでしょう」",
+      "choices": ["will", "is", "does", "has"],
+      "answer": 0,
+      "explanation": "天気の予測など「〜でしょう」は will。will のあとの be動詞は原形の be になる。"
+    },
+    {
+      "id": "q4",
+      "type": "choice",
+      "question": "will のあとに続く動詞の形は？",
+      "choices": ["原形", "過去形", "ing形", "三人称単数形"],
+      "answer": 0,
+      "explanation": "will は助動詞なので、主語が何でもあとの動詞はいつも原形。He will plays は誤り。"
+    },
+    {
+      "id": "q5",
+      "type": "order",
+      "question": "「私は明日テニスをするつもりです」になるように並べよう",
+      "tokens": ["I", "am", "going to", "play tennis", "tomorrow"],
+      "explanation": "be going to + 動詞の原形。I am going to play tennis tomorrow."
+    },
+    {
+      "id": "q6",
+      "type": "order",
+      "question": "「彼は次の日曜日、忙しいでしょう」になるように並べよう",
+      "tokens": ["He", "will", "be", "busy", "next Sunday"],
+      "explanation": "will のあとの be動詞は原形 be。He will be busy next Sunday."
+    },
+    {
+      "id": "q7",
+      "type": "choice",
+      "question": "My father gave ( ).\n「父は私に腕時計をくれた」",
+      "choices": ["me a watch", "a watch me", "I a watch", "me to a watch"],
+      "answer": 0,
+      "explanation": "give + 人 + 物（SVOO）の語順。「人」が先、「物」があと。give a watch to me と言いかえることもできる。"
+    },
+    {
+      "id": "q8",
+      "type": "choice",
+      "question": "We call ( ).\n「私たちはその犬をポチと呼びます」",
+      "choices": ["the dog Pochi", "Pochi the dog", "to the dog Pochi", "the dog to Pochi"],
+      "answer": 0,
+      "explanation": "call + A + B で「AをBと呼ぶ」（SVOC）。A（目的語）が先、B（呼び名）があと。"
+    },
+    {
+      "id": "q9",
+      "type": "order",
+      "question": "「あなたに私の写真を見せましょう」になるように並べよう",
+      "tokens": ["I", "will", "show", "you", "my pictures"],
+      "explanation": "show + 人 + 物 の語順。I will show you my pictures."
+    },
+    {
+      "id": "q10",
+      "type": "choice",
+      "question": "Are you going to study tonight? に「はい」と答えるときの正しい応答は？",
+      "choices": ["Yes, I am.", "Yes, I do.", "Yes, I will going.", "Yes, you are."],
+      "answer": 0,
+      "explanation": "be going to の疑問文は be動詞で答える。Are you 〜? → Yes, I am. / No, I'm not."
+    }
+  ]
+}
