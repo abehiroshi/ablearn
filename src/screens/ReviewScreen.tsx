@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import type { ContentIndex } from "../types";
 import type { AppState } from "../lib/storage";
 import { buildSetLookup } from "../lib/content";
+import Abler from "../components/Abler";
 
 interface Props {
   index: ContentIndex;
@@ -34,8 +35,10 @@ export default function ReviewScreen({ index, wrongKeys, onStart }: Props) {
       <h1 className="screen-title">復習</h1>
       {wrongKeys.length === 0 ? (
         <div className="empty-note">
-          <p style={{ fontSize: 40, margin: 0 }}>🎉</p>
-          <p>にがて問題はありません。</p>
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 8 }}>
+            <Abler pose="nikkori" size={110} />
+          </div>
+          <p>にがて問題はないよ！すごい！</p>
           <p>間違えた問題がここにたまります。</p>
         </div>
       ) : (

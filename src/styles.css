@@ -634,6 +634,41 @@ input {
   border-bottom: none;
 }
 
+/* ===== マスコット Abler ===== */
+.abler {
+  display: block;
+  flex-shrink: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.abler-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.abler-bubble {
+  position: relative;
+  flex: 1;
+  background: var(--accent-soft);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.abler-bubble::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 8px solid transparent;
+  border-right-color: var(--accent-soft);
+  border-left: 0;
+}
+
 /* ===== その他 ===== */
 .empty-note {
   text-align: center;

@@ -1,5 +1,6 @@
 import type { SetMeta } from "../types";
 import type { AppState } from "../lib/storage";
+import Abler from "../components/Abler";
 
 interface Props {
   state: AppState;
@@ -22,9 +23,23 @@ export default function HomeScreen({
   onStartReview,
   onGoLibrary,
 }: Props) {
+  const greeting =
+    todayAnswered > 0
+      ? "きょうもがんばってるね！この調子！"
+      : wrongCount > 0
+        ? "にがて問題をやっつけよう！"
+        : streak > 1
+          ? `${streak}日連続！きょうも一緒にがんばろう！`
+          : "きょうも一緒にがんばろう！";
+
   return (
     <div className="screen">
       <h1 className="screen-title">Ablearn</h1>
+
+      <div className="card abler-card">
+        <Abler pose="main" size={104} />
+        <div className="abler-bubble">{greeting}</div>
+      </div>
 
       <div className="hero">
         <div className="stat-card">

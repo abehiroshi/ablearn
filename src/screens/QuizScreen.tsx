@@ -11,6 +11,7 @@ import {
   InputView,
   OrderView,
 } from "../components/QuestionViews";
+import Abler from "../components/Abler";
 
 interface Feedback {
   correct: boolean;
@@ -102,11 +103,13 @@ export default function QuizScreen({
     const results = [...firstResults.current.values()];
     const correctCount = results.filter(Boolean).length;
     const score = Math.round((correctCount / total) * 100);
-    const emoji = score === 100 ? "🏆" : score >= 80 ? "🎉" : score >= 50 ? "💪" : "🌱";
+    const pose = score === 100 ? "dekita" : score >= 80 ? "iine" : "ganbare";
     return (
       <div className="quiz-root">
         <div className="result-center">
-          <div className="result-emoji">{emoji}</div>
+          <div style={{ marginBottom: 12 }}>
+            <Abler pose={pose} size={150} />
+          </div>
           <div className="result-title">
             {score === 100 ? "パーフェクト！" : "おつかれさま！"}
           </div>
@@ -194,18 +197,23 @@ export default function QuizScreen({
 
         {feedback && (
           <div className={`feedback ${feedback.correct ? "ok" : "ng"}`}>
-            <div className="head">
-              {feedback.correct ? "せいかい！ 🎉" : "ざんねん…"}
-            </div>
-            {!feedback.correct && feedback.correctText && (
-              <div className="explanation">
-                <strong>正解: </strong>
-                {feedback.correctText}
+            <div className="row" style={{ alignItems: "flex-start" }}>
+              <Abler pose={feedback.correct ? "iine" : "kuyashii"} size={60} />
+              <div style={{ flex: 1 }}>
+                <div className="head">
+                  {feedback.correct ? "せいかい！ 🎉" : "ざんねん…"}
+                </div>
+                {!feedback.correct && feedback.correctText && (
+                  <div className="explanation">
+                    <strong>正解: </strong>
+                    {feedback.correctText}
+                  </div>
+                )}
+                {q.explanation && (
+                  <div className="explanation">{q.explanation}</div>
+                )}
               </div>
-            )}
-            {q.explanation && (
-              <div className="explanation">{q.explanation}</div>
-            )}
+            </div>
             <button
               className="primary-btn"
               onClick={() => advance(feedback.correct)}

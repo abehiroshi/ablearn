@@ -29,8 +29,14 @@
 - `input` の `answers` には漢字・ひらがな・別表記など想定される正解をすべて並べる（全角/半角・大文字小文字・空白は自動で吸収される）
 - `order` は「別の正しい並べ方」が存在しない文にする（チャンク化 `"to play"` などで一意にできる）
 
-## アイコン再生成
+## マスコット Abler
+
+`assets/image.png`（設定画シート）から、アプリ内で使う各ポーズ画像（`public/abler/`）と
+PWA アイコン（`public/icons/`）を生成する。シートを差し替えたら再実行する。
 
 ```sh
-node scripts/gen-icons.mjs
+node scripts/abler-build.mjs
 ```
+
+切り出し座標はスクリプト内の `CROPS` で定義。`scripts/gen-icons.mjs` は
+マスコットを使わないシンプルな「A」アイコンの生成用（予備）。
