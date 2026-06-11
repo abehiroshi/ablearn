@@ -26,7 +26,8 @@
 ## 並行トラック（アプリ機能キューと独立・いつでも着手可）
 
 - [20 中2・2学期コンテンツ](20-term2-content.md) — `public/content/` のみ。板橋区採択教科書に準拠。生成手順書を兼ねる
-- 外部制作タスクは [assets/TASKS.md](../../assets/TASKS.md)
+- [21 出典つきセット](21-set-origin.md) — origin フィールド＋Library表示（小さい。S系タスクの初回到着までに入れたい）
+- 外部制作・素材タスクは [assets/TASKS.md](../../assets/TASKS.md)（T系=制作依頼・S系=学校テスト写真の問題化）
 
 ## 後で計画化（着手が見えたら起こす）
 
