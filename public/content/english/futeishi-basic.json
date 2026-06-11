@@ -1,0 +1,72 @@
+{
+  "id": "eng-futeishi-basic",
+  "title": "不定詞の基本",
+  "description": "to + 動詞の原形（名詞的・形容詞的・副詞的用法）",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "choice",
+      "question": "I want ( ) tennis.\n「私はテニスをしたい」",
+      "choices": ["to play", "playing", "play", "played"],
+      "answer": 0,
+      "explanation": "want to + 動詞の原形 で「〜したい」。不定詞の名詞的用法。"
+    },
+    {
+      "id": "q2",
+      "type": "choice",
+      "question": "My dream is ( ) a teacher.\n「私の夢は先生になることです」",
+      "choices": ["to be", "be", "am", "being to"],
+      "answer": 0,
+      "explanation": "「〜になること」は to be 〜。不定詞の名詞的用法（補語）。"
+    },
+    {
+      "id": "q3",
+      "type": "choice",
+      "question": "I have a lot of homework ( ) today.\n「今日やるべき宿題がたくさんある」",
+      "choices": ["to do", "do", "doing", "did"],
+      "answer": 0,
+      "explanation": "homework to do で「やるべき宿題」。名詞をうしろから説明する形容詞的用法。"
+    },
+    {
+      "id": "q4",
+      "type": "choice",
+      "question": "不定詞の形として正しいのはどれ？",
+      "choices": [
+        "to + 動詞の原形",
+        "to + 動詞の過去形",
+        "to + 動詞のing形",
+        "to + 動詞の三人称単数形"
+      ],
+      "answer": 0,
+      "explanation": "不定詞は主語や時制に関係なく、いつでも to + 動詞の原形。"
+    },
+    {
+      "id": "q5",
+      "type": "order",
+      "question": "「私は医者になりたい」になるように並べよう",
+      "tokens": ["I", "want", "to", "be", "a doctor"],
+      "explanation": "want to be 〜 で「〜になりたい」。I want to be a doctor."
+    },
+    {
+      "id": "q6",
+      "type": "order",
+      "question": "「サッカーをすることは楽しい」になるように並べよう",
+      "tokens": ["It", "is", "fun", "to play", "soccer"],
+      "explanation": "It is … to 〜 で「〜することは…だ」。It is fun to play soccer."
+    },
+    {
+      "id": "q7",
+      "type": "order",
+      "question": "「私は友達に会うために大阪へ行った」になるように並べよう",
+      "tokens": ["I", "went", "to Osaka", "to see", "my friend"],
+      "explanation": "to see my friend が「会うために」という目的を表す副詞的用法。"
+    },
+    {
+      "id": "q8",
+      "type": "order",
+      "question": "「英語を勉強することは大切です」になるように並べよう",
+      "tokens": ["It", "is", "important", "to study", "English"],
+      "explanation": "It is important to 〜 で「〜することは大切だ」。"
+    }
+  ]
+}

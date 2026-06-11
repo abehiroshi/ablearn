@@ -1,0 +1,71 @@
+{
+  "id": "math-renritsu-basic",
+  "title": "連立方程式の基本",
+  "description": "加減法・代入法の基本問題",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "choice",
+      "question": "連立方程式\nx + y = 5\nx − y = 1\nの解はどれ？",
+      "choices": ["x = 3, y = 2", "x = 2, y = 3", "x = 4, y = 1", "x = 1, y = 4"],
+      "answer": 0,
+      "explanation": "2つの式を足すと 2x = 6 となり x = 3。x + y = 5 に代入して y = 2。"
+    },
+    {
+      "id": "q2",
+      "type": "choice",
+      "question": "y = 2x のとき、\n2x + y = 8\nを満たす x, y はどれ？",
+      "choices": ["x = 2, y = 4", "x = 4, y = 2", "x = 1, y = 2", "x = 3, y = 6"],
+      "answer": 0,
+      "explanation": "y = 2x を代入すると 2x + 2x = 8 → 4x = 8 → x = 2。よって y = 4。これが代入法。"
+    },
+    {
+      "id": "q3",
+      "type": "choice",
+      "question": "連立方程式\n3x + 2y = 11\nx − 2y = 1\nの解はどれ？",
+      "choices": ["x = 3, y = 1", "x = 1, y = 3", "x = 2, y = 2", "x = 4, y = −1"],
+      "answer": 0,
+      "explanation": "2つの式を足すと 2y が消えて 4x = 12 → x = 3。3×3 + 2y = 11 → 2y = 2 → y = 1。これが加減法。"
+    },
+    {
+      "id": "q4",
+      "type": "choice",
+      "question": "りんご2個とみかん3個で390円、りんご1個とみかん2個で220円。りんご1個の値段は？",
+      "choices": ["120円", "100円", "150円", "90円"],
+      "answer": 0,
+      "explanation": "りんご a 円、みかん b 円とすると 2a + 3b = 390、a + 2b = 220。下の式を2倍して引くと b = 50。よって a = 220 − 100 = 120円。"
+    },
+    {
+      "id": "q5",
+      "type": "input",
+      "question": "連立方程式\nx + y = 7\nx − y = 3\nのとき、x の値は？",
+      "answers": ["5", "x=5", "５"],
+      "placeholder": "数字で答えよう",
+      "explanation": "2つの式を足すと 2x = 10 → x = 5。（y = 2）"
+    },
+    {
+      "id": "q6",
+      "type": "input",
+      "question": "2x + y = 10 で y = 4 のとき、x の値は？",
+      "answers": ["3", "x=3", "３"],
+      "placeholder": "数字で答えよう",
+      "explanation": "2x + 4 = 10 → 2x = 6 → x = 3。"
+    },
+    {
+      "id": "q7",
+      "type": "input",
+      "question": "連立方程式\nx + 3y = 11\nx + y = 5\nのとき、y の値は？",
+      "answers": ["3", "y=3", "３"],
+      "placeholder": "数字で答えよう",
+      "explanation": "上の式から下の式を引くと 2y = 6 → y = 3。（x = 2）"
+    },
+    {
+      "id": "q8",
+      "type": "choice",
+      "question": "「一方の式を y = … の形にして、もう一方の式にあてはめて文字を消す」解き方を何という？",
+      "choices": ["代入法", "加減法", "移項法", "通分法"],
+      "answer": 0,
+      "explanation": "式を代入して文字を1つ消すのが代入法。式どうしを足したり引いたりして消すのが加減法。"
+    }
+  ]
+}

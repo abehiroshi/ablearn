@@ -1,0 +1,17 @@
+{
+  "id": "eng-words-1",
+  "title": "重要単語 その1",
+  "description": "中2でよく出る英単語",
+  "questions": [
+    { "id": "w1", "type": "flashcard", "front": "important", "back": "大切な、重要な" },
+    { "id": "w2", "type": "flashcard", "front": "foreign", "back": "外国の" },
+    { "id": "w3", "type": "flashcard", "front": "weather", "back": "天気" },
+    { "id": "w4", "type": "flashcard", "front": "vacation", "back": "休暇、休み" },
+    { "id": "w5", "type": "flashcard", "front": "decide", "back": "決める" },
+    { "id": "w6", "type": "flashcard", "front": "arrive", "back": "到着する" },
+    { "id": "w7", "type": "flashcard", "front": "borrow", "back": "借りる" },
+    { "id": "w8", "type": "flashcard", "front": "famous", "back": "有名な" },
+    { "id": "w9", "type": "flashcard", "front": "experience", "back": "経験" },
+    { "id": "w10", "type": "flashcard", "front": "necessary", "back": "必要な" }
+  ]
+}
