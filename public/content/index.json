@@ -197,6 +197,82 @@
           ]
         }
       ]
+    },
+    {
+      "id": "music",
+      "name": "音楽",
+      "color": "#e64aa0",
+      "icon": "🎵",
+      "units": [
+        {
+          "id": "gakuten",
+          "name": "楽典・音楽記号",
+          "sets": [
+            {
+              "id": "mus-gakuten-kigou",
+              "name": "楽典・音楽記号の基礎",
+              "file": "music/gakuten-kigou.json"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "art",
+      "name": "美術",
+      "color": "#00b8a2",
+      "icon": "🎨",
+      "units": [
+        {
+          "id": "shikisai",
+          "name": "色彩",
+          "sets": [
+            {
+              "id": "art-shikisai",
+              "name": "色彩の基礎",
+              "file": "art/shikisai.json"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pe",
+      "name": "保健体育",
+      "color": "#a2845e",
+      "icon": "🏃",
+      "units": [
+        {
+          "id": "tairyoku",
+          "name": "体力テスト・運動と健康",
+          "sets": [
+            {
+              "id": "pe-tairyoku-kenkou",
+              "name": "体力テストと運動の基礎知識",
+              "file": "pe/tairyoku-kenkou.json"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tech-home",
+      "name": "技術家庭",
+      "color": "#5856d6",
+      "icon": "🛠️",
+      "units": [
+        {
+          "id": "shoku",
+          "name": "食生活（家庭分野）",
+          "sets": [
+            {
+              "id": "tech-shokuseikatsu",
+              "name": "食生活と栄養",
+              "file": "tech-home/shokuseikatsu.json"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
