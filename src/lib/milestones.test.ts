@@ -132,6 +132,7 @@ describe("describeMilestone / totalAnswers", () => {
   it("祝福済みIDからバッジ表示を復元できる", () => {
     expect(describeMilestone("answers:100", null)?.label).toContain("100");
     expect(describeMilestone("unit:math/u1:50", COUNTS)?.label).toContain("式の計算");
+    expect(describeMilestone("skin:skin1", null)?.label).toContain("きせかえ");
     expect(describeMilestone("unknown:1", null)).toBeNull();
   });
 

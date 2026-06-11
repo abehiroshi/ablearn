@@ -1,8 +1,8 @@
 # マスコットスキンの解放（ご褒美の最上位）
 
-- 状態: 未着手
+- 状態: 完了（2026-06-12）※スキン第1弾の絵は T-001 納品待ち（仕組みは動作済み）
 - 触るファイル範囲: `scripts/abler-build.mjs`（複数シート対応）・`src/components/Abler.tsx`・`src/lib/storage.ts`（解放・選択状態）・着せ替えUI（Stats か Home）
-- 引き継ぎメモ: 最初のスキンの設定画シートは外部制作（`assets/TASKS.md` の T-001）。仕組み＝受け入れ口を先に作っておく
+- 引き継ぎメモ: レジストリは `src/lib/skins.ts`（skin1「ひみつのきせかえ」= streak:30 で解放）。解放状態は celebrated から導出・選択は selectedSkin。シート未納品の間は Abler の onError フォールバックでメインのポーズ代用（非スコープ欄のフォールバック案を採用）。T-001 納品後は `node scripts/abler-build.mjs assets/skins/skin1.png public/abler/skins/skin1` で切り出してコミットするだけ（コード変更不要）。スキン名・解放条件を変えるならレジストリを編集
 
 ## 目的
 

@@ -76,6 +76,8 @@ export interface AppState {
   mockResults: MockResult[];
   /** 祝福済みの節目ID（計画18。同じ節目を二度祝福しない） */
   celebrated: string[];
+  /** 選択中のマスコットスキン（計画19。解放状態は celebrated から導出） */
+  selectedSkin: string;
   /** concept → 習熟度（計画12。型は src/lib/mastery.ts の ConceptMastery） */
   mastery: Record<
     string,
@@ -104,6 +106,7 @@ export function emptyState(): AppState {
     test: null,
     mockResults: [],
     celebrated: [],
+    selectedSkin: "main",
     mastery: {},
   };
 }

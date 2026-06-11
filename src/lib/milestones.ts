@@ -5,6 +5,7 @@
 import type { ContentIndex, QuestionSet } from "../types";
 import type { AppState } from "./storage";
 import { todayKey } from "./storage";
+import { skinById } from "./skins";
 
 // 後ろほど間隔を広げる
 export const ANSWER_STEPS = [100, 300, 500, 1000, 2000, 3000, 5000, 10000];
@@ -282,6 +283,15 @@ export function describeMilestone(
         emoji: n === 100 ? "👑" : "🌟",
         label: `${name} ${n}%`,
         big: n >= 75,
+      };
+    }
+    case "skin": {
+      // スキン解放の祝福（計画19）もバッジ棚に残す
+      return {
+        id,
+        emoji: "🎁",
+        label: `きせかえ「${skinById(a).name}」`,
+        big: true,
       };
     }
     default:

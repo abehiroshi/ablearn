@@ -1,6 +1,10 @@
 // マスコット Abler の設定画シート (assets/original.png) から
 // 各ポーズ・表情を切り出して public/abler/ (WebP) と PWA アイコンを生成する。
 // 使い方: node scripts/abler-build.mjs（要 cwebp: brew install webp）
+// スキン（計画19）: 同じポーズ配置のシートなら
+//   node scripts/abler-build.mjs assets/skins/<id>.png public/abler/skins/<id>
+// で切り出せる（PWA アイコンは正式出力先のときだけ更新される）。
+// シートのサイズが違う場合は CROP_PROFILES にそのサイズの定義を足す。
 import { deflateSync, inflateSync } from "node:zlib";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";

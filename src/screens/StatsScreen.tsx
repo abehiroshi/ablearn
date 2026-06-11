@@ -16,6 +16,8 @@ import {
   touchedCounts,
   weekAnswers,
 } from "../lib/milestones";
+import { SKINS, isUnlocked } from "../lib/skins";
+import Abler from "../components/Abler";
 import {
   AccuracyBars,
   EmptyChart,
@@ -29,11 +31,18 @@ interface Props {
   state: AppState;
   counts: ContentCounts | null;
   onImport: (state: AppState) => void;
+  onSelectSkin: (id: string) => void;
 }
 
 const DOW = ["日", "月", "火", "水", "木", "金", "土"];
 
-export default function StatsScreen({ index, state, counts, onImport }: Props) {
+export default function StatsScreen({
+  index,
+  state,
+  counts,
+  onImport,
+  onSelectSkin,
+}: Props) {
   const bySubject = useMemo(
     () => subjectAccuracy(index, state),
     [index, state.questionStats]
@@ -223,6 +232,38 @@ export default function StatsScreen({ index, state, counts, onImport }: Props) {
         <div className="list-row">
           <span style={{ flex: 1 }}>累計の解答回数（リトライ込み）</span>
           <span style={{ fontWeight: 700 }}>{totalAnswers(state)}回</span>
+        </div>
+      </div>
+
+      <div className="card">
+        <div style={{ fontWeight: 700, marginBottom: 8 }}>きせかえ</div>
+        <div className="skin-grid">
+          {SKINS.map((skin) => {
+            const unlocked = isUnlocked(skin, state);
+            const selected = state.selectedSkin === skin.id;
+            return (
+              <button
+                key={skin.id}
+                className={`skin-card ${selected ? "selected" : ""} ${unlocked ? "" : "locked"}`}
+                disabled={!unlocked}
+                onClick={() => onSelectSkin(skin.id)}
+              >
+                <span className="skin-thumb">
+                  <Abler pose="main" size={64} skinId={skin.id} />
+                </span>
+                <span className="skin-name">
+                  {unlocked ? skin.name : "？？？"}
+                </span>
+                <span className="muted" style={{ fontSize: 11 }}>
+                  {selected
+                    ? "つかってる"
+                    : unlocked
+                      ? "えらぶ"
+                      : `🔒 ${skin.unlockLabel}`}
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
 

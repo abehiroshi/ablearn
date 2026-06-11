@@ -34,6 +34,8 @@ import TestSetupScreen from "./screens/TestSetupScreen";
 import MockTestScreen from "./screens/MockTestScreen";
 import LessonScreen from "./screens/LessonScreen";
 import FooterNav from "./components/FooterNav";
+import { SkinContext } from "./components/Abler";
+import { skinUnlockedBy } from "./lib/skins";
 
 export type Tab = "home" | "library" | "mock" | "review" | "stats";
 
@@ -225,6 +227,18 @@ export default function App() {
       correct,
       counts,
     });
+    // 節目がスキンを解放するなら、解放の祝福も添える（記録は不要＝節目側が一度きり）
+    for (const m of [...milestones]) {
+      const skin = skinUnlockedBy(m.id);
+      if (skin) {
+        milestones.push({
+          id: `skin:${skin.id}`,
+          emoji: "🎁",
+          label: `きせかえ「${skin.name}」がアンロック！`,
+          big: true,
+        });
+      }
+    }
     setState((prev) => {
       // 「わからない」も復習対象には不正解として入れる（履歴では区別する）
       let s = recordStat
@@ -310,7 +324,7 @@ export default function App() {
   const today = state.dailyLog[todayKey()];
 
   return (
-    <>
+    <SkinContext.Provider value={state.selectedSkin}>
       {tab === "home" && (
         <HomeScreen
           state={state}
@@ -356,6 +370,9 @@ export default function App() {
           state={state}
           counts={counts}
           onImport={(s) => setState(s)}
+          onSelectSkin={(id) =>
+            setState((prev) => ({ ...prev, selectedSkin: id }))
+          }
         />
       )}
       {tab === "mock" && (
@@ -413,6 +430,6 @@ export default function App() {
           onClose={() => setLesson(null)}
         />
       )}
-    </>
+    </SkinContext.Provider>
   );
 }

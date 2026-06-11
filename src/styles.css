@@ -596,6 +596,39 @@ input {
   color: var(--accent);
 }
 
+/* きせかえ（計画19） */
+.skin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 10px;
+}
+
+.skin-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 6px;
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
+}
+
+.skin-card.selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.skin-card .skin-name {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.skin-card.locked .abler {
+  /* 未解放はシルエット（次の目標の可視化を兼ねる） */
+  filter: brightness(0) opacity(0.25);
+}
+
 /* つまずき誘導（計画13） */
 .struggle-box {
   background: var(--card);
