@@ -29,7 +29,8 @@ interface Props {
     correct: boolean,
     xp: number,
     recordStat: boolean,
-    timeMs: number
+    timeMs: number,
+    hintsUsed: number
   ) => void;
   onFinish: (score: number) => void;
   onClose: () => void;
@@ -51,6 +52,8 @@ export default function QuizScreen({
   const [sessionXp, setSessionXp] = useState(0);
   // 手書き計算余白（スマホはオーバーレイ開閉、タブレット横画面では常時表示）
   const [scratchOpen, setScratchOpen] = useState(false);
+  // 現在の問題で開いたヒントの段階数。次の問題・リトライでリセット
+  const [hintsShown, setHintsShown] = useState(0);
   // セッション内の初回解答の結果（スコア計算用）。再描画不要なので ref
   const firstResults = useRef(new Map<string, boolean>());
   // 現在の問題が表示された時刻。解答時間（表示→確定）の計測用
@@ -73,9 +76,19 @@ export default function QuizScreen({
     let xp = 0;
     if (correct) {
       if (current.question.type === "flashcard") xp = XP_FLASHCARD;
+      // ヒントを使った正解はリトライ正解と同額（+5）
+      else if (hintsShown > 0) xp = XP_RETRY_CORRECT;
       else xp = isFirst ? XP_FIRST_CORRECT : XP_RETRY_CORRECT;
     }
-    onAnswer(current.setId, current.question.id, correct, xp, isFirst, timeMs);
+    onAnswer(
+      current.setId,
+      current.question.id,
+      correct,
+      xp,
+      isFirst,
+      timeMs,
+      hintsShown
+    );
     setSessionXp((v) => v + xp);
 
     // フラッシュカードは自己申告なのでフィードバックを挟まず次へ
@@ -91,6 +104,7 @@ export default function QuizScreen({
   function advance(correct: boolean) {
     setFeedback(null);
     setAttempt((a) => a + 1);
+    setHintsShown(0);
     shownAt.current = Date.now();
     if (correct) {
       const nextDone = done + 1;
@@ -211,6 +225,29 @@ export default function QuizScreen({
             disabled={!!feedback}
             onSubmit={submit}
           />
+        )}
+
+        {q.hints && q.hints.length > 0 && !feedback && (
+          <div className="hint-area">
+            {q.hints.slice(0, hintsShown).map((hint, i) => (
+              <div key={i} className="hint-row">
+                <Abler
+                  pose={i === q.hints!.length - 1 ? "hirameita" : "kangaechu"}
+                  size={44}
+                />
+                <div className="hint-bubble">{hint}</div>
+              </div>
+            ))}
+            {hintsShown < q.hints.length && (
+              <button
+                className="hint-btn"
+                onClick={() => setHintsShown((v) => v + 1)}
+              >
+                💡 {hintsShown === 0 ? "ヒントを見る" : "つぎのヒント"}（
+                {hintsShown + 1}/{q.hints.length}）
+              </button>
+            )}
+          </div>
         )}
 
         {feedback && (

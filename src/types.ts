@@ -10,6 +10,10 @@ export interface BaseQuestion {
   type: QuestionType;
   /** 解答後に表示する解説 */
   explanation?: string;
+  /** 基本=1 / 標準=2 / 応用=3。未設定は標準（2）扱い */
+  difficulty?: 1 | 2 | 3;
+  /** 段階的ヒント。弱→強の順 */
+  hints?: string[];
 }
 
 /** 選択式（4択など） */

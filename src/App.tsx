@@ -139,13 +139,14 @@ export default function App() {
     correct: boolean,
     xp: number,
     recordStat: boolean,
-    timeMs: number
+    timeMs: number,
+    hintsUsed: number
   ) {
     setState((prev) => {
       let s = recordStat
         ? recordQuestion(prev, setId, questionId, correct)
         : prev;
-      s = recordHistory(s, setId, questionId, correct, timeMs);
+      s = recordHistory(s, setId, questionId, correct, timeMs, hintsUsed);
       s = addDailyLog(s, { answered: 1, correct: correct ? 1 : 0, xp });
       s = { ...s, xp: s.xp + xp };
       return touchStreak(s);

@@ -737,6 +737,42 @@ input {
   border-bottom: none;
 }
 
+/* ===== 段階的ヒント ===== */
+.hint-area {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hint-btn {
+  align-self: flex-start;
+  background: #fff7e0;
+  color: #b07d00;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1.5px solid #f0dca0;
+}
+
+.hint-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  animation: fadein 0.25s ease;
+}
+
+.hint-bubble {
+  flex: 1;
+  background: #fff7e0;
+  border: 1.5px solid #f0dca0;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
 /* ===== 模擬テスト ===== */
 .mock-timer {
   font-weight: 800;

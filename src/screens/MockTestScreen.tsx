@@ -28,7 +28,8 @@ interface Props {
     correct: boolean,
     xp: number,
     recordStat: boolean,
-    timeMs: number
+    timeMs: number,
+    hintsUsed: number
   ) => void;
   onFinishMock: (result: MockResult) => void;
   onClose: () => void;
@@ -139,7 +140,22 @@ export default function MockTestScreen({
         alert("出題できる問題がありません");
         return;
       }
-      const picked = shuffle(all).slice(0, n);
+      // 難易度バランス出題: 応用（difficulty 3）を約3割、残りを基本・標準から。
+      // 足りない分は反対側から補う
+      const isAdv = (i: Item) => (i.question.difficulty ?? 2) === 3;
+      const adv = shuffle(all.filter(isAdv));
+      const basic = shuffle(all.filter((i) => !isAdv(i)));
+      const nAdv = Math.min(adv.length, Math.round(n * 0.3));
+      const nBasic = Math.min(basic.length, n - nAdv);
+      const picked = shuffle(
+        [
+          ...basic.slice(0, nBasic),
+          ...adv.slice(0, nAdv),
+          // どちらかが不足したときの補充
+          ...basic.slice(nBasic),
+          ...adv.slice(nAdv),
+        ].slice(0, n)
+      );
       results.current = picked.map(() => null);
       endsAt.current = Date.now() + minutes * 60_000;
       shownAt.current = Date.now();
@@ -176,7 +192,8 @@ export default function MockTestScreen({
       correct,
       xp,
       true,
-      Date.now() - shownAt.current
+      Date.now() - shownAt.current,
+      0 // 模擬テストにヒントはない
     );
     shownAt.current = Date.now();
     if (pos + 1 >= items.length) {

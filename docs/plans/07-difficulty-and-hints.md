@@ -1,8 +1,8 @@
 # 難易度と段階的ヒント
 
-- 状態: 未着手
+- 状態: 完了（2026-06-12）
 - 触るファイル範囲: `src/types.ts`・`src/components/QuestionViews.tsx`・`src/screens/QuizScreen.tsx`・`public/content/math/`（遡及タグ付け）
-- 引き継ぎメモ: なし
+- 引き継ぎメモ: ヒントUIは QuizScreen 内（模擬テストには出ない）。数学4セット34問すべてに difficulty/hints 付与済み。模擬テストの難易度バランス出題（応用3割）も有効化済み。他教科のタグ付けはコンテンツ作業（03など）の流れで順次
 
 ## 目的
 
