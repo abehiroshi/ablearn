@@ -15,6 +15,15 @@ export interface QuestionStat {
   updatedAt: string;
 }
 
+export interface QuestionDayStat {
+  correct: number;
+  wrong: number;
+  /** 予約フィールド。記録開始は難易度・ヒント（計画07）の実装後 */
+  hints: number;
+  /** 問題表示から解答確定までの合計（ms） */
+  timeMs: number;
+}
+
 export interface SetRecord {
   attempts: number;
   /** ベストスコア（正答率 0-100） */
@@ -31,6 +40,8 @@ export interface AppState {
   /** "setId/questionId" → 成績 */
   questionStats: Record<string, QuestionStat>;
   setRecords: Record<string, SetRecord>;
+  /** "YYYY-MM-DD" → "setId/questionId" → 日次集計（成長グラフの元データ） */
+  history: Record<string, Record<string, QuestionDayStat>>;
 }
 
 const KEY = "ablearn:v1";
@@ -42,6 +53,7 @@ export function emptyState(): AppState {
     dailyLog: {},
     questionStats: {},
     setRecords: {},
+    history: {},
   };
 }
 
@@ -159,6 +171,36 @@ export function recordSetResult(
         best: Math.max(cur.best, score),
         lastScore: score,
         lastAt: new Date().toISOString(),
+      },
+    },
+  };
+}
+
+/** 当日の問題別履歴に1解答分を加算する（リトライも含めすべての解答が対象） */
+export function recordHistory(
+  state: AppState,
+  setId: string,
+  questionId: string,
+  isCorrect: boolean,
+  timeMs: number,
+  hints = 0
+): AppState {
+  const day = todayKey();
+  const key = `${setId}/${questionId}`;
+  const dayStats = state.history[day] ?? {};
+  const cur = dayStats[key] ?? { correct: 0, wrong: 0, hints: 0, timeMs: 0 };
+  return {
+    ...state,
+    history: {
+      ...state.history,
+      [day]: {
+        ...dayStats,
+        [key]: {
+          correct: cur.correct + (isCorrect ? 1 : 0),
+          wrong: cur.wrong + (isCorrect ? 0 : 1),
+          hints: cur.hints + hints,
+          timeMs: cur.timeMs + Math.max(0, Math.round(timeMs)),
+        },
       },
     },
   };

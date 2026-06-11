@@ -27,7 +27,8 @@ interface Props {
     questionId: string,
     correct: boolean,
     xp: number,
-    recordStat: boolean
+    recordStat: boolean,
+    timeMs: number
   ) => void;
   onFinish: (score: number) => void;
   onClose: () => void;
@@ -49,6 +50,8 @@ export default function QuizScreen({
   const [sessionXp, setSessionXp] = useState(0);
   // セッション内の初回解答の結果（スコア計算用）。再描画不要なので ref
   const firstResults = useRef(new Map<string, boolean>());
+  // 現在の問題が表示された時刻。解答時間（表示→確定）の計測用
+  const shownAt = useRef(Date.now());
 
   const total = items.length;
   const current = queue[0];
@@ -62,13 +65,14 @@ export default function QuizScreen({
     const key = keyOf(current);
     const isFirst = !firstResults.current.has(key);
     if (isFirst) firstResults.current.set(key, correct);
+    const timeMs = Date.now() - shownAt.current;
 
     let xp = 0;
     if (correct) {
       if (current.question.type === "flashcard") xp = XP_FLASHCARD;
       else xp = isFirst ? XP_FIRST_CORRECT : XP_RETRY_CORRECT;
     }
-    onAnswer(current.setId, current.question.id, correct, xp, isFirst);
+    onAnswer(current.setId, current.question.id, correct, xp, isFirst, timeMs);
     setSessionXp((v) => v + xp);
 
     // フラッシュカードは自己申告なのでフィードバックを挟まず次へ
@@ -82,6 +86,7 @@ export default function QuizScreen({
   function advance(correct: boolean) {
     setFeedback(null);
     setAttempt((a) => a + 1);
+    shownAt.current = Date.now();
     if (correct) {
       const nextDone = done + 1;
       setDone(nextDone);

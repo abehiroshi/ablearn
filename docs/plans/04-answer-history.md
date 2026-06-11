@@ -1,8 +1,8 @@
 # 解答履歴の記録（成長グラフの基盤）
 
-- 状態: 未着手
+- 状態: 完了（2026-06-12）
 - 触るファイル範囲: `src/lib/storage.ts`・各画面の解答確定処理
-- 引き継ぎメモ: なし
+- 引き継ぎメモ: `AppState.history` に日次集計を記録開始。`hints` は予約フィールドで常に0（[07](07-difficulty-and-hints.md) 実装時に `recordHistory` の `hints` 引数へ渡す）。Breaker 指摘の major 2件（StrictMode での ref リセット・時計巻き戻し）は検証の結果いずれも誤検出と判断
 
 ## 目的
 

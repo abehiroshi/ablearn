@@ -6,6 +6,7 @@ import {
   addDailyLog,
   currentStreak,
   loadState,
+  recordHistory,
   recordQuestion,
   recordSetResult,
   saveState,
@@ -138,12 +139,14 @@ export default function App() {
     questionId: string,
     correct: boolean,
     xp: number,
-    recordStat: boolean
+    recordStat: boolean,
+    timeMs: number
   ) {
     setState((prev) => {
       let s = recordStat
         ? recordQuestion(prev, setId, questionId, correct)
         : prev;
+      s = recordHistory(s, setId, questionId, correct, timeMs);
       s = addDailyLog(s, { answered: 1, correct: correct ? 1 : 0, xp });
       s = { ...s, xp: s.xp + xp };
       return touchStreak(s);
