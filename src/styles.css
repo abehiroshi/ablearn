@@ -669,6 +669,235 @@ input {
   border-left: 0;
 }
 
+/* ===== テスト登録・テストモード ===== */
+.modal-screen {
+  position: fixed;
+  inset: 0;
+  margin: 0 auto;
+  max-width: 560px;
+  background: var(--bg);
+  z-index: 20;
+  overflow-y: auto;
+  padding: max(env(safe-area-inset-top, 0px), 16px) 16px
+    calc(24px + var(--safe-bottom));
+  animation: slideup 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.field-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-2);
+  margin-bottom: 8px;
+}
+
+.text-input {
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 14px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  outline: none;
+  background: var(--card);
+}
+
+.text-input:focus {
+  border-color: var(--accent);
+}
+
+.test-day-edit {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+.icon-btn {
+  font-size: 16px;
+  color: var(--text-2);
+  padding: 4px 8px;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-weight: 600;
+  font-size: 14px;
+  background: var(--card);
+}
+
+.chip.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.chip-order {
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  min-width: 17px;
+  height: 17px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.check-row:last-child {
+  border-bottom: none;
+}
+
+.checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  border: 2px solid var(--border);
+  background: var(--card);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.checkbox.on {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.danger-btn {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  background: var(--red-soft);
+  color: var(--red);
+  font-weight: 700;
+  font-size: 15px;
+  padding: 13px;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.ghost-btn {
+  display: block;
+  width: 100%;
+  color: var(--text-2);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px;
+  text-align: center;
+}
+
+.link-btn {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.test-card .countdown {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--accent);
+  margin: 8px 0;
+}
+
+.schedule {
+  margin-top: 4px;
+}
+
+.sched-day {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.sched-day:last-child {
+  border-bottom: none;
+}
+
+.sched-day.passed {
+  opacity: 0.45;
+}
+
+.sched-date {
+  font-weight: 700;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.today-pill {
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+.sched-subjects {
+  flex: 1;
+}
+
+.rec-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.rec-row:last-child {
+  border-bottom: none;
+  padding-bottom: 4px;
+}
+
+.unit-toggle {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--text-2);
+  border: 1.5px solid var(--border);
+  white-space: nowrap;
+}
+
+.unit-toggle.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
 /* ===== その他 ===== */
 .empty-note {
   text-align: center;

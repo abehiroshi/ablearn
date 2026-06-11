@@ -6,12 +6,19 @@ interface Props {
   index: ContentIndex;
   state: AppState;
   onStartSet: (meta: SetMeta) => void;
+  onToggleUnit: (subjectId: string, unitId: string) => void;
 }
 
-export default function LibraryScreen({ index, state, onStartSet }: Props) {
+export default function LibraryScreen({
+  index,
+  state,
+  onStartSet,
+  onToggleUnit,
+}: Props) {
   const [subject, setSubject] = useState<Subject | null>(null);
 
   if (subject) {
+    const currentIds = state.currentUnits[subject.id] ?? [];
     return (
       <div className="screen">
         <button className="back-btn" onClick={() => setSubject(null)}>
@@ -20,9 +27,21 @@ export default function LibraryScreen({ index, state, onStartSet }: Props) {
         <h1 className="screen-title">
           {subject.icon} {subject.name}
         </h1>
+        <p className="muted" style={{ marginTop: -8, marginBottom: 12 }}>
+          いま授業でやっている単元に「授業中」マークをつけると、
+          ホームのおすすめに出るよ
+        </p>
         {subject.units.map((unit) => (
           <div key={unit.id}>
-            <div className="unit-header">{unit.name}</div>
+            <div className="unit-header row" style={{ gap: 8 }}>
+              <span style={{ flex: 1 }}>{unit.name}</span>
+              <button
+                className={`unit-toggle ${currentIds.includes(unit.id) ? "active" : ""}`}
+                onClick={() => onToggleUnit(subject.id, unit.id)}
+              >
+                {currentIds.includes(unit.id) ? "✓ 授業中" : "授業中にする"}
+              </button>
+            </div>
             {unit.sets.map((meta) => {
               const rec = state.setRecords[meta.id];
               return (

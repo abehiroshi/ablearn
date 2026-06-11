@@ -32,6 +32,20 @@ export interface SetRecord {
   lastAt: string;
 }
 
+/** テストの1日分: 日付とその日に受ける教科の並び */
+export interface TestDay {
+  date: string; // "YYYY-MM-DD"
+  subjects: string[]; // subjectId の並び
+}
+
+/** 次のテスト（1件のみ）。最終日を過ぎたらクリアして日常モードへ戻る */
+export interface TestPlan {
+  name: string;
+  days: TestDay[];
+  /** subjectId → テスト範囲のセットID群 */
+  range: Record<string, string[]>;
+}
+
 export interface AppState {
   xp: number;
   streak: { count: number; lastDate: string };
@@ -42,6 +56,9 @@ export interface AppState {
   setRecords: Record<string, SetRecord>;
   /** "YYYY-MM-DD" → "setId/questionId" → 日次集計（成長グラフの元データ） */
   history: Record<string, Record<string, QuestionDayStat>>;
+  /** subjectId → いま授業でやっている単元ID群 */
+  currentUnits: Record<string, string[]>;
+  test: TestPlan | null;
 }
 
 const KEY = "ablearn:v1";
@@ -54,6 +71,8 @@ export function emptyState(): AppState {
     questionStats: {},
     setRecords: {},
     history: {},
+    currentUnits: {},
+    test: null,
   };
 }
 

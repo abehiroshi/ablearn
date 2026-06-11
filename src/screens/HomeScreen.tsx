@@ -1,30 +1,65 @@
-import type { SetMeta } from "../types";
+import type { SetMeta, Subject } from "../types";
 import type { AppState } from "../lib/storage";
+import { todayKey } from "../lib/storage";
+import type { Recommendation } from "../lib/recommend";
+import { daysBetweenISO, isTestActive, isTestOver } from "../lib/recommend";
 import Abler from "../components/Abler";
 
 interface Props {
   state: AppState;
   streak: number;
   todayAnswered: number;
-  recommended: SetMeta | null;
+  recommendations: Recommendation[];
   wrongCount: number;
-  onStartRecommended: () => void;
+  subjects: Subject[];
+  onStartSet: (meta: SetMeta) => void;
   onStartReview: () => void;
   onGoLibrary: () => void;
+  onEditTest: () => void;
+  onClearTest: () => void;
+}
+
+const DOW = ["日", "月", "火", "水", "木", "金", "土"];
+
+function formatDay(date: string): string {
+  const d = new Date(`${date}T00:00:00`);
+  return `${d.getMonth() + 1}/${d.getDate()}(${DOW[d.getDay()]})`;
 }
 
 export default function HomeScreen({
   state,
   streak,
   todayAnswered,
-  recommended,
+  recommendations,
   wrongCount,
-  onStartRecommended,
+  subjects,
+  onStartSet,
   onStartReview,
   onGoLibrary,
+  onEditTest,
+  onClearTest,
 }: Props) {
-  const greeting =
-    todayAnswered > 0
+  const today = todayKey();
+  const testActive = isTestActive(state.test, today);
+  const testOver = isTestOver(state.test, today);
+  const subjectById = new Map(subjects.map((s) => [s.id, s]));
+
+  // テストの最初の残り日まで（テスト前はカウントダウン、期間中は「テスト期間中」）
+  const firstRemaining = testActive
+    ? state.test!.days
+        .map((d) => d.date)
+        .filter((d) => d >= today)
+        .sort()[0]
+    : undefined;
+  const countdown =
+    firstRemaining !== undefined ? daysBetweenISO(today, firstRemaining) : null;
+  const started = testActive && state.test!.days.some((d) => d.date < today);
+
+  const greeting = testActive
+    ? countdown === 0
+      ? "きょうはテスト！おちついていこう！"
+      : `テストまであと${countdown}日。いっしょにがんばろう！`
+    : todayAnswered > 0
       ? "きょうもがんばってるね！この調子！"
       : wrongCount > 0
         ? "にがて問題をやっつけよう！"
@@ -56,17 +91,101 @@ export default function HomeScreen({
         </div>
       </div>
 
-      {recommended && (
+      {testOver && (
+        <div className="card">
+          <div className="row" style={{ marginBottom: 12 }}>
+            <Abler pose="dekita" size={64} />
+            <div>
+              <div style={{ fontWeight: 800 }}>
+                「{state.test!.name}」おつかれさま！
+              </div>
+              <div className="muted">よくがんばったね。次に進もう！</div>
+            </div>
+          </div>
+          <button className="secondary-btn" onClick={onClearTest}>
+            登録をクリアして日常モードへ
+          </button>
+        </div>
+      )}
+
+      {testActive && (
+        <div className="card test-card">
+          <div className="row">
+            <span style={{ fontWeight: 800, fontSize: 17 }}>
+              📝 {state.test!.name}
+            </span>
+            <span className="spacer" />
+            <button className="link-btn" onClick={onEditTest}>
+              編集
+            </button>
+          </div>
+          <div className="countdown">
+            {countdown === 0
+              ? "きょうはテスト当日！"
+              : started
+                ? `テスト期間中（次まであと${countdown}日）`
+                : `あと ${countdown} 日`}
+          </div>
+          <div className="schedule">
+            {state.test!.days.map((day, i) => {
+              const passed = day.date < today;
+              return (
+                <div key={i} className={`sched-day ${passed ? "passed" : ""}`}>
+                  <span className="sched-date">
+                    {formatDay(day.date)}
+                    {day.date === today && <span className="today-pill">きょう</span>}
+                  </span>
+                  <span className="sched-subjects">
+                    {day.subjects
+                      .map((id) => subjectById.get(id))
+                      .filter(Boolean)
+                      .map((s) => `${s!.icon}${s!.name}`)
+                      .join("・")}
+                  </span>
+                  {passed && <span className="muted">✓ 終了</span>}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {recommendations.length > 0 && (
         <div className="card">
           <div className="muted" style={{ marginBottom: 4 }}>
             きょうのおすすめ
           </div>
-          <div style={{ fontWeight: 700, marginBottom: 12 }}>
-            {recommended.name}
-          </div>
-          <button className="primary-btn" onClick={onStartRecommended}>
-            学習を始める
-          </button>
+          {recommendations.map((rec) => (
+            <button
+              key={rec.meta.id}
+              className="rec-row"
+              onClick={() => onStartSet(rec.meta)}
+            >
+              <span
+                className="subject-icon"
+                style={{
+                  background: `${rec.subject.color}22`,
+                  width: 38,
+                  height: 38,
+                  fontSize: 20,
+                }}
+              >
+                {rec.subject.icon}
+              </span>
+              <span style={{ flex: 1 }}>
+                <span style={{ fontWeight: 700, display: "block" }}>
+                  {rec.meta.name}
+                </span>
+                <span className="muted" style={{ fontSize: 12 }}>
+                  {rec.reason}
+                  {state.setRecords[rec.meta.id]
+                    ? ` ・ ベスト ${state.setRecords[rec.meta.id].best}%`
+                    : " ・ 未挑戦"}
+                </span>
+              </span>
+              <span className="chevron">›</span>
+            </button>
+          ))}
         </div>
       )}
 
@@ -89,6 +208,16 @@ export default function HomeScreen({
       >
         教科から選ぶ
       </button>
+
+      {!testActive && !testOver && (
+        <button
+          className="ghost-btn"
+          style={{ marginTop: 10 }}
+          onClick={onEditTest}
+        >
+          📝 次のテストを登録する
+        </button>
+      )}
     </div>
   );
 }

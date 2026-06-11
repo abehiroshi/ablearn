@@ -3,6 +3,7 @@ import type { ContentIndex, Question, SetMeta } from "./types";
 import { buildSetLookup, loadIndex, loadSet } from "./lib/content";
 import {
   AppState,
+  TestPlan,
   addDailyLog,
   currentStreak,
   loadState,
@@ -14,12 +15,14 @@ import {
   touchStreak,
   wrongQuestionKeys,
 } from "./lib/storage";
+import { recommend } from "./lib/recommend";
 import { shuffle } from "./lib/quiz";
 import HomeScreen from "./screens/HomeScreen";
 import LibraryScreen from "./screens/LibraryScreen";
 import ReviewScreen from "./screens/ReviewScreen";
 import StatsScreen from "./screens/StatsScreen";
 import QuizScreen from "./screens/QuizScreen";
+import TestSetupScreen from "./screens/TestSetupScreen";
 
 export type Tab = "home" | "library" | "review" | "stats";
 
@@ -50,6 +53,7 @@ export default function App() {
   const [state, setState] = useState<AppState>(loadState);
   const [tab, setTab] = useState<Tab>("home");
   const [session, setSession] = useState<Session | null>(null);
+  const [editingTest, setEditingTest] = useState(false);
   const [busy, setBusy] = useState(false);
 
   useEffect(() => saveState(state), [state]);
@@ -65,19 +69,11 @@ export default function App() {
   );
   const wrongKeys = useMemo(() => wrongQuestionKeys(state), [state]);
 
-  /** おすすめセット: 未挑戦 → 最後に解いたのが古い順 */
-  const recommended: SetMeta | null = useMemo(() => {
-    if (!index) return null;
-    const all = index.subjects.flatMap((s) => s.units.flatMap((u) => u.sets));
-    if (all.length === 0) return null;
-    const fresh = all.find((m) => !state.setRecords[m.id]);
-    if (fresh) return fresh;
-    return [...all].sort((a, b) =>
-      (state.setRecords[a.id]?.lastAt ?? "").localeCompare(
-        state.setRecords[b.id]?.lastAt ?? ""
-      )
-    )[0];
-  }, [index, state.setRecords]);
+  /** 今日のおすすめ（日常: 進行中単元 / テストモード: 範囲×試験日が近い教科優先） */
+  const recommendations = useMemo(
+    () => (index ? recommend(index, state, todayKey()) : []),
+    [index, state]
+  );
 
   async function startSet(meta: SetMeta) {
     if (busy) return;
@@ -158,6 +154,29 @@ export default function App() {
     if (setId) setState((prev) => recordSetResult(prev, setId, score));
   }
 
+  function toggleUnit(subjectId: string, unitId: string) {
+    setState((prev) => {
+      const cur = prev.currentUnits[subjectId] ?? [];
+      const next = cur.includes(unitId)
+        ? cur.filter((id) => id !== unitId)
+        : [...cur, unitId];
+      return {
+        ...prev,
+        currentUnits: { ...prev.currentUnits, [subjectId]: next },
+      };
+    });
+  }
+
+  function saveTest(test: TestPlan) {
+    setState((prev) => ({ ...prev, test }));
+    setEditingTest(false);
+  }
+
+  function clearTest() {
+    setState((prev) => ({ ...prev, test: null }));
+    setEditingTest(false);
+  }
+
   if (loadError) {
     return (
       <div className="empty-note">
@@ -177,15 +196,23 @@ export default function App() {
           state={state}
           streak={currentStreak(state)}
           todayAnswered={today?.answered ?? 0}
-          recommended={recommended}
+          recommendations={recommendations}
           wrongCount={wrongKeys.length}
-          onStartRecommended={() => recommended && startSet(recommended)}
+          subjects={index.subjects}
+          onStartSet={startSet}
           onStartReview={startReview}
           onGoLibrary={() => setTab("library")}
+          onEditTest={() => setEditingTest(true)}
+          onClearTest={clearTest}
         />
       )}
       {tab === "library" && (
-        <LibraryScreen index={index} state={state} onStartSet={startSet} />
+        <LibraryScreen
+          index={index}
+          state={state}
+          onStartSet={startSet}
+          onToggleUnit={toggleUnit}
+        />
       )}
       {tab === "review" && (
         <ReviewScreen
@@ -212,6 +239,16 @@ export default function App() {
           </button>
         ))}
       </nav>
+
+      {editingTest && (
+        <TestSetupScreen
+          index={index}
+          state={state}
+          onSave={saveTest}
+          onCancel={() => setEditingTest(false)}
+          onDelete={clearTest}
+        />
+      )}
 
       {session && (
         <QuizScreen
