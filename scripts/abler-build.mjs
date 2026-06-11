@@ -63,6 +63,7 @@ function decodePng(buf) {
   let pos = 8;
   let w = 0;
   let h = 0;
+  let bpp = 4;
   const idat = [];
   while (pos < buf.length) {
     const len = buf.readUInt32BE(pos);
@@ -71,25 +72,26 @@ function decodePng(buf) {
     if (type === "IHDR") {
       w = data.readUInt32BE(0);
       h = data.readUInt32BE(4);
-      if (data[8] !== 8 || data[9] !== 6 || data[12] !== 0)
-        throw new Error("8bit RGBA 非インターレースのみ対応");
+      if (data[8] !== 8 || ![2, 6].includes(data[9]) || data[12] !== 0)
+        throw new Error("8bit RGB/RGBA 非インターレースのみ対応");
+      bpp = data[9] === 6 ? 4 : 3;
     } else if (type === "IDAT") {
       idat.push(data);
     }
     pos += 12 + len;
   }
   const raw = inflateSync(Buffer.concat(idat));
-  const stride = w * 4;
-  const out = Buffer.alloc(w * h * 4);
+  const stride = w * bpp;
+  const px = Buffer.alloc(w * h * bpp);
   for (let y = 0; y < h; y++) {
     const filter = raw[y * (stride + 1)];
     const row = raw.subarray(y * (stride + 1) + 1, (y + 1) * (stride + 1));
-    const prev = y > 0 ? out.subarray((y - 1) * stride, y * stride) : null;
-    const cur = out.subarray(y * stride, (y + 1) * stride);
+    const prev = y > 0 ? px.subarray((y - 1) * stride, y * stride) : null;
+    const cur = px.subarray(y * stride, (y + 1) * stride);
     for (let x = 0; x < stride; x++) {
-      const a = x >= 4 ? cur[x - 4] : 0;
+      const a = x >= bpp ? cur[x - bpp] : 0;
       const b = prev ? prev[x] : 0;
-      const c = x >= 4 && prev ? prev[x - 4] : 0;
+      const c = x >= bpp && prev ? prev[x - bpp] : 0;
       let v = row[x];
       if (filter === 1) v += a;
       else if (filter === 2) v += b;
@@ -98,6 +100,10 @@ function decodePng(buf) {
       cur[x] = v & 0xff;
     }
   }
+  if (bpp === 4) return { w, h, rgba: px };
+  // RGB → RGBA（不透明）に変換
+  const out = Buffer.alloc(w * h * 4, 255);
+  for (let p = 0; p < w * h; p++) px.copy(out, p * 4, p * 3, p * 3 + 3);
   return { w, h, rgba: out };
 }
 
@@ -125,8 +131,10 @@ function removeBackground(img) {
   for (let i = 3; i < rgba.length; i += 4) if (rgba[i] < 250) transparent++;
   if (transparent > (w * h) / 100) return; // 既に透過済み
 
+  // 背景＋背景に近い飾り（薄いA模様など）も落とすため、やや広めの許容値。
+  // キャラ内部の薄い色は輪郭線で囲まれているため塗りつぶしが届かない。
   const bg = [rgba[0], rgba[1], rgba[2]];
-  const TOL = 36;
+  const TOL = 44;
   const near = (i) =>
     Math.abs(rgba[i] - bg[0]) < TOL &&
     Math.abs(rgba[i + 1] - bg[1]) < TOL &&
@@ -238,30 +246,51 @@ function resize(img, dw, dh) {
   return { w: dw, h: dh, rgba: out };
 }
 
-// ===== 切り出し定義（シート 1536x1024 の座標） =====
+// ===== 切り出し定義（シートのサイズごとに座標を持つ） =====
 
-const CROPS = {
-  // メイン立ち絵・ポーズ
-  main: [40, 80, 420, 690],
-  benkyou: [455, 85, 740, 430],
-  kangaechu: [740, 110, 1015, 430],
-  dekita: [1000, 70, 1265, 430],
-  mukatteru: [1265, 90, 1520, 430],
-  // 表情（顔のみ）
-  nikkori: [430, 480, 630, 680],
-  uun: [630, 480, 805, 680],
-  odoroki: [805, 480, 975, 680],
-  hirameita: [975, 480, 1150, 680],
-  iine: [1150, 480, 1330, 680],
-  kuyashii: [1330, 480, 1510, 680],
-  // 学習サポート
-  fukushu: [545, 740, 760, 1000],
-  ganbare: [730, 740, 950, 1000],
+const CROP_PROFILES = {
+  // 旧シート（透過済み・水彩調になってしまった変換版）
+  "1536x1024": {
+    main: [40, 80, 420, 690],
+    benkyou: [455, 85, 740, 430],
+    kangaechu: [740, 110, 1015, 430],
+    dekita: [1000, 70, 1265, 430],
+    mukatteru: [1265, 90, 1520, 430],
+    nikkori: [430, 480, 630, 680],
+    uun: [630, 480, 805, 680],
+    odoroki: [805, 480, 975, 680],
+    hirameita: [975, 480, 1150, 680],
+    iine: [1150, 480, 1330, 680],
+    kuyashii: [1330, 480, 1510, 680],
+    fukushu: [545, 740, 760, 1000],
+    ganbare: [730, 740, 950, 1000],
+  },
+  // オリジナルシート（背景不透過）
+  "1402x1122": {
+    main: [30, 130, 320, 670],
+    benkyou: [440, 110, 625, 380],
+    kangaechu: [650, 120, 890, 380],
+    dekita: [855, 85, 1115, 380],
+    mukatteru: [1095, 110, 1320, 380],
+    nikkori: [415, 450, 575, 615],
+    uun: [570, 450, 725, 615],
+    odoroki: [720, 450, 870, 615],
+    hirameita: [865, 450, 1020, 615],
+    iine: [1015, 450, 1160, 615],
+    kuyashii: [1130, 440, 1340, 615],
+    fukushu: [430, 695, 590, 940],
+    ganbare: [575, 695, 775, 940],
+  },
 };
 
-const sheet = decodePng(readFileSync("assets/image.png"));
-console.log(`sheet: ${sheet.w}x${sheet.h}`);
-mkdirSync("public/abler", { recursive: true });
+const SRC = process.argv[2] ?? "assets/original.png";
+const OUT = process.argv[3] ?? "public/abler";
+
+const sheet = decodePng(readFileSync(SRC));
+console.log(`sheet: ${SRC} ${sheet.w}x${sheet.h} → ${OUT}`);
+const CROPS = CROP_PROFILES[`${sheet.w}x${sheet.h}`];
+if (!CROPS) throw new Error(`このサイズの切り出し定義がない: ${sheet.w}x${sheet.h}`);
+mkdirSync(OUT, { recursive: true });
 
 const results = {};
 for (const [name, [x0, y0, x1, y1]] of Object.entries(CROPS)) {
@@ -280,12 +309,12 @@ for (const [name, [x0, y0, x1, y1]] of Object.entries(CROPS)) {
   const tmpPng = join(tmpdir(), `abler-${name}.png`);
   writeFileSync(tmpPng, encodePng(img.w, img.h, img.rgba));
   try {
-    execFileSync("cwebp", ["-q", "82", "-m", "6", "-quiet", tmpPng, "-o", `public/abler/${name}.webp`]);
+    execFileSync("cwebp", ["-q", "82", "-m", "6", "-quiet", tmpPng, "-o", `${OUT}/${name}.webp`]);
   } catch (e) {
     throw new Error("cwebp が必要です: brew install webp", { cause: e });
   }
   rmSync(tmpPng);
-  console.log(`abler/${name}.webp ${img.w}x${img.h}`);
+  console.log(`${name}.webp ${img.w}x${img.h}`);
 }
 
 // ===== PWA アイコン: 顔アップを角丸背景に載せる =====
@@ -329,8 +358,11 @@ function makeIcon(size, face) {
   return encodePng(size, size, rgba);
 }
 
-const face = results.nikkori;
-for (const size of [192, 512]) {
-  writeFileSync(`public/icons/icon-${size}.png`, makeIcon(size, face));
-  console.log(`icons/icon-${size}.png (Abler)`);
+// アイコンは正式出力先（public/abler）のときだけ更新する
+if (OUT === "public/abler") {
+  const face = results.nikkori;
+  for (const size of [192, 512]) {
+    writeFileSync(`public/icons/icon-${size}.png`, makeIcon(size, face));
+    console.log(`icons/icon-${size}.png (Abler)`);
+  }
 }

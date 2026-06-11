@@ -31,12 +31,14 @@
 
 ## マスコット Abler
 
-`assets/image.png`（設定画シート）から、アプリ内で使う各ポーズ画像（`public/abler/`）と
-PWA アイコン（`public/icons/`）を生成する。シートを差し替えたら再実行する。
+`assets/original.png`（設定画シート・原画）から、アプリ内で使う各ポーズ画像
+（`public/abler/*.webp`）と PWA アイコン（`public/icons/`）を生成する。
+シートを差し替えたら再実行する（要 `brew install webp`）。
 
 ```sh
-node scripts/abler-build.mjs
+node scripts/abler-build.mjs                     # 本番出力
+node scripts/abler-build.mjs <シート> <出力先>    # 実験用
 ```
 
-切り出し座標はスクリプト内の `CROPS` で定義。`scripts/gen-icons.mjs` は
-マスコットを使わないシンプルな「A」アイコンの生成用（予備）。
+切り出し座標はスクリプト内の `CROP_PROFILES` にシートのサイズごとに定義。
+`scripts/gen-icons.mjs` はマスコットを使わない「A」アイコンの生成用（予備）。
