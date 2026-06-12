@@ -347,3 +347,134 @@ describe("解答形式ベースの昇降格（計画34）", () => {
     expect(next.level).toBe(0);
   });
 });
+
+describe("同段変種のローテーション（計画40）", () => {
+  const choiceA: ChoiceQuestion = {
+    id: "a",
+    type: "choice",
+    question: "A",
+    choices: ["1", "2"],
+    answer: 0,
+    answers: ["1"],
+    concept: "c1",
+    difficulty: 1,
+  };
+  const choiceB: ChoiceQuestion = {
+    id: "b",
+    type: "choice",
+    question: "B",
+    choices: ["1", "2"],
+    answer: 0,
+    answers: ["1"],
+    concept: "c1",
+    difficulty: 1,
+  };
+  const inputA: InputQuestion = {
+    id: "ia",
+    type: "input",
+    question: "IA",
+    answers: ["1"],
+    concept: "c1",
+    difficulty: 1,
+  };
+  const inputB: InputQuestion = {
+    id: "ib",
+    type: "input",
+    question: "IB",
+    answers: ["1"],
+    concept: "c1",
+    difficulty: 1,
+  };
+
+  const stat = (updatedAt: string) => ({
+    setId: "s1",
+    correct: 1,
+    wrong: 0,
+    lastCorrect: true,
+    updatedAt,
+  });
+
+  function stateAt(level: number, stats: Record<string, string>) {
+    const s = emptyState();
+    s.mastery = {
+      c1: { level, streak: 0, lastCorrectDate: "", dueDate: "", setId: "s1" },
+    };
+    for (const [key, at] of Object.entries(stats)) {
+      s.questionStats[key] = stat(at);
+    }
+    return s;
+  }
+
+  it("直近に出した変種より、出していない変種を優先する（choice 段）", () => {
+    const s = stateAt(0, {
+      "s1/a": "2026-06-12T10:00:00Z",
+      "s1/b": "2026-06-10T10:00:00Z",
+    });
+    const items = buildAdaptiveItems([choiceA, choiceB], "s1", s);
+    expect(items[0].question.id).toBe("b");
+  });
+
+  it("解答するたびに選ばれる変種が入れ替わる（連続して同じ変種に固定されない・受け入れ条件1）", () => {
+    const s = stateAt(0, { "s1/a": "2026-06-10T10:00:00Z" });
+    // a は解答済み・b は未解答 → b が出る
+    expect(buildAdaptiveItems([choiceA, choiceB], "s1", s)[0].question.id).toBe("b");
+    // b に解答 → 次は a が出る
+    s.questionStats["s1/b"] = stat("2026-06-12T10:00:00Z");
+    expect(buildAdaptiveItems([choiceA, choiceB], "s1", s)[0].question.id).toBe("a");
+    // a に解答 → また b に戻る
+    s.questionStats["s1/a"] = stat("2026-06-13T10:00:00Z");
+    expect(buildAdaptiveItems([choiceA, choiceB], "s1", s)[0].question.id).toBe("b");
+  });
+
+  it("未解答の変種が最優先される", () => {
+    const s = stateAt(0, { "s1/b": "2020-01-01T00:00:00Z" });
+    const items = buildAdaptiveItems([choiceA, choiceB], "s1", s);
+    expect(items[0].question.id).toBe("a");
+  });
+
+  it("input 段でも同様にローテーションする", () => {
+    const s = stateAt(1, {
+      "s1/ia": "2026-06-12T10:00:00Z",
+      "s1/ib": "2026-06-10T10:00:00Z",
+    });
+    const items = buildAdaptiveItems([inputA, inputB], "s1", s);
+    expect(items[0].question.id).toBe("ib");
+  });
+
+  it("input 段の answers つき choice 変換フォールバックでもローテーションする", () => {
+    const s = stateAt(1, {
+      "s1/a": "2026-06-12T10:00:00Z",
+      "s1/b": "2026-06-10T10:00:00Z",
+    });
+    const items = buildAdaptiveItems([choiceA, choiceB], "s1", s);
+    expect(items[0].question.id).toBe("b");
+    expect(items[0].asInput).toBe(true);
+  });
+
+  it("写経段は最も易しい難度の中だけでローテーションする（難度の繰り上がりなし）", () => {
+    const harder: InputQuestion = { ...inputA, id: "hard", difficulty: 2 };
+    const s = stateAt(-1, {
+      "s1/a": "2026-06-12T10:00:00Z",
+      "s1/b": "2026-06-11T10:00:00Z",
+      // hard（difficulty 2）は未解答だが、易しい difficulty 1 群を優先する
+    });
+    const items = buildAdaptiveItems([choiceA, choiceB, harder], "s1", s);
+    expect(items[0].asTrace).toBe(true);
+    expect(items[0].question.id).toBe("b");
+  });
+
+  it("変種が1つしかない概念は従来どおり固定（受け入れ条件2）", () => {
+    const s = stateAt(0, { "s1/a": "2026-06-12T10:00:00Z" });
+    const items = buildAdaptiveItems([choiceA], "s1", s);
+    expect(items[0].question.id).toBe("a");
+  });
+
+  it("履歴が同時刻（タイ）のときは元の並び順を保つ（従来動作と一致）", () => {
+    const s = stateAt(0, {
+      "s1/a": "2026-06-10T10:00:00Z",
+      "s1/b": "2026-06-10T10:00:00Z",
+    });
+    const items = buildAdaptiveItems([choiceA, choiceB], "s1", s);
+    expect(items[0].question.id).toBe("a");
+  });
+});

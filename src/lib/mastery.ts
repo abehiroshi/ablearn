@@ -216,11 +216,35 @@ function traceable(q: Question): boolean {
   return false; // flashcard / order は対象外
 }
 
+/**
+ * 同段の候補から「直近に出していない」変種を選ぶ（計画40のローテーション）。
+ * 判断材料は既存の解答履歴（questionStats.updatedAt）のみで、新しい保存フィールドは持たない。
+ * 未解答（履歴なし）が最優先、同時刻は元の並び順を保つ。
+ * セット内の再提示（誤答の出し直し）は出題リスト構築後の領分なのでここには影響しない
+ */
+function leastRecentlyAnswered(
+  cands: Question[],
+  setId: string,
+  stats: Record<string, QuestionStat>
+): Question {
+  let best = cands[0];
+  let bestAt = stats[`${setId}/${best.id}`]?.updatedAt ?? "";
+  for (let i = 1; i < cands.length; i++) {
+    const at = stats[`${setId}/${cands[i].id}`]?.updatedAt ?? "";
+    if (at < bestAt) {
+      best = cands[i];
+      bestAt = at;
+    }
+  }
+  return best;
+}
+
 /** 現在段に合った変種を1つ選ぶ。無ければ下の段へフォールバック */
 function pickVariant(
   variants: Question[],
   level: number,
-  setId: string
+  setId: string,
+  stats: Record<string, QuestionStat>
 ): QuizItem {
   if (level < 0) {
     // 写経段: answers を持つ最も易しい変種を写経モードで出す。
@@ -229,27 +253,38 @@ function pickVariant(
       .filter(traceable)
       .sort((a, b) => (a.difficulty ?? 2) - (b.difficulty ?? 2));
     if (cands.length > 0) {
+      const easiest = cands.filter(
+        (q) => (q.difficulty ?? 2) === (cands[0].difficulty ?? 2)
+      );
+      const q = leastRecentlyAnswered(easiest, setId, stats);
       return {
-        question: cands[0],
+        question: q,
         setId,
         asTrace: true,
-        asInput: cands[0].type === "choice" ? true : undefined,
+        asInput: q.type === "choice" ? true : undefined,
       };
     }
   }
   for (let l = Math.max(0, level); l >= 0; l--) {
     if (l === 1) {
       const inputs = variants.filter((v) => stageOf(v) === 1);
-      if (inputs.length > 0) return { question: inputs[0], setId };
+      if (inputs.length > 0)
+        return { question: leastRecentlyAnswered(inputs, setId, stats), setId };
       // input 変種が無くても answers つき choice なら自力入力で出せる
-      const convertible = variants.find(
+      const convertibles = variants.filter(
         (v) => v.type === "choice" && v.answers && v.answers.length > 0
       );
-      if (convertible) return { question: convertible, setId, asInput: true };
+      if (convertibles.length > 0)
+        return {
+          question: leastRecentlyAnswered(convertibles, setId, stats),
+          setId,
+          asInput: true,
+        };
       continue;
     }
     const vs = variants.filter((v) => stageOf(v) === l);
-    if (vs.length > 0) return { question: vs[0], setId };
+    if (vs.length > 0)
+      return { question: leastRecentlyAnswered(vs, setId, stats), setId };
   }
   return { question: variants[0], setId };
 }
@@ -287,7 +322,7 @@ export function buildAdaptiveItems(
         variants.map((v) => `${setId}/${v.id}`),
         state.questionStats
       );
-    items.push(pickVariant(variants, m.level, setId));
+    items.push(pickVariant(variants, m.level, setId, state.questionStats));
   }
   return items;
 }
