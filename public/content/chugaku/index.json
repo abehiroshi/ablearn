@@ -10,6 +10,9 @@
         {
           "id": "shiki",
           "name": "式の計算",
+          "terms": [
+            "1学期中間"
+          ],
           "sets": [
             {
               "id": "math-shiki-keisan",
@@ -31,6 +34,9 @@
         {
           "id": "renritsu",
           "name": "連立方程式",
+          "terms": [
+            "1学期期末"
+          ],
           "sets": [
             {
               "id": "math-lesson-renritsu",
@@ -53,6 +59,9 @@
         {
           "id": "ichiji",
           "name": "一次関数",
+          "terms": [
+            "2学期中間"
+          ],
           "sets": [
             {
               "id": "math-lesson-ichiji",
@@ -70,6 +79,9 @@
         {
           "id": "zukei",
           "name": "図形の調べ方",
+          "terms": [
+            "2学期期末"
+          ],
           "sets": [
             {
               "id": "math-zukei-kakudo",
@@ -89,6 +101,9 @@
         {
           "id": "unit1",
           "name": "未来の表現と文構造（Unit 1）",
+          "terms": [
+            "1学期中間"
+          ],
           "sets": [
             {
               "id": "eng-mirai-bunkouzou",
@@ -100,6 +115,9 @@
         {
           "id": "unit2",
           "name": "接続詞（Unit 2）",
+          "terms": [
+            "1学期期末"
+          ],
           "sets": [
             {
               "id": "eng-setsuzokushi",
@@ -111,6 +129,9 @@
         {
           "id": "futeishi",
           "name": "不定詞（Unit 3）",
+          "terms": [
+            "1学期期末"
+          ],
           "sets": [
             {
               "id": "eng-futeishi-basic",
@@ -122,6 +143,9 @@
         {
           "id": "unit4",
           "name": "must と have to（Unit 4）",
+          "terms": [
+            "2学期中間"
+          ],
           "sets": [
             {
               "id": "eng-jodoushi",
@@ -133,6 +157,9 @@
         {
           "id": "unit5",
           "name": "動名詞（Unit 5）",
+          "terms": [
+            "2学期中間"
+          ],
           "sets": [
             {
               "id": "eng-dou-meishi",
@@ -144,6 +171,9 @@
         {
           "id": "unit6",
           "name": "比較（Unit 6）",
+          "terms": [
+            "2学期期末"
+          ],
           "sets": [
             {
               "id": "eng-hikaku",
@@ -179,6 +209,10 @@
         {
           "id": "kagaku-henka",
           "name": "化学変化と原子・分子",
+          "terms": [
+            "1学期中間",
+            "1学期期末"
+          ],
           "sets": [
             {
               "id": "sci-genshi-bunshi",
@@ -265,6 +299,9 @@
         {
           "id": "seibutsu-karada",
           "name": "生物のからだのつくりとはたらき",
+          "terms": [
+            "2学期中間"
+          ],
           "sets": [
             {
               "id": "sci-seibutsu-saibou",
@@ -327,6 +364,9 @@
         {
           "id": "tenki",
           "name": "天気とその変化",
+          "terms": [
+            "2学期期末"
+          ],
           "sets": [
             {
               "id": "sci-tenki-shitsudo",
@@ -364,6 +404,9 @@
         {
           "id": "chiri-nihon",
           "name": "地理（日本の地域的特色）",
+          "terms": [
+            "1学期中間"
+          ],
           "sets": [
             {
               "id": "soc-chiri-tokushoku",
@@ -375,6 +418,9 @@
         {
           "id": "edo",
           "name": "歴史（近世）",
+          "terms": [
+            "1学期期末"
+          ],
           "sets": [
             {
               "id": "soc-rekishi-kinsei",
@@ -391,6 +437,9 @@
         {
           "id": "chiri-shochiiki",
           "name": "地理（日本の諸地域・西日本）",
+          "terms": [
+            "2学期中間"
+          ],
           "sets": [
             {
               "id": "soc-chiri-shochiiki",
@@ -402,6 +451,9 @@
         {
           "id": "meiji",
           "name": "歴史（開国と明治維新）",
+          "terms": [
+            "2学期期末"
+          ],
           "sets": [
             {
               "id": "soc-meiji-ishin",
@@ -432,6 +484,10 @@
         {
           "id": "bunpou",
           "name": "文法",
+          "terms": [
+            "1学期期末",
+            "2学期中間"
+          ],
           "sets": [
             {
               "id": "jpn-bunpou-doushi",
@@ -448,6 +504,9 @@
         {
           "id": "koten",
           "name": "古典（平家物語・徒然草）",
+          "terms": [
+            "2学期期末"
+          ],
           "sets": [
             {
               "id": "jpn-koten-kihon",
@@ -467,6 +526,9 @@
         {
           "id": "gakuten",
           "name": "楽典・音楽記号",
+          "terms": [
+            "1学期期末"
+          ],
           "sets": [
             {
               "id": "mus-gakuten-kigou",
@@ -486,6 +548,9 @@
         {
           "id": "shikisai",
           "name": "色彩",
+          "terms": [
+            "1学期期末"
+          ],
           "sets": [
             {
               "id": "art-shikisai",
@@ -505,6 +570,9 @@
         {
           "id": "tairyoku",
           "name": "体力テスト・運動と健康",
+          "terms": [
+            "1学期期末"
+          ],
           "sets": [
             {
               "id": "pe-tairyoku-kenkou",
@@ -524,6 +592,9 @@
         {
           "id": "shoku",
           "name": "食生活（家庭分野）",
+          "terms": [
+            "1学期期末"
+          ],
           "sets": [
             {
               "id": "tech-shokuseikatsu",

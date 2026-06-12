@@ -128,12 +128,27 @@ export interface SetMeta {
   origin?: string;
 }
 
+/** 定期テストの語彙（計画35）。単元がどのテストの範囲に入るかを表す */
+export const TERM_TESTS = [
+  "1学期中間",
+  "1学期期末",
+  "2学期中間",
+  "2学期期末",
+  "学年末",
+] as const;
+export type TermTest = (typeof TERM_TESTS)[number];
+
 export interface Unit {
   id: string;
   name: string;
   sets: SetMeta[];
   /** 授業で使われている動画・解説サイトなどへの導線 */
   links?: ContentLink[];
+  /**
+   * この単元が範囲に入る定期テスト（計画35。テスト登録の一括チェックに使う）。
+   * 学期をまたぐ単元は複数持てる。常設系（英単語・漢字）は付けない
+   */
+  terms?: TermTest[];
 }
 
 export interface Subject {

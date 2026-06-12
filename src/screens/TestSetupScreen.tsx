@@ -1,7 +1,20 @@
 import { useState } from "react";
-import type { ContentIndex } from "../types";
+import type { ContentIndex, TermTest } from "../types";
+import { TERM_TESTS } from "../types";
 import type { AppState, TestDay, TestPlan } from "../lib/storage";
 import { todayKey } from "../lib/storage";
+import {
+  addTermRange,
+  removeTermRange,
+  termAllChecked,
+  termRange,
+} from "../lib/terms";
+
+/** プリセット由来・初期値のテスト名（自動補完で置き換えてよい名前） */
+const PRESET_NAMES = new Set([
+  "期末テスト",
+  ...TERM_TESTS.map((t) => `${t}テスト`),
+]);
 
 interface Props {
   index: ContentIndex;
@@ -73,6 +86,21 @@ export default function TestSetupScreen({
       ? cur.filter((id) => id !== setId)
       : [...cur, setId];
     setRange({ ...range, [subjectId]: next });
+  }
+
+  /**
+   * 定期テストのプリセット（計画35）: その範囲を一括チェック、全部入りなら一括解除。
+   * 適用後の個別チェック（toggleSet）が常に勝つ
+   */
+  function toggleTerm(term: TermTest) {
+    const preset = termRange(index, term);
+    if (termAllChecked(range, preset)) {
+      setRange(removeTermRange(range, preset));
+    } else {
+      setRange(addTermRange(range, preset));
+      // テスト名が初期値・プリセット由来のときだけ自動補完（手入力の名前は触らない）
+      if (PRESET_NAMES.has(name.trim())) setName(`${term}テスト`);
+    }
   }
 
   const valid =
@@ -150,8 +178,25 @@ export default function TestSetupScreen({
 
       <div className="card">
         <div className="field-label">テスト範囲（出るところにチェック）</div>
+        {/* プリセット（計画35）: テスト名のワンタップで標準的な範囲を一括チェック */}
+        <div className="chip-row" style={{ margin: "4px 0 8px" }}>
+          {TERM_TESTS.map((term) => {
+            const preset = termRange(index, term);
+            if (Object.keys(preset).length === 0) return null;
+            const active = termAllChecked(range, preset);
+            return (
+              <button
+                key={term}
+                className={`chip ${active ? "active" : ""}`}
+                onClick={() => toggleTerm(term)}
+              >
+                {term}
+              </button>
+            );
+          })}
+        </div>
         <p className="muted" style={{ marginTop: 0 }}>
-          授業でやってる単元には最初からチェックがついているよ
+          ボタンでだいたいの範囲が入るよ。学校の範囲表に合わせて、あとは1つずつ調整してね
         </p>
         {index.subjects.map((subject) => (
           <div key={subject.id}>

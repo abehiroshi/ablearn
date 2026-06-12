@@ -73,6 +73,18 @@ for (const subject of index.subjects) {
   seenIcons.set(subject.icon, subject.id);
   for (const unit of subject.units ?? []) {
     if (unit.links) checkLinks(`${subject.id}/${unit.id}`, unit.links);
+    // 定期テストの語彙（計画35）。src/types.ts の TERM_TESTS と揃える
+    if (unit.terms !== undefined) {
+      const TERM_TESTS = ["1学期中間", "1学期期末", "2学期中間", "2学期期末", "学年末"];
+      if (!Array.isArray(unit.terms) || unit.terms.length === 0) {
+        err(`${subject.id}/${unit.id}: terms が空でない配列でない`);
+      } else {
+        for (const t of unit.terms) {
+          if (!TERM_TESTS.includes(t))
+            err(`${subject.id}/${unit.id}: terms に未知の値 (${t})`);
+        }
+      }
+    }
     for (const meta of unit.sets ?? []) {
       const label = `${subject.id}/${unit.id}/${meta.id}`;
       if (seenSetIds.has(meta.id)) err(`${label}: セットID重複`);

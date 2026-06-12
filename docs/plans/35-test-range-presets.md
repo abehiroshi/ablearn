@@ -1,6 +1,14 @@
 # テスト範囲のプリセット（学期テストの単元タグと一括チェック）
 
-- 状態: 未着手
+- 状態: 完了（2026-06-12）
+- 引き継ぎメモ:
+  - 範囲導出は `src/lib/terms.ts`（termRange / addTermRange / removeTermRange / termAllChecked）。
+    語彙は `src/types.ts` の `TERM_TESTS`（validator 側にも同じリストを複製・コメントで同期を明記）
+  - ボタンは該当タグの単元が1つでもあるテストだけ表示（現状「学年末」は計画36のコンテンツ投入で現れる）
+  - テスト名の自動補完は名前が初期値「期末テスト」またはプリセット由来名のときだけ（手入力名は触らない）
+  - 既存単元のタグは標準進度で付与。理科の化学変化は1学期をまたぐため ["1学期中間","1学期期末"] の複数所属。
+    英単語・漢字は常設系として未タグ（手動チェックのみ）。実技4教科は1学期期末のみ
+  - 学校の範囲表とのズレはタグ修正（index.json）で直す。編集UIは非スコープのまま
 - 触るファイル範囲: `src/types.ts`（Unit.terms）・`src/lib/terms.ts`（新規・範囲導出）・
   `src/screens/TestSetupScreen.tsx`（ボタン行）・`scripts/validate-content.mjs`（terms 検証）・
   `public/content/chugaku/index.json`（既存単元へのタグ付け）
