@@ -83,7 +83,7 @@ export function recommend(
       const rangeIds = new Set(test.range[subject.id] ?? []);
       const reason =
         left === 0
-          ? `きょう${subject.name}のテスト！`
+          ? `今日${subject.name}のテスト！`
           : `${subject.name}まであと${left}日`;
       for (const unit of subject.units) {
         for (const meta of unit.sets) {
@@ -168,7 +168,7 @@ export function recommend(
           state.setRecords[b.meta.id]?.lastAt ?? ""
         )
       )[0];
-    return [{ ...pick, reason: "きょうのおすすめ" }];
+    return [{ ...pick, reason: "今日のおすすめ" }];
   }
 
   return candidates.slice(0, MAX_RECOMMEND);

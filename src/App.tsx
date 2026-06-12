@@ -391,7 +391,7 @@ export default function App() {
     }));
     if (items) {
       setSession({
-        title: "きょうの挑戦束",
+        title: "今日の挑戦束",
         setId: null,
         kind: "challenge",
         items: tagRematchItems(items, state.questionStats, todayKey()),

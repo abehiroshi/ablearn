@@ -167,7 +167,7 @@ export default function HomeScreen({
     const quota = p.todayQuota;
     const plain = (
       <div className="muted" style={{ fontSize: 13 }}>
-        きょうの課題: {p.todayTask}
+        今日の課題: {p.todayTask}
       </div>
     );
     if (p.def.id !== bundleGoalId || quota === undefined) return plain;
@@ -180,7 +180,7 @@ export default function HomeScreen({
       return (
         <div>
           <div className="muted" style={{ fontSize: 13 }}>
-            きょうの課題: どっちでいく？
+            今日の課題: どっちでいく？
           </div>
           <div className="row" style={{ gap: 8, marginTop: 6 }}>
             <button
@@ -209,14 +209,14 @@ export default function HomeScreen({
       if (todayBundle.completed) {
         return (
           <div className="muted" style={{ fontSize: 13 }}>
-            🔥 きょうの挑戦束クリア！ふつう束とおなじだけ進んだよ
+            🔥 今日の挑戦束クリア！ふつう束とおなじだけ進んだよ
           </div>
         );
       }
       return (
         <div className="row" style={{ gap: 8, fontSize: 13 }}>
           <span className="muted">
-            きょうの課題: 難問{todayBundle.challengeQuota}問にちょうせん中
+            今日の課題: 難問{todayBundle.challengeQuota}問にちょうせん中
           </span>
           <span className="spacer" />
           <button
@@ -237,7 +237,7 @@ export default function HomeScreen({
     // ふつうを選んだ日（文言・扱いは従来と同等＝責めない）。挑戦への切替はいつでも
     return (
       <div className="row" style={{ gap: 8, fontSize: 13 }}>
-        <span className="muted">きょうの課題: {p.todayTask}</span>
+        <span className="muted">今日の課題: {p.todayTask}</span>
         {challengeOk && (
           <>
             <span className="spacer" />
@@ -278,15 +278,15 @@ export default function HomeScreen({
 
   const greeting = testActive
     ? countdown === 0
-      ? "きょうはテスト！おちついていこう！"
+      ? "今日はテスト！おちついていこう！"
       : `テストまであと${countdown}日。いっしょにがんばろう！`
     : todayAnswered > 0
-      ? "きょうもがんばってるね！この調子！"
+      ? "今日もがんばってるね！この調子！"
       : wrongCount > 0
         ? "苦手問題をやっつけよう！"
         : streak > 1
-          ? `${streak}日連続！きょうも一緒にがんばろう！`
-          : "きょうも一緒にがんばろう！";
+          ? `${streak}日連続！今日も一緒にがんばろう！`
+          : "今日も一緒にがんばろう！";
 
   return (
     <div className="screen">
@@ -510,7 +510,7 @@ export default function HomeScreen({
           </div>
           <div className="countdown">
             {countdown === 0
-              ? "きょうはテスト当日！"
+              ? "今日はテスト当日！"
               : started
                 ? `テスト期間中（次まであと${countdown}日）`
                 : `あと ${countdown} 日`}
@@ -536,7 +536,7 @@ export default function HomeScreen({
                 <div key={i} className={`sched-day ${passed ? "passed" : ""}`}>
                   <span className="sched-date">
                     {formatDay(day.date)}
-                    {day.date === today && <span className="today-pill">きょう</span>}
+                    {day.date === today && <span className="today-pill">今日</span>}
                   </span>
                   <span className="sched-subjects">
                     {day.subjects
@@ -556,7 +556,7 @@ export default function HomeScreen({
       {recommendations.length > 0 && (
         <div className="card">
           <div className="muted" style={{ marginBottom: 4 }}>
-            きょうのおすすめ
+            今日のおすすめ
           </div>
           {recommendations.map((rec) => (
             <div key={rec.meta.id}>

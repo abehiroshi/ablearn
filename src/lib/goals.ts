@@ -170,8 +170,8 @@ export function goalProgress(
         .length;
       const todayDone = (state.dailyLog[ctx.today]?.answered ?? 0) > 0;
       todayTask = todayDone
-        ? "きょうのぶんはクリア！"
-        : "きょう1問でも学習する";
+        ? "今日のぶんはクリア！"
+        : "今日1問でも学習する";
       break;
     }
     case "count": {
@@ -184,7 +184,7 @@ export function goalProgress(
         0
       );
       const quota = perDay(def.target - current);
-      todayTask = `きょうは ${quota} 問とこう`;
+      todayTask = `今日は ${quota} 問とこう`;
       if (current < def.target) {
         return {
           def,
@@ -200,7 +200,7 @@ export function goalProgress(
     }
     case "review": {
       current = resolvedInWeek(state, weekDays);
-      todayTask = `きょうは 苦手を ${perDay(def.target - current)} 問やっつけよう`;
+      todayTask = `今日は 苦手を ${perDay(def.target - current)} 問やっつけよう`;
       break;
     }
     case "subjects": {
@@ -212,7 +212,7 @@ export function goalProgress(
         }
       }
       current = subjects.size;
-      todayTask = "きょうは別の教科にさわってみよう";
+      todayTask = "今日は別の教科にさわってみよう";
       break;
     }
     case "lesson": {
@@ -222,7 +222,7 @@ export function goalProgress(
         if (weekDays.includes(rec.lastAt.slice(0, 10))) n++;
       }
       current = n;
-      todayTask = "きょうレッスンを1本進めよう";
+      todayTask = "今日レッスンを1本進めよう";
       break;
     }
     case "range": {
@@ -242,7 +242,7 @@ export function goalProgress(
             : Math.floor((solved / (solved + remaining)) * 100);
         todayTask = achieved
           ? null
-          : `きょうは ${perDay(remaining)} 問やっつけよう（のこり${remaining}問）`;
+          : `今日は ${perDay(remaining)} 問やっつけよう（のこり${remaining}問）`;
         return { def, current, target: 0, pct, achieved, todayTask };
       }
       let total = 0;
@@ -254,7 +254,7 @@ export function goalProgress(
       const remainingQ = Math.ceil((total * def.target) / 100) - achievedQ;
       todayTask =
         remainingQ > 0
-          ? `きょうは新しく ${perDay(remainingQ)} 問正解しよう`
+          ? `今日は新しく ${perDay(remainingQ)} 問正解しよう`
           : null;
       break;
     }
