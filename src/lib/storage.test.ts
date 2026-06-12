@@ -107,6 +107,7 @@ describe("日次ログと解答履歴", () => {
       dontKnow: 0,
       hints: 2,
       timeMs: 15000,
+      rematch: 0,
     });
   });
 
@@ -124,6 +125,7 @@ describe("日次ログと解答履歴", () => {
       dontKnow: 1,
       hints: 0,
       timeMs: 12000,
+      rematch: 0,
     });
   });
 

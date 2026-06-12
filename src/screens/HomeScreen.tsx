@@ -45,6 +45,10 @@ interface Props {
   canChallenge: (quota: number) => boolean;
   /** 束を選ぶ。挑戦なら束のセッションが始まる */
   onChooseBundle: (choice: "normal" | "challenge", normalQuota: number) => void;
+  /** 再戦（計画30）: ゲートを満たした再戦候補の数と最も古い失敗からの日数 */
+  rematchCount: number;
+  rematchOldestDays: number;
+  onStartRematch: () => void;
 }
 
 const DOW = ["日", "月", "火", "水", "木", "金", "土"];
@@ -74,6 +78,9 @@ export default function HomeScreen({
   onDismissGoalsIntro,
   canChallenge,
   onChooseBundle,
+  rematchCount,
+  rematchOldestDays,
+  onStartRematch,
 }: Props) {
   const today = todayKey();
   const testActive = isTestActive(state.test, today);
@@ -535,6 +542,24 @@ export default function HomeScreen({
             )}
             </div>
           ))}
+        </div>
+      )}
+
+      {/* 再戦カード（計画30）: 解ける見込みが立った過去の不正解問題への成長確認イベント */}
+      {rematchCount > 0 && (
+        <div className="card">
+          <div className="row" style={{ marginBottom: 12 }}>
+            <Abler pose="hirameita" size={56} />
+            <div style={{ flex: 1 }}>
+              <div style={{ fontWeight: 700 }}>⚔️ 再戦のチャンス！</div>
+              <div className="muted" style={{ fontSize: 13 }}>
+                {rematchOldestDays}日前にとけなかった問題、いまならいけるかも
+              </div>
+            </div>
+          </div>
+          <button className="secondary-btn" onClick={onStartRematch}>
+            再戦する（{rematchCount}問）
+          </button>
         </div>
       )}
 

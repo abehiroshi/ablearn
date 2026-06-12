@@ -35,6 +35,8 @@ interface Feedback {
   dontKnow?: boolean;
   /** 概念の段位が上がった（習熟度エンジン） */
   promotedTo?: number | null;
+  /** 再戦に勝った（計画30）。「○日前の自分に勝った」演出に使う日数 */
+  rematchWin?: number;
   /** この解答で跨いだ節目（軽いチップで祝福） */
   milestones?: Milestone[];
   /** つまずき検知（計画13・24・26）: 励まし＋誘導（前提の復習 > レッスン > 授業動画） */
@@ -61,7 +63,8 @@ interface Props {
     dontKnow?: boolean,
     concept?: string,
     hintsTotal?: number,
-    trace?: boolean
+    trace?: boolean,
+    rematch?: boolean
   ) => { promotedTo: number | null; milestones: Milestone[] };
   onFinish: (score: number) => void;
   onClose: () => void;
@@ -121,6 +124,17 @@ export default function QuizScreen({
    * 「繰り返し外し続ける体験」を断つための導線（無視して続けることもできる）。
    * 誘導先が無くても励ましだけは出す（責めずに次の一歩を示す）
    */
+  /** 励まし＋誘導先（前提の復習 > レッスン > 授業動画。計画26）を組む */
+  function buildGuidance(): NonNullable<Feedback["struggle"]> {
+    const q = current!.question;
+    const prereq = q.concept
+      ? (prereqFor?.(q.concept, current!.setId) ?? null)
+      : null;
+    const lesson = lessonFor?.(current!.setId) ?? null;
+    const links = unitLinksFor?.(current!.setId) ?? [];
+    return { encouragement: pickEncouragement(), prereq, lesson, links };
+  }
+
   function trackStruggle(correct: boolean): Feedback["struggle"] {
     const q = current!.question;
     const key = q.concept ?? keyOf(current!);
@@ -132,14 +146,8 @@ export default function QuizScreen({
     struggles.current.set(key, next);
     if (correct || !isStruggling(next) || struggleShown.current.has(key))
       return undefined;
-    // 誘導先の優先順: 習熟の低い前提概念 > 単元レッスン > 授業動画（計画26）
-    const prereq = q.concept
-      ? (prereqFor?.(q.concept, current!.setId) ?? null)
-      : null;
-    const lesson = lessonFor?.(current!.setId) ?? null;
-    const links = unitLinksFor?.(current!.setId) ?? [];
     struggleShown.current.add(key);
-    return { encouragement: pickEncouragement(), prereq, lesson, links };
+    return buildGuidance();
   }
 
   function submit(correct: boolean, correctText?: string) {
@@ -170,23 +178,33 @@ export default function QuizScreen({
       false,
       current.question.concept,
       current.question.hints?.length ?? 0,
-      current.asTrace
+      current.asTrace,
+      !!current.rematch
     );
     sessionMilestones.current.push(...milestones);
     setSessionXp((v) => v + xp);
 
+    // 再戦の勝利（計画30）: セッション内の初回正解だけを「勝ち」として祝う
+    const rematchWin =
+      correct && isFirst && current.rematch
+        ? current.rematch.daysAgo
+        : undefined;
+
     // 効果音（計画27）: 祝福があるときは祝福音だけ鳴らす（重ねない）
-    if (milestones.length > 0 || promotedTo != null) playFanfare();
+    if (milestones.length > 0 || promotedTo != null || rematchWin != null)
+      playFanfare();
     else if (correct) playCorrect();
     else playWrong();
 
     // フラッシュカードは自己申告でフィードバックを挟まないため、
     // つまずき検知に数えると励まし・誘導が表示されないまま
     // 「セッション内1回」を消費してしまう。対象外にする
-    const struggle =
+    let struggle =
       current.question.type === "flashcard"
         ? undefined
         : trackStruggle(correct);
+    // 再戦の敗北は責めない: つまずき閾値を待たずに励まし→誘導を出す（計画30）
+    if (!correct && current.rematch && !struggle) struggle = buildGuidance();
 
     if (current.question.type === "flashcard") {
       advance(correct);
@@ -196,6 +214,7 @@ export default function QuizScreen({
         trace: current.asTrace,
         correctText,
         promotedTo,
+        rematchWin,
         milestones,
         struggle,
       });
@@ -221,7 +240,9 @@ export default function QuizScreen({
       hintsShown,
       true,
       current.question.concept,
-      current.question.hints?.length ?? 0
+      current.question.hints?.length ?? 0,
+      false,
+      !!current.rematch
     );
     const q = current.question;
     const correctText =
@@ -233,7 +254,9 @@ export default function QuizScreen({
             ? q.tokens.join(" ")
             : undefined;
     // わからない もつまずきのシグナルとして数える
-    const struggle = trackStruggle(false);
+    let struggle = trackStruggle(false);
+    // 再戦の敗北は責めない: つまずき閾値を待たずに励まし→誘導を出す（計画30）
+    if (current.rematch && !struggle) struggle = buildGuidance();
     playWrong(); // 不正解と同じ柔らかい音（罰の音にしない）
     setFeedback({ correct: false, dontKnow: true, correctText, struggle });
     setScratchOpen(false);
@@ -355,6 +378,13 @@ export default function QuizScreen({
           {title}
         </div>
 
+        {/* 再戦フレーム（計画30）: 「弱点の消化」ではなく「過去の自分に挑む」場にする */}
+        {current.rematch && (
+          <div className="rematch-frame">
+            ⚔️ {current.rematch.daysAgo}日前はとけなかった問題
+          </div>
+        )}
+
         {q.type === "choice" && (
           <ChoiceView
             key={viewKey}
@@ -438,6 +468,11 @@ export default function QuizScreen({
                         ? "だいじょうぶ！いっしょに確認しよう"
                         : "ざんねん…"}
                 </div>
+                {feedback.rematchWin != null && (
+                  <div className="rank-up">
+                    🏆 {feedback.rematchWin}日前の自分に勝った！
+                  </div>
+                )}
                 {feedback.promotedTo != null && (
                   <div className="rank-up">
                     📈 ランクアップ！「{RANK_LABELS[feedback.promotedTo]}」になった！

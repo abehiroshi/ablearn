@@ -47,6 +47,11 @@ import {
   selectGoals,
 } from "./lib/goals";
 import { applyAnswer, buildAdaptiveItems, emptyMastery } from "./lib/mastery";
+import {
+  RematchCandidate,
+  pickRematches,
+  tagRematchItems,
+} from "./lib/rematch";
 import { shuffle } from "./lib/quiz";
 import { playTap, setSoundMuted } from "./lib/sound";
 import HomeScreen from "./screens/HomeScreen";
@@ -76,6 +81,8 @@ export interface QuizItem {
    * 写経段（level -1）の概念に習熟度エンジンが立てる
    */
   asTrace?: boolean;
+  /** 再戦（計画30）: 翌日以降に再会する過去不正解問題。フレーム表示と勝敗演出に使う */
+  rematch?: { daysAgo: number };
 }
 
 export interface Session {
@@ -257,6 +264,55 @@ export default function App() {
     return tiers.flatMap((t) => shuffle(t));
   }, [index, allSets, state.test, state.currentUnits]);
 
+  /**
+   * 再戦カードの候補（計画30）。ゲート判定に必要なメタ（concept・関連演習の完走日時）を
+   * 既存の記録から引いて、古い失敗から少数だけ選ぶ
+   */
+  const rematches = useMemo<RematchCandidate[]>(() => {
+    if (!allSets) return [];
+    const candidates: RematchCandidate[] = [];
+    for (const qkey of wrongKeys) {
+      const stat = state.questionStats[qkey];
+      const setId = stat.setId;
+      const set = allSets[setId];
+      if (!set) continue; // コンテンツ更新で消えたセットは無視
+      const qId = qkey.slice(qkey.indexOf("/") + 1);
+      const q = set.questions?.find((x) => x.id === qId);
+      if (!q) continue;
+      const related: string[] = [];
+      const rec = state.setRecords[setId];
+      if (rec) related.push(rec.lastAt);
+      const lesson = unitGuide.get(setId)?.lesson;
+      const lessonRec = lesson ? state.setRecords[lesson.id] : undefined;
+      if (lessonRec) related.push(lessonRec.lastAt);
+      candidates.push({
+        qkey,
+        failedAt: stat.updatedAt.slice(0, 10),
+        concept: q.concept,
+        relatedDoneAt: related,
+      });
+    }
+    return pickRematches(candidates, state, todayKey());
+  }, [allSets, wrongKeys, state, unitGuide]);
+
+  /** 再戦セッション（計画30）: ゲートを満たした過去不正解問題に再戦フレームを付けて出す */
+  function startRematch() {
+    if (!allSets || rematches.length === 0) return;
+    const items: QuizItem[] = [];
+    for (const c of rematches) {
+      const setId = c.qkey.slice(0, c.qkey.indexOf("/"));
+      const qId = c.qkey.slice(c.qkey.indexOf("/") + 1);
+      const q = allSets[setId]?.questions?.find((x) => x.id === qId);
+      if (q) items.push({ question: q, setId });
+    }
+    if (items.length === 0) return;
+    setSession({
+      title: "再戦",
+      setId: null,
+      items: tagRematchItems(items, state.questionStats, todayKey()),
+    });
+  }
+
   /** 束を選ぶ（計画29）。挑戦なら束のセッションを開始する */
   function chooseBundle(choice: "normal" | "challenge", normalQuota: number) {
     const quota = challengeQuota(normalQuota);
@@ -280,7 +336,7 @@ export default function App() {
         title: "きょうの挑戦束",
         setId: null,
         kind: "challenge",
-        items,
+        items: tagRematchItems(items, state.questionStats, todayKey()),
       });
     }
   }
@@ -302,8 +358,13 @@ export default function App() {
       setSession({
         title: set.title,
         setId: meta.id,
-        // 概念ラダーは習熟度の段に合わせた変種に絞る（concept 無しは従来どおり）
-        items: buildAdaptiveItems(set.questions, meta.id, state),
+        // 概念ラダーは習熟度の段に合わせた変種に絞る（concept 無しは従来どおり）。
+        // 翌日以降の過去不正解問題には再戦フレームを付ける（計画30）
+        items: tagRematchItems(
+          buildAdaptiveItems(set.questions, meta.id, state),
+          state.questionStats,
+          todayKey()
+        ),
       });
     } catch (e) {
       alert(String(e));
@@ -341,7 +402,12 @@ export default function App() {
       setSession({
         title: "復習",
         setId: null,
-        items: shuffle(items).slice(0, REVIEW_SESSION_MAX),
+        // 翌日以降の過去不正解問題には再戦フレームを付ける（計画30）
+        items: tagRematchItems(
+          shuffle(items).slice(0, REVIEW_SESSION_MAX),
+          state.questionStats,
+          todayKey()
+        ),
       });
     } catch (e) {
       alert(String(e));
@@ -361,7 +427,8 @@ export default function App() {
     dontKnow = false,
     concept?: string,
     hintsTotal = 0,
-    trace = false
+    trace = false,
+    rematch = false
   ): { promotedTo: number | null; milestones: Milestone[] } {
     const signal = {
       correct,
@@ -407,7 +474,8 @@ export default function App() {
         questionId,
         dontKnow ? "dontKnow" : correct,
         timeMs,
-        hintsUsed
+        hintsUsed,
+        rematch
       );
       post = addDailyLog(post, { answered: 1, correct: correct ? 1 : 0, xp });
       milestones.push(
@@ -425,7 +493,8 @@ export default function App() {
         questionId,
         dontKnow ? "dontKnow" : correct,
         timeMs,
-        hintsUsed
+        hintsUsed,
+        rematch
       );
       s = addDailyLog(s, { answered: 1, correct: correct ? 1 : 0, xp });
       s = { ...s, xp: s.xp + xp };
@@ -560,6 +629,21 @@ export default function App() {
             buildChallengeItems(challengePool, quota) !== null
           }
           onChooseBundle={chooseBundle}
+          rematchCount={rematches.length}
+          rematchOldestDays={
+            rematches.length > 0
+              ? Math.max(
+                  ...rematches.map((c) =>
+                    Math.round(
+                      (new Date(`${todayKey()}T00:00:00`).getTime() -
+                        new Date(`${c.failedAt}T00:00:00`).getTime()) /
+                        86400000
+                    )
+                  )
+                )
+              : 0
+          }
+          onStartRematch={startRematch}
         />
       )}
       {tab === "library" && (

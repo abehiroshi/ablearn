@@ -726,6 +726,20 @@ input {
   animation: fadein 0.3s ease;
 }
 
+/* 再戦フレーム（計画30）: 過去の自分への挑戦を示すバナー */
+.rematch-frame {
+  display: inline-block;
+  background: var(--accent-soft);
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 4px 12px;
+  margin: 8px 0 2px;
+  animation: fadein 0.3s ease;
+}
+
 .giveup-btn {
   display: block;
   margin: 14px auto 0;
