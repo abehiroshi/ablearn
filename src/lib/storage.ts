@@ -87,6 +87,16 @@ export interface AppState {
     weekStart: string;
     introDismissed: boolean;
   };
+  /** "YYYY-MM-DD" → その日の束の選択と完遂（計画29。型は src/lib/goals.ts の DayBundle） */
+  bundles: Record<
+    string,
+    {
+      choice: "normal" | "challenge";
+      normalQuota: number;
+      challengeQuota: number;
+      completed: boolean;
+    }
+  >;
   /** concept → 習熟度（計画12。型は src/lib/mastery.ts の ConceptMastery） */
   mastery: Record<
     string,
@@ -120,6 +130,7 @@ export function emptyState(): AppState {
     selectedSkin: "main",
     muted: false,
     goals: { active: [], next: null, weekStart: "", introDismissed: false },
+    bundles: {},
     mastery: {},
   };
 }

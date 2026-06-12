@@ -5,6 +5,7 @@ import type {
   ContentLink,
   LessonStep,
   Question,
+  QuestionSet,
   SetMeta,
 } from "./types";
 import {
@@ -37,7 +38,14 @@ import {
   wrongQuestionKeys,
 } from "./lib/storage";
 import { isTestActive, recommend } from "./lib/recommend";
-import { goalMilestones, rolloverGoals, selectGoals } from "./lib/goals";
+import {
+  ChallengeCandidate,
+  buildChallengeItems,
+  challengeQuota,
+  goalMilestones,
+  rolloverGoals,
+  selectGoals,
+} from "./lib/goals";
 import { applyAnswer, buildAdaptiveItems, emptyMastery } from "./lib/mastery";
 import { shuffle } from "./lib/quiz";
 import { playTap, setSoundMuted } from "./lib/sound";
@@ -75,6 +83,8 @@ export interface Session {
   items: QuizItem[];
   /** 通常セッション（単一セット）のときだけセットIDを持つ */
   setId: string | null;
+  /** 挑戦束（計画29）。完走で今日の束を完遂にする */
+  kind?: "challenge";
 }
 
 export interface LessonSession {
@@ -98,6 +108,10 @@ export default function App() {
   const [busy, setBusy] = useState(false);
   // 達成度の分母（全セットの問題数）。読み込み完了まで達成度系は出さない
   const [counts, setCounts] = useState<ContentCounts | null>(null);
+  // 全セットの中身（挑戦束の候補プール用。計画29）。counts と同じ読み込みを使う
+  const [allSets, setAllSets] = useState<Record<string, QuestionSet> | null>(
+    null
+  );
   // 概念メタ（前提宣言。計画26）。読み込み失敗時は空 = 遡り誘導なしで動く
   const [concepts, setConcepts] = useState<ConceptMeta[]>([]);
 
@@ -134,7 +148,9 @@ export default function App() {
     let cancelled = false;
     const load = () =>
       loadAllSets(index).then((sets) => {
-        if (!cancelled) setCounts(buildContentCounts(index, sets));
+        if (cancelled) return;
+        setCounts(buildContentCounts(index, sets));
+        setAllSets(sets);
       });
     // 失敗すると達成度の節目を逃す（単調増加で再到達できない）ため1回だけリトライ
     load().catch(() => {
@@ -207,6 +223,67 @@ export default function App() {
     () => (index ? recommend(index, state, todayKey()) : []),
     [index, state]
   );
+
+  /**
+   * 挑戦束（計画29）の候補プール。テスト範囲 → 進行中単元 → その他の優先順で、
+   * 層内はシャッフル（毎日同じ束にならないように）。レッスンは除く
+   */
+  const challengePool = useMemo<ChallengeCandidate[]>(() => {
+    if (!index || !allSets) return [];
+    const testRange = isTestActive(state.test, todayKey())
+      ? new Set(Object.values(state.test!.range).flat())
+      : null;
+    const tiers: ChallengeCandidate[][] = [[], [], []];
+    for (const subject of index.subjects) {
+      const current = state.currentUnits[subject.id] ?? [];
+      for (const unit of subject.units) {
+        for (const meta of unit.sets) {
+          if (meta.kind === "lesson") continue;
+          const tier = testRange?.has(meta.id)
+            ? 0
+            : current.includes(unit.id)
+              ? 1
+              : 2;
+          for (const q of allSets[meta.id]?.questions ?? []) {
+            tiers[tier].push({
+              question: q,
+              setId: meta.id,
+              math: subject.id === "math",
+            });
+          }
+        }
+      }
+    }
+    return tiers.flatMap((t) => shuffle(t));
+  }, [index, allSets, state.test, state.currentUnits]);
+
+  /** 束を選ぶ（計画29）。挑戦なら束のセッションを開始する */
+  function chooseBundle(choice: "normal" | "challenge", normalQuota: number) {
+    const quota = challengeQuota(normalQuota);
+    const items =
+      choice === "challenge" ? buildChallengeItems(challengePool, quota) : null;
+    if (choice === "challenge" && !items) return; // 候補不足（UI側で出さないが念のため）
+    setState((prev) => ({
+      ...prev,
+      bundles: {
+        ...prev.bundles,
+        [todayKey()]: {
+          choice,
+          normalQuota,
+          challengeQuota: quota,
+          completed: false,
+        },
+      },
+    }));
+    if (items) {
+      setSession({
+        title: "きょうの挑戦束",
+        setId: null,
+        kind: "challenge",
+        items,
+      });
+    }
+  }
 
   async function startSet(meta: SetMeta) {
     if (busy) return;
@@ -377,6 +454,25 @@ export default function App() {
   function handleFinish(score: number) {
     const setId = session?.setId;
     if (setId) setState((prev) => recordSetResult(prev, setId, score));
+    // 挑戦束の完走（計画29）: 完遂を記録し、寄与同等で達成した週目標があれば祝福を記録
+    if (session?.kind === "challenge") {
+      setState((prev) => {
+        const today = todayKey();
+        const b = prev.bundles[today];
+        if (!b || b.choice !== "challenge" || b.completed) return prev;
+        const next = {
+          ...prev,
+          bundles: { ...prev.bundles, [today]: { ...b, completed: true } },
+        };
+        const ms = goalMilestones(next.goals, goalCtx(next), prev.celebrated);
+        return ms.length > 0
+          ? {
+              ...next,
+              celebrated: [...next.celebrated, ...ms.map((m) => m.id)],
+            }
+          : next;
+      });
+    }
   }
 
   function toggleUnit(subjectId: string, unitId: string) {
@@ -460,6 +556,10 @@ export default function App() {
               goals: { ...prev.goals, introDismissed: true },
             }))
           }
+          canChallenge={(quota) =>
+            buildChallengeItems(challengePool, quota) !== null
+          }
+          onChooseBundle={chooseBundle}
         />
       )}
       {tab === "library" && (

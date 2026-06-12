@@ -1,13 +1,19 @@
 import { describe, expect, it } from "vitest";
+import type { Question } from "../types";
 import { emptyState } from "./storage";
 import {
+  ChallengeCandidate,
   GOAL_CATALOG,
   GoalContext,
   availableGoals,
+  buildChallengeItems,
+  challengeQuota,
   emptyGoals,
   goalMilestones,
   goalProgress,
+  isChallengeQuestion,
   mondayOf,
+  recommendedBundle,
   rolloverGoals,
   selectGoals,
   weekDaysOf,
@@ -253,5 +259,118 @@ describe("週目標の祝福（受け入れ条件3）", () => {
   it("未達の週は何も出ない（静かに流す）", () => {
     const goals = selectGoals(emptyGoals(), ["days-3"], "2026-06-08");
     expect(goalMilestones(goals, ctx(), [])).toHaveLength(0);
+  });
+});
+
+describe("挑戦束（計画29）", () => {
+  const mathHard: Question = {
+    id: "mh1",
+    type: "choice",
+    question: "応用",
+    choices: ["a", "b"],
+    answer: 0,
+    difficulty: 3,
+  };
+  const mathEasy: Question = { ...mathHard, id: "me1", difficulty: 1 };
+  const engInput: Question = {
+    id: "ei1",
+    type: "input",
+    question: "英作文",
+    answers: ["a cat"],
+  };
+  const engChoiceConv: Question = {
+    id: "ec1",
+    type: "choice",
+    question: "選択だが answers つき",
+    choices: ["a", "b"],
+    answer: 0,
+    answers: ["a"],
+  };
+  const engChoiceOnly: Question = {
+    id: "ec2",
+    type: "choice",
+    question: "選択のみ",
+    choices: ["a", "b"],
+    answer: 0,
+  };
+
+  it("challengeQuota は量を圧縮する（10問→4問・最低1問）", () => {
+    expect(challengeQuota(10)).toBe(4);
+    expect(challengeQuota(5)).toBe(2);
+    expect(challengeQuota(1)).toBe(1);
+  });
+
+  it("挑戦束の構成: 数学は応用のみ・他教科は自力入力系のみ（受け入れ条件3）", () => {
+    expect(isChallengeQuestion(mathHard, true)).toBe(true);
+    expect(isChallengeQuestion(mathEasy, true)).toBe(false);
+    expect(isChallengeQuestion(engInput, false)).toBe(true);
+    expect(isChallengeQuestion(engChoiceConv, false)).toBe(true);
+    expect(isChallengeQuestion(engChoiceOnly, false)).toBe(false);
+  });
+
+  it("非数学の choice は input 形式（asInput）で出す", () => {
+    const pool: ChallengeCandidate[] = [
+      { question: engChoiceConv, setId: "eng-a", math: false },
+    ];
+    const items = buildChallengeItems(pool, 1)!;
+    expect(items[0].asInput).toBe(true);
+  });
+
+  it("同じ概念の変種は重ねない・足りない日は null（挑戦束を出さない）", () => {
+    const v1 = { ...engInput, id: "v1", concept: "c1" };
+    const v2 = { ...engInput, id: "v2", concept: "c1" };
+    const pool: ChallengeCandidate[] = [
+      { question: v1, setId: "s", math: false },
+      { question: v2, setId: "s", math: false },
+    ];
+    expect(buildChallengeItems(pool, 2)).toBeNull(); // 実質1概念しかない
+    expect(buildChallengeItems(pool, 1)).toHaveLength(1);
+  });
+
+  it("完遂した挑戦束はふつう束と同じ寄与（受け入れ条件2）", () => {
+    const s = emptyState();
+    // 水曜: 挑戦束（ふつう10問→難問4問）を完走。実際の解答は4問
+    s.dailyLog["2026-06-10"] = { answered: 4, correct: 4, xp: 40 };
+    s.bundles["2026-06-10"] = {
+      choice: "challenge",
+      normalQuota: 10,
+      challengeQuota: 4,
+      completed: true,
+    };
+    const p = goalProgress(def("count-35"), ctx({ state: s }))!;
+    expect(p.current).toBe(10); // 4問 + 差分6 = ふつう束10問と同等
+  });
+
+  it("未完遂の挑戦束・ふつう束の日はクレジットなし（28の動作に影響がない）", () => {
+    const s = emptyState();
+    s.dailyLog["2026-06-10"] = { answered: 4, correct: 4, xp: 40 };
+    s.bundles["2026-06-10"] = {
+      choice: "challenge",
+      normalQuota: 10,
+      challengeQuota: 4,
+      completed: false,
+    };
+    expect(goalProgress(def("count-35"), ctx({ state: s }))!.current).toBe(4);
+    s.bundles["2026-06-10"] = {
+      choice: "normal",
+      normalQuota: 10,
+      challengeQuota: 4,
+      completed: true,
+    };
+    expect(goalProgress(def("count-35"), ctx({ state: s }))!.current).toBe(4);
+  });
+
+  it("問数系の課題は todayQuota を持つ（束の生成元）", () => {
+    const p = goalProgress(def("count-70"), ctx())!;
+    expect(p.todayQuota).toBe(14); // 70 ÷ 残り5日
+    const days = goalProgress(def("days-3"), ctx())!;
+    expect(days.todayQuota).toBeUndefined();
+  });
+
+  it("推す束: 今週よく解けていれば挑戦・それ以外はふつう", () => {
+    const s = emptyState();
+    expect(recommendedBundle(s, "2026-06-10")).toBe("normal");
+    s.dailyLog["2026-06-09"] = { answered: 12, correct: 10, xp: 100 };
+    expect(recommendedBundle(s, "2026-06-10")).toBe("challenge");
   });
 });

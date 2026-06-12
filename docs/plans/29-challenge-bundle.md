@@ -1,6 +1,18 @@
 # 今日の課題の挑戦束（楽・ふつう・挑戦の自己選択）
 
-- 状態: 未着手
+- 状態: 完了（2026-06-12）
+- 引き継ぎメモ:
+  - 束の対象は**問数系（count-\*）の週目標の今日の課題の先頭1つ**。他の目標（days/review/range等）の課題行は従来どおり
+  - 挑戦束のノルマ = `challengeQuota(n) = max(1, ceil(n × 0.4))`（`src/lib/goals.ts` の `CHALLENGE_RATIO`）
+  - **寄与同等はクレジット方式**: 挑戦束セッション完走で `AppState.bundles[日付].completed = true` になり、
+    count 目標の週集計に「ふつう束との差分（normalQuota − challengeQuota）」を上乗せ（`bundleCredit`）。
+    実記録（dailyLog/history）は改変しない
+  - 束の中身は `buildChallengeItems`: 数学= difficulty 3 のみ・他教科= input/order/answers つき choice（asInput で出す）。
+    同一 concept の変種は重ねない。候補プールは App.tsx の `challengePool`（テスト範囲→進行中単元→その他の優先順・層内シャッフル・レッスン除外）
+  - 足りない日は挑戦束自体を出さない（HomeScreen の `canChallenge` ゲート＋ `chooseBundle` の二重チェック）
+  - デフォルトフォーカスは `recommendedBundle`（今週 answered≥10 かつ正答率≥75% で挑戦を推す）。primary/secondary ボタンの差で表現
+  - 完走判定は App.tsx `handleFinish`（Session.kind === "challenge"）。日付跨ぎ完走は静かに不発（誤加算しない）
+  - 選択率のデータは `bundles`（日付→choice）に残る。表示UIは作っていない
 - 触るファイル範囲: `src/lib/goals.ts`（束の生成）・`src/screens/HomeScreen.tsx`（今日の課題カード）
 - 出典: ゲーム調査 A-3（挑戦選好: 6割が挑戦的目標を選好）・§0（自己選択×適正挑戦が失敗の2大要因を塞ぐ）
 

@@ -12,9 +12,12 @@ import {
 import {
   GOAL_CATALOG,
   GoalContext,
+  GoalProgress,
   MAX_GOALS,
   activeGoalProgress,
   availableGoals,
+  challengeQuota,
+  recommendedBundle,
 } from "../lib/goals";
 import Abler from "../components/Abler";
 
@@ -38,6 +41,10 @@ interface Props {
   isLesson: (setId: string) => boolean;
   onSelectGoals: (ids: string[]) => void;
   onDismissGoalsIntro: () => void;
+  /** 挑戦束（計画29）: そのノルマぶんの難問を用意できるか */
+  canChallenge: (quota: number) => boolean;
+  /** 束を選ぶ。挑戦なら束のセッションが始まる */
+  onChooseBundle: (choice: "normal" | "challenge", normalQuota: number) => void;
 }
 
 const DOW = ["日", "月", "火", "水", "木", "金", "土"];
@@ -65,6 +72,8 @@ export default function HomeScreen({
   isLesson,
   onSelectGoals,
   onDismissGoalsIntro,
+  canChallenge,
+  onChooseBundle,
 }: Props) {
   const today = todayKey();
   const testActive = isTestActive(state.test, today);
@@ -81,6 +90,12 @@ export default function HomeScreen({
     setTotals: counts?.setTotals ?? null,
   };
   const goalsProgress = activeGoalProgress(state.goals, goalCtx);
+  // 挑戦束（計画29）: 問数系の課題の先頭1つだけを「ふつう/挑戦」の2束にする
+  const todayBundle = state.bundles?.[today];
+  const bundleGoalId = goalsProgress.find(
+    (p) => !p.achieved && p.todayQuota !== undefined
+  )?.def.id;
+  const bundleFocus = recommendedBundle(state, today);
   const [editingGoals, setEditingGoals] = useState(false);
   const [draftGoals, setDraftGoals] = useState<string[]>([]);
   const goalLabel = (id: string) =>
@@ -97,6 +112,104 @@ export default function HomeScreen({
         : prev.length >= MAX_GOALS
           ? prev
           : [...prev, id]
+    );
+  }
+
+  /** 今日の課題の行。問数系の先頭1つは「ふつう/挑戦」の2束（計画29） */
+  function taskLine(p: GoalProgress) {
+    if (p.achieved) {
+      return (
+        <div className="muted" style={{ fontSize: 13 }}>
+          たっせい！おみごと！
+        </div>
+      );
+    }
+    const quota = p.todayQuota;
+    const plain = (
+      <div className="muted" style={{ fontSize: 13 }}>
+        きょうの課題: {p.todayTask}
+      </div>
+    );
+    if (p.def.id !== bundleGoalId || quota === undefined) return plain;
+    const cq = challengeQuota(quota);
+    // 難問が足りない日は挑戦束を出さない（水増しで「挑戦なのに簡単」を作らない）
+    const challengeOk = canChallenge(cq);
+    if (!todayBundle) {
+      if (!challengeOk) return plain;
+      // 推す方をデフォルトフォーカス（強調）してよい。ただし選ぶのは常に本人
+      return (
+        <div>
+          <div className="muted" style={{ fontSize: 13 }}>
+            きょうの課題: どっちでいく？
+          </div>
+          <div className="row" style={{ gap: 8, marginTop: 6 }}>
+            <button
+              className={
+                bundleFocus === "normal" ? "primary-btn" : "secondary-btn"
+              }
+              style={{ flex: 1 }}
+              onClick={() => onChooseBundle("normal", quota)}
+            >
+              ふつう（{quota}問とく）
+            </button>
+            <button
+              className={
+                bundleFocus === "challenge" ? "primary-btn" : "secondary-btn"
+              }
+              style={{ flex: 1 }}
+              onClick={() => onChooseBundle("challenge", quota)}
+            >
+              挑戦（難問{cq}問で同じ）
+            </button>
+          </div>
+        </div>
+      );
+    }
+    if (todayBundle.choice === "challenge") {
+      if (todayBundle.completed) {
+        return (
+          <div className="muted" style={{ fontSize: 13 }}>
+            🔥 きょうの挑戦束クリア！ふつう束とおなじだけ進んだよ
+          </div>
+        );
+      }
+      return (
+        <div className="row" style={{ gap: 8, fontSize: 13 }}>
+          <span className="muted">
+            きょうの課題: 難問{todayBundle.challengeQuota}問にちょうせん中
+          </span>
+          <span className="spacer" />
+          <button
+            className="link-btn"
+            onClick={() => onChooseBundle("challenge", quota)}
+          >
+            つづきをやる
+          </button>
+          <button
+            className="link-btn"
+            onClick={() => onChooseBundle("normal", quota)}
+          >
+            ふつうにする
+          </button>
+        </div>
+      );
+    }
+    // ふつうを選んだ日（文言・扱いは従来と同等＝責めない）。挑戦への切替はいつでも
+    return (
+      <div className="row" style={{ gap: 8, fontSize: 13 }}>
+        <span className="muted">きょうの課題: {p.todayTask}</span>
+        {challengeOk && (
+          <>
+            <span className="spacer" />
+            <button
+              className="link-btn"
+              onClick={() => onChooseBundle("challenge", quota)}
+            >
+              💪 挑戦にかえる
+            </button>
+          </>
+        )}
+      </div>
     );
   }
 
@@ -247,11 +360,7 @@ export default function HomeScreen({
                 </span>
                 {p.achieved && <span style={{ fontSize: 13 }}>🎉</span>}
               </div>
-              <div className="muted" style={{ fontSize: 13 }}>
-                {p.achieved
-                  ? "たっせい！おみごと！"
-                  : `きょうの課題: ${p.todayTask}`}
-              </div>
+              {taskLine(p)}
             </div>
           ))}
           {state.goals.next && (
