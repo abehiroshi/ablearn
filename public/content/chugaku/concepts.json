@@ -23,6 +23,40 @@
       "prerequisites": ["shiki-doruiko", "math1-houteishiki"]
     },
     {
+      "id": "math1-hirei",
+      "name": "中1: 比例と反比例",
+      "prerequisites": []
+    },
+    {
+      "id": "math1-heimen-zukei",
+      "name": "中1: 平面図形の基礎",
+      "prerequisites": []
+    },
+    {
+      "id": "math-ichiji-henka",
+      "name": "一次関数と変化の割合",
+      "set": "math-ichiji-kihon",
+      "prerequisites": ["math1-hirei"]
+    },
+    {
+      "id": "math-ichiji-shiki",
+      "name": "一次関数の式を求める",
+      "set": "math-ichiji-kihon",
+      "prerequisites": ["math-ichiji-henka", "math-shiki-touhen"]
+    },
+    {
+      "id": "math-heikou-kaku",
+      "name": "平行線と角（同位角・錯角）",
+      "set": "math-zukei-kakudo",
+      "prerequisites": ["math1-heimen-zukei"]
+    },
+    {
+      "id": "math-naikaku-gaikaku",
+      "name": "多角形の内角と外角",
+      "set": "math-zukei-kakudo",
+      "prerequisites": ["math-heikou-kaku"]
+    },
+    {
       "id": "sci-kagaku-shiki",
       "name": "原子・分子と化学式",
       "set": "sci-genshi-bunshi",

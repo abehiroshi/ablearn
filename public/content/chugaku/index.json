@@ -49,6 +49,34 @@
               "file": "math/renritsu-ouyou.json"
             }
           ]
+        },
+        {
+          "id": "ichiji",
+          "name": "一次関数",
+          "sets": [
+            {
+              "id": "math-lesson-ichiji",
+              "name": "レッスン: 一次関数とは",
+              "file": "math/lesson-ichiji.json",
+              "kind": "lesson"
+            },
+            {
+              "id": "math-ichiji-kihon",
+              "name": "一次関数の基本",
+              "file": "math/ichiji-kihon.json"
+            }
+          ]
+        },
+        {
+          "id": "zukei",
+          "name": "図形の調べ方",
+          "sets": [
+            {
+              "id": "math-zukei-kakudo",
+              "name": "平行線と角・多角形の角",
+              "file": "math/zukei-kakudo.json"
+            }
+          ]
         }
       ]
     },
