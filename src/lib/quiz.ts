@@ -99,8 +99,9 @@ export function isStruggling(c: StruggleCounter): boolean {
 }
 
 // XP 設計: 1発正解 +10 / セッション内リトライで正解 +5 / フラッシュカード「覚えた」 +5
-// レッスン内の正解 +2（採点プレッシャーを下げる）
+// レッスン内の正解 +2（採点プレッシャーを下げる）/ 写経の完了 +2（覚えた証明ではない）
 export const XP_FIRST_CORRECT = 10;
 export const XP_RETRY_CORRECT = 5;
+export const XP_TRACE = 2;
 export const XP_FLASHCARD = 5;
 export const XP_LESSON = 2;

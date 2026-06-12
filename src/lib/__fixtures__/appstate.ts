@@ -78,10 +78,34 @@ export const V1_AFTER_17 = {
   },
 };
 
+/** 計画12（習熟度）追加後・計画25（写経）より前の形式（mastery に wrongStreak が無い） */
+export const V1_AFTER_12 = {
+  ...V1_AFTER_17,
+  celebrated: ["answered:100"],
+  selectedSkin: "main",
+  mastery: {
+    "shiki-doruiko": {
+      level: 0,
+      streak: 1,
+      lastCorrectDate: "2026-06-10",
+      dueDate: "2026-06-13",
+      setId: "math-shiki-keisan",
+    },
+    "sci-kagaku-keisuu": {
+      level: 1,
+      streak: 0,
+      lastCorrectDate: "2026-06-09",
+      dueDate: "2026-06-16",
+      setId: "sci-kagaku-hannoushiki",
+    },
+  },
+};
+
 export const ALL_FIXTURES: Record<string, unknown> = {
   "v1-initial": V1_INITIAL,
   "v1-after-04": V1_AFTER_04,
   "v1-after-01": V1_AFTER_01,
   "v1-after-06": V1_AFTER_06,
   "v1-after-17": V1_AFTER_17,
+  "v1-after-12": V1_AFTER_12,
 };

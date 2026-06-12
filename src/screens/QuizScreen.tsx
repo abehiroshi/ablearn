@@ -6,6 +6,7 @@ import {
   XP_FIRST_CORRECT,
   XP_FLASHCARD,
   XP_RETRY_CORRECT,
+  XP_TRACE,
   choiceAsInput,
   emptyStruggle,
   isStruggling,
@@ -25,6 +26,8 @@ import type { Milestone } from "../lib/milestones";
 
 interface Feedback {
   correct: boolean;
+  /** 写経の完了（計画25。祝い方を「正解」と変える） */
+  trace?: boolean;
   /** 不正解時に表示する正解 */
   correctText?: string;
   /** 「わからない」経由（責めずに解説・ヒントを見せる） */
@@ -54,7 +57,8 @@ interface Props {
     hintsUsed: number,
     dontKnow?: boolean,
     concept?: string,
-    hintsTotal?: number
+    hintsTotal?: number,
+    trace?: boolean
   ) => { promotedTo: number | null; milestones: Milestone[] };
   onFinish: (score: number) => void;
   onClose: () => void;
@@ -134,7 +138,9 @@ export default function QuizScreen({
 
     let xp = 0;
     if (correct) {
-      if (current.question.type === "flashcard") xp = XP_FLASHCARD;
+      // 写経は覚えた証明ではないので小さく（レッスン並み）
+      if (current.asTrace) xp = XP_TRACE;
+      else if (current.question.type === "flashcard") xp = XP_FLASHCARD;
       // ヒントを使った正解はリトライ正解と同額（+5）
       else if (hintsShown > 0) xp = XP_RETRY_CORRECT;
       else xp = isFirst ? XP_FIRST_CORRECT : XP_RETRY_CORRECT;
@@ -144,12 +150,14 @@ export default function QuizScreen({
       current.question.id,
       correct,
       xp,
-      isFirst,
+      // 写経は「見ながら打てた」だけなので正答実績（復習リスト・達成度）に混ぜない
+      isFirst && !current.asTrace,
       timeMs,
       hintsShown,
       false,
       current.question.concept,
-      current.question.hints?.length ?? 0
+      current.question.hints?.length ?? 0,
+      current.asTrace
     );
     sessionMilestones.current.push(...milestones);
     setSessionXp((v) => v + xp);
@@ -165,7 +173,14 @@ export default function QuizScreen({
     if (current.question.type === "flashcard") {
       advance(correct);
     } else {
-      setFeedback({ correct, correctText, promotedTo, milestones, struggle });
+      setFeedback({
+        correct,
+        trace: current.asTrace,
+        correctText,
+        promotedTo,
+        milestones,
+        struggle,
+      });
       // スマホのオーバーレイがフィードバックを隠さないように閉じる
       setScratchOpen(false);
     }
@@ -279,9 +294,9 @@ export default function QuizScreen({
   }
 
   if (!current) return null;
-  // answers つき choice は input 形式でも出せる（asInput は12の出し分けが立てる）
+  // answers つき choice は input 形式でも出せる（asInput/asTrace は12・25の出し分けが立てる）
   const q =
-    current.asInput && current.question.type === "choice"
+    (current.asInput || current.asTrace) && current.question.type === "choice"
       ? (choiceAsInput(current.question) ?? current.question)
       : current.question;
   const viewKey = `${keyOf(current)}#${attempt}`;
@@ -336,6 +351,7 @@ export default function QuizScreen({
             disabled={!!feedback}
             onSubmit={submit}
             onGiveUp={giveUp}
+            trace={current.asTrace}
           />
         )}
         {q.type === "flashcard" && (
@@ -351,7 +367,7 @@ export default function QuizScreen({
           />
         )}
 
-        {q.hints && q.hints.length > 0 && !feedback && (
+        {q.hints && q.hints.length > 0 && !feedback && !current.asTrace && (
           <div className="hint-area">
             {q.hints.slice(0, hintsShown).map((hint, i) => (
               <div key={i} className="hint-row">
@@ -394,7 +410,9 @@ export default function QuizScreen({
               <div style={{ flex: 1 }}>
                 <div className="head">
                   {feedback.correct
-                    ? "せいかい！ 🎉"
+                    ? feedback.trace
+                      ? "かけた！✍️ つぎは自分でやってみよう"
+                      : "せいかい！ 🎉"
                     : feedback.struggle
                       ? feedback.struggle.encouragement.text
                       : feedback.dontKnow

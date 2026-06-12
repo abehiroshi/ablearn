@@ -47,6 +47,11 @@ export interface QuizItem {
    * 出し分けの判断は習熟度エンジン（計画12）が行う
    */
   asInput?: boolean;
+  /**
+   * 写経モード（計画25）: 正解をゴースト表示し、見ながら打てたら完了。
+   * 写経段（level -1）の概念に習熟度エンジンが立てる
+   */
+  asTrace?: boolean;
 }
 
 export interface Session {
@@ -205,13 +210,15 @@ export default function App() {
     hintsUsed: number,
     dontKnow = false,
     concept?: string,
-    hintsTotal = 0
+    hintsTotal = 0,
+    trace = false
   ): { promotedTo: number | null; milestones: Milestone[] } {
     const signal = {
       correct,
       dontKnow,
       hintsUsed,
       hintsTotal,
+      trace,
       today: todayKey(),
     };
     // 昇格したか・跨いだ節目を呼び出し元（フィードバック/結果表示）に返す

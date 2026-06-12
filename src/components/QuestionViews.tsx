@@ -83,11 +83,14 @@ export function InputView({
   disabled,
   onSubmit,
   onGiveUp,
+  trace = false,
 }: {
   question: InputQuestion;
   disabled: boolean;
   onSubmit: Submit;
   onGiveUp?: () => void;
+  /** 写経モード（計画25）: 正解をゴースト表示し、一致したら自動で完了 */
+  trace?: boolean;
 }) {
   const [value, setValue] = useState("");
 
@@ -96,28 +99,46 @@ export function InputView({
     onSubmit(checkInputAnswer(value, question.answers), question.answers[0]);
   }
 
+  function onChange(v: string) {
+    setValue(v);
+    // 写経はゴーストと一致した瞬間に完了（間違いボタンを押させない）
+    if (trace && !disabled && checkInputAnswer(v, question.answers)) {
+      onSubmit(true, question.answers[0]);
+    }
+  }
+
   return (
     <>
       <div className="q-text">{question.question}</div>
-      <input
-        className="answer-input"
-        value={value}
-        placeholder={question.placeholder ?? "答えを入力"}
-        autoCapitalize="off"
-        autoCorrect="off"
-        disabled={disabled}
-        onChange={(e) => setValue(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && submit()}
-      />
-      <button
-        className="primary-btn"
-        style={{ marginTop: 16 }}
-        disabled={disabled || !value.trim()}
-        onClick={submit}
-      >
-        答える
-      </button>
-      {!disabled && <GiveUpButton onGiveUp={onGiveUp} />}
+      {trace && (
+        <div className="trace-note">
+          ✍️ うすい字をみながら、そのまま打ってみよう
+        </div>
+      )}
+      <div className={trace ? "trace-wrap" : undefined}>
+        {trace && <span className="trace-ghost">{question.answers[0]}</span>}
+        <input
+          className={`answer-input${trace ? " trace-input" : ""}`}
+          value={value}
+          placeholder={trace ? undefined : (question.placeholder ?? "答えを入力")}
+          autoCapitalize="off"
+          autoCorrect="off"
+          disabled={disabled}
+          onChange={(e) => onChange(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && !trace && submit()}
+        />
+      </div>
+      {!trace && (
+        <button
+          className="primary-btn"
+          style={{ marginTop: 16 }}
+          disabled={disabled || !value.trim()}
+          onClick={submit}
+        >
+          答える
+        </button>
+      )}
+      {!disabled && !trace && <GiveUpButton onGiveUp={onGiveUp} />}
     </>
   );
 }

@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
-import type { ChoiceQuestion, InputQuestion, Question } from "../types";
+import type { ChoiceQuestion, FlashcardQuestion, InputQuestion, Question } from "../types";
 import { emptyState } from "./storage";
+import { V1_AFTER_12 } from "./__fixtures__/appstate";
 import {
+  TRACE_LEVEL,
   applyAnswer,
   buildAdaptiveItems,
   deriveInitialMastery,
@@ -53,10 +55,53 @@ describe("applyAnswer: 昇降格ルール（spec の不変条件）", () => {
     expect(
       applyAnswer(atLevel1, { ...ok("2026-06-01"), hintsUsed: 2 }).level
     ).toBe(0); // ヒント2/2 = 最後まで使った正解
-    // level 0 からは下がらない
+    // level 0 からは1回の不正解では下がらない
     expect(
       applyAnswer(emptyMastery(), { ...ok("2026-06-01"), correct: false }).level
     ).toBe(0);
+  });
+
+  it("choice 段の連続不正解で写経段へ降格する（計画25 受け入れ条件2）", () => {
+    const wrong = { ...ok("2026-06-01"), correct: false };
+    let m = applyAnswer(emptyMastery(), wrong);
+    expect(m.level).toBe(0); // 1回では落ちない
+    m = applyAnswer(m, wrong);
+    expect(m.level).toBe(TRACE_LEVEL); // 2回連続で写経段へ
+    // 写経段より下には落ちない
+    m = applyAnswer(m, wrong);
+    expect(m.level).toBe(TRACE_LEVEL);
+  });
+
+  it("間に正解を挟むと不正解の連続は切れる（写経に落ちない）", () => {
+    const wrong = { ...ok("2026-06-01"), correct: false };
+    let m = applyAnswer(emptyMastery(), wrong);
+    m = applyAnswer(m, ok("2026-06-02"));
+    m = applyAnswer(m, wrong);
+    expect(m.level).toBe(0);
+  });
+
+  it("写経の完了で choice 段へ進む（計画25 受け入れ条件1）", () => {
+    const atTrace = { ...emptyMastery(), level: TRACE_LEVEL, wrongStreak: 2 };
+    const m = applyAnswer(atTrace, { ...ok("2026-06-01"), trace: true });
+    expect(m.level).toBe(0);
+    expect(m.streak).toBe(0); // 正解の連続には数えない
+    expect(m.wrongStreak).toBe(0);
+    expect(m.dueDate).toBe("2026-06-02"); // 翌日に再確認
+    // すでに choice 段以上なら維持（写経で段は下がらない）
+    const atInput = { ...emptyMastery(), level: 1 };
+    expect(applyAnswer(atInput, { ...ok("2026-06-01"), trace: true }).level).toBe(1);
+  });
+
+  it("計画25より前の保存データ（wrongStreak なし）でも昇降格が壊れない", () => {
+    const old = V1_AFTER_12.mastery["shiki-doruiko"]; // wrongStreak フィールドが無い
+    const wrong = { ...ok("2026-06-13"), correct: false };
+    let m = applyAnswer(old, wrong);
+    expect(m.level).toBe(0); // 1回目では落ちない（?? 0 から数え始める）
+    m = applyAnswer(m, wrong);
+    expect(m.level).toBe(TRACE_LEVEL);
+    // 写経段での正解（復習経由など）も dueDate が壊れない
+    const correct = applyAnswer({ ...m }, ok("2026-06-14"));
+    expect(correct.dueDate).toBe("2026-06-17"); // 写経段は choice 段と同じ +3日
   });
 
   it("ヒント途中までの正解は段を維持し、連続だけ切れる", () => {
@@ -91,8 +136,11 @@ describe("deriveInitialMastery: 既存データからの初期習熟度（受け
     expect(m.lastCorrectDate).toBe("2026-06-02");
   });
 
-  it("実績がない・直近不正解があれば choice 段から", () => {
-    expect(deriveInitialMastery(["s1/q1"], {}).level).toBe(0);
+  it("実績が全くない初見は写経段から（計画25）", () => {
+    expect(deriveInitialMastery(["s1/q1"], {}).level).toBe(TRACE_LEVEL);
+  });
+
+  it("実績が一部でもあれば（直近不正解など）choice 段から", () => {
     const stats = {
       "s1/q1": { setId: "s1", correct: 5, wrong: 1, lastCorrect: false, updatedAt: "" },
     };
@@ -175,6 +223,49 @@ describe("buildAdaptiveItems: 段に応じた出題", () => {
     const items = buildAdaptiveItems(questions, "s1", s);
     expect(items[0].question.id).toBe("q3"); // 初期から input 段
   });
+
+  it("初見（実績・習熟度なし）は最も易しい変種が写経モードで出る（計画25 受け入れ条件1）", () => {
+    const items = buildAdaptiveItems(questions, "s1", emptyState());
+    expect(items[0].asTrace).toBe(true);
+    expect(items[0].question.id).toBe("q1"); // difficulty 1 の先頭
+    expect(items[0].asInput).toBe(true); // choice 変種は input に変換して写経する
+    // concept 無しの問題は従来どおり
+    expect(items[1].question.id).toBe("q2");
+    expect(items[1].asTrace).toBeUndefined();
+  });
+
+  it("写経段（level -1）の保存データでも写経モードで出る（降格後・受け入れ条件2）", () => {
+    const items = buildAdaptiveItems(questions, "s1", stateAtLevel(-1));
+    expect(items[0].asTrace).toBe(true);
+  });
+
+  it("写経にできる変種が無い概念は choice 段へフォールバックする", () => {
+    const flashQ: FlashcardQuestion = {
+      id: "f1",
+      type: "flashcard",
+      front: "おもて",
+      back: "うら",
+      concept: "c2",
+    };
+    const noAnswersChoice: ChoiceQuestion = {
+      id: "c1q",
+      type: "choice",
+      question: "どれ？",
+      choices: ["あ", "い"],
+      answer: 0,
+      concept: "c2",
+      difficulty: 1,
+    };
+    const items = buildAdaptiveItems([flashQ, noAnswersChoice], "s1", emptyState());
+    expect(items[0].asTrace).toBeUndefined();
+    expect(items[0].question.id).toBe("c1q"); // stage0 の choice にフォールバック
+  });
+
+  it("既存の保存データ（level 0）は写経に落ちず choice のまま（後方互換）", () => {
+    const items = buildAdaptiveItems(questions, "s1", stateAtLevel(0));
+    expect(items[0].asTrace).toBeUndefined();
+    expect(items[0].question.id).toBe("q1");
+  });
 });
 
 describe("dueSetIds / rankCounts", () => {
@@ -187,13 +278,14 @@ describe("dueSetIds / rankCounts", () => {
     expect([...dueSetIds(s, "2026-06-12")]).toEqual(["s1"]);
   });
 
-  it("rankCounts は段位ごとの概念数", () => {
+  it("rankCounts は段位ごとの概念数（index 0 = 写経段）", () => {
     const s = emptyState();
     s.mastery = {
       a: { level: 0, streak: 0, lastCorrectDate: "", dueDate: "", setId: "" },
       b: { level: 1, streak: 0, lastCorrectDate: "", dueDate: "", setId: "" },
       c: { level: 1, streak: 0, lastCorrectDate: "", dueDate: "", setId: "" },
+      d: { level: -1, streak: 0, lastCorrectDate: "", dueDate: "", setId: "" },
     };
-    expect(rankCounts(s)).toEqual([1, 2, 0]);
+    expect(rankCounts(s)).toEqual([1, 1, 2, 0]);
   });
 });

@@ -84,6 +84,8 @@ export interface AppState {
     {
       level: number;
       streak: number;
+      /** 連続不正解数（計画25で追加。旧データには無い） */
+      wrongStreak?: number;
       lastCorrectDate: string;
       dueDate: string;
       setId: string;

@@ -1,6 +1,20 @@
 # 写経段階（テキスト写経・ラダー最弱段）
 
-- 状態: 未着手
+- 状態: 完了（2026-06-12）
+- 引き継ぎメモ（実装）:
+  - レベル番号は変えず **写経段 = level -1**（`TRACE_LEVEL`）とした。保存済み level 0〜2 の意味は不変＝データ移行なし。
+    降格判定用に `ConceptMastery.wrongStreak?`（連続不正解数）を追加（旧データは ?? 0 で読む。フィクスチャ v1-after-12 追加）
+  - 初見判定は `deriveInitialMastery`（全変種に解答実績ゼロ → -1）。choice 段から連続2回不正解（`DEMOTE_TO_TRACE_WRONGS`）で -1 へ
+  - 出題は `pickVariant`: answers を持つ最易変種（difficulty 3 除く）を `QuizItem.asTrace` で出す。choice 変種は asInput 併用で input 化。
+    写経できない概念（flashcard/order のみ）は choice 段へフォールバック
+  - 完了は `AnswerSignal.trace` で `applyAnswer` に伝える（level → max(0, level)・streak に数えない・翌日再確認）。
+    写経の正解は `questionStats` に入れない（recordStat=false。復習リスト・達成度を汚さない）。XP は `XP_TRACE`(+2)
+  - UI は InputView の trace モード（`.trace-ghost` を入力欄に重ねる。ヒント・わからない非表示・一致で自動完了）。
+    Stats の段位表は4段（✏️ みながらかける を追加）
+  - 既知の警け（破綻条件）: 1概念だけのセットを写経完了すると setRecords に best=100 が記録され、Library 上は「100%」に見える。
+    翌日 dueDate でおすすめに再浮上するため実害は限定的だが、「写経だけで100%表示」が紛らわしいと感じたら
+    スコア分母から写経を除く小修正を入れる
+  - ゴーストは answers[0] を white-space:pre で重ねる。入力欄の横幅を超える長い答えはゴーストがスクロールに追従しない（短答前提）
 - 触るファイル範囲: `src/components/QuestionViews.tsx`・`src/lib/`（mastery / quiz）・`src/screens/QuizScreen.tsx`
 - 引き継ぎメモ: 根拠は [調査レポート](../research/learning-apps-survey.md) B-1（Monoxer の写経形式）。実装形はテキスト写経（案a・オーナー決定 2026-06-12）。手書きなぞり（案b）は漢字の書き対策が必要になったら別計画
 

@@ -8,7 +8,7 @@ import {
   todayKey,
 } from "../lib/storage";
 import { subjectAccuracy, unitAccuracy, unitGrowth } from "../lib/stats";
-import { RANK_LABELS, rankCounts } from "../lib/mastery";
+import { RANK_LABELS, TRACE_LABEL, rankCounts } from "../lib/mastery";
 import {
   ContentCounts,
   describeMilestone,
@@ -167,10 +167,10 @@ export default function StatsScreen({
       {Object.keys(state.mastery).length > 0 && (
         <div className="card">
           <div style={{ fontWeight: 700, marginBottom: 8 }}>概念の段位</div>
-          {rankCounts(state).map((n, level) => (
-            <div key={level} className="list-row">
-              <span>{["🥉", "🥈", "🥇"][level]}</span>
-              <span style={{ flex: 1 }}>{RANK_LABELS[level]}</span>
+          {rankCounts(state).map((n, i) => (
+            <div key={i} className="list-row">
+              <span>{["✏️", "🥉", "🥈", "🥇"][i]}</span>
+              <span style={{ flex: 1 }}>{[TRACE_LABEL, ...RANK_LABELS][i]}</span>
               <span style={{ fontWeight: 700 }}>{n}個</span>
             </div>
           ))}

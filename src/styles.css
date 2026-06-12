@@ -464,6 +464,37 @@ input {
   border-color: var(--accent);
 }
 
+/* 写経モード（計画25）: 入力欄の下にゴースト（正解）を重ねる。
+   フォント・余白を .answer-input と揃えて、打った字が薄い字に重なるようにする */
+.trace-wrap {
+  position: relative;
+}
+
+.trace-ghost {
+  position: absolute;
+  inset: 0;
+  padding: 14px 16px;
+  border: 2px solid transparent;
+  font-size: 18px;
+  line-height: normal;
+  color: var(--text-2);
+  opacity: 0.45;
+  pointer-events: none;
+  white-space: pre;
+  overflow: hidden;
+}
+
+.trace-input {
+  position: relative;
+  background: transparent;
+}
+
+.trace-note {
+  font-size: 14px;
+  color: var(--text-2);
+  margin-bottom: 8px;
+}
+
 /* フラッシュカード */
 .flash-scene {
   perspective: 1000px;
