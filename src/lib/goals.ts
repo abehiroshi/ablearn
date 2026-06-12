@@ -67,8 +67,8 @@ export const GOAL_CATALOG: GoalDef[] = [
   { id: "count-35", mode: "daily", label: "週に35問とく", target: 35 },
   { id: "count-70", mode: "daily", label: "週に70問とく", target: 70 },
   { id: "count-105", mode: "daily", label: "週に105問とく", target: 105 },
-  { id: "review-10", mode: "daily", label: "にがてを10問やっつける", target: 10 },
-  { id: "review-20", mode: "daily", label: "にがてを20問やっつける", target: 20 },
+  { id: "review-10", mode: "daily", label: "苦手を10問やっつける", target: 10 },
+  { id: "review-20", mode: "daily", label: "苦手を20問やっつける", target: 20 },
   { id: "subjects-3", mode: "daily", label: "3教科以上にさわる", target: 3 },
   { id: "lesson-1", mode: "daily", label: "レッスンを1本すすめる", target: 1 },
   { id: "lesson-2", mode: "daily", label: "レッスンを2本すすめる", target: 2 },
@@ -78,7 +78,7 @@ export const GOAL_CATALOG: GoalDef[] = [
   { id: "range-100", mode: "test", label: "範囲の達成度を100%にする", target: 100 },
   { id: "mock-1", mode: "test", label: "模擬テストを1回うける", target: 1 },
   { id: "mock-2", mode: "test", label: "模擬テストを2回うける", target: 2 },
-  { id: "range-review-0", mode: "test", label: "範囲のにがてをゼロにする", target: 0 },
+  { id: "range-review-0", mode: "test", label: "範囲の苦手をゼロにする", target: 0 },
 ];
 
 const defById = new Map(GOAL_CATALOG.map((d) => [d.id, d]));
@@ -200,7 +200,7 @@ export function goalProgress(
     }
     case "review": {
       current = resolvedInWeek(state, weekDays);
-      todayTask = `きょうは にがてを ${perDay(def.target - current)} 問やっつけよう`;
+      todayTask = `きょうは 苦手を ${perDay(def.target - current)} 問やっつけよう`;
       break;
     }
     case "subjects": {

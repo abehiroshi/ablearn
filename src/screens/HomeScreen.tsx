@@ -251,7 +251,7 @@ export default function HomeScreen({
     : todayAnswered > 0
       ? "きょうもがんばってるね！この調子！"
       : wrongCount > 0
-        ? "にがて問題をやっつけよう！"
+        ? "苦手問題をやっつけよう！"
         : streak > 1
           ? `${streak}日連続！きょうも一緒にがんばろう！`
           : "きょうも一緒にがんばろう！";
@@ -602,7 +602,7 @@ export default function HomeScreen({
       {wrongCount > 0 && (
         <div className="card">
           <div className="row" style={{ marginBottom: 12 }}>
-            <span style={{ fontWeight: 700 }}>にがて問題 {wrongCount} 問</span>
+            <span style={{ fontWeight: 700 }}>苦手問題 {wrongCount} 問</span>
             <span className="spacer" />
           </div>
           <button className="secondary-btn" onClick={onStartReview}>

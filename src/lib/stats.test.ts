@@ -49,7 +49,7 @@ describe("subjectAccuracy / unitAccuracy", () => {
     ]);
   });
 
-  it("単元別は正答率の低い順（にがてな順）", () => {
+  it("単元別は正答率の低い順（苦手な順）", () => {
     const items = unitAccuracy(INDEX, stateWithStats());
     expect(items.map((i) => [i.label, i.accuracy])).toEqual([
       ["連立", 25],

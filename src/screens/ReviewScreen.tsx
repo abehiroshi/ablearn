@@ -38,14 +38,14 @@ export default function ReviewScreen({ index, wrongKeys, onStart }: Props) {
           <div style={{ display: "flex", justifyContent: "center", marginBottom: 8 }}>
             <Abler pose="nikkori" size={110} />
           </div>
-          <p>にがて問題はないよ！すごい！</p>
+          <p>苦手問題はないよ！すごい！</p>
           <p>間違えた問題がここにたまります。</p>
         </div>
       ) : (
         <>
           <div className="card">
             <div style={{ fontWeight: 700, marginBottom: 8 }}>
-              にがて問題 {wrongKeys.length} 問
+              苦手問題 {wrongKeys.length} 問
             </div>
             {bySubject.map((s) => (
               <div key={s.name} className="list-row">
@@ -59,7 +59,7 @@ export default function ReviewScreen({ index, wrongKeys, onStart }: Props) {
             復習を始める
           </button>
           <p className="muted" style={{ textAlign: "center", marginTop: 12 }}>
-            正解すると、にがて問題から外れます
+            正解すると、苦手問題から外れます
           </p>
         </>
       )}

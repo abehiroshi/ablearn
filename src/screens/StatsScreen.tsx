@@ -161,7 +161,7 @@ export default function StatsScreen({
         {byUnit.length > 0 && (
           <>
             <div className="muted" style={{ fontWeight: 700, margin: "12px 0 6px" }}>
-              単元別（にがてな順）
+              単元別（苦手な順）
             </div>
             <AccuracyBars items={byUnit.slice(0, 5)} />
           </>
