@@ -89,6 +89,40 @@
               "file": "math/zukei-kakudo.json"
             }
           ]
+        },
+        {
+          "id": "sankaku-shikaku",
+          "name": "三角形と四角形（証明）",
+          "terms": [
+            "学年末"
+          ],
+          "sets": [
+            {
+              "id": "math-sankaku-shoumei",
+              "name": "三角形と四角形（証明）",
+              "file": "math/sankaku-shoumei.json"
+            }
+          ]
+        },
+        {
+          "id": "kakuritsu",
+          "name": "場合の数と確率",
+          "terms": [
+            "学年末"
+          ],
+          "sets": [
+            {
+              "id": "math-lesson-kakuritsu",
+              "name": "レッスン: 確率の求め方",
+              "file": "math/lesson-kakuritsu.json",
+              "kind": "lesson"
+            },
+            {
+              "id": "math-kakuritsu",
+              "name": "場合の数と確率",
+              "file": "math/kakuritsu.json"
+            }
+          ]
         }
       ]
     },
@@ -179,6 +213,20 @@
               "id": "eng-hikaku",
               "name": "比較",
               "file": "english/hikaku.json"
+            }
+          ]
+        },
+        {
+          "id": "unit7",
+          "name": "受け身（Unit 7）",
+          "terms": [
+            "学年末"
+          ],
+          "sets": [
+            {
+              "id": "eng-ukemi",
+              "name": "受け身",
+              "file": "english/ukemi.json"
             }
           ]
         },
@@ -392,6 +440,31 @@
               "url": "https://youtu.be/jBPQRXP22sI"
             }
           ]
+        },
+        {
+          "id": "denki",
+          "name": "電気の世界",
+          "terms": [
+            "学年末"
+          ],
+          "sets": [
+            {
+              "id": "sci-denki-kairo",
+              "name": "回路と電流・電圧",
+              "file": "science/denki-kairo.json"
+            },
+            {
+              "id": "sci-lesson-ohm",
+              "name": "レッスン: オームの法則の使い方",
+              "file": "science/lesson-ohm.json",
+              "kind": "lesson"
+            },
+            {
+              "id": "sci-denki-ohm",
+              "name": "オームの法則",
+              "file": "science/denki-ohm.json"
+            }
+          ]
         }
       ]
     },
@@ -461,6 +534,34 @@
               "file": "social/meiji-ishin.json"
             }
           ]
+        },
+        {
+          "id": "chiri-higashi",
+          "name": "地理（日本の諸地域・東日本）",
+          "terms": [
+            "学年末"
+          ],
+          "sets": [
+            {
+              "id": "soc-chiri-higashinihon",
+              "name": "日本の諸地域（東日本）",
+              "file": "social/chiri-higashinihon.json"
+            }
+          ]
+        },
+        {
+          "id": "kindai",
+          "name": "歴史（日清・日露と近代産業）",
+          "terms": [
+            "学年末"
+          ],
+          "sets": [
+            {
+              "id": "soc-kindai-sangyou",
+              "name": "日清・日露戦争と近代産業",
+              "file": "social/kindai-sangyou.json"
+            }
+          ]
         }
       ]
     },
@@ -512,6 +613,34 @@
               "id": "jpn-koten-kihon",
               "name": "古典の基本",
               "file": "japanese/koten-kihon.json"
+            }
+          ]
+        },
+        {
+          "id": "bunpou-fuzokugo",
+          "name": "文法（助詞・助動詞）",
+          "terms": [
+            "学年末"
+          ],
+          "sets": [
+            {
+              "id": "jpn-bunpou-fuzokugo",
+              "name": "助詞・助動詞",
+              "file": "japanese/bunpou-fuzokugo.json"
+            }
+          ]
+        },
+        {
+          "id": "kanshi",
+          "name": "漢詩",
+          "terms": [
+            "学年末"
+          ],
+          "sets": [
+            {
+              "id": "jpn-kanshi",
+              "name": "漢詩の形式",
+              "file": "japanese/kanshi.json"
             }
           ]
         }

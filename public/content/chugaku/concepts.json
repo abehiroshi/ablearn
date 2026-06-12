@@ -8,19 +8,26 @@
     {
       "id": "math1-houteishiki",
       "name": "中1: 1次方程式",
-      "prerequisites": ["math1-moji-shiki"]
+      "prerequisites": [
+        "math1-moji-shiki"
+      ]
     },
     {
       "id": "shiki-doruiko",
       "name": "同類項をまとめる",
       "set": "math-shiki-keisan",
-      "prerequisites": ["math1-moji-shiki"]
+      "prerequisites": [
+        "math1-moji-shiki"
+      ]
     },
     {
       "id": "math-shiki-touhen",
       "name": "等式の変形",
       "set": "math-shiki-touhen",
-      "prerequisites": ["shiki-doruiko", "math1-houteishiki"]
+      "prerequisites": [
+        "shiki-doruiko",
+        "math1-houteishiki"
+      ]
     },
     {
       "id": "math1-hirei",
@@ -36,25 +43,34 @@
       "id": "math-ichiji-henka",
       "name": "一次関数と変化の割合",
       "set": "math-ichiji-kihon",
-      "prerequisites": ["math1-hirei"]
+      "prerequisites": [
+        "math1-hirei"
+      ]
     },
     {
       "id": "math-ichiji-shiki",
       "name": "一次関数の式を求める",
       "set": "math-ichiji-kihon",
-      "prerequisites": ["math-ichiji-henka", "math-shiki-touhen"]
+      "prerequisites": [
+        "math-ichiji-henka",
+        "math-shiki-touhen"
+      ]
     },
     {
       "id": "math-heikou-kaku",
       "name": "平行線と角（同位角・錯角）",
       "set": "math-zukei-kakudo",
-      "prerequisites": ["math1-heimen-zukei"]
+      "prerequisites": [
+        "math1-heimen-zukei"
+      ]
     },
     {
       "id": "math-naikaku-gaikaku",
       "name": "多角形の内角と外角",
       "set": "math-zukei-kakudo",
-      "prerequisites": ["math-heikou-kaku"]
+      "prerequisites": [
+        "math-heikou-kaku"
+      ]
     },
     {
       "id": "sci-kagaku-shiki",
@@ -66,7 +82,9 @@
       "id": "sci-kagaku-keisuu",
       "name": "化学反応式の係数",
       "set": "sci-kagaku-hannoushiki",
-      "prerequisites": ["sci-kagaku-shiki"]
+      "prerequisites": [
+        "sci-kagaku-shiki"
+      ]
     },
     {
       "id": "sci-saibou-tsukuri",
@@ -78,7 +96,9 @@
       "id": "sci-kougousei",
       "name": "光合成のしくみ",
       "set": "sci-seibutsu-saibou",
-      "prerequisites": ["sci-saibou-tsukuri"]
+      "prerequisites": [
+        "sci-saibou-tsukuri"
+      ]
     },
     {
       "id": "sci-shouka-kouso",
@@ -95,7 +115,143 @@
       "id": "sci-shitsudo-keisan",
       "name": "湿度の計算",
       "set": "sci-tenki-shitsudo",
-      "prerequisites": ["sho-wariai"]
+      "prerequisites": [
+        "sho-wariai"
+      ]
+    },
+    {
+      "id": "math-goudou-jouken",
+      "name": "三角形の合同条件",
+      "prerequisites": [
+        "math-naikaku-gaikaku"
+      ]
+    },
+    {
+      "id": "sho-bunsuu",
+      "name": "小学: 分数の計算・約分",
+      "prerequisites": []
+    },
+    {
+      "id": "math-nitouhen-seishitsu",
+      "name": "二等辺三角形の性質（底角）",
+      "set": "math-sankaku-shoumei",
+      "prerequisites": [
+        "math-naikaku-gaikaku",
+        "math-goudou-jouken"
+      ]
+    },
+    {
+      "id": "math-chokkaku-goudou",
+      "name": "直角三角形の合同条件",
+      "set": "math-sankaku-shoumei",
+      "prerequisites": [
+        "math-goudou-jouken"
+      ]
+    },
+    {
+      "id": "math-heikoushihenkei",
+      "name": "平行四辺形の性質と条件",
+      "set": "math-sankaku-shoumei",
+      "prerequisites": [
+        "math-heikou-kaku",
+        "math-goudou-jouken"
+      ]
+    },
+    {
+      "id": "math-baai-kazoeage",
+      "name": "場合の数を数える（樹形図）",
+      "set": "math-kakuritsu",
+      "prerequisites": []
+    },
+    {
+      "id": "math-kakuritsu-keisan",
+      "name": "確率を求める",
+      "set": "math-kakuritsu",
+      "prerequisites": [
+        "math-baai-kazoeage",
+        "sho-bunsuu"
+      ]
+    },
+    {
+      "id": "math-okoranai-kakuritsu",
+      "name": "起こらない確率",
+      "set": "math-kakuritsu",
+      "prerequisites": [
+        "math-kakuritsu-keisan"
+      ]
+    },
+    {
+      "id": "sho-denki",
+      "name": "小学: 電気の通り道とつなぎ方",
+      "prerequisites": []
+    },
+    {
+      "id": "sci-kairo-denryuu",
+      "name": "直列・並列回路の電流の規則",
+      "set": "sci-denki-kairo",
+      "prerequisites": [
+        "sho-denki"
+      ]
+    },
+    {
+      "id": "sci-kairo-denatsu",
+      "name": "直列・並列回路の電圧の規則",
+      "set": "sci-denki-kairo",
+      "prerequisites": [
+        "sho-denki"
+      ]
+    },
+    {
+      "id": "sci-ohm-tani",
+      "name": "電流の単位換算（mA⇔A）",
+      "set": "sci-denki-ohm",
+      "prerequisites": []
+    },
+    {
+      "id": "sci-ohm-keisan",
+      "name": "オームの法則の計算",
+      "set": "sci-denki-ohm",
+      "prerequisites": [
+        "sci-ohm-tani",
+        "math1-houteishiki"
+      ]
+    },
+    {
+      "id": "jpn1-bunsetsu-tango",
+      "name": "中1: 文節と単語（自立語・付属語）",
+      "prerequisites": []
+    },
+    {
+      "id": "jpn-fuzokugo-shikibetsu",
+      "name": "付属語の識別（助詞と助動詞）",
+      "set": "jpn-bunpou-fuzokugo",
+      "prerequisites": [
+        "jpn1-bunsetsu-tango"
+      ]
+    },
+    {
+      "id": "jpn-rerareru-imi",
+      "name": "「れる・られる」の意味の識別",
+      "set": "jpn-bunpou-fuzokugo",
+      "prerequisites": [
+        "jpn-fuzokugo-shikibetsu"
+      ]
+    },
+    {
+      "id": "jpn-nai-shikibetsu",
+      "name": "「ない」の識別",
+      "set": "jpn-bunpou-fuzokugo",
+      "prerequisites": [
+        "jpn-fuzokugo-shikibetsu"
+      ]
+    },
+    {
+      "id": "jpn-joshi-shurui",
+      "name": "助詞の種類（格・接続・副・終）",
+      "set": "jpn-bunpou-fuzokugo",
+      "prerequisites": [
+        "jpn-fuzokugo-shikibetsu"
+      ]
     }
   ]
 }

@@ -1,6 +1,18 @@
 # 中2・3学期コンテンツの追加（学年末範囲）
 
-- 状態: 未着手
+- 状態: 完了（2026-06-12）
+- 引き継ぎメモ:
+  - 追加分（11セット・全単元 terms: ["学年末"]）: 数学=三角形と四角形（証明・概念ファミリー3）＋
+    場合の数と確率（レッスン＋ファミリー3・確率計算はフル変種）／理科=電気の世界（回路の規則ファミリー2・
+    オームの法則フル変種＋レッスン）／英語=受け身 Unit 7（choice/input/order 混在・concept なしは既存英語の慣例）／
+    社会=東日本・日清日露と近代産業／国語=助詞・助動詞（識別4概念のラダー）・漢詩の形式
+  - concepts.json に17宣言を追加（set 無し宣言: math-goudou-jouken（中2・2学期範囲だがセット未作成）・
+    sho-bunsuu・sho-denki・jpn1-bunsetsu-tango）
+  - 生成は教科別の並列サブエージェント3体（手順書 docs/content-generation.md だけで再現可能なことを実証）。
+    数値・事実は生成側の検算＋統合側の Breaker レビューで全問確認済み（誤りゼロ）
+  - links は未登録（NHK for School 等の候補ジャンルの提案のみ。親の選定待ち）
+  - 国語の付属語は既存 bunpou 単元に足さず新単元にした（terms の粒度が単元のため。1学期分と混ぜると
+    プリセットが崩れる）
 - 触るファイル範囲: `public/content/chugaku/` のみ（セットJSON・index.json・concepts.json）。
   アプリコードには触れない
 - 出典: オーナー指示（2026-06-12）。手順書 [docs/content-generation.md](../content-generation.md) に従う
