@@ -64,7 +64,8 @@ interface Props {
     concept?: string,
     hintsTotal?: number,
     trace?: boolean,
-    rematch?: boolean
+    rematch?: boolean,
+    fullHint?: boolean
   ) => { promotedTo: number | null; milestones: Milestone[] };
   onFinish: (score: number) => void;
   onClose: () => void;
@@ -77,6 +78,8 @@ interface Props {
     currentSetId: string
   ) => { name: string; set: SetMeta } | null;
   onStartLesson?: (meta: SetMeta) => void;
+  /** ヒント開示方法のおすすめ（計画31。デフォルトフォーカス用）。無ければ「ぜんぶ見る」推し */
+  hintStyleFor?: (concept?: string) => "step" | "full";
 }
 
 export default function QuizScreen({
@@ -89,6 +92,7 @@ export default function QuizScreen({
   unitLinksFor,
   prereqFor,
   onStartLesson,
+  hintStyleFor,
 }: Props) {
   // 先頭が現在の問題。不正解はキューの最後に回して正解するまで繰り返す
   const [queue, setQueue] = useState<QuizItem[]>(items);
@@ -101,6 +105,10 @@ export default function QuizScreen({
   const [scratchOpen, setScratchOpen] = useState(false);
   // 現在の問題で開いたヒントの段階数。次の問題・リトライでリセット
   const [hintsShown, setHintsShown] = useState(0);
+  // ヒント開示方法の2択（計画31）: ボタンを押すたびに「すこしずつ/ぜんぶ見る」を選ぶ
+  const [hintMenu, setHintMenu] = useState(false);
+  // この問題で「ぜんぶ見る」を使ったか（履歴に開示方法を記録する）
+  const [fullOpened, setFullOpened] = useState(false);
   // セッション内の初回解答の結果（スコア計算用）。再描画不要なので ref
   const firstResults = useRef(new Map<string, boolean>());
   // 現在の問題が表示された時刻。解答時間（表示→確定）の計測用
@@ -179,7 +187,8 @@ export default function QuizScreen({
       current.question.concept,
       current.question.hints?.length ?? 0,
       current.asTrace,
-      !!current.rematch
+      !!current.rematch,
+      fullOpened
     );
     sessionMilestones.current.push(...milestones);
     setSessionXp((v) => v + xp);
@@ -242,7 +251,8 @@ export default function QuizScreen({
       current.question.concept,
       current.question.hints?.length ?? 0,
       false,
-      !!current.rematch
+      !!current.rematch,
+      fullOpened
     );
     const q = current.question;
     const correctText =
@@ -266,6 +276,8 @@ export default function QuizScreen({
     setFeedback(null);
     setAttempt((a) => a + 1);
     setHintsShown(0);
+    setHintMenu(false);
+    setFullOpened(false);
     shownAt.current = Date.now();
     if (correct) {
       const nextDone = done + 1;
@@ -427,15 +439,47 @@ export default function QuizScreen({
                 <div className="hint-bubble">{hint}</div>
               </div>
             ))}
-            {hintsShown < q.hints.length && (
-              <button
-                className="hint-btn"
-                onClick={() => setHintsShown((v) => v + 1)}
-              >
-                💡 {hintsShown === 0 ? "ヒントを見る" : "つぎのヒント"}（
-                {hintsShown + 1}/{q.hints.length}）
-              </button>
-            )}
+            {hintsShown < q.hints.length &&
+              // 開き方の2択（計画31）: 探究（すこしずつ）と worked-example（ぜんぶ見る）を
+              // 決め打ちせず毎回本人が選ぶ。おすすめはデフォルトフォーカスでさりげなく
+              (hintMenu ? (
+                <div className="row" style={{ gap: 8 }}>
+                  <button
+                    className={
+                      hintStyleFor?.(q.concept) === "step"
+                        ? "primary-btn"
+                        : "secondary-btn"
+                    }
+                    style={{ flex: 1 }}
+                    onClick={() => {
+                      setHintsShown((v) => v + 1);
+                      setHintMenu(false);
+                    }}
+                  >
+                    すこしずつ
+                  </button>
+                  <button
+                    className={
+                      hintStyleFor?.(q.concept) === "step"
+                        ? "secondary-btn"
+                        : "primary-btn"
+                    }
+                    style={{ flex: 1 }}
+                    onClick={() => {
+                      setHintsShown(q.hints!.length);
+                      setFullOpened(true);
+                      setHintMenu(false);
+                    }}
+                  >
+                    ぜんぶ見る
+                  </button>
+                </div>
+              ) : (
+                <button className="hint-btn" onClick={() => setHintMenu(true)}>
+                  💡 {hintsShown === 0 ? "ヒントを見る" : "つぎのヒント"}（
+                  {hintsShown + 1}/{q.hints.length}）
+                </button>
+              ))}
           </div>
         )}
 

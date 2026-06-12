@@ -10,6 +10,7 @@ import {
   dueSetIds,
   emptyMastery,
   rankCounts,
+  recommendHintStyle,
 } from "./mastery";
 
 const ok = (today: string) => ({
@@ -287,5 +288,15 @@ describe("dueSetIds / rankCounts", () => {
       d: { level: -1, streak: 0, lastCorrectDate: "", dueDate: "", setId: "" },
     };
     expect(rankCounts(s)).toEqual([1, 1, 2, 0]);
+  });
+});
+
+describe("ヒント開示方法のおすすめ（計画31）", () => {
+  it("初見・低い段は「ぜんぶ見る」、input 段以上は「すこしずつ」を推す", () => {
+    expect(recommendHintStyle(undefined)).toBe("full");
+    expect(recommendHintStyle({ ...emptyMastery(), level: -1 })).toBe("full");
+    expect(recommendHintStyle({ ...emptyMastery(), level: 0 })).toBe("full");
+    expect(recommendHintStyle({ ...emptyMastery(), level: 1 })).toBe("step");
+    expect(recommendHintStyle({ ...emptyMastery(), level: 2 })).toBe("step");
   });
 });

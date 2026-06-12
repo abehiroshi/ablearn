@@ -108,7 +108,16 @@ describe("日次ログと解答履歴", () => {
       hints: 2,
       timeMs: 15000,
       rematch: 0,
+      fullHint: 0,
     });
+  });
+
+  it("recordHistory は再戦経路と「ぜんぶ見る」開示を記録する（計画30・31）", () => {
+    let s = recordHistory(emptyState(), "set1", "q1", true, 1000, 2, true, true);
+    s = recordHistory(s, "set1", "q1", false, 1000, 1, false, false);
+    const stat = s.history[todayKey()]["set1/q1"];
+    expect(stat.rematch).toBe(1);
+    expect(stat.fullHint).toBe(1);
   });
 
   it("recordHistory は負の時間を 0 に丸める", () => {
@@ -126,6 +135,7 @@ describe("日次ログと解答履歴", () => {
       hints: 0,
       timeMs: 12000,
       rematch: 0,
+      fullHint: 0,
     });
   });
 

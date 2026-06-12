@@ -28,6 +28,8 @@ export interface QuestionDayStat {
   timeMs: number;
   /** 再戦経路の解答数（計画30で記録開始。旧データには無い） */
   rematch?: number;
+  /** 「ぜんぶ見る」でヒントを一括開示した解答数（計画31で記録開始。旧データには無い） */
+  fullHint?: number;
 }
 
 export interface SetRecord {
@@ -325,7 +327,8 @@ export function recordHistory(
   result: boolean | "dontKnow",
   timeMs: number,
   hints = 0,
-  rematch = false
+  rematch = false,
+  fullHint = false
 ): AppState {
   const day = todayKey();
   const key = `${setId}/${questionId}`;
@@ -352,6 +355,8 @@ export function recordHistory(
           timeMs: cur.timeMs + Math.max(0, Math.round(timeMs)),
           // 計画30より前の記録には rematch が無い
           rematch: (cur.rematch ?? 0) + (rematch ? 1 : 0),
+          // 計画31より前の記録には fullHint が無い
+          fullHint: (cur.fullHint ?? 0) + (fullHint ? 1 : 0),
         },
       },
     },

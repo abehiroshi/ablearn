@@ -46,7 +46,12 @@ import {
   rolloverGoals,
   selectGoals,
 } from "./lib/goals";
-import { applyAnswer, buildAdaptiveItems, emptyMastery } from "./lib/mastery";
+import {
+  applyAnswer,
+  buildAdaptiveItems,
+  emptyMastery,
+  recommendHintStyle,
+} from "./lib/mastery";
 import {
   RematchCandidate,
   pickRematches,
@@ -428,7 +433,8 @@ export default function App() {
     concept?: string,
     hintsTotal = 0,
     trace = false,
-    rematch = false
+    rematch = false,
+    fullHint = false
   ): { promotedTo: number | null; milestones: Milestone[] } {
     const signal = {
       correct,
@@ -475,7 +481,8 @@ export default function App() {
         dontKnow ? "dontKnow" : correct,
         timeMs,
         hintsUsed,
-        rematch
+        rematch,
+        fullHint
       );
       post = addDailyLog(post, { answered: 1, correct: correct ? 1 : 0, xp });
       milestones.push(
@@ -494,7 +501,8 @@ export default function App() {
         dontKnow ? "dontKnow" : correct,
         timeMs,
         hintsUsed,
-        rematch
+        rematch,
+        fullHint
       );
       s = addDailyLog(s, { answered: 1, correct: correct ? 1 : 0, xp });
       s = { ...s, xp: s.xp + xp };
@@ -723,6 +731,9 @@ export default function App() {
           unitLinksFor={(setId) => unitGuide.get(setId)?.links ?? []}
           prereqFor={prereqFor}
           onStartLesson={(meta) => void startSet(meta)}
+          hintStyleFor={(concept) =>
+            recommendHintStyle(concept ? state.mastery[concept] : undefined)
+          }
         />
       )}
 

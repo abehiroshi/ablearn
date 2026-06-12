@@ -281,6 +281,17 @@ export function dueSetIds(state: AppState, today: string): Set<string> {
   return ids;
 }
 
+/**
+ * ヒント開示方法のおすすめ（計画31。さりげない強調＝デフォルトフォーカス用）。
+ * 初見・低い段は worked-example 的に「ぜんぶ見る」、段が上がったら探究の「すこしずつ」を推す。
+ * 2択自体は常に出し、選ぶのは本人
+ */
+export function recommendHintStyle(
+  m: ConceptMastery | undefined
+): "step" | "full" {
+  return m && m.level >= 1 ? "step" : "full";
+}
+
 /** 段位ごとの概念数（Stats の簡素な表示用）。index 0 = 写経段、以降 level+1 */
 export function rankCounts(state: AppState): number[] {
   const counts = [0, 0, 0, 0];
