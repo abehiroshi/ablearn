@@ -28,7 +28,7 @@ export interface QuestionDayStat {
   timeMs: number;
   /** 再戦経路の解答数（計画30で記録開始。旧データには無い） */
   rematch?: number;
-  /** 「ぜんぶ見る」でヒントを一括開示した解答数（計画31で記録開始。旧データには無い） */
+  /** 「全部見る」でヒントを一括開示した解答数（計画31で記録開始。旧データには無い） */
   fullHint?: number;
   /** 出題形式をエンジンの推奨から手動で上げた/下げた解答数（計画34で記録開始。旧データには無い） */
   switchUp?: number;
@@ -77,7 +77,7 @@ export interface AppState {
   setRecords: Record<string, SetRecord>;
   /** "YYYY-MM-DD" → "setId/questionId" → 日次集計（成長グラフの元データ） */
   history: Record<string, Record<string, QuestionDayStat>>;
-  /** subjectId → いま授業でやっている単元ID群 */
+  /** subjectId → 今授業でやっている単元ID群 */
   currentUnits: Record<string, string[]>;
   test: TestPlan | null;
   mockResults: MockResult[];

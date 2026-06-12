@@ -26,7 +26,7 @@ function isLowMastery(m: { level: number } | undefined): boolean {
  * つまずいた概念の前提のうち、誘導すべきものを1つ返す。
  * - 宣言順に先頭から見て、最初の「コレクション内（set あり）・習熟が低い」前提を選ぶ
  * - set が無い宣言（中1範囲などコレクション外）は誘導に使わない（受け入れ条件2）
- * - いま解いているセット自身への誘導はしない（同じ場所に戻すだけになる）
+ * - 今解いているセット自身への誘導はしない（同じ場所に戻すだけになる）
  */
 export function pickPrereq(
   conceptId: string,

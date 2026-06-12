@@ -20,7 +20,7 @@ interface Item {
 }
 
 interface Props {
-  /** フッタのタブとして表示（セットアップを通常画面で出し、もどるボタンを出さない） */
+  /** フッタのタブとして表示（セットアップを通常画面で出し、戻るボタンを出さない） */
   asTab?: boolean;
   index: ContentIndex;
   state: AppState;
@@ -243,7 +243,7 @@ export default function MockTestScreen({
         {!asTab && (
           <div className="row" style={{ marginBottom: 8 }}>
             <button className="back-btn" style={{ margin: 0 }} onClick={onClose}>
-              ‹ もどる
+              ‹ 戻る
             </button>
           </div>
         )}

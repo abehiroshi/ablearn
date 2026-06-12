@@ -180,7 +180,7 @@ export default function StatsScreen({
             </div>
           ))}
           <p className="muted" style={{ fontSize: 12, marginBottom: 0 }}>
-            ヒントなしで日をあけて正解すると段位が上がるよ
+            ヒントなしで日を空けて正解すると段位が上がるよ
           </p>
         </div>
       )}
@@ -214,7 +214,7 @@ export default function StatsScreen({
       </div>
 
       <div className="card">
-        <div style={{ fontWeight: 700, marginBottom: 4 }}>つみあげ</div>
+        <div style={{ fontWeight: 700, marginBottom: 4 }}>積み上げ</div>
         <div className="list-row">
           <span style={{ flex: 1 }}>解いた問題の合計</span>
           <span style={{ fontWeight: 700 }}>{totals.answered}問</span>
@@ -241,7 +241,7 @@ export default function StatsScreen({
       </div>
 
       <div className="card">
-        <div style={{ fontWeight: 700, marginBottom: 8 }}>きせかえ</div>
+        <div style={{ fontWeight: 700, marginBottom: 8 }}>着せ替え</div>
         <div className="skin-grid">
           {SKINS.map((skin) => {
             const unlocked = isUnlocked(skin, state);
@@ -261,9 +261,9 @@ export default function StatsScreen({
                 </span>
                 <span className="muted" style={{ fontSize: 11 }}>
                   {selected
-                    ? "つかってる"
+                    ? "使ってる"
                     : unlocked
-                      ? "えらぶ"
+                      ? "選ぶ"
                       : `🔒 ${skin.unlockLabel}`}
                 </span>
               </button>
@@ -291,7 +291,7 @@ export default function StatsScreen({
         </div>
       )}
 
-      {/* ホーム画面に追加の常設導線（計画37）。案内カードを閉じたあとでも辿れる */}
+      {/* ホーム画面に追加の常設導線（計画37）。案内カードを閉じた後でも辿れる */}
       {isIos() && !isStandalone() && (
         <div className="card">
           <div style={{ fontWeight: 700, marginBottom: 4 }}>
@@ -299,13 +299,13 @@ export default function StatsScreen({
           </div>
           <p className="muted" style={{ margin: 0 }}>
             Safari の共有ボタン（□↑）をタップ →
-            「ホーム画面に追加」をえらぶと、アプリみたいにすぐ開けるよ
+            「ホーム画面に追加」を選ぶと、アプリみたいにすぐ開けるよ
           </p>
         </div>
       )}
 
       <div className="card">
-        <div style={{ fontWeight: 700, marginBottom: 4 }}>おと</div>
+        <div style={{ fontWeight: 700, marginBottom: 4 }}>音</div>
         <div className="list-row">
           <span style={{ flex: 1 }}>効果音</span>
           <button
@@ -321,9 +321,9 @@ export default function StatsScreen({
             {(
               [
                 ["タップ", playTap],
-                ["せいかい", playCorrect],
-                ["ざんねん", playWrong],
-                ["おいわい", playFanfare],
+                ["正解", playCorrect],
+                ["残念", playWrong],
+                ["お祝い", playFanfare],
               ] as const
             ).map(([label, play]) => (
               <button
@@ -341,7 +341,7 @@ export default function StatsScreen({
       <div className="card">
         <div style={{ fontWeight: 700, marginBottom: 4 }}>バックアップ</div>
         <p className="muted" style={{ marginTop: 0 }}>
-          端末をかえるとき・データが消えたときのために、記録をファイルに残せるよ
+          端末を変えるとき・データが消えたときのために、記録をファイルに残せるよ
         </p>
         <div className="row">
           <button
@@ -402,7 +402,7 @@ export default function StatsScreen({
               </span>
             </div>
             <p className="muted" style={{ fontSize: 13 }}>
-              いまの記録は消えて、このファイルの内容になります
+              今の記録は消えて、このファイルの内容になります
             </p>
             <div className="row">
               <button

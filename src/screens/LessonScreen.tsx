@@ -135,7 +135,7 @@ export default function LessonScreen({
               <div className="num">
                 {correctCount}/{results.current.length}
               </div>
-              <div className="label">といた問題</div>
+              <div className="label">解いた問題</div>
             </div>
             <div className="stat-card">
               <div className="num">+{sessionXp}</div>
@@ -177,7 +177,7 @@ export default function LessonScreen({
               <div className="row" style={{ margin: "12px 0" }}>
                 <Abler pose="hirameita" size={64} />
                 <div style={{ flex: 1, fontWeight: 700 }}>
-                  どこからはじめる？
+                  どこから始める？
                 </div>
               </div>
               <button
@@ -197,7 +197,7 @@ export default function LessonScreen({
           ) : (
             <>
               <div className="muted" style={{ margin: "8px 0" }}>
-                👀 このレッスンでこんな問題が解けるようになるよ（いまは解けなくてOK・採点なし）
+                👀 このレッスンでこんな問題が解けるようになるよ（今は解けなくてOK・採点なし）
               </div>
               {!peekTried ? (
                 <>
@@ -232,7 +232,7 @@ export default function LessonScreen({
                 <div className="row" style={{ margin: "12px 0" }}>
                   <Abler pose="nikkori" size={60} />
                   <div style={{ flex: 1 }}>
-                    ためしてみたね！それで十分。解き方はこれから一緒に見ていこう
+                    試してみたね！それで十分。解き方はこれから一緒に見ていこう
                   </div>
                 </div>
               )}
@@ -241,7 +241,7 @@ export default function LessonScreen({
                 style={{ marginTop: "auto" }}
                 onClick={startSteps}
               >
-                レッスンをはじめる
+                レッスンを始める
               </button>
             </>
           )}
@@ -330,8 +330,8 @@ export default function LessonScreen({
               <div style={{ flex: 1 }}>
                 <div className="head">
                   {feedback.correct
-                    ? "せいかい！ 🎉"
-                    : "だいじょうぶ、一緒に確認しよう"}
+                    ? "正解！ 🎉"
+                    : "大丈夫、一緒に確認しよう"}
                 </div>
                 {!feedback.correct && feedback.correctText && (
                   <div className="explanation">

@@ -130,7 +130,7 @@ export default function HomeScreen({
     setTotals: counts?.setTotals ?? null,
   };
   const goalsProgress = activeGoalProgress(state.goals, goalCtx);
-  // 挑戦束（計画29）: 問数系の課題の先頭1つだけを「ふつう/挑戦」の2束にする
+  // 挑戦束（計画29）: 問数系の課題の先頭1つだけを「普通/挑戦」の2束にする
   const todayBundle = state.bundles?.[today];
   const bundleGoalId = goalsProgress.find(
     (p) => !p.achieved && p.todayQuota !== undefined
@@ -155,12 +155,12 @@ export default function HomeScreen({
     );
   }
 
-  /** 今日の課題の行。問数系の先頭1つは「ふつう/挑戦」の2束（計画29） */
+  /** 今日の課題の行。問数系の先頭1つは「普通/挑戦」の2束（計画29） */
   function taskLine(p: GoalProgress) {
     if (p.achieved) {
       return (
         <div className="muted" style={{ fontSize: 13 }}>
-          たっせい！おみごと！
+          達成！お見事！
         </div>
       );
     }
@@ -190,7 +190,7 @@ export default function HomeScreen({
               style={{ flex: 1 }}
               onClick={() => onChooseBundle("normal", quota)}
             >
-              ふつう（{quota}問解く）
+              普通（{quota}問解く）
             </button>
             <button
               className={
@@ -209,32 +209,32 @@ export default function HomeScreen({
       if (todayBundle.completed) {
         return (
           <div className="muted" style={{ fontSize: 13 }}>
-            🔥 今日の挑戦束クリア！ふつう束とおなじだけ進んだよ
+            🔥 今日の挑戦束クリア！普通束と同じだけ進んだよ
           </div>
         );
       }
       return (
         <div className="row" style={{ gap: 8, fontSize: 13 }}>
           <span className="muted">
-            今日の課題: 難問{todayBundle.challengeQuota}問にちょうせん中
+            今日の課題: 難問{todayBundle.challengeQuota}問に挑戦中
           </span>
           <span className="spacer" />
           <button
             className="link-btn"
             onClick={() => onChooseBundle("challenge", quota)}
           >
-            つづきをやる
+            続きをやる
           </button>
           <button
             className="link-btn"
             onClick={() => onChooseBundle("normal", quota)}
           >
-            ふつうにする
+            普通にする
           </button>
         </div>
       );
     }
-    // ふつうを選んだ日（文言・扱いは従来と同等＝責めない）。挑戦への切替はいつでも
+    // 普通を選んだ日（文言・扱いは従来と同等＝責めない）。挑戦への切替はいつでも
     return (
       <div className="row" style={{ gap: 8, fontSize: 13 }}>
         <span className="muted">今日の課題: {p.todayTask}</span>
@@ -278,15 +278,15 @@ export default function HomeScreen({
 
   const greeting = testActive
     ? countdown === 0
-      ? "今日はテスト！おちついていこう！"
-      : `テストまであと${countdown}日。いっしょにがんばろう！`
+      ? "今日はテスト！落ち着いていこう！"
+      : `テストまであと${countdown}日。一緒に頑張ろう！`
     : todayAnswered > 0
-      ? "今日もがんばってるね！この調子！"
+      ? "今日も頑張ってるね！この調子！"
       : wrongCount > 0
         ? "苦手問題をやっつけよう！"
         : streak > 1
-          ? `${streak}日連続！今日も一緒にがんばろう！`
-          : "今日も一緒にがんばろう！";
+          ? `${streak}日連続！今日も一緒に頑張ろう！`
+          : "今日も一緒に頑張ろう！";
 
   return (
     <div className="screen">
@@ -309,7 +309,7 @@ export default function HomeScreen({
               {installGuide === "ios" && (
                 <div style={{ marginTop: 6, fontWeight: 700 }}>
                   ① 共有ボタン（<ShareIcon />）をタップ
-                  <br />② 「ホーム画面に追加」をえらぶ
+                  <br />② 「ホーム画面に追加」を選ぶ
                 </div>
               )}
             </div>
@@ -320,7 +320,7 @@ export default function HomeScreen({
               style={{ flex: 1 }}
               onClick={onDismissInstallGuide}
             >
-              とじる
+              閉じる
             </button>
             {installGuide === "android" && (
               <button
@@ -354,7 +354,7 @@ export default function HomeScreen({
       {editingGoals ? (
         <div className="card">
           <div style={{ fontWeight: 700, marginBottom: 4 }}>
-            週の目標をえらぶ（{draftGoals.length}/{MAX_GOALS}）
+            週の目標を選ぶ（{draftGoals.length}/{MAX_GOALS}）
           </div>
           <p className="muted" style={{ marginTop: 0 }}>
             {state.goals.active.length > 0
@@ -406,10 +406,10 @@ export default function HomeScreen({
       ) : goalsProgress.length > 0 ? (
         <div className="card">
           <div className="row" style={{ marginBottom: 8 }}>
-            <span style={{ fontWeight: 700 }}>🎯 こんしゅうの目標</span>
+            <span style={{ fontWeight: 700 }}>🎯 今週の目標</span>
             <span className="spacer" />
             <button className="link-btn" onClick={openGoalEditor}>
-              えらびなおす
+              選び直す
             </button>
           </div>
           {goalsProgress.map((p) => (
@@ -420,7 +420,7 @@ export default function HomeScreen({
                 </span>
                 <span className="muted" style={{ fontSize: 13 }}>
                   {p.def.id === "range-review-0"
-                    ? `のこり${p.current}問`
+                    ? `残り${p.current}問`
                     : `${p.current}/${p.target}`}
                 </span>
               </div>
@@ -450,7 +450,7 @@ export default function HomeScreen({
           <div className="row" style={{ marginBottom: 10 }}>
             <Abler pose="hirameita" size={56} />
             <div style={{ flex: 1, fontSize: 14 }}>
-              週の目標をえらぶと、毎日「今日の課題」が出るよ。
+              週の目標を選ぶと、毎日「今日の課題」が出るよ。
               自分のペースで決めよう！
             </div>
           </div>
@@ -460,7 +460,7 @@ export default function HomeScreen({
               style={{ flex: 1 }}
               onClick={onDismissGoalsIntro}
             >
-              あとで
+              後で
             </button>
             <button
               className="primary-btn"
@@ -470,13 +470,13 @@ export default function HomeScreen({
                 openGoalEditor();
               }}
             >
-              目標をえらぶ
+              目標を選ぶ
             </button>
           </div>
         </div>
       ) : (
         <button className="ghost-btn" onClick={openGoalEditor}>
-          🎯 週の目標をえらぶ
+          🎯 週の目標を選ぶ
         </button>
       )}
 
@@ -486,9 +486,9 @@ export default function HomeScreen({
             <Abler pose="dekita" size={64} />
             <div>
               <div style={{ fontWeight: 800 }}>
-                「{state.test!.name}」おつかれさま！
+                「{state.test!.name}」お疲れさま！
               </div>
-              <div className="muted">よくがんばったね。次に進もう！</div>
+              <div className="muted">よく頑張ったね。次に進もう！</div>
             </div>
           </div>
           <button className="secondary-btn" onClick={onClearTest}>
@@ -657,7 +657,7 @@ export default function HomeScreen({
             <div style={{ flex: 1 }}>
               <div style={{ fontWeight: 700 }}>⚔️ 再戦のチャンス！</div>
               <div className="muted" style={{ fontSize: 13 }}>
-                {rematchOldestDays}日前にとけなかった問題、いまならいけるかも
+                {rematchOldestDays}日前に解けなかった問題、今ならいけるかも
               </div>
             </div>
           </div>

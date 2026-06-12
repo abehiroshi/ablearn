@@ -43,7 +43,7 @@ export default function LibraryScreen({
           {subject.icon} {subject.name}
         </h1>
         <p className="muted" style={{ marginTop: -8, marginBottom: 12 }}>
-          いま授業でやっている単元に「授業中」マークをつけると、
+          今授業でやっている単元に「授業中」マークをつけると、
           ホームのおすすめに出るよ
         </p>
         {subject.units.map((unit) => {
@@ -143,7 +143,7 @@ export default function LibraryScreen({
                           </span>
                           {isLesson ? (
                             <span className={`score-pill ${rec ? "done" : ""}`}>
-                              {rec ? "完了" : c.current ? "つぎはここ" : "未学習"}
+                              {rec ? "完了" : c.current ? "次はここ" : "未学習"}
                             </span>
                           ) : rec ? (
                             <span
@@ -153,7 +153,7 @@ export default function LibraryScreen({
                             </span>
                           ) : (
                             <span className="score-pill">
-                              {c.current ? "つぎはここ" : "？"}
+                              {c.current ? "次はここ" : "？"}
                             </span>
                           )}
                           <span className="chevron">›</span>

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 interface Props {
   /** 変わったら描画内容をクリアする（問題の切り替え） */
   resetKey: string;
-  /** オーバーレイ表示のときだけ渡す（とじるボタンを出す） */
+  /** オーバーレイ表示のときだけ渡す（閉じるボタンを出す） */
   onClose?: () => void;
 }
 
@@ -138,7 +138,7 @@ export default function ScratchPad({ resetKey, onClose }: Props) {
         <span className="spacer" />
         {onClose && (
           <button className="scratch-tool scratch-close" onClick={onClose}>
-            ✕ とじる
+            ✕ 閉じる
           </button>
         )}
       </div>

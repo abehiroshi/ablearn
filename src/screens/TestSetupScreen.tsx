@@ -112,7 +112,7 @@ export default function TestSetupScreen({
     <div className="modal-screen">
       <div className="row" style={{ marginBottom: 8 }}>
         <button className="back-btn" style={{ margin: 0 }} onClick={onCancel}>
-          ‹ もどる
+          ‹ 戻る
         </button>
       </div>
       <h1 className="screen-title" style={{ marginTop: 0 }}>

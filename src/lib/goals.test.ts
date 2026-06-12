@@ -53,7 +53,7 @@ describe("今日の課題の動的再計算（受け入れ条件2）", () => {
     expect(p.todayTask).toContain("14 問");
   });
 
-  it("進んでいれば今日のぶんは軽くなる", () => {
+  it("進んでいれば今日の分は軽くなる", () => {
     const s = emptyState();
     s.dailyLog["2026-06-08"] = { answered: 30, correct: 20, xp: 100 };
     s.dailyLog["2026-06-09"] = { answered: 20, correct: 15, xp: 80 };
@@ -80,7 +80,7 @@ describe("目標カタログの進捗", () => {
     expect(p.todayTask).toContain("クリア");
   });
 
-  it("review: 要復習で終えた問題をあとの日に正解したら「解消」", () => {
+  it("review: 要復習で終えた問題を後の日に正解したら「解消」", () => {
     const s = emptyState();
     // 月曜: s1/q1 を間違えたまま終了 → 火曜: 正解（解消）
     s.history["2026-06-08"] = {
@@ -107,7 +107,7 @@ describe("目標カタログの進捗", () => {
     expect(p.current).toBe(1);
   });
 
-  it("subjects: 週内にさわった教科数", () => {
+  it("subjects: 週内に触った教科数", () => {
     const s = emptyState();
     s.history["2026-06-09"] = {
       "math-a/q1": { correct: 1, wrong: 0, dontKnow: 0, hints: 0, timeMs: 0 },
@@ -327,9 +327,9 @@ describe("挑戦束（計画29）", () => {
     expect(buildChallengeItems(pool, 1)).toHaveLength(1);
   });
 
-  it("完遂した挑戦束はふつう束と同じ寄与（受け入れ条件2）", () => {
+  it("完遂した挑戦束は普通束と同じ寄与（受け入れ条件2）", () => {
     const s = emptyState();
-    // 水曜: 挑戦束（ふつう10問→難問4問）を完走。実際の解答は4問
+    // 水曜: 挑戦束（普通10問→難問4問）を完走。実際の解答は4問
     s.dailyLog["2026-06-10"] = { answered: 4, correct: 4, xp: 40 };
     s.bundles["2026-06-10"] = {
       choice: "challenge",
@@ -338,10 +338,10 @@ describe("挑戦束（計画29）", () => {
       completed: true,
     };
     const p = goalProgress(def("count-35"), ctx({ state: s }))!;
-    expect(p.current).toBe(10); // 4問 + 差分6 = ふつう束10問と同等
+    expect(p.current).toBe(10); // 4問 + 差分6 = 普通束10問と同等
   });
 
-  it("未完遂の挑戦束・ふつう束の日はクレジットなし（28の動作に影響がない）", () => {
+  it("未完遂の挑戦束・普通束の日はクレジットなし（28の動作に影響がない）", () => {
     const s = emptyState();
     s.dailyLog["2026-06-10"] = { answered: 4, correct: 4, xp: 40 };
     s.bundles["2026-06-10"] = {
@@ -367,7 +367,7 @@ describe("挑戦束（計画29）", () => {
     expect(days.todayQuota).toBeUndefined();
   });
 
-  it("推す束: 今週よく解けていれば挑戦・それ以外はふつう", () => {
+  it("推す束: 今週よく解けていれば挑戦・それ以外は普通", () => {
     const s = emptyState();
     expect(recommendedBundle(s, "2026-06-10")).toBe("normal");
     s.dailyLog["2026-06-09"] = { answered: 12, correct: 10, xp: 100 };

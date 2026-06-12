@@ -92,7 +92,7 @@ export function emptyStruggle(): StruggleCounter {
   return { wrongStreak: 0, fullHintWrong: 0 };
 }
 
-/** 1解答ぶんカウンタを進める（わからない も不正解として数える） */
+/** 1解答分カウンタを進める（わからない も不正解として数える） */
 export function nextStruggle(
   c: StruggleCounter,
   result: { correct: boolean; usedAllHints: boolean }

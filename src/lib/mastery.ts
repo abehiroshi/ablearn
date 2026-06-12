@@ -27,9 +27,9 @@ export const PROMOTE_GAP_DAYS = 3;
 export const REVIEW_INTERVALS = [3, 7, 14];
 
 /** 本人向けの段位ラベル（level 0/1/2） */
-export const RANK_LABELS = ["4択でできる", "自力でとける", "応用もできる"];
+export const RANK_LABELS = ["4択でできる", "自力で解ける", "応用もできる"];
 /** 写経段（level -1）のラベル */
-export const TRACE_LABEL = "みながらかける";
+export const TRACE_LABEL = "見ながら書ける";
 
 export interface ConceptMastery {
   /** -1=写経段 / 0=choice段 / 1=input段 / 2=応用段 */
@@ -303,7 +303,7 @@ export function dueSetIds(state: AppState, today: string): Set<string> {
 
 /**
  * ヒント開示方法のおすすめ（計画31。さりげない強調＝デフォルトフォーカス用）。
- * 初見・低い段は worked-example 的に「ぜんぶ見る」、段が上がったら探究の「すこしずつ」を推す。
+ * 初見・低い段は worked-example 的に「全部見る」、段が上がったら探究の「少しずつ」を推す。
  * 2択自体は常に出し、選ぶのは本人
  */
 export function recommendHintStyle(

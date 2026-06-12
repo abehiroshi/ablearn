@@ -27,7 +27,7 @@ export const SkinContext = createContext("main");
 interface Props {
   pose: AblerPose;
   size: number;
-  /** 指定したらそのスキンで描く（きせかえUIのプレビュー用） */
+  /** 指定したらそのスキンで描く（着せ替えUIのプレビュー用） */
   skinId?: string;
 }
 

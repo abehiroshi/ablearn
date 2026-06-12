@@ -25,12 +25,12 @@ export const SKINS: Skin[] = [
     name: "アブラー",
     dir: "",
     unlockMilestone: null,
-    unlockLabel: "さいしょから",
+    unlockLabel: "最初から",
   },
   // 第1弾（シートは T-001 で制作中）。絵の納品前でも条件と枠は見える
   {
     id: "skin1",
-    name: "ひみつのきせかえ",
+    name: "ひみつの着せ替え",
     dir: "skins/skin1/",
     unlockMilestone: "streak:30",
     unlockLabel: "30日連続で学習する",

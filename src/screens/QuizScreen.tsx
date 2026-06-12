@@ -80,7 +80,7 @@ interface Props {
     currentSetId: string
   ) => { name: string; set: SetMeta } | null;
   onStartLesson?: (meta: SetMeta) => void;
-  /** ヒント開示方法のおすすめ（計画31。デフォルトフォーカス用）。無ければ「ぜんぶ見る」推し */
+  /** ヒント開示方法のおすすめ（計画31。デフォルトフォーカス用）。無ければ「全部見る」推し */
   hintStyleFor?: (concept?: string) => "step" | "full";
 }
 
@@ -107,9 +107,9 @@ export default function QuizScreen({
   const [scratchOpen, setScratchOpen] = useState(false);
   // 現在の問題で開いたヒントの段階数。次の問題・リトライでリセット
   const [hintsShown, setHintsShown] = useState(0);
-  // ヒント開示方法の2択（計画31）: ボタンを押すたびに「すこしずつ/ぜんぶ見る」を選ぶ
+  // ヒント開示方法の2択（計画31）: ボタンを押すたびに「少しずつ/全部見る」を選ぶ
   const [hintMenu, setHintMenu] = useState(false);
-  // この問題で「ぜんぶ見る」を使ったか（履歴に開示方法を記録する）
+  // この問題で「全部見る」を使ったか（履歴に開示方法を記録する）
   const [fullOpened, setFullOpened] = useState(false);
   // 出題形式の手動切替（計画34）。null = エンジンの推す形式。問題ごとにデフォルトへ戻る
   const [formOverride, setFormOverride] = useState<"choice" | "input" | null>(
@@ -353,7 +353,7 @@ export default function QuizScreen({
             <Abler pose={pose} size={150} />
           </div>
           <div className="result-title">
-            {score === 100 ? "パーフェクト！" : "おつかれさま！"}
+            {score === 100 ? "パーフェクト！" : "お疲れさま！"}
           </div>
           {sessionMilestones.current.length > 0 && (
             <div className="milestone-list">
@@ -438,7 +438,7 @@ export default function QuizScreen({
         {/* 再戦フレーム（計画30）: 「弱点の消化」ではなく「過去の自分に挑む」場にする */}
         {current.rematch && (
           <div className="rematch-frame">
-            ⚔️ {current.rematch.daysAgo}日前はとけなかった問題
+            ⚔️ {current.rematch.daysAgo}日前は解けなかった問題
           </div>
         )}
 
@@ -500,7 +500,7 @@ export default function QuizScreen({
               </div>
             ))}
             {hintsShown < q.hints.length &&
-              // 開き方の2択（計画31）: 探究（すこしずつ）と worked-example（ぜんぶ見る）を
+              // 開き方の2択（計画31）: 探究（少しずつ）と worked-example（全部見る）を
               // 決め打ちせず毎回本人が選ぶ。おすすめはデフォルトフォーカスでさりげなく
               (hintMenu ? (
                 <div className="row" style={{ gap: 8 }}>
@@ -516,7 +516,7 @@ export default function QuizScreen({
                       setHintMenu(false);
                     }}
                   >
-                    すこしずつ
+                    少しずつ
                   </button>
                   <button
                     className={
@@ -531,12 +531,12 @@ export default function QuizScreen({
                       setHintMenu(false);
                     }}
                   >
-                    ぜんぶ見る
+                    全部見る
                   </button>
                 </div>
               ) : (
                 <button className="hint-btn" onClick={() => setHintMenu(true)}>
-                  💡 {hintsShown === 0 ? "ヒントを見る" : "つぎのヒント"}（
+                  💡 {hintsShown === 0 ? "ヒントを見る" : "次のヒント"}（
                   {hintsShown + 1}/{q.hints.length}）
                 </button>
               ))}
@@ -564,13 +564,13 @@ export default function QuizScreen({
                 <div className="head">
                   {feedback.correct
                     ? feedback.trace
-                      ? "かけた！✍️ つぎは自分でやってみよう"
-                      : "せいかい！ 🎉"
+                      ? "書けた！✍️ 次は自分でやってみよう"
+                      : "正解！ 🎉"
                     : feedback.struggle
                       ? feedback.struggle.encouragement.text
                       : feedback.dontKnow
-                        ? "だいじょうぶ！いっしょに確認しよう"
-                        : "ざんねん…"}
+                        ? "大丈夫！一緒に確認しよう"
+                        : "残念…"}
                 </div>
                 {feedback.rematchWin != null && (
                   <div className="rank-up">
@@ -612,8 +612,8 @@ export default function QuizScreen({
                   <div className="struggle-box">
                     <div style={{ fontWeight: 700, marginBottom: 8 }}>
                       {feedback.struggle.prereq
-                        ? "手前にもどってからの方が近道だよ！"
-                        : "きほんにもどるのが近道だよ！"}
+                        ? "手前に戻ってからの方が近道だよ！"
+                        : "基本に戻るのが近道だよ！"}
                     </div>
                     {feedback.struggle.prereq ? (
                       <button
@@ -671,7 +671,7 @@ export default function QuizScreen({
               className="primary-btn"
               onClick={() => advance(feedback.correct)}
             >
-              {feedback.correct ? "次へ" : "あとでもう一度"}
+              {feedback.correct ? "次へ" : "後でもう一度"}
             </button>
           </div>
         )}

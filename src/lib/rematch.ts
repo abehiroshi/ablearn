@@ -14,7 +14,7 @@ export const REMATCH_PER_DAY = 3;
 export const REMATCH_GAP_DAYS = 4;
 
 export interface RematchInfo {
-  /** 失敗から何日前か（「○日前はとけなかった問題」表示用） */
+  /** 失敗から何日前か（「○日前は解けなかった問題」表示用） */
   daysAgo: number;
 }
 

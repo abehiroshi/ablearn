@@ -69,7 +69,7 @@ export const GOAL_CATALOG: GoalDef[] = [
   { id: "count-105", mode: "daily", label: "週に105問解く", target: 105 },
   { id: "review-10", mode: "daily", label: "苦手を10問やっつける", target: 10 },
   { id: "review-20", mode: "daily", label: "苦手を20問やっつける", target: 20 },
-  { id: "subjects-3", mode: "daily", label: "3教科以上にさわる", target: 3 },
+  { id: "subjects-3", mode: "daily", label: "3教科以上に触る", target: 3 },
   { id: "lesson-1", mode: "daily", label: "レッスンを1本進める", target: 1 },
   { id: "lesson-2", mode: "daily", label: "レッスンを2本進める", target: 2 },
   // テストモード用（テスト登録中だけ提案される。常設の週目標の上に乗る）
@@ -96,7 +96,7 @@ export interface GoalContext {
   setTotals?: Record<string, number> | null;
 }
 
-/** いま選べる目標（テスト登録中はテスト用が加わり、終了で日常用だけに戻る） */
+/** 今選べる目標（テスト登録中はテスト用が加わり、終了で日常用だけに戻る） */
 export function availableGoals(ctx: GoalContext): GoalDef[] {
   const testMode = !!ctx.rangeSetIds && ctx.rangeSetIds.length > 0;
   return GOAL_CATALOG.filter((d) => d.mode === "daily" || testMode);
@@ -170,12 +170,12 @@ export function goalProgress(
         .length;
       const todayDone = (state.dailyLog[ctx.today]?.answered ?? 0) > 0;
       todayTask = todayDone
-        ? "今日のぶんはクリア！"
+        ? "今日の分はクリア！"
         : "今日1問でも学習する";
       break;
     }
     case "count": {
-      // 完遂した挑戦束はふつう束との差分を上乗せして数える（寄与同等。計画29）
+      // 完遂した挑戦束は普通束との差分を上乗せして数える（寄与同等。計画29）
       current = weekDays.reduce(
         (n, d) =>
           n +
@@ -184,7 +184,7 @@ export function goalProgress(
         0
       );
       const quota = perDay(def.target - current);
-      todayTask = `今日は ${quota} 問とこう`;
+      todayTask = `今日は ${quota} 問解こう`;
       if (current < def.target) {
         return {
           def,
@@ -212,7 +212,7 @@ export function goalProgress(
         }
       }
       current = subjects.size;
-      todayTask = "今日は別の教科にさわってみよう";
+      todayTask = "今日は別の教科に触ってみよう";
       break;
     }
     case "lesson": {
@@ -242,7 +242,7 @@ export function goalProgress(
             : Math.floor((solved / (solved + remaining)) * 100);
         todayTask = achieved
           ? null
-          : `今日は ${perDay(remaining)} 問やっつけよう（のこり${remaining}問）`;
+          : `今日は ${perDay(remaining)} 問やっつけよう（残り${remaining}問）`;
         return { def, current, target: 0, pct, achieved, todayTask };
       }
       let total = 0;
@@ -356,7 +356,7 @@ export function goalMilestones(
     result.push({
       id,
       emoji: "🎯",
-      label: `週の目標「${p.def.label}」たっせい！`,
+      label: `週の目標「${p.def.label}」達成！`,
       big: true,
     });
   }
@@ -364,13 +364,13 @@ export function goalMilestones(
 }
 
 // ===== 挑戦束（計画29） =====
-// 問数系の「今日の課題」に「ふつう/挑戦」の2束を並置する。
+// 問数系の「今日の課題」に「普通/挑戦」の2束を並置する。
 // 挑戦束は難問を少数解く（量の圧縮が対価。XP倍率ボーナスは置かない）。
-// 完遂すればふつう束と同じ量を解いたものとして週進捗に数える。
+// 完遂すれば普通束と同じ量を解いたものとして週進捗に数える。
 
 export const CHALLENGE_RATIO = 0.4;
 
-/** ふつう束のノルマ → 挑戦束のノルマ（例: 10問→4問。最低1問） */
+/** 普通束のノルマ → 挑戦束のノルマ（例: 10問→4問。最低1問） */
 export function challengeQuota(normal: number): number {
   return Math.max(1, Math.ceil(normal * CHALLENGE_RATIO));
 }
@@ -378,14 +378,14 @@ export function challengeQuota(normal: number): number {
 /** その日の束の選択と完遂（AppState.bundles["YYYY-MM-DD"]） */
 export interface DayBundle {
   choice: "normal" | "challenge";
-  /** 選択時点のふつう束のノルマ（同等寄与の基準） */
+  /** 選択時点の普通束のノルマ（同等寄与の基準） */
   normalQuota: number;
   challengeQuota: number;
   /** 挑戦束のセッションを完走したか */
   completed: boolean;
 }
 
-/** 完遂した挑戦束の「ふつう束との差分」。週の解答数に上乗せする同等寄与ぶん */
+/** 完遂した挑戦束の「普通束との差分」。週の解答数に上乗せする同等寄与ぶん */
 export function bundleCredit(b: DayBundle | undefined): number {
   if (!b || b.choice !== "challenge" || !b.completed) return 0;
   return Math.max(0, b.normalQuota - b.challengeQuota);

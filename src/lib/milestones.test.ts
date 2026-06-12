@@ -57,7 +57,7 @@ describe("answeredMilestones: 累積型の境界値", () => {
     ).toEqual([]);
   });
 
-  it("streak の節目は今日はじめての解答で跨ぐ", () => {
+  it("streak の節目は今日初めての解答で跨ぐ", () => {
     const s = emptyState();
     s.streak = { count: 2, lastDate: "2026-06-11" }; // 昨日まで2日連続
     const ids = answeredMilestones(s, {
@@ -132,7 +132,7 @@ describe("describeMilestone / totalAnswers", () => {
   it("祝福済みIDからバッジ表示を復元できる", () => {
     expect(describeMilestone("answers:100", null)?.label).toContain("100");
     expect(describeMilestone("unit:math/u1:50", COUNTS)?.label).toContain("式の計算");
-    expect(describeMilestone("skin:skin1", null)?.label).toContain("きせかえ");
+    expect(describeMilestone("skin:skin1", null)?.label).toContain("着せ替え");
     expect(describeMilestone("unknown:1", null)).toBeNull();
   });
 

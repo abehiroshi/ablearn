@@ -11,11 +11,11 @@ export interface Encouragement {
 }
 
 export const ENCOURAGEMENTS: Encouragement[] = [
-  { pose: "ganbare", text: "むずかしいよね。ここはみんなつまずくところだよ" },
-  { pose: "uun", text: "ここ、まちがえやすいんだ。きみだけじゃないよ" },
-  { pose: "kangaechu", text: "あせらなくてだいじょうぶ。いっしょに整理しよう" },
-  { pose: "ganbare", text: "まちがいは、おぼえるチャンス！もう一歩だよ" },
-  { pose: "kangaechu", text: "むずかしいときは、きほんにもどるのが近道だよ" },
+  { pose: "ganbare", text: "難しいよね。ここはみんなつまずくところだよ" },
+  { pose: "uun", text: "ここ、間違えやすいんだ。君だけじゃないよ" },
+  { pose: "kangaechu", text: "焦らなくて大丈夫。一緒に整理しよう" },
+  { pose: "ganbare", text: "間違いは、覚えるチャンス！もう一歩だよ" },
+  { pose: "kangaechu", text: "難しいときは、基本に戻るのが近道だよ" },
 ];
 
 /** 文言プールからランダムに1つ選ぶ（rand はテスト用に差し替え可能） */

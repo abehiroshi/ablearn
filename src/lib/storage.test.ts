@@ -114,7 +114,7 @@ describe("日次ログと解答履歴", () => {
     });
   });
 
-  it("recordHistory は再戦経路と「ぜんぶ見る」開示を記録する（計画30・31）", () => {
+  it("recordHistory は再戦経路と「全部見る」開示を記録する（計画30・31）", () => {
     let s = recordHistory(emptyState(), "set1", "q1", true, 1000, 2, true, true);
     s = recordHistory(s, "set1", "q1", false, 1000, 1, false, false);
     const stat = s.history[todayKey()]["set1/q1"];

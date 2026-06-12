@@ -162,7 +162,7 @@ export function answeredMilestones(
     });
   }
 
-  // 努力系: streak（今日はじめての解答で更新される）
+  // 努力系: streak（今日初めての解答で更新される）
   const { count, lastDate } = state.streak;
   if (lastDate !== today) {
     const gap =
@@ -290,7 +290,7 @@ export function describeMilestone(
       return {
         id,
         emoji: "🎁",
-        label: `きせかえ「${skinById(a).name}」`,
+        label: `着せ替え「${skinById(a).name}」`,
         big: true,
       };
     }

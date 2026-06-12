@@ -292,7 +292,7 @@ describe("dueSetIds / rankCounts", () => {
 });
 
 describe("ヒント開示方法のおすすめ（計画31）", () => {
-  it("初見・低い段は「ぜんぶ見る」、input 段以上は「すこしずつ」を推す", () => {
+  it("初見・低い段は「全部見る」、input 段以上は「少しずつ」を推す", () => {
     expect(recommendHintStyle(undefined)).toBe("full");
     expect(recommendHintStyle({ ...emptyMastery(), level: -1 })).toBe("full");
     expect(recommendHintStyle({ ...emptyMastery(), level: 0 })).toBe("full");

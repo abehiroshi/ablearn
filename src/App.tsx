@@ -521,7 +521,7 @@ export default function App() {
         milestones.push({
           id: `skin:${skin.id}`,
           emoji: "🎁",
-          label: `きせかえ「${skin.name}」がアンロック！`,
+          label: `着せ替え「${skin.name}」がアンロック！`,
           big: true,
         });
       }
