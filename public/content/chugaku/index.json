@@ -639,6 +639,36 @@
               "id": "jpn-kanji-1",
               "name": "漢字の読み書き その1",
               "file": "japanese/kanji-1.json"
+            },
+            {
+              "id": "jpn-kanji-yomi-1",
+              "name": "漢字の読み（1学期）",
+              "file": "japanese/kanji-yomi-1.json"
+            },
+            {
+              "id": "jpn-kanji-kaki-1",
+              "name": "漢字の書き（1学期）",
+              "file": "japanese/kanji-kaki-1.json"
+            },
+            {
+              "id": "jpn-kanji-yomi-2",
+              "name": "漢字の読み（2学期）",
+              "file": "japanese/kanji-yomi-2.json"
+            },
+            {
+              "id": "jpn-kanji-kaki-2",
+              "name": "漢字の書き（2学期）",
+              "file": "japanese/kanji-kaki-2.json"
+            },
+            {
+              "id": "jpn-kanji-yomi-3",
+              "name": "漢字の読み（3学期）",
+              "file": "japanese/kanji-yomi-3.json"
+            },
+            {
+              "id": "jpn-kanji-kaki-3",
+              "name": "漢字の書き（3学期）",
+              "file": "japanese/kanji-kaki-3.json"
             }
           ]
         },

@@ -521,6 +521,48 @@
       "prerequisites": [
         "soc-meiji-kaikoku"
       ]
+    },
+    {
+      "id": "jpn-katsuyou-shurui",
+      "name": "動詞の活用の種類の見分け",
+      "set": "jpn-bunpou-doushi",
+      "prerequisites": []
+    },
+    {
+      "id": "jpn-katsuyou-kei",
+      "name": "活用形の見分け（あとに続く語で判定）",
+      "set": "jpn-bunpou-doushi",
+      "prerequisites": [
+        "jpn-katsuyou-shurui"
+      ]
+    },
+    {
+      "id": "jpn-koten-kanazukai",
+      "name": "歴史的仮名遣いの読み替え",
+      "set": "jpn-koten-kihon",
+      "prerequisites": []
+    },
+    {
+      "id": "jpn-koten-sakuhin",
+      "name": "平家物語・徒然草の基本知識",
+      "set": "jpn-koten-kihon",
+      "prerequisites": [
+        "jpn-koten-kanazukai"
+      ]
+    },
+    {
+      "id": "jpn-kanshi-keishiki",
+      "name": "漢詩の形式（絶句・律詩／五言・七言）",
+      "set": "jpn-kanshi",
+      "prerequisites": []
+    },
+    {
+      "id": "jpn-kanshi-hyougen",
+      "name": "漢詩の表現技法（押韻・対句）",
+      "set": "jpn-kanshi",
+      "prerequisites": [
+        "jpn-kanshi-keishiki"
+      ]
     }
   ]
 }
