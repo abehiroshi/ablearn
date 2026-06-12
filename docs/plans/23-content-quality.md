@@ -1,8 +1,12 @@
 # 生成手順書の品質強化（worked examples の反映）
 
-- 状態: 未着手
+- 状態: 完了（2026-06-12）
 - 触るファイル範囲: `docs/content-generation.md`（＋検証用サンプル1概念を `public/content/chugaku/`）
 - 引き継ぎメモ: 根拠は [調査レポート](../research/learning-apps-survey.md) C-1/C-2。**計画20（2学期コンテンツ）より先に完了させる**（後から反映すると作り直しになるため）
+  - 実装場所: 手順書は `docs/content-generation.md`（概念ファミリーの構成・レッスン規約・実例の3箇所に追記）。サンプルは `public/content/chugaku/math/shiki-touhen.json`（等式の変形・concept `math-shiki-touhen`・6問: stage0/1/2＋自己説明＋誤答修正＋faded）。index.json の式の計算単元に登録済み
+  - 設計判断: 自己説明・誤答修正は「手順がある概念では必須・知識概念では省略可」とした。faded は「複数ステップの概念に1問」。熟達逆転対応として支援系変種は difficulty 1〜2 限定
+  - 残った注意点（Breaker 指摘・コード変更なしのため先送り）: 適応出題（`src/lib/mastery.ts` の pickVariant）は同段の先頭変種しか選ばないため、支援系変種は通常演習に出ず模擬テスト・レッスンでのみ出る。手順書に「本変種を先に並べる」規約を追加し、README の「後で計画化」にローテーション出題を記録した
+  - 入力受理の制約: normalizeAnswer は U+2212（−）と半角ハイフンを別文字として扱うため、answers には両方の表記を列挙する（サンプル参照）
 
 ## 目的
 

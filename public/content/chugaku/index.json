@@ -20,6 +20,11 @@
               "id": "math-shiki-riyou",
               "name": "文字式の利用・等式の変形",
               "file": "math/shiki-riyou.json"
+            },
+            {
+              "id": "math-shiki-touhen",
+              "name": "等式の変形（概念ファミリー）",
+              "file": "math/shiki-touhen.json"
             }
           ]
         },
