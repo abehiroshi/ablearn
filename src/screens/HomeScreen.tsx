@@ -359,7 +359,7 @@ export default function HomeScreen({
           <p className="muted" style={{ marginTop: 0 }}>
             {state.goals.active.length > 0
               ? "変更は来週の月曜から適用されるよ"
-              : "じぶんで決めた目標が「今日の課題」になるよ"}
+              : "自分で決めた目標が「今日の課題」になるよ"}
           </p>
           {availableGoals(goalCtx).map((d) => {
             const checked = draftGoals.includes(d.id);
@@ -450,8 +450,8 @@ export default function HomeScreen({
           <div className="row" style={{ marginBottom: 10 }}>
             <Abler pose="hirameita" size={56} />
             <div style={{ flex: 1, fontSize: 14 }}>
-              週の目標をえらぶと、まいにち「今日の課題」が出るよ。
-              じぶんのペースで決めよう！
+              週の目標をえらぶと、毎日「今日の課題」が出るよ。
+              自分のペースで決めよう！
             </div>
           </div>
           <div className="row">
