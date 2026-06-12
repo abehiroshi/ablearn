@@ -80,6 +80,13 @@ export interface AppState {
   selectedSkin: string;
   /** 効果音ミュート（計画27。デフォルトOFF=音あり） */
   muted: boolean;
+  /** 週間目標の選択状態（計画28。型は src/lib/goals.ts の GoalsState） */
+  goals: {
+    active: string[];
+    next: string[] | null;
+    weekStart: string;
+    introDismissed: boolean;
+  };
   /** concept → 習熟度（計画12。型は src/lib/mastery.ts の ConceptMastery） */
   mastery: Record<
     string,
@@ -112,6 +119,7 @@ export function emptyState(): AppState {
     celebrated: [],
     selectedSkin: "main",
     muted: false,
+    goals: { active: [], next: null, weekStart: "", introDismissed: false },
     mastery: {},
   };
 }

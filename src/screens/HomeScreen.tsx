@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { SetMeta, Subject } from "../types";
 import type { AppState } from "../lib/storage";
 import { todayKey } from "../lib/storage";
@@ -8,6 +9,13 @@ import {
   achievedCount,
   achievementPct,
 } from "../lib/milestones";
+import {
+  GOAL_CATALOG,
+  GoalContext,
+  MAX_GOALS,
+  activeGoalProgress,
+  availableGoals,
+} from "../lib/goals";
 import Abler from "../components/Abler";
 
 interface Props {
@@ -25,6 +33,11 @@ interface Props {
   /** タブレットの教科一覧から直接その教科を開く */
   onOpenSubject: (subjectId: string) => void;
   counts: ContentCounts | null;
+  /** 週間目標（計画28）の進捗計算用 */
+  setSubject: (setId: string) => string | undefined;
+  isLesson: (setId: string) => boolean;
+  onSelectGoals: (ids: string[]) => void;
+  onDismissGoalsIntro: () => void;
 }
 
 const DOW = ["日", "月", "火", "水", "木", "金", "土"];
@@ -48,11 +61,44 @@ export default function HomeScreen({
   onClearTest,
   onOpenSubject,
   counts,
+  setSubject,
+  isLesson,
+  onSelectGoals,
+  onDismissGoalsIntro,
 }: Props) {
   const today = todayKey();
   const testActive = isTestActive(state.test, today);
   const testOver = isTestOver(state.test, today);
   const subjectById = new Map(subjects.map((s) => [s.id, s]));
+
+  // 週間目標（計画28）
+  const goalCtx: GoalContext = {
+    state,
+    today,
+    setSubject,
+    isLesson,
+    rangeSetIds: testActive ? Object.values(state.test!.range).flat() : null,
+    setTotals: counts?.setTotals ?? null,
+  };
+  const goalsProgress = activeGoalProgress(state.goals, goalCtx);
+  const [editingGoals, setEditingGoals] = useState(false);
+  const [draftGoals, setDraftGoals] = useState<string[]>([]);
+  const goalLabel = (id: string) =>
+    GOAL_CATALOG.find((d) => d.id === id)?.label ?? id;
+
+  function openGoalEditor() {
+    setDraftGoals(state.goals.next ?? state.goals.active);
+    setEditingGoals(true);
+  }
+  function toggleDraft(id: string) {
+    setDraftGoals((prev) =>
+      prev.includes(id)
+        ? prev.filter((g) => g !== id)
+        : prev.length >= MAX_GOALS
+          ? prev
+          : [...prev, id]
+    );
+  }
 
   // テストの最初の残り日まで（テスト前はカウントダウン、期間中は「テスト期間中」）
   const firstRemaining = testActive
@@ -114,6 +160,140 @@ export default function HomeScreen({
           <div className="label">今日の問題数</div>
         </div>
       </div>
+
+      {/* 週間目標と今日の課題（計画28） */}
+      {editingGoals ? (
+        <div className="card">
+          <div style={{ fontWeight: 700, marginBottom: 4 }}>
+            週の目標をえらぶ（{draftGoals.length}/{MAX_GOALS}）
+          </div>
+          <p className="muted" style={{ marginTop: 0 }}>
+            {state.goals.active.length > 0
+              ? "変更は来週の月曜から適用されるよ"
+              : "じぶんで決めた目標が「今日の課題」になるよ"}
+          </p>
+          {availableGoals(goalCtx).map((d) => {
+            const checked = draftGoals.includes(d.id);
+            const full = !checked && draftGoals.length >= MAX_GOALS;
+            return (
+              <button
+                key={d.id}
+                className="list-row"
+                style={{
+                  width: "100%",
+                  textAlign: "left",
+                  opacity: full ? 0.4 : 1,
+                }}
+                onClick={() => toggleDraft(d.id)}
+              >
+                <span>{checked ? "✅" : "⬜"}</span>
+                <span style={{ flex: 1 }}>
+                  {d.mode === "test" && "📝 "}
+                  {d.label}
+                </span>
+              </button>
+            );
+          })}
+          <div className="row" style={{ marginTop: 8 }}>
+            <button
+              className="secondary-btn"
+              style={{ flex: 1 }}
+              onClick={() => setEditingGoals(false)}
+            >
+              やめる
+            </button>
+            <button
+              className="primary-btn"
+              style={{ flex: 1 }}
+              onClick={() => {
+                onSelectGoals(draftGoals);
+                setEditingGoals(false);
+              }}
+            >
+              これにする
+            </button>
+          </div>
+        </div>
+      ) : goalsProgress.length > 0 ? (
+        <div className="card">
+          <div className="row" style={{ marginBottom: 8 }}>
+            <span style={{ fontWeight: 700 }}>🎯 こんしゅうの目標</span>
+            <span className="spacer" />
+            <button className="link-btn" onClick={openGoalEditor}>
+              えらびなおす
+            </button>
+          </div>
+          {goalsProgress.map((p) => (
+            <div key={p.def.id} style={{ marginBottom: 10 }}>
+              <div className="row" style={{ gap: 8 }}>
+                <span style={{ flex: 1, fontSize: 14, fontWeight: 600 }}>
+                  {p.def.label}
+                </span>
+                <span className="muted" style={{ fontSize: 13 }}>
+                  {p.def.id === "range-review-0"
+                    ? `のこり${p.current}問`
+                    : `${p.current}/${p.target}`}
+                </span>
+              </div>
+              <div className="row" style={{ gap: 8, margin: "4px 0" }}>
+                <span className="acc-track" style={{ flex: 1 }}>
+                  <span
+                    className="acc-fill"
+                    style={{
+                      width: `${p.pct}%`,
+                      background: p.achieved ? "var(--green)" : "var(--accent)",
+                    }}
+                  />
+                </span>
+                {p.achieved && <span style={{ fontSize: 13 }}>🎉</span>}
+              </div>
+              <div className="muted" style={{ fontSize: 13 }}>
+                {p.achieved
+                  ? "たっせい！おみごと！"
+                  : `きょうの課題: ${p.todayTask}`}
+              </div>
+            </div>
+          ))}
+          {state.goals.next && (
+            <p className="muted" style={{ fontSize: 12, marginBottom: 0 }}>
+              来週から: {state.goals.next.map(goalLabel).join("・")}
+            </p>
+          )}
+        </div>
+      ) : state.goals.active.length === 0 && !state.goals.introDismissed ? (
+        <div className="card">
+          <div className="row" style={{ marginBottom: 10 }}>
+            <Abler pose="hirameita" size={56} />
+            <div style={{ flex: 1, fontSize: 14 }}>
+              週の目標をえらぶと、まいにち「今日の課題」が出るよ。
+              じぶんのペースで決めよう！
+            </div>
+          </div>
+          <div className="row">
+            <button
+              className="secondary-btn"
+              style={{ flex: 1 }}
+              onClick={onDismissGoalsIntro}
+            >
+              あとで
+            </button>
+            <button
+              className="primary-btn"
+              style={{ flex: 1 }}
+              onClick={() => {
+                onDismissGoalsIntro();
+                openGoalEditor();
+              }}
+            >
+              目標をえらぶ
+            </button>
+          </div>
+        </div>
+      ) : (
+        <button className="ghost-btn" onClick={openGoalEditor}>
+          🎯 週の目標をえらぶ
+        </button>
+      )}
 
       {testOver && (
         <div className="card">

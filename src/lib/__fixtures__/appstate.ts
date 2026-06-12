@@ -117,6 +117,12 @@ export const V1_AFTER_26 = {
   },
 };
 
+/** 計画27（効果音）まで・計画28（週間目標）より前の形式（muted あり・goals なし） */
+export const V1_AFTER_27 = {
+  ...V1_AFTER_26,
+  muted: false,
+};
+
 export const ALL_FIXTURES: Record<string, unknown> = {
   "v1-initial": V1_INITIAL,
   "v1-after-04": V1_AFTER_04,
@@ -125,4 +131,5 @@ export const ALL_FIXTURES: Record<string, unknown> = {
   "v1-after-17": V1_AFTER_17,
   "v1-after-12": V1_AFTER_12,
   "v1-after-26": V1_AFTER_26,
+  "v1-after-27": V1_AFTER_27,
 };

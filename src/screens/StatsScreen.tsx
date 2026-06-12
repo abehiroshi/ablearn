@@ -18,6 +18,7 @@ import {
 } from "../lib/milestones";
 import { SKINS, isUnlocked } from "../lib/skins";
 import { playCorrect, playFanfare, playTap, playWrong } from "../lib/sound";
+import { describeGoalMilestone } from "../lib/goals";
 import Abler from "../components/Abler";
 import {
   AccuracyBars,
@@ -275,7 +276,9 @@ export default function StatsScreen({
           <div style={{ fontWeight: 700, marginBottom: 8 }}>バッジ棚</div>
           <div className="badge-shelf">
             {state.celebrated.map((id) => {
-              const m = describeMilestone(id, counts);
+              const m = id.startsWith("goal:")
+                ? describeGoalMilestone(id)
+                : describeMilestone(id, counts);
               if (!m) return null;
               return (
                 <span key={id} className={`milestone ${m.big ? "big" : ""}`}>

@@ -36,7 +36,8 @@ import {
   touchStreak,
   wrongQuestionKeys,
 } from "./lib/storage";
-import { recommend } from "./lib/recommend";
+import { isTestActive, recommend } from "./lib/recommend";
+import { goalMilestones, rolloverGoals, selectGoals } from "./lib/goals";
 import { applyAnswer, buildAdaptiveItems, emptyMastery } from "./lib/mastery";
 import { shuffle } from "./lib/quiz";
 import { playTap, setSoundMuted } from "./lib/sound";
@@ -106,6 +107,13 @@ export default function App() {
       .then(setIndex)
       .catch((e) => setLoadError(String(e)));
     loadConcepts().then(setConcepts);
+  }, []);
+  // 週間目標（計画28）: 週が替わっていたら翌週適用の予約を反映する
+  useEffect(() => {
+    setState((prev) => {
+      const g = rolloverGoals(prev.goals, todayKey());
+      return g === prev.goals ? prev : { ...prev, goals: g };
+    });
   }, []);
   // 効果音（計画27）: ミュート設定の反映と、ボタン・リンクへのタップ音の一括取り付け。
   // pointerdown（ユーザー操作）起点なので AudioContext の作成・resume が許可される
@@ -178,6 +186,20 @@ export default function App() {
     if (!p || !p.set) return null;
     const entry = lookup.get(p.set);
     return entry ? { name: p.name, set: entry.meta } : null;
+  }
+
+  /** 週間目標の進捗計算に渡す共通コンテキスト（計画28） */
+  function goalCtx(s: AppState) {
+    return {
+      state: s,
+      today: todayKey(),
+      setSubject: (id: string) => lookup.get(id)?.subject.id,
+      isLesson: (id: string) => lookup.get(id)?.meta.kind === "lesson",
+      rangeSetIds: isTestActive(s.test, todayKey())
+        ? Object.values(s.test!.range).flat()
+        : null,
+      setTotals: counts?.setTotals ?? null,
+    };
   }
 
   /** 今日のおすすめ（日常: 進行中単元 / テストモード: 範囲×試験日が近い教科優先） */
@@ -297,6 +319,24 @@ export default function App() {
         });
       }
     }
+    // 週間目標の達成チェック（計画28）: この解答を反映した状態で判定する
+    {
+      let post = recordStat
+        ? recordQuestion(state, setId, questionId, correct)
+        : state;
+      post = recordHistory(
+        post,
+        setId,
+        questionId,
+        dontKnow ? "dontKnow" : correct,
+        timeMs,
+        hintsUsed
+      );
+      post = addDailyLog(post, { answered: 1, correct: correct ? 1 : 0, xp });
+      milestones.push(
+        ...goalMilestones(post.goals, goalCtx(post), state.celebrated)
+      );
+    }
     setState((prev) => {
       // 「わからない」も復習対象には不正解として入れる（履歴では区別する）
       let s = recordStat
@@ -363,10 +403,15 @@ export default function App() {
   }
 
   function finishMock(result: MockResult) {
-    setState((prev) => ({
-      ...prev,
-      mockResults: [...prev.mockResults, result],
-    }));
+    setState((prev) => {
+      const next = { ...prev, mockResults: [...prev.mockResults, result] };
+      // 模擬テスト系の週目標はここで達成が確定する（計画28）。
+      // 模試の結果画面にチップは出さず、祝福済みとして記録だけする（ホームで達成表示）
+      const ms = goalMilestones(next.goals, goalCtx(next), prev.celebrated);
+      return ms.length > 0
+        ? { ...next, celebrated: [...next.celebrated, ...ms.map((m) => m.id)] }
+        : next;
+    });
   }
 
   if (loadError) {
@@ -401,6 +446,20 @@ export default function App() {
             setTab("library");
           }}
           counts={counts}
+          setSubject={(id) => lookup.get(id)?.subject.id}
+          isLesson={(id) => lookup.get(id)?.meta.kind === "lesson"}
+          onSelectGoals={(ids) =>
+            setState((prev) => ({
+              ...prev,
+              goals: selectGoals(prev.goals, ids, todayKey()),
+            }))
+          }
+          onDismissGoalsIntro={() =>
+            setState((prev) => ({
+              ...prev,
+              goals: { ...prev.goals, introDismissed: true },
+            }))
+          }
         />
       )}
       {tab === "library" && (
