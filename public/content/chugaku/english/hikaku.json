@@ -1,0 +1,119 @@
+{
+  "id": "eng-hikaku",
+  "title": "比較",
+  "description": "比較級・最上級・as 〜 as（NEW HORIZON 2 Unit 6）",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "choice",
+      "question": "This bag is ( ) than mine.",
+      "choices": ["bigger", "big", "biggest", "more big"],
+      "answer": 0,
+      "answers": ["bigger"],
+      "difficulty": 1,
+      "explanation": "①than（〜より）があるので比較級。②big は短い語なので -er をつける（g を重ねて bigger）。more big とは言わない。",
+      "hints": [
+        "than があるときの形容詞の形は？",
+        "big + er（つづりに注意）"
+      ]
+    },
+    {
+      "id": "q2",
+      "type": "choice",
+      "question": "Tom is the ( ) in his class.",
+      "choices": ["tallest", "taller", "tall", "most tall"],
+      "answer": 0,
+      "answers": ["tallest"],
+      "difficulty": 2,
+      "explanation": "①「クラスの中でいちばん〜」は最上級。the + 最上級 + in（範囲）。②tall は短い語なので -est。the を忘れないこと。",
+      "hints": [
+        "「いちばん」を表す形は？",
+        "the + 〜est + in 範囲"
+      ]
+    },
+    {
+      "id": "q3",
+      "type": "input",
+      "question": "This question is ( ) difficult than that one.（「あの問題より難しい」になるように1語で）",
+      "answers": ["more"],
+      "placeholder": "1語で答えよう",
+      "difficulty": 2,
+      "explanation": "①difficult のような長い形容詞は -er をつけず、前に more を置いて比較級にする。②長い語（difficult・beautiful・interesting・popular など）= more / most のグループ。",
+      "hints": [
+        "difficult に -er はつけられる？",
+        "長い形容詞の比較級は「○○○ + 形容詞」"
+      ]
+    },
+    {
+      "id": "q4",
+      "type": "choice",
+      "question": "次の文のどこが間違い？ \"This flower is the most beautiful of Japan.\"",
+      "choices": [
+        "of Japan ではなく in Japan（場所や範囲には in を使う）",
+        "most ではなく more が正しい",
+        "the が不要",
+        "間違いはない"
+      ],
+      "answer": 0,
+      "difficulty": 2,
+      "explanation": "①最上級の「〜の中で」は、場所・範囲（Japan, his class など）なら in、複数を表す語句（the three, all the students など）なら of。②of Japan はこの使い分けの定番ミス。",
+      "hints": [
+        "in と of の使い分けのルールを思い出そう",
+        "Japan は「場所・範囲」？「複数のもの」？"
+      ]
+    },
+    {
+      "id": "q5",
+      "type": "order",
+      "question": "「私の犬はあなたの犬と同じくらい大きい。」",
+      "tokens": ["My dog", "is", "as big as", "yours."],
+      "difficulty": 2,
+      "explanation": "①「同じくらい〜」は as + 原級 + as（形容詞は元の形のまま）。②as bigger as としないこと。",
+      "hints": [
+        "「同じくらい」は as 〜 as ではさむ",
+        "as と as の間の形容詞は元の形"
+      ]
+    },
+    {
+      "id": "q6",
+      "type": "choice",
+      "question": "I like summer ( ) than winter.",
+      "choices": ["better", "more good", "well", "best"],
+      "answer": 0,
+      "answers": ["better"],
+      "difficulty": 2,
+      "explanation": "①like A better than B = 「BよりAが好き」。②good / well の比較級は better（不規則変化）。more good とは言わない。",
+      "hints": [
+        "「〜より好き」は like 〜 ( ) than",
+        "good の比較級は不規則"
+      ]
+    },
+    {
+      "id": "q7",
+      "type": "input",
+      "question": "「富士山は日本でいちばん高い山です。」 Mt. Fuji is the ( ) mountain in Japan.（1語で）",
+      "answers": ["highest", "tallest"],
+      "placeholder": "例: highest",
+      "difficulty": 3,
+      "explanation": "「いちばん高い」は the + 最上級。山の高さはふつう high を使い、the highest mountain。範囲が場所（Japan）なので in Japan。",
+      "hints": [
+        "「いちばん」なので最上級",
+        "high + est"
+      ]
+    },
+    {
+      "id": "q8",
+      "type": "choice",
+      "question": "\"Which do you like ( ), tea or coffee?\"",
+      "choices": ["better", "best", "well", "more better"],
+      "answer": 0,
+      "answers": ["better"],
+      "difficulty": 3,
+      "explanation": "①2つのものを比べて「どちらが好き？」は Which do you like better, A or B?。②3つ以上の中から「どれがいちばん？」なら the best を使う。比べる数で better / best を使い分ける。",
+      "hints": [
+        "tea or coffee は2つの比較",
+        "2つなら比較級、3つ以上なら最上級"
+      ]
+    }
+  ]
+}

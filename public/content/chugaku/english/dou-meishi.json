@@ -1,0 +1,115 @@
+{
+  "id": "eng-dou-meishi",
+  "title": "動名詞",
+  "description": "〜ing形で「〜すること」（NEW HORIZON 2 Unit 5）",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "choice",
+      "question": "I enjoy ( ) tennis.",
+      "choices": ["playing", "play", "to play", "played"],
+      "answer": 0,
+      "answers": ["playing"],
+      "difficulty": 1,
+      "explanation": "①enjoy は目的語に動名詞（〜ing）だけをとる動詞（enjoy to play は×）。②「テニスをすることを楽しむ」=「テニスをして楽しむ」。",
+      "hints": [
+        "enjoy のあとは「〜すること」。形は？",
+        "enjoy 〜ing で覚える"
+      ]
+    },
+    {
+      "id": "q2",
+      "type": "choice",
+      "question": "My hobby is ( ) pictures.",
+      "choices": ["taking", "take", "takes", "took"],
+      "answer": 0,
+      "answers": ["taking"],
+      "difficulty": 2,
+      "explanation": "①「私の趣味は写真を撮ることです」。be 動詞のあとに「〜すること」を置くときも動名詞が使える。②taking pictures = 写真を撮ること。",
+      "hints": [
+        "「趣味 = 〜すること」の形",
+        "「撮ること」を1語にすると？"
+      ]
+    },
+    {
+      "id": "q3",
+      "type": "input",
+      "question": "We finished ( ) the classroom.（clean を適する形にして1語で）",
+      "answers": ["cleaning"],
+      "placeholder": "例: cleaning",
+      "difficulty": 2,
+      "explanation": "①finish も動名詞だけを目的語にとる動詞（finish to clean は×）。②enjoy・finish・stop は「動名詞のみ」のグループとしてまとめて覚える。",
+      "hints": [
+        "finish のあとは 〜ing",
+        "clean + ing"
+      ]
+    },
+    {
+      "id": "q4",
+      "type": "choice",
+      "question": "I want ( ) a doctor.",
+      "choices": ["to be", "being", "be", "been"],
+      "answer": 0,
+      "answers": ["to be", "tobe"],
+      "difficulty": 2,
+      "explanation": "①want は目的語に不定詞（to + 原形）だけをとる動詞（want being は×）。②「動名詞のみ: enjoy・finish・stop」「不定詞のみ: want・hope・decide」の使い分けがこの単元の核心。",
+      "hints": [
+        "want は ing と to のどちらをとる動詞？",
+        "want to 〜 で「〜したい」"
+      ]
+    },
+    {
+      "id": "q5",
+      "type": "order",
+      "question": "「英語を話すことはおもしろい。」",
+      "tokens": ["Speaking English", "is", "interesting."],
+      "difficulty": 1,
+      "explanation": "①動名詞のかたまり Speaking English（英語を話すこと）が文の主語になれる。②主語 → is → 形容詞 の順。",
+      "hints": [
+        "「英語を話すこと」がこの文の主語",
+        "主語 + be動詞 + 形容詞"
+      ]
+    },
+    {
+      "id": "q6",
+      "type": "choice",
+      "question": "Thank you for ( ) me.",
+      "choices": ["helping", "help", "to help", "helped"],
+      "answer": 0,
+      "answers": ["helping"],
+      "difficulty": 2,
+      "explanation": "①for は前置詞。前置詞のあとに動詞を置くときは必ず動名詞（for to help は×）。②Thank you for 〜ing = 「〜してくれてありがとう」。",
+      "hints": [
+        "for は前置詞。前置詞のあとの動詞の形は？",
+        "前置詞 + 〜ing"
+      ]
+    },
+    {
+      "id": "q7",
+      "type": "input",
+      "question": "「彼女は本を読むのをやめました。」 She stopped ( ) a book.（read を適する形にして1語で）",
+      "answers": ["reading"],
+      "placeholder": "例: reading",
+      "difficulty": 3,
+      "explanation": "stop + 動名詞 = 「〜するのをやめる」。stop to read だと「読むために立ち止まる」という別の意味になる（不定詞は「これからすること」、動名詞は「していたこと」のイメージ）。",
+      "hints": [
+        "「読むのをやめた」=「していたこと」をやめた",
+        "stop 〜ing"
+      ]
+    },
+    {
+      "id": "q8",
+      "type": "choice",
+      "question": "How about ( ) to the park?",
+      "choices": ["going", "go", "to go", "gone"],
+      "answer": 0,
+      "answers": ["going"],
+      "difficulty": 3,
+      "explanation": "①How about 〜ing? = 「〜するのはどう？」（提案の表現）。②about は前置詞なので、あとの動詞は動名詞になる。",
+      "hints": [
+        "about は前置詞",
+        "前置詞のあとの動詞は 〜ing"
+      ]
+    }
+  ]
+}

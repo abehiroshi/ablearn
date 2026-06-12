@@ -1,5 +1,5 @@
 {
-  "title": "中2 定期テスト対策（1学期）",
+  "title": "中2 定期テスト対策",
   "subjects": [
     {
       "id": "math",
@@ -116,6 +116,39 @@
               "id": "eng-futeishi-basic",
               "name": "不定詞の基本",
               "file": "english/futeishi-basic.json"
+            }
+          ]
+        },
+        {
+          "id": "unit4",
+          "name": "must と have to（Unit 4）",
+          "sets": [
+            {
+              "id": "eng-jodoushi",
+              "name": "must と have to",
+              "file": "english/jodoushi.json"
+            }
+          ]
+        },
+        {
+          "id": "unit5",
+          "name": "動名詞（Unit 5）",
+          "sets": [
+            {
+              "id": "eng-dou-meishi",
+              "name": "動名詞",
+              "file": "english/dou-meishi.json"
+            }
+          ]
+        },
+        {
+          "id": "unit6",
+          "name": "比較（Unit 6）",
+          "sets": [
+            {
+              "id": "eng-hikaku",
+              "name": "比較",
+              "file": "english/hikaku.json"
             }
           ]
         },
@@ -354,6 +387,28 @@
               "file": "social/edo-basic.json"
             }
           ]
+        },
+        {
+          "id": "chiri-shochiiki",
+          "name": "地理（日本の諸地域・西日本）",
+          "sets": [
+            {
+              "id": "soc-chiri-shochiiki",
+              "name": "日本の諸地域（九州・中国四国・近畿）",
+              "file": "social/chiri-shochiiki.json"
+            }
+          ]
+        },
+        {
+          "id": "meiji",
+          "name": "歴史（開国と明治維新）",
+          "sets": [
+            {
+              "id": "soc-meiji-ishin",
+              "name": "開国と明治維新",
+              "file": "social/meiji-ishin.json"
+            }
+          ]
         }
       ]
     },
@@ -382,6 +437,22 @@
               "id": "jpn-bunpou-doushi",
               "name": "動詞の活用",
               "file": "japanese/bunpou-doushi.json"
+            },
+            {
+              "id": "jpn-bunpou-katsuyou",
+              "name": "用言の活用（動詞）",
+              "file": "japanese/bunpou-katsuyou.json"
+            }
+          ]
+        },
+        {
+          "id": "koten",
+          "name": "古典（平家物語・徒然草）",
+          "sets": [
+            {
+              "id": "jpn-koten-kihon",
+              "name": "古典の基本",
+              "file": "japanese/koten-kihon.json"
             }
           ]
         }

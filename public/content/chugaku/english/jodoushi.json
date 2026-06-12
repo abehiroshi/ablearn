@@ -1,0 +1,123 @@
+{
+  "id": "eng-jodoushi",
+  "title": "must と have to",
+  "description": "義務・禁止・不必要の表現（NEW HORIZON 2 Unit 4）",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "choice",
+      "question": "「私は毎日英語を勉強しなければならない。」 I ( ) study English every day.",
+      "choices": ["must", "can", "may", "will"],
+      "answer": 0,
+      "answers": ["must"],
+      "difficulty": 1,
+      "explanation": "①「〜しなければならない」は must（または have to）。②must のあとは動詞の原形（to はつけない）。",
+      "hints": [
+        "「〜しなければならない」を1語で表す助動詞",
+        "m で始まる"
+      ]
+    },
+    {
+      "id": "q2",
+      "type": "choice",
+      "question": "She ( ) to clean her room every day.",
+      "choices": ["has", "have", "must", "is"],
+      "answer": 0,
+      "answers": ["has"],
+      "difficulty": 2,
+      "explanation": "①あとに to clean が続いているので have to の文（must なら to は不要）。②主語が三人称単数（She）なので has to になる。",
+      "hints": [
+        "空所のあとの to に注目。must は使える？",
+        "主語が She のとき have はどう変わる？"
+      ]
+    },
+    {
+      "id": "q3",
+      "type": "input",
+      "question": "「あなたは今日宿題をする必要はありません。」 You ( ) have to do your homework today.（短縮形1語で）",
+      "answers": ["don't", "dont", "do not"],
+      "placeholder": "例: don't",
+      "difficulty": 2,
+      "explanation": "①don't have to = 「〜する必要はない」（不必要）。②must not は「〜してはいけない」（禁止）で意味がまったく違う。この2つの区別が Unit 4 の最重要ポイント。",
+      "hints": [
+        "「必要はない」は have to の否定",
+        "have to の前に置く否定の1語（短縮形）"
+      ]
+    },
+    {
+      "id": "q4",
+      "type": "choice",
+      "question": "「この部屋で食べてはいけません。」を表す文は？",
+      "choices": [
+        "You must not eat in this room.",
+        "You don't have to eat in this room.",
+        "You may eat in this room.",
+        "You have to eat in this room."
+      ],
+      "answer": 0,
+      "difficulty": 2,
+      "explanation": "①must not（mustn't）= 禁止「〜してはいけない」。②don't have to = 不必要「〜しなくてもよい」なので意味が逆になる。否定の形で意味が分かれるのがこの単元のひっかけどころ。",
+      "hints": [
+        "「禁止」と「不必要」のどちらの意味？",
+        "must not と don't have to の違いを思い出そう"
+      ]
+    },
+    {
+      "id": "q5",
+      "type": "order",
+      "question": "「私は昨日早く起きなければなりませんでした。」",
+      "tokens": ["I", "had to", "get up", "early", "yesterday."],
+      "difficulty": 2,
+      "explanation": "①must には過去形がないので、過去の義務は have to の過去形 had to で表す。②I had to get up early yesterday. の語順。",
+      "hints": [
+        "「しなければならなかった」は had to",
+        "主語 → had to → 動詞の原形 → 残り"
+      ]
+    },
+    {
+      "id": "q6",
+      "type": "choice",
+      "question": "「あなたのペンを使ってもいいですか。」 ( ) I use your pen?",
+      "choices": ["May", "Must", "Do", "Am"],
+      "answer": 0,
+      "answers": ["may", "May"],
+      "difficulty": 1,
+      "explanation": "①May I 〜? = 「〜してもいいですか」（許可を求める表現）。②Can I 〜? も同じ意味で使える（May のほうがていねい）。",
+      "hints": [
+        "「許可」を求める助動詞",
+        "M で始まるていねいな言い方"
+      ]
+    },
+    {
+      "id": "q7",
+      "type": "input",
+      "question": "「彼は昨日働かなければなりませんでした。」 He ( ) to work yesterday.（1語で）",
+      "answers": ["had"],
+      "placeholder": "1語で答えよう",
+      "difficulty": 3,
+      "explanation": "must は過去形がないため、過去の義務は had to。主語が He でも過去形は had のまま（has の過去も had）。",
+      "hints": [
+        "yesterday があるので過去の文",
+        "have to を過去形にすると？"
+      ]
+    },
+    {
+      "id": "q8",
+      "type": "choice",
+      "question": "「Must I wash the dishes?」に「いいえ、その必要はありません。」と答えるとき正しいのは？",
+      "choices": [
+        "No, you don't have to.",
+        "No, you must not.",
+        "Yes, you don't.",
+        "No, you may."
+      ],
+      "answer": 0,
+      "difficulty": 3,
+      "explanation": "Must I 〜? に No で答えるときは No, you don't have to.（必要はない）。No, you must not. と答えると「してはいけない」という禁止になってしまい、かみ合わない。",
+      "hints": [
+        "「その必要はない」はどの表現だった？",
+        "must not だと「禁止」になってしまう"
+      ]
+    }
+  ]
+}
