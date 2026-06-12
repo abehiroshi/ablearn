@@ -50,6 +50,35 @@ interface Props {
   rematchCount: number;
   rematchOldestDays: number;
   onStartRematch: () => void;
+  /** ホーム画面に追加の案内（計画37）。null = 出さない */
+  installGuide: "ios" | "android" | null;
+  onDismissInstallGuide: () => void;
+  /** Android: OSのインストールUIを開く */
+  onInstall: () => void;
+}
+
+/** iOS Safari の共有ボタン（□から上矢印）を模したアイコン */
+function ShareIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      style={{ verticalAlign: "-2px" }}
+      aria-label="共有"
+    >
+      <g
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M4 6.5 H3 V14 H13 V6.5 H12" />
+        <path d="M8 10 V1.5 M5.5 4 L8 1.5 L10.5 4" />
+      </g>
+    </svg>
+  );
 }
 
 const DOW = ["日", "月", "火", "水", "木", "金", "土"];
@@ -82,6 +111,9 @@ export default function HomeScreen({
   rematchCount,
   rematchOldestDays,
   onStartRematch,
+  installGuide,
+  onDismissInstallGuide,
+  onInstall,
 }: Props) {
   const today = todayKey();
   const testActive = isTestActive(state.test, today);
@@ -266,6 +298,42 @@ export default function HomeScreen({
         <Abler pose="main" size={104} />
         <div className="abler-bubble">{greeting}</div>
       </div>
+
+      {/* ホーム画面に追加の案内（計画37）。standalone 起動・閉じた後は出ない */}
+      {installGuide && (
+        <div className="card">
+          <div className="row" style={{ alignItems: "flex-start" }}>
+            <Abler pose="hirameita" size={48} />
+            <div style={{ flex: 1, fontSize: 14 }}>
+              ホーム画面に追加すると、アプリみたいにすぐ開けるよ！
+              {installGuide === "ios" && (
+                <div style={{ marginTop: 6, fontWeight: 700 }}>
+                  ① 共有ボタン（<ShareIcon />）をタップ
+                  <br />② 「ホーム画面に追加」をえらぶ
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="row" style={{ marginTop: 8 }}>
+            <button
+              className="link-btn"
+              style={{ flex: 1 }}
+              onClick={onDismissInstallGuide}
+            >
+              とじる
+            </button>
+            {installGuide === "android" && (
+              <button
+                className="primary-btn"
+                style={{ flex: 2 }}
+                onClick={onInstall}
+              >
+                📲 ホーム画面に追加する
+              </button>
+            )}
+          </div>
+        </div>
+      )}
 
       <div className="hero">
         <div className="stat-card">

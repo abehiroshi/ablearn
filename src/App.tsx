@@ -59,6 +59,15 @@ import {
   tagRematchItems,
 } from "./lib/rematch";
 import { buildTrack, sugorokuMilestoneId } from "./lib/sugoroku";
+import {
+  BeforeInstallPromptEvent,
+  dismissInstallGuide,
+  installGuideFor,
+  isAndroid,
+  isInstallGuideDismissed,
+  isIos,
+  isStandalone,
+} from "./lib/install";
 import { shuffle } from "./lib/quiz";
 import { playTap, setSoundMuted } from "./lib/sound";
 import HomeScreen from "./screens/HomeScreen";
@@ -128,6 +137,12 @@ export default function App() {
   );
   // 概念メタ（前提宣言。計画26）。読み込み失敗時は空 = 遡り誘導なしで動く
   const [concepts, setConcepts] = useState<ConceptMeta[]>([]);
+  // ホーム画面に追加の案内（計画37）
+  const [installDismissed, setInstallDismissed] = useState(
+    isInstallGuideDismissed
+  );
+  const [installPrompt, setInstallPrompt] =
+    useState<BeforeInstallPromptEvent | null>(null);
 
   useEffect(() => saveState(state), [state]);
   useEffect(() => {
@@ -156,6 +171,15 @@ export default function App() {
       passive: true,
     });
     return () => document.removeEventListener("pointerdown", onDown, true);
+  }, []);
+  // Android Chrome 等の install prompt を捕まえる（計画37）。iOS では発火しない
+  useEffect(() => {
+    const onPrompt = (e: Event) => {
+      e.preventDefault();
+      setInstallPrompt(e as BeforeInstallPromptEvent);
+    };
+    window.addEventListener("beforeinstallprompt", onPrompt);
+    return () => window.removeEventListener("beforeinstallprompt", onPrompt);
   }, []);
   useEffect(() => {
     if (!index) return;
@@ -675,6 +699,24 @@ export default function App() {
             buildChallengeItems(challengePool, quota) !== null
           }
           onChooseBundle={chooseBundle}
+          installGuide={installGuideFor({
+            ios: isIos(),
+            standalone: isStandalone(),
+            dismissed: installDismissed,
+            // デスクトップ Chrome も prompt を発火させるため Android に限定
+            canPrompt: installPrompt !== null && isAndroid(),
+          })}
+          onDismissInstallGuide={() => {
+            dismissInstallGuide();
+            setInstallDismissed(true);
+          }}
+          onInstall={() => {
+            // OSのインストールUIを開く。結果に関わらずプロンプトは使い捨て
+            void installPrompt?.prompt();
+            setInstallPrompt(null);
+            dismissInstallGuide();
+            setInstallDismissed(true);
+          }}
           rematchCount={rematches.length}
           rematchOldestDays={
             rematches.length > 0

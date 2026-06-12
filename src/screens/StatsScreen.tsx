@@ -19,6 +19,7 @@ import {
 import { SKINS, isUnlocked } from "../lib/skins";
 import { playCorrect, playFanfare, playTap, playWrong } from "../lib/sound";
 import { describeGoalMilestone } from "../lib/goals";
+import { isIos, isStandalone } from "../lib/install";
 import Abler from "../components/Abler";
 import {
   AccuracyBars,
@@ -287,6 +288,19 @@ export default function StatsScreen({
               );
             })}
           </div>
+        </div>
+      )}
+
+      {/* ホーム画面に追加の常設導線（計画37）。案内カードを閉じたあとでも辿れる */}
+      {isIos() && !isStandalone() && (
+        <div className="card">
+          <div style={{ fontWeight: 700, marginBottom: 4 }}>
+            📲 ホーム画面に追加
+          </div>
+          <p className="muted" style={{ margin: 0 }}>
+            Safari の共有ボタン（□↑）をタップ →
+            「ホーム画面に追加」をえらぶと、アプリみたいにすぐ開けるよ
+          </p>
         </div>
       )}
 
