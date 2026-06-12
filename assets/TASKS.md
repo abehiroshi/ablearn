@@ -56,7 +56,7 @@
 
 ## T-001: Abler スキン第1弾の設定画シート
 
-- 状態: 依頼中
+- 状態: 納品済み
 - 内容: マスコット Abler の着せ替えスキン1着分の設定画シート（[計画19](../docs/plans/19-skin-rewards.md) の最初の解放スキン）
 - 仕様: 既存シートと同じポーズ構成・同じ配置で1枚に収める（切り出しは既存パイプラインを使うため配置がずれると使えない）。衣装・色違いなどテーマは制作側の提案でよい
 - 参照: `assets/original.png`（現行シート）、`public/abler/` の13ポーズ（main, benkyou, dekita, fukushu, ganbare, hirameita, iine, kangaechu, kuyashii, mukatteru, nikkori, odoroki, uun）
