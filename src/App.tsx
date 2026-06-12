@@ -742,6 +742,7 @@ export default function App() {
           title={lesson.title}
           setId={lesson.setId}
           steps={lesson.steps}
+          revisit={!!state.setRecords[lesson.setId]}
           onAnswer={handleAnswer}
           onFinish={(score) =>
             setState((prev) => recordSetResult(prev, lesson.setId, score))

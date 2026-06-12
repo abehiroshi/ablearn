@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { ChoiceQuestion } from "../types";
+import type { ChoiceQuestion, LessonStep } from "../types";
 import {
   XP_FIRST_CORRECT,
   XP_FLASHCARD,
@@ -12,6 +12,7 @@ import {
   isStruggling,
   nextStruggle,
   normalizeAnswer,
+  peekQuestion,
   shuffle,
 } from "./quiz";
 
@@ -112,5 +113,25 @@ describe("つまずき検知（計画13）", () => {
     c = nextStruggle(c, { correct: true, usedAllHints: false });
     c = nextStruggle(c, { correct: false, usedAllHints: true });
     expect(isStruggling(c)).toBe(true);
+  });
+});
+
+describe("レッスン冒頭のチラ見問題（計画32）", () => {
+  it("ステップ列の最初の問題を流用する（専用作問はしない）", () => {
+    const steps: LessonStep[] = [
+      { id: "c1", type: "card", body: "解説" },
+      { id: "q1", type: "choice", question: "?", choices: ["a"], answer: 0 },
+      { id: "q2", type: "input", question: "?", answers: ["a"] },
+    ];
+    expect(peekQuestion(steps)?.id).toBe("q1");
+  });
+
+  it("流用できる問題が無いレッスンでは null = 選択肢自体を出さない", () => {
+    const steps: LessonStep[] = [
+      { id: "c1", type: "card", body: "解説" },
+      { id: "c2", type: "card", body: "解説2" },
+    ];
+    expect(peekQuestion(steps)).toBeNull();
+    expect(peekQuestion([])).toBeNull();
   });
 });

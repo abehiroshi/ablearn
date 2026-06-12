@@ -1,6 +1,19 @@
 // 解答判定・シャッフルなどクイズ進行のユーティリティ
 
-import type { ChoiceQuestion, InputQuestion } from "../types";
+import type {
+  ChoiceQuestion,
+  InputQuestion,
+  LessonStep,
+  Question,
+} from "../types";
+
+/**
+ * レッスン冒頭の「まず問題をチラ見」に流用する代表1問（計画32）。
+ * 専用作問はせず既存ステップ列の最初の問題を使う。無ければ null = 選択肢自体を出さない
+ */
+export function peekQuestion(steps: LessonStep[]): Question | null {
+  return (steps.find((s) => s.type !== "card") as Question | undefined) ?? null;
+}
 
 /**
  * answers（受理表記）を持つ choice 問題を input 形式に変換する。

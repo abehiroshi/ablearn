@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import type { LessonStep, Question } from "../types";
-import { XP_LESSON } from "../lib/quiz";
+import { XP_LESSON, peekQuestion } from "../lib/quiz";
 import {
   ChoiceView,
   FlashcardView,
@@ -33,6 +33,8 @@ interface Props {
   /** 最後まで進めたときに1回呼ばれる（完了の記録） */
   onFinish: (score: number) => void;
   onClose: () => void;
+  /** 再受講か（計画32。入り方の推奨: 初見=解説から・再受講=チラ見） */
+  revisit?: boolean;
 }
 
 export default function LessonScreen({
@@ -42,6 +44,7 @@ export default function LessonScreen({
   onAnswer,
   onFinish,
   onClose,
+  revisit = false,
 }: Props) {
   const [pos, setPos] = useState(0);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
@@ -53,8 +56,21 @@ export default function LessonScreen({
   const reported = useRef(false);
   const milestones = useRef<Milestone[]>([]);
 
+  // 入り方の選択（計画32）: チラ見に流用できる問題が無いレッスンでは選択肢自体を出さない
+  const peek = peekQuestion(steps);
+  const [intro, setIntro] = useState<"choosing" | "peeking" | null>(
+    peek ? "choosing" : null
+  );
+  // チラ見中に解答してみた結果（採点なし・記録なし。「解けなくて当然」の地点）
+  const [peekTried, setPeekTried] = useState(false);
+
   const total = steps.length;
   const step = steps[pos];
+
+  function startSteps() {
+    setIntro(null);
+    shownAt.current = Date.now();
+  }
 
   function submit(correct: boolean, correctText?: string) {
     if (feedback || finished || step.type === "card") return;
@@ -133,6 +149,102 @@ export default function LessonScreen({
           >
             完了
           </button>
+        </div>
+      </div>
+    );
+  }
+
+  // 入り方の選択（計画32）: 「何を解けるようになるための解説か」を先に体感できる入り口。
+  // テスト/レッスンの選択は従来のまま、レッスン内部の入り方だけを選ばせる
+  if (intro !== null && peek) {
+    const focusPeek = revisit; // 初見は「解説から」・再受講は「チラ見」を推す（選ぶのは本人）
+    return (
+      <div className="quiz-root">
+        <div className="quiz-header">
+          <button className="close-btn" onClick={onClose}>
+            ✕
+          </button>
+          <div className="progress-track">
+            <div className="progress-fill" style={{ width: 0 }} />
+          </div>
+        </div>
+        <div className="quiz-body">
+          <div className="muted" style={{ fontSize: 13 }}>
+            📖 {title}
+          </div>
+          {intro === "choosing" ? (
+            <>
+              <div className="row" style={{ margin: "12px 0" }}>
+                <Abler pose="hirameita" size={64} />
+                <div style={{ flex: 1, fontWeight: 700 }}>
+                  どこからはじめる？
+                </div>
+              </div>
+              <button
+                className={focusPeek ? "secondary-btn" : "primary-btn"}
+                style={{ marginBottom: 8 }}
+                onClick={startSteps}
+              >
+                解説から読む
+              </button>
+              <button
+                className={focusPeek ? "primary-btn" : "secondary-btn"}
+                onClick={() => setIntro("peeking")}
+              >
+                まず問題をチラ見する
+              </button>
+            </>
+          ) : (
+            <>
+              <div className="muted" style={{ margin: "8px 0" }}>
+                👀 このレッスンでこんな問題が解けるようになるよ（いまは解けなくてOK・採点なし）
+              </div>
+              {!peekTried ? (
+                <>
+                  {peek.type === "choice" && (
+                    <ChoiceView
+                      question={peek}
+                      onSubmit={() => setPeekTried(true)}
+                    />
+                  )}
+                  {peek.type === "input" && (
+                    <InputView
+                      question={peek}
+                      disabled={false}
+                      onSubmit={() => setPeekTried(true)}
+                    />
+                  )}
+                  {peek.type === "flashcard" && (
+                    <FlashcardView
+                      question={peek}
+                      onSubmit={() => setPeekTried(true)}
+                    />
+                  )}
+                  {peek.type === "order" && (
+                    <OrderView
+                      question={peek}
+                      disabled={false}
+                      onSubmit={() => setPeekTried(true)}
+                    />
+                  )}
+                </>
+              ) : (
+                <div className="row" style={{ margin: "12px 0" }}>
+                  <Abler pose="nikkori" size={60} />
+                  <div style={{ flex: 1 }}>
+                    ためしてみたね！それで十分。解き方はこれから一緒に見ていこう
+                  </div>
+                </div>
+              )}
+              <button
+                className="primary-btn"
+                style={{ marginTop: "auto" }}
+                onClick={startSteps}
+              >
+                レッスンをはじめる
+              </button>
+            </>
+          )}
         </div>
       </div>
     );
