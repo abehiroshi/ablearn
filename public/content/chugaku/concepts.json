@@ -563,6 +563,100 @@
       "prerequisites": [
         "jpn-kanshi-keishiki"
       ]
+    },
+    {
+      "id": "math-tanko-shiki",
+      "name": "単項式の計算と式の値",
+      "set": "math-shiki-keisan",
+      "prerequisites": [
+        "shiki-doruiko"
+      ]
+    },
+    {
+      "id": "math-shiki-setsumei",
+      "name": "文字式による説明",
+      "set": "math-shiki-riyou",
+      "prerequisites": [
+        "shiki-doruiko"
+      ]
+    },
+    {
+      "id": "math-touhen-kihon",
+      "name": "等式の変形（基本）",
+      "set": "math-shiki-riyou",
+      "prerequisites": [
+        "shiki-doruiko",
+        "math1-houteishiki"
+      ]
+    },
+    {
+      "id": "math-renritsu-toku",
+      "name": "連立方程式を解く（加減法・代入法）",
+      "set": "math-renritsu-basic",
+      "prerequisites": [
+        "math1-houteishiki",
+        "math-touhen-kihon"
+      ]
+    },
+    {
+      "id": "math-renritsu-bunshou",
+      "name": "連立方程式の文章題",
+      "set": "math-renritsu-ouyou",
+      "prerequisites": [
+        "math-renritsu-toku"
+      ]
+    },
+    {
+      "id": "sci-genshi-gainen",
+      "name": "原子・分子・単体と化合物の概念",
+      "set": "sci-genshi-bunshi",
+      "prerequisites": []
+    },
+    {
+      "id": "sci-kagaku-henka-shurui",
+      "name": "化学変化の種類（分解・化合・酸化還元）",
+      "set": "sci-kagaku-basic",
+      "prerequisites": [
+        "sci-kagaku-shiki"
+      ]
+    },
+    {
+      "id": "sci-shitsuryou-keisan",
+      "name": "化学変化と質量（保存・質量比）",
+      "set": "sci-kagaku-shitsuryou",
+      "prerequisites": [
+        "sci-kagaku-henka-shurui"
+      ]
+    },
+    {
+      "id": "sci-jouhatsu-kikou",
+      "name": "蒸散と気孔",
+      "set": "sci-seibutsu-saibou",
+      "prerequisites": [
+        "sci-saibou-tsukuri"
+      ]
+    },
+    {
+      "id": "sci-kyuushuu-junkan",
+      "name": "養分の吸収と血液循環",
+      "set": "sci-karada-hataraki",
+      "prerequisites": [
+        "sci-shouka-kouso"
+      ]
+    },
+    {
+      "id": "sci-shigeki-hannou",
+      "name": "刺激と反応・反射",
+      "set": "sci-karada-hataraki",
+      "prerequisites": []
+    },
+    {
+      "id": "sci-zensen-tenki",
+      "name": "前線と天気の変化",
+      "set": "sci-tenki-shitsudo",
+      "prerequisites": [
+        "sci-shitsudo-keisan"
+      ]
     }
   ]
 }

@@ -755,6 +755,28 @@
               "file": "music/gakuten-kigou.json"
             }
           ]
+        },
+        {
+          "id": "kanshou",
+          "name": "鑑賞",
+          "sets": [
+            {
+              "id": "mus-kanshou",
+              "name": "鑑賞（作曲家と名曲）",
+              "file": "music/kanshou.json"
+            }
+          ]
+        },
+        {
+          "id": "kigaku",
+          "name": "器楽・歌唱",
+          "sets": [
+            {
+              "id": "mus-kigaku",
+              "name": "器楽・歌唱の基礎",
+              "file": "music/kigaku.json"
+            }
+          ]
         }
       ]
     },
@@ -775,6 +797,28 @@
               "id": "art-shikisai",
               "name": "色彩の基礎",
               "file": "art/shikisai.json"
+            }
+          ]
+        },
+        {
+          "id": "gihou",
+          "name": "表現の技法",
+          "sets": [
+            {
+              "id": "art-gihou",
+              "name": "表現の技法",
+              "file": "art/gihou.json"
+            }
+          ]
+        },
+        {
+          "id": "kanshou",
+          "name": "鑑賞",
+          "sets": [
+            {
+              "id": "art-kanshou",
+              "name": "鑑賞（日本と西洋の美術）",
+              "file": "art/kanshou.json"
             }
           ]
         }
@@ -799,6 +843,28 @@
               "file": "pe/tairyoku-kenkou.json"
             }
           ]
+        },
+        {
+          "id": "hoken",
+          "name": "保健（健康と安全）",
+          "sets": [
+            {
+              "id": "pe-hoken",
+              "name": "保健（生活習慣と健康）",
+              "file": "pe/hoken.json"
+            }
+          ]
+        },
+        {
+          "id": "taiiku-chishiki",
+          "name": "体育（運動の知識）",
+          "sets": [
+            {
+              "id": "pe-taiiku-chishiki",
+              "name": "スポーツのルールと知識",
+              "file": "pe/taiiku-chishiki.json"
+            }
+          ]
         }
       ]
     },
@@ -819,6 +885,28 @@
               "id": "tech-shokuseikatsu",
               "name": "食生活と栄養",
               "file": "tech-home/shokuseikatsu.json"
+            }
+          ]
+        },
+        {
+          "id": "jouhou",
+          "name": "情報",
+          "sets": [
+            {
+              "id": "tech-jouhou",
+              "name": "情報とその活用",
+              "file": "tech-home/jouhou.json"
+            }
+          ]
+        },
+        {
+          "id": "i-juu",
+          "name": "衣食住の生活",
+          "sets": [
+            {
+              "id": "tech-i-juu",
+              "name": "衣生活・住生活",
+              "file": "tech-home/i-juu.json"
             }
           ]
         }

@@ -42,6 +42,10 @@
       "hints": [
         "次数は「かけ合わされている文字の個数」。係数の 5 は数えない",
         "5x²y = 5 × x × x × y。文字は全部で何個ある？"
+      ],
+      "concept": "math-tanko-shiki",
+      "answers": [
+        "3"
       ]
     },
     {
@@ -77,6 +81,11 @@
       "hints": [
         "足し算はそのままかっこをはずして、同類項をまとめればOK",
         "3x + x = 4x。y の項は 2y − 5y。符号に注意！"
+      ],
+      "concept": "shiki-doruiko",
+      "answers": [
+        "4x−3y",
+        "4x-3y"
       ]
     },
     {
@@ -95,6 +104,10 @@
       "hints": [
         "ひき算は、ひく式のかっこの中の符号が全部ひっくり返る",
         "2a + b − a + 3b になる。−(−3b) が +3b になるのがポイント"
+      ],
+      "concept": "shiki-doruiko",
+      "answers": [
+        "a+4b"
       ]
     },
     {
@@ -113,6 +126,10 @@
       "hints": [
         "係数どうし・文字どうしをそれぞれかける",
         "3 × 4 = 12。文字は a × b = ab"
+      ],
+      "concept": "math-tanko-shiki",
+      "answers": [
+        "12ab"
       ]
     },
     {
@@ -131,6 +148,10 @@
       "hints": [
         "わり算は分数の形 6xy/2x にすると見やすい",
         "6 ÷ 2 = 3。x は分子と分母の両方にあるので約分で消える"
+      ],
+      "concept": "math-tanko-shiki",
+      "answers": [
+        "3y"
       ]
     },
     {
@@ -149,6 +170,10 @@
       "hints": [
         "2乗は同じものを2回かけること。(−2a) × (−2a) を計算しよう",
         "マイナス × マイナス = プラス。(−2) × (−2) = 4、a × a = a²"
+      ],
+      "concept": "math-tanko-shiki",
+      "answers": [
+        "4a²"
       ]
     },
     {
@@ -167,6 +192,10 @@
       "hints": [
         "x と y にそれぞれの数を代入する。負の数はかっこをつけて",
         "3 × 2 + 2 × (−1)。それぞれ計算すると 6 と −2"
+      ],
+      "concept": "math-tanko-shiki",
+      "answers": [
+        "4"
       ]
     },
     {
@@ -185,6 +214,49 @@
       "hints": [
         "分配法則でかっこをはずそう。後ろの −3 をかけるときの符号に注意",
         "6a − 2b − 3a + 6b まで来たら、あとは同類項をまとめるだけ"
+      ],
+      "concept": "shiki-doruiko",
+      "answers": [
+        "3a+4b"
+      ]
+    },
+    {
+      "id": "q11",
+      "type": "input",
+      "question": "5a × 3b を計算すると？",
+      "answers": [
+        "15ab"
+      ],
+      "placeholder": "例: 12ab",
+      "concept": "math-tanko-shiki",
+      "difficulty": 1,
+      "explanation": "①数どうし 5×3=15、②文字どうし a×b=ab を組み合わせて 15ab。かけ算は係数と文字を分けて計算する。",
+      "hints": [
+        "数は数、文字は文字でかける",
+        "5×3 と a×b に分けよう"
+      ]
+    },
+    {
+      "id": "q12",
+      "type": "choice",
+      "question": "−3a²b × 2ab² を計算すると？",
+      "choices": [
+        "−6a³b³",
+        "6a³b³",
+        "−6a²b²",
+        "−5a³b³"
+      ],
+      "answer": 0,
+      "answers": [
+        "−6a³b³",
+        "-6a³b³"
+      ],
+      "concept": "math-tanko-shiki",
+      "difficulty": 3,
+      "explanation": "①係数 −3×2=−6。②a²×a=a³、b×b²=b³。③合わせて −6a³b³。指数は同じ文字どうしの個数を足す（a²×a は a が3個）。",
+      "hints": [
+        "係数・a・b を別々に処理しよう",
+        "a²×a は a が 2+1=3 個で a³"
       ]
     }
   ]

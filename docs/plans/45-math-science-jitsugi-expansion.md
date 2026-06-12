@@ -1,6 +1,6 @@
 # 数学・理科の変種増強と実技4教科の拡充
 
-- 状態: 未着手
+- 状態: 完了（2026-06-13）
 - 触るファイル範囲: `public/content/chugaku/{math,science,music,art,pe,tech-home}/`・`public/content/chugaku/concepts.json`・`public/content/chugaku/index.json`・`scripts/validate-content.mjs`（概念別チェックのエラー昇格のみ）。アプリコードには触れない
 - 引き継ぎメモ: 高水準化プログラムの最終便。計画42〜44の完了後に着手し、
   完了時に計画41で警告扱いにした概念別チェック（変種5以上等）をエラーへ昇格して締める。
@@ -10,6 +10,16 @@
   このため国語の教科全体 concept率は 46% 前後で、エラー昇格時は **concept率の分母から
   漢字セット（量で回す系）を除外する**実装にすること（実技除外と同じ扱い。
   文法・古典に限れば95%で基準を満たしている）
+- 引き継ぎメモ（実装結果）: 完了。**数学**=全9演習セットを概念化し concept率100%（新概念6・
+  新規変種14問。shiki-keisan/shiki-riyou を2概念ずつ、連立2セットを各1概念に集約）。
+  **理科**=concept率100%（新概念7・新規変種約20問。元素記号と化学式は既存宣言 sci-kagaku-shiki に
+  統一して keisuu の前提鎖を保持）。**実技4教科**=各3セットへ（音楽: 鑑賞・器楽歌唱、美術: 技法・鑑賞、
+  保体: 保健・スポーツ知識、技家: 情報・衣住）。flashcard＋choice 主体で concept なし。
+  各教科 難易度3≥15% を維持するため新セットに d3 を配置（不足分は既存応用問題を d3 へ）。
+  **ゲート昇格**: validate-content.mjs の concept率・概念別チェックを warn→err に変更。
+  concept率の除外は `conceptExemptSubjects`（実技4教科）と `conceptExemptSetPrefixes`（jpn-kanji-）。
+  難易度3・explanation・2段ヒントは実技・漢字にも適用される。最終: 97セット・注意5件（漢字書きの
+  別表記検討のみ）・全エラーなし。172テスト通過。**高水準化プログラム（40〜45）完了**
 
 ## 目的
 

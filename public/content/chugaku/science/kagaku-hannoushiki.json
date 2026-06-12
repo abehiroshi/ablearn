@@ -7,9 +7,17 @@
       "id": "q1",
       "type": "choice",
       "question": "水の電気分解の化学反応式。2H₂O → ?H₂ + O₂ の ? に入る係数は？",
-      "choices": ["2", "1", "3", "4"],
+      "choices": [
+        "2",
+        "1",
+        "3",
+        "4"
+      ],
       "answer": 0,
-      "answers": ["2", "２"],
+      "answers": [
+        "2",
+        "２"
+      ],
       "concept": "sci-kagaku-keisuu",
       "difficulty": 1,
       "explanation": "左の水素原子は 2H₂O で4個。右も4個にするには H₂（水素原子2個）が2つ必要。",
@@ -22,7 +30,10 @@
       "id": "q2",
       "type": "input",
       "question": "マグネシウムの燃焼。?Mg + O₂ → 2MgO の ? に入る係数を数字で答えよう",
-      "answers": ["2", "２"],
+      "answers": [
+        "2",
+        "２"
+      ],
       "placeholder": "数字で答えよう",
       "concept": "sci-kagaku-keisuu",
       "difficulty": 2,
@@ -36,15 +47,66 @@
       "id": "q3",
       "type": "choice",
       "question": "水素と酸素から水ができる反応 2H₂ + O₂ → 2H₂O で、水素分子が4個反応したとき、できる水分子は何個？",
-      "choices": ["4個", "2個", "6個", "8個"],
+      "choices": [
+        "4個",
+        "2個",
+        "6個",
+        "8個"
+      ],
       "answer": 0,
-      "answers": ["4", "４", "4個"],
+      "answers": [
+        "4",
+        "４",
+        "4個"
+      ],
       "concept": "sci-kagaku-keisuu",
       "difficulty": 3,
       "explanation": "係数の比は H₂ : H₂O = 2 : 2 = 1 : 1。水素分子4個なら水分子も4個できる。",
       "hints": [
         "係数は分子の個数の比を表している",
         "H₂ と H₂O の係数はどちらも2。比は 1:1 だから…"
+      ]
+    },
+    {
+      "id": "q4",
+      "type": "choice",
+      "question": "鉄と硫黄が結びつく反応 Fe + S → FeS の係数として正しいものは？",
+      "choices": [
+        "すべて1（Fe + S → FeS）",
+        "2Fe + S → FeS",
+        "Fe + 2S → FeS",
+        "Fe + S → 2FeS"
+      ],
+      "answer": 0,
+      "answers": [
+        "すべて1",
+        "1"
+      ],
+      "concept": "sci-kagaku-keisuu",
+      "difficulty": 1,
+      "explanation": "①Fe 1個と S 1個が結びついて FeS が1個できる。②矢印の左右で Fe も S も1個ずつなので係数はすべて1。最も簡単な化合の反応式で係数合わせの基本を確認する。",
+      "hints": [
+        "左右で Fe と S の数を数えよう",
+        "1個ずつ結びついて1個できる"
+      ]
+    },
+    {
+      "id": "q5",
+      "type": "choice",
+      "question": "化学反応式の係数を合わせるとき、最も大切なきまりは？",
+      "choices": [
+        "矢印の左右で各原子の数が等しくなるようにする",
+        "係数はできるだけ大きくする",
+        "分子の種類を増やす",
+        "左辺の係数の合計を1にする"
+      ],
+      "answer": 0,
+      "concept": "sci-kagaku-keisuu",
+      "difficulty": 2,
+      "explanation": "①化学変化で原子は 増えも減りもしないので、矢印の左右で各原子の数が必ず等しくなる。②これに合わせて係数（分子の個数の比）を決める。質量保存の法則が係数合わせの根拠になっている。",
+      "hints": [
+        "原子は反応の前後で数が変わらない",
+        "左右の各原子の数をそろえる"
       ]
     }
   ]

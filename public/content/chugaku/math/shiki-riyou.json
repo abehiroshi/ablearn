@@ -7,104 +7,236 @@
       "id": "q1",
       "type": "choice",
       "question": "n を整数とするとき、偶数を表す式はどれ？",
-      "choices": ["2n", "2n + 1", "n + 2", "n²"],
+      "choices": [
+        "2n",
+        "2n + 1",
+        "n + 2",
+        "n²"
+      ],
       "answer": 0,
       "explanation": "偶数は2の倍数なので 2 × 整数 = 2n。奇数は 2n + 1 で表す。",
       "difficulty": 1,
       "hints": [
         "偶数は2でわり切れる数 = 2の倍数",
         "2 × (整数) の形で書けるのはどれ？"
-      ]
+      ],
+      "concept": "math-shiki-setsumei"
     },
     {
       "id": "q2",
       "type": "choice",
       "question": "連続する3つの整数 n, n+1, n+2 の和はどうなる？",
-      "choices": ["中央の数の3倍になる", "必ず偶数になる", "必ず奇数になる", "末尾の数の3倍になる"],
+      "choices": [
+        "中央の数の3倍になる",
+        "必ず偶数になる",
+        "必ず奇数になる",
+        "末尾の数の3倍になる"
+      ],
       "answer": 0,
       "explanation": "n + (n+1) + (n+2) = 3n + 3 = 3(n + 1)。n+1 は中央の数なので、和は中央の数の3倍。",
       "difficulty": 2,
       "hints": [
         "3つの数を全部足して、式を整理してみよう",
         "n + (n+1) + (n+2) = 3n + 3。3でくくると 3 × (？)"
-      ]
+      ],
+      "concept": "math-shiki-setsumei"
     },
     {
       "id": "q3",
       "type": "choice",
       "question": "十の位が x、一の位が y の2けたの自然数を表す式は？",
-      "choices": ["10x + y", "x + y", "xy", "10y + x"],
+      "choices": [
+        "10x + y",
+        "x + y",
+        "xy",
+        "10y + x"
+      ],
       "answer": 0,
       "explanation": "例えば 36 = 10 × 3 + 6。十の位の数字は10倍して足す。位を入れかえた数は 10y + x。",
       "difficulty": 2,
       "hints": [
         "具体的な数で考えよう。36 は 3 と 6 からどう作る？",
         "36 = 10 × 3 + 6。十の位の数字は10倍する"
-      ]
+      ],
+      "concept": "math-shiki-setsumei"
     },
     {
       "id": "q4",
       "type": "choice",
       "question": "奇数 + 奇数 = 偶数 の説明。(2m+1) + (2n+1) = 2m + 2n + 2 = 2 × ( ? )。? に入る式は？",
-      "choices": ["m + n + 1", "m + n", "2m + 2n", "mn + 1"],
+      "choices": [
+        "m + n + 1",
+        "m + n",
+        "2m + 2n",
+        "mn + 1"
+      ],
       "answer": 0,
       "explanation": "2m + 2n + 2 = 2(m + n + 1)。m + n + 1 は整数なので、2 × 整数 = 偶数といえる。",
       "difficulty": 3,
       "hints": [
         "偶数だと言うには 2 × (整数) の形を作ればいい",
         "2m + 2n + 2 の3つの項を、それぞれ2でわってみよう"
-      ]
+      ],
+      "concept": "math-shiki-setsumei"
     },
     {
       "id": "q5",
       "type": "choice",
       "question": "V = abc を c について解くと？",
-      "choices": ["c = V/(ab)", "c = ab/V", "c = V − ab", "c = abV"],
+      "choices": [
+        "c = V/(ab)",
+        "c = ab/V",
+        "c = V − ab",
+        "c = abV"
+      ],
       "answer": 0,
       "explanation": "両辺を ab でわると c = V/(ab)。「c について解く」= c = … の形に変形すること。",
       "difficulty": 1,
       "hints": [
         "「c について解く」= c = … の形にすること",
         "c だけを残すために、両辺を ab でわってみよう"
-      ]
+      ],
+      "concept": "math-touhen-kihon"
     },
     {
       "id": "q6",
       "type": "choice",
       "question": "ℓ = 2(a + b) を a について解くと？",
-      "choices": ["a = ℓ/2 − b", "a = ℓ − 2b", "a = 2ℓ − b", "a = ℓ/2 + b"],
+      "choices": [
+        "a = ℓ/2 − b",
+        "a = ℓ − 2b",
+        "a = 2ℓ − b",
+        "a = ℓ/2 + b"
+      ],
       "answer": 0,
       "explanation": "両辺を2でわって ℓ/2 = a + b。b を移項して a = ℓ/2 − b。",
       "difficulty": 2,
       "hints": [
         "まず両辺を2でわって、かっこの中だけにしよう",
         "ℓ/2 = a + b になったら、b を移項する"
-      ]
+      ],
+      "concept": "math-touhen-kihon"
     },
     {
       "id": "q7",
       "type": "choice",
       "question": "y = 3x − 6 を x について解くと？",
-      "choices": ["x = (y + 6)/3", "x = (y − 6)/3", "x = 3y + 6", "x = y/3 − 6"],
+      "choices": [
+        "x = (y + 6)/3",
+        "x = (y − 6)/3",
+        "x = 3y + 6",
+        "x = y/3 − 6"
+      ],
       "answer": 0,
       "explanation": "−6 を移項して y + 6 = 3x。両辺を3でわって x = (y + 6)/3。",
       "difficulty": 2,
       "hints": [
         "x の項だけを残すように、−6 を反対側に移項しよう",
         "y + 6 = 3x になったら、両辺を3でわる"
-      ]
+      ],
+      "concept": "math-touhen-kihon"
     },
     {
       "id": "q8",
       "type": "choice",
       "question": "三角形の面積 S = ah/2 を h について解くと？",
-      "choices": ["h = 2S/a", "h = S/(2a)", "h = 2a/S", "h = S − 2a"],
+      "choices": [
+        "h = 2S/a",
+        "h = S/(2a)",
+        "h = 2a/S",
+        "h = S − 2a"
+      ],
       "answer": 0,
       "explanation": "両辺に2をかけて 2S = ah。両辺を a でわって h = 2S/a。",
       "difficulty": 2,
       "hints": [
         "分数を消すため、まず両辺に2をかけよう",
         "2S = ah になったら、両辺を a でわる"
+      ],
+      "concept": "math-touhen-kihon"
+    },
+    {
+      "id": "q9",
+      "type": "input",
+      "question": "連続する2つの整数を n, n+1 とするとき、その和を n を使った式で表すと？（整理した形で）",
+      "answers": [
+        "2n+1"
+      ],
+      "placeholder": "例: 2n+1",
+      "concept": "math-shiki-setsumei",
+      "difficulty": 2,
+      "explanation": "①n + (n+1) = 2n + 1。②2n は偶数なので 2n+1 は奇数。連続する2整数の和が必ず奇数になることの説明に使う。",
+      "hints": [
+        "n と n+1 をそのまま足す",
+        "n + n + 1 = ?"
+      ]
+    },
+    {
+      "id": "q10",
+      "type": "input",
+      "question": "a = 3b − 2 を b について解くと？",
+      "answers": [
+        "b=(a+2)/3"
+      ],
+      "placeholder": "例: b=(a+2)/3",
+      "concept": "math-touhen-kihon",
+      "difficulty": 1,
+      "explanation": "①+2 を移項: a+2 = 3b。②両辺を3でわる: b = (a+2)/3。求めたい文字 b を左辺に残すように変形する。",
+      "hints": [
+        "まず −2 を移項する",
+        "3b = a+2 → 両辺を3でわる"
+      ]
+    },
+    {
+      "id": "q11",
+      "type": "choice",
+      "question": "1/a + 1/b = 1/c を c について解くと？",
+      "choices": [
+        "c = ab/(a+b)",
+        "c = (a+b)/ab",
+        "c = a+b",
+        "c = ab"
+      ],
+      "answer": 0,
+      "concept": "math-touhen-kihon",
+      "difficulty": 3,
+      "explanation": "①右辺を通分: 1/a+1/b = (b+a)/ab。②1/c = (a+b)/ab。③逆数をとって c = ab/(a+b)。分数の等式変形は両辺の逆数をとる操作がポイント。",
+      "hints": [
+        "左辺を1つの分数にまとめよう",
+        "1/c = (a+b)/ab の両辺の逆数をとる"
+      ]
+    },
+    {
+      "id": "q12",
+      "type": "input",
+      "question": "十の位が a、一の位が b の2けたの自然数を、a と b を使った式で表すと？",
+      "answers": [
+        "10a+b"
+      ],
+      "placeholder": "例: 10a+b",
+      "concept": "math-shiki-setsumei",
+      "difficulty": 2,
+      "explanation": "①十の位の数は10が a 個ぶんなので 10a。②一の位はそのまま b。③合わせて 10a+b。位ごとの大きさ（十の位は10倍）を式にするのがポイント。",
+      "hints": [
+        "十の位の「2」は数では20。10×何？",
+        "10a と b を足す"
+      ]
+    },
+    {
+      "id": "q13",
+      "type": "input",
+      "question": "y = 2x + 6 を x について解くと？",
+      "answers": [
+        "x=(y−6)/2",
+        "x=(y-6)/2"
+      ],
+      "placeholder": "例: x=(y-6)/2",
+      "concept": "math-touhen-kihon",
+      "difficulty": 2,
+      "explanation": "①+6 を移項: y−6 = 2x。②両辺を2でわる: x = (y−6)/2。求めたい文字 x を左辺に残す。",
+      "hints": [
+        "まず +6 を移項する",
+        "2x = y−6 → 両辺を2でわる"
       ]
     }
   ]

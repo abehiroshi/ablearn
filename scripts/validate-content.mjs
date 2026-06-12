@@ -12,16 +12,20 @@ const CONTENT = "public/content";
 // 「高水準」の数値定義。コレクション別に持つ（kanken は flashcard・一問一答中心で
 // 性質が違うため適用しない）。対象は演習セット（kind が lesson 以外）の
 // choice / input / order 問題。flashcard は concept・難易度の対象外。
-// conceptRate と概念別チェック（変種数・input可能数・難度展開）は計画42〜45で
-// コンテンツを引き上げる移行期間中は警告扱いとし、計画45完了時にエラーへ昇格する。
+// 計画45完了（2026-06-13）で concept率・概念別チェックをエラーへ昇格した。
 const QUALITY = {
   chugaku: {
     explanationRate: 1.0, // explanation（ステップ＋理由）100%
     twoHintRate: 1.0, // 2段ヒント（弱→強）100%
     advancedRate: 0.15, // 教科ごとの難易度3（応用）比率
-    conceptRate: 0.85, // 教科ごとの concept 付与率（移行中: 警告）
-    conceptVariants: 5, // 概念ごとの変種数（移行中: 警告）
-    conceptInputCapable: 2, // 概念ごとの input 可能変種数（移行中: 警告）
+    conceptRate: 0.85, // 教科ごとの concept 付与率
+    conceptVariants: 5, // 概念ごとの変種数
+    conceptInputCapable: 2, // 概念ごとの input 可能変種数
+    // concept率の対象外（計画45）: 実技は知識中心で習熟ラダーを組まない。
+    // kanji の読み・書きは「量で回す」設計（1字1知識を概念化すると適応出題が1問に
+    // 圧縮され量が回らない）。どちらも concept 付与率の分母から除外する。
+    conceptExemptSubjects: ["music", "art", "pe", "tech-home"],
+    conceptExemptSetPrefixes: ["jpn-kanji-"],
   },
 };
 const errors = [];
@@ -91,7 +95,8 @@ for (const subject of index.subjects) {
     err(`subject ${subject.id}: icon が ${seenIcons.get(subject.icon)} と重複`);
   seenIcons.set(subject.icon, subject.id);
   // 品質基準の集計（計画41）。演習セットの choice/input/order のみ対象
-  const qstat = { ex: 0, concept: 0, adv: 0 };
+  // conceptDenom は concept率の分母（量で回す系セットを除外。計画45）
+  const qstat = { ex: 0, concept: 0, adv: 0, conceptDenom: 0 };
   const ladders = new Map(); // `${setId}/${concept}` → 変種の配列
   for (const unit of subject.units ?? []) {
     if (unit.links) checkLinks(`${subject.id}/${unit.id}`, unit.links);
@@ -225,6 +230,11 @@ for (const subject of index.subjects) {
             err(`${ql}: explanation がない（品質基準: ステップ＋理由で100%）`);
           if ((q.hints?.length ?? 0) < 2)
             err(`${ql}: ヒントが2段ない（品質基準: 弱→強の2段で100%）`);
+          // concept率の分母（量で回す系セットは除外。計画45）
+          const conceptExemptSet = quality.conceptExemptSetPrefixes.some((p) =>
+            meta.id.startsWith(p)
+          );
+          if (!conceptExemptSet) qstat.conceptDenom++;
           if (q.concept) {
             qstat.concept++;
             const lk = `${meta.id}/${q.concept}`;
@@ -243,11 +253,16 @@ for (const subject of index.subjects) {
       err(
         `${subject.id}: 難易度3（応用）が ${qstat.adv}/${qstat.ex} 問 = ${pct(qstat.adv)}%（基準 ${quality.advancedRate * 100}% 以上）`
       );
-    if (qstat.concept / qstat.ex < quality.conceptRate)
-      warn(
-        `${subject.id}: concept 付与率 ${pct(qstat.concept)}%（目標 ${quality.conceptRate * 100}%。計画42〜45で引き上げ・45完了時にエラー昇格）`
+    // concept率（計画45でエラー昇格）。実技教科は対象外、量で回す系セットは分母から除外
+    if (
+      !quality.conceptExemptSubjects.includes(subject.id) &&
+      qstat.conceptDenom > 0 &&
+      qstat.concept / qstat.conceptDenom < quality.conceptRate
+    )
+      err(
+        `${subject.id}: concept 付与率 ${Math.round((qstat.concept / qstat.conceptDenom) * 100)}%（基準 ${quality.conceptRate * 100}% 以上。量で回す系セットは分母から除外済み）`
       );
-    // 概念別チェック（移行中は警告。計画45完了時にエラーへ昇格）
+    // 概念別チェック（計画45でエラー昇格）
     for (const [lk, vs] of ladders) {
       const fails = [];
       if (vs.length < quality.conceptVariants)
@@ -263,7 +278,7 @@ for (const subject of index.subjects) {
       if (!(stages.has(0) && stages.has(1) && stages.has(2)))
         fails.push(`難度展開 stage{${[...stages].sort().join(",")}}`);
       if (fails.length)
-        warn(`${lk}: 概念別基準が未達 [${fails.join(" / ")}]（計画42〜45で解消）`);
+        err(`${lk}: 概念別基準が未達 [${fails.join(" / ")}]`);
     }
   }
 }

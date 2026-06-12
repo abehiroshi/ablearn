@@ -7,105 +7,150 @@
       "id": "q1",
       "type": "choice",
       "question": "1個80円のパンと1個120円のおにぎりを合わせて10個買ったら920円だった。パンの個数は？",
-      "choices": ["7個", "3個", "5個", "6個"],
+      "choices": [
+        "7個",
+        "3個",
+        "5個",
+        "6個"
+      ],
       "answer": 0,
       "explanation": "パン x 個、おにぎり y 個とすると x + y = 10、80x + 120y = 920。上の式から y = 10 − x を代入して 80x + 1200 − 120x = 920 → x = 7。",
       "difficulty": 3,
       "hints": [
         "パン x 個、おにぎり y 個として「個数の式」と「金額の式」を作ろう",
         "x + y = 10 と 80x + 120y = 920。y = 10 − x を金額の式に代入する"
-      ]
+      ],
+      "concept": "math-renritsu-bunshou"
     },
     {
       "id": "q2",
       "type": "input",
       "question": "大小2つの数がある。和は15、差は3。大きい方の数は？",
-      "answers": ["9", "９"],
+      "answers": [
+        "9",
+        "９"
+      ],
       "placeholder": "数字で答えよう",
       "explanation": "x + y = 15、x − y = 3。2式を足すと 2x = 18 → x = 9。（小さい方は6）",
       "difficulty": 1,
       "hints": [
         "大きい数 x、小さい数 y とすると x + y = 15、x − y = 3",
         "2つの式を足すと 2x = 18"
-      ]
+      ],
+      "concept": "math-renritsu-bunshou"
     },
     {
       "id": "q3",
       "type": "choice",
       "question": "50円切手と80円切手を合わせて12枚買ったら750円だった。50円切手は何枚？",
-      "choices": ["7枚", "5枚", "8枚", "4枚"],
+      "choices": [
+        "7枚",
+        "5枚",
+        "8枚",
+        "4枚"
+      ],
       "answer": 0,
       "explanation": "50円切手 x 枚、80円切手 y 枚とすると x + y = 12、50x + 80y = 750。y = 12 − x を代入して 50x + 960 − 80x = 750 → 30x = 210 → x = 7。",
       "difficulty": 3,
       "hints": [
         "50円切手 x 枚、80円切手 y 枚。「枚数の式」と「金額の式」を作ろう",
         "x + y = 12 と 50x + 80y = 750。y = 12 − x を代入する"
-      ]
+      ],
+      "concept": "math-renritsu-bunshou"
     },
     {
       "id": "q4",
       "type": "choice",
       "question": "家から1200m離れた駅へ行く。はじめ分速60mで歩き、途中から分速120mで走ったら、全部で14分かかった。歩いた時間は？",
-      "choices": ["8分", "6分", "10分", "4分"],
+      "choices": [
+        "8分",
+        "6分",
+        "10分",
+        "4分"
+      ],
       "answer": 0,
       "explanation": "歩いた時間 x 分、走った時間 y 分とすると x + y = 14、60x + 120y = 1200。y = 14 − x を代入して 60x + 1680 − 120x = 1200 → 60x = 480 → x = 8。",
       "difficulty": 3,
       "hints": [
         "歩いた時間 x 分、走った時間 y 分。「時間の式」と「道のりの式」を作ろう",
         "x + y = 14 と 60x + 120y = 1200。道のり = 速さ × 時間"
-      ]
+      ],
+      "concept": "math-renritsu-bunshou"
     },
     {
       "id": "q5",
       "type": "input",
       "question": "2つの数 x, y がある。x + y = 8 で、x は y より2大きい。x の値は？",
-      "answers": ["5", "x=5", "５"],
+      "answers": [
+        "5",
+        "x=5",
+        "５"
+      ],
       "placeholder": "数字で答えよう",
       "explanation": "x = y + 2 を x + y = 8 に代入すると y + 2 + y = 8 → y = 3、x = 5。",
       "difficulty": 2,
       "hints": [
         "「x は y より2大きい」は x = y + 2 と書ける",
         "x + y = 8 の x に y + 2 を代入すると 2y + 2 = 8"
-      ]
+      ],
+      "concept": "math-renritsu-bunshou"
     },
     {
       "id": "q6",
       "type": "choice",
       "question": "連立方程式\n2x + 3y = 12\nx − y = 1\nの解はどれ？",
-      "choices": ["x = 3, y = 2", "x = 2, y = 3", "x = 4, y = 3", "x = 1, y = 0"],
+      "choices": [
+        "x = 3, y = 2",
+        "x = 2, y = 3",
+        "x = 4, y = 3",
+        "x = 1, y = 0"
+      ],
       "answer": 0,
       "explanation": "x = y + 1 を上の式に代入して 2(y + 1) + 3y = 12 → 5y = 10 → y = 2、x = 3。",
       "difficulty": 2,
       "hints": [
         "下の式を x = y + 1 の形にして、上の式に代入しよう",
         "2(y + 1) + 3y = 12 → 5y + 2 = 12"
-      ]
+      ],
+      "concept": "math-renritsu-bunshou"
     },
     {
       "id": "q7",
       "type": "choice",
       "question": "ある中学校の昨年の生徒数は男女合わせて500人。今年は男子が4%増え、女子が2%減って、全体で8人増えた。昨年の男子の人数は？",
-      "choices": ["300人", "200人", "250人", "350人"],
+      "choices": [
+        "300人",
+        "200人",
+        "250人",
+        "350人"
+      ],
       "answer": 0,
       "explanation": "昨年の男子 x 人、女子 y 人とすると x + y = 500、0.04x − 0.02y = 8。y = 500 − x を代入して 0.04x − 10 + 0.02x = 8 → 0.06x = 18 → x = 300。",
       "difficulty": 3,
       "hints": [
         "昨年の男子 x 人、女子 y 人。x + y = 500。「増えた人数」で2つ目の式を作る",
         "4%増は 0.04x 人増。0.04x − 0.02y = 8 に y = 500 − x を代入する"
-      ]
+      ],
+      "concept": "math-renritsu-bunshou"
     },
     {
       "id": "q8",
       "type": "choice",
       "question": "2けたの自然数があり、十の位と一の位の和は9。十の位と一の位を入れかえると、もとの数より27大きくなる。もとの数は？",
-      "choices": ["36", "63", "45", "27"],
+      "choices": [
+        "36",
+        "63",
+        "45",
+        "27"
+      ],
       "answer": 0,
       "explanation": "十の位 x、一の位 y とすると x + y = 9、10y + x = (10x + y) + 27。整理すると y − x = 3。2式から x = 3、y = 6 で、もとの数は36。",
       "difficulty": 3,
       "hints": [
         "十の位 x、一の位 y。もとの数は 10x + y、入れかえた数は 10y + x",
         "x + y = 9 と 10y + x = 10x + y + 27。2つ目を整理すると y − x = 3"
-      ]
+      ],
+      "concept": "math-renritsu-bunshou"
     }
   ]
 }
