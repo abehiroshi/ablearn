@@ -4,7 +4,6 @@ import { deflateSync } from "node:zlib";
 import { mkdirSync, writeFileSync } from "node:fs";
 
 const BLUE = [79, 124, 255];
-const RED = [208, 69, 76]; // kanken（プレースホルダ。正式アイコンは T系タスクで差し替え）
 const WHITE = [255, 255, 255];
 
 function crc32(buf) {
@@ -58,7 +57,7 @@ function distToSegment(px, py, ax, ay, bx, by) {
   return Math.hypot(px - cx, py - cy);
 }
 
-function makeIcon(size, bg = BLUE) {
+function makeIcon(size) {
   const rgba = Buffer.alloc(size * size * 4);
   const r = size * 0.22; // 角丸半径
   const stroke = size * 0.055;
@@ -85,7 +84,7 @@ function makeIcon(size, bg = BLUE) {
         distToSegment(x, y, ...apex, ...bl) < stroke ||
         distToSegment(x, y, ...apex, ...br) < stroke ||
         distToSegment(x, y, ...barL, ...barR) < stroke * 0.9;
-      const [cr, cg, cb] = onA ? WHITE : bg;
+      const [cr, cg, cb] = onA ? WHITE : BLUE;
       rgba[i] = cr;
       rgba[i + 1] = cg;
       rgba[i + 2] = cb;
@@ -95,10 +94,10 @@ function makeIcon(size, bg = BLUE) {
   return encodePng(size, rgba);
 }
 
+// コレクション別アイコン（chugaku-*.png / kanken-*.png）はオーナー納品物
+// （assets/icons/）からの展開なので、ここでは生成しない
 mkdirSync("public/icons", { recursive: true });
 for (const size of [192, 512]) {
   writeFileSync(`public/icons/icon-${size}.png`, makeIcon(size));
   console.log(`generated public/icons/icon-${size}.png`);
-  writeFileSync(`public/icons/kanken-${size}.png`, makeIcon(size, RED));
-  console.log(`generated public/icons/kanken-${size}.png`);
 }
