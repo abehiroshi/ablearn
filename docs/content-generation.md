@@ -81,6 +81,22 @@ links候補: （親が選定した動画URL等。無ければ「なし」）
 - 著作権: 教科書・市販ワーク・学校テストの問題をそのまま転載しない。
   同じ概念を確認する**オリジナルのアレンジ問題**として作る（公開リポジトリのため）
 
+## 前提概念の宣言（concepts.json）
+
+概念を新しく作ったら `public/content/<コレクション>/concepts.json` に宣言を追加する
+（つまずき時の「前提概念への復習」誘導に使われる。[計画26](plans/26-prerequisite-backtrack.md)）:
+
+```json
+{ "id": "math-shiki-touhen", "name": "等式の変形", "set": "math-shiki-touhen",
+  "prerequisites": ["shiki-doruiko", "math1-houteishiki"] }
+```
+
+- `id` は問題の `concept` と同じ。`set` はその概念のラダーが属するセットID
+- `prerequisites` は「これが出来ないと解けない」直接の前提だけを書く（網羅より精度）
+- 前提は **concepts.json 内で宣言済みのIDのみ** 参照できる。コレクション外
+  （中1範囲など）の前提は `set` 無しのエントリとして宣言する（誘導には使われない）
+- 循環参照は禁止（validate:content が検出する）
+
 ## 検証 → レビュー → 登録
 
 1. `npm run validate:content` … スキーマ・id一意・answer範囲・形式チェック（必須）

@@ -36,9 +36,11 @@ interface Feedback {
   promotedTo?: number | null;
   /** この解答で跨いだ節目（軽いチップで祝福） */
   milestones?: Milestone[];
-  /** つまずき検知（計画13・24）: 励まし＋レッスンや授業動画への誘導 */
+  /** つまずき検知（計画13・24・26）: 励まし＋誘導（前提の復習 > レッスン > 授業動画） */
   struggle?: {
     encouragement: Encouragement;
+    /** 習熟の低い前提概念の復習先（あればレッスンより優先して見せる） */
+    prereq: { name: string; set: SetMeta } | null;
     lesson: SetMeta | null;
     links: ContentLink[];
   };
@@ -65,6 +67,11 @@ interface Props {
   /** setId からその単元のレッスン/外部リンクを引く（つまずき誘導用） */
   lessonFor?: (setId: string) => SetMeta | null;
   unitLinksFor?: (setId: string) => ContentLink[];
+  /** 概念の「前提概念の復習」誘導先（計画26）。習熟の低い前提が無ければ null */
+  prereqFor?: (
+    concept: string,
+    currentSetId: string
+  ) => { name: string; set: SetMeta } | null;
   onStartLesson?: (meta: SetMeta) => void;
 }
 
@@ -76,6 +83,7 @@ export default function QuizScreen({
   onClose,
   lessonFor,
   unitLinksFor,
+  prereqFor,
   onStartLesson,
 }: Props) {
   // 先頭が現在の問題。不正解はキューの最後に回して正解するまで繰り返す
@@ -123,10 +131,14 @@ export default function QuizScreen({
     struggles.current.set(key, next);
     if (correct || !isStruggling(next) || struggleShown.current.has(key))
       return undefined;
+    // 誘導先の優先順: 習熟の低い前提概念 > 単元レッスン > 授業動画（計画26）
+    const prereq = q.concept
+      ? (prereqFor?.(q.concept, current!.setId) ?? null)
+      : null;
     const lesson = lessonFor?.(current!.setId) ?? null;
     const links = unitLinksFor?.(current!.setId) ?? [];
     struggleShown.current.add(key);
-    return { encouragement: pickEncouragement(), lesson, links };
+    return { encouragement: pickEncouragement(), prereq, lesson, links };
   }
 
   function submit(correct: boolean, correctText?: string) {
@@ -448,13 +460,25 @@ export default function QuizScreen({
                     </div>
                   )}
                 {feedback.struggle &&
-                  (feedback.struggle.lesson ||
+                  (feedback.struggle.prereq ||
+                    feedback.struggle.lesson ||
                     feedback.struggle.links.length > 0) && (
                   <div className="struggle-box">
                     <div style={{ fontWeight: 700, marginBottom: 8 }}>
-                      きほんにもどるのが近道だよ！
+                      {feedback.struggle.prereq
+                        ? "手前にもどってからの方が近道だよ！"
+                        : "きほんにもどるのが近道だよ！"}
                     </div>
-                    {feedback.struggle.lesson ? (
+                    {feedback.struggle.prereq ? (
+                      <button
+                        className="secondary-btn"
+                        onClick={() =>
+                          onStartLesson?.(feedback.struggle!.prereq!.set)
+                        }
+                      >
+                        📚 「{feedback.struggle.prereq.name}」をふくしゅう
+                      </button>
+                    ) : feedback.struggle.lesson ? (
                       <button
                         className="secondary-btn"
                         onClick={() =>

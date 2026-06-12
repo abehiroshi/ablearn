@@ -1,4 +1,11 @@
-import type { ContentIndex, QuestionSet, SetMeta, Subject } from "../types";
+import type {
+  ConceptIndex,
+  ConceptMeta,
+  ContentIndex,
+  QuestionSet,
+  SetMeta,
+  Subject,
+} from "../types";
 import { currentCollection } from "./collection";
 
 const BASE = import.meta.env.BASE_URL; // "/ablearn/" or "/"
@@ -15,6 +22,21 @@ export function loadIndex(): Promise<ContentIndex> {
 
 export function loadSet(meta: SetMeta): Promise<QuestionSet> {
   return fetchJson<QuestionSet>(`content/${currentCollection()}/${meta.file}`);
+}
+
+/**
+ * 概念メタ（前提宣言。計画26）を読み込む。
+ * concepts.json はコレクション任意（無い・壊れているコレクションでは空 = 遡り誘導なし）
+ */
+export async function loadConcepts(): Promise<ConceptMeta[]> {
+  try {
+    const data = await fetchJson<ConceptIndex>(
+      `content/${currentCollection()}/concepts.json`
+    );
+    return Array.isArray(data.concepts) ? data.concepts : [];
+  } catch {
+    return [];
+  }
 }
 
 /** 全セットを読み込む（達成度の分母計算用。起動後にバックグラウンドで呼ぶ） */

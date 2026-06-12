@@ -1,0 +1,38 @@
+{
+  "concepts": [
+    {
+      "id": "math1-moji-shiki",
+      "name": "中1: 文字式の計算",
+      "prerequisites": []
+    },
+    {
+      "id": "math1-houteishiki",
+      "name": "中1: 1次方程式",
+      "prerequisites": ["math1-moji-shiki"]
+    },
+    {
+      "id": "shiki-doruiko",
+      "name": "同類項をまとめる",
+      "set": "math-shiki-keisan",
+      "prerequisites": ["math1-moji-shiki"]
+    },
+    {
+      "id": "math-shiki-touhen",
+      "name": "等式の変形",
+      "set": "math-shiki-touhen",
+      "prerequisites": ["shiki-doruiko", "math1-houteishiki"]
+    },
+    {
+      "id": "sci-kagaku-shiki",
+      "name": "原子・分子と化学式",
+      "set": "sci-genshi-bunshi",
+      "prerequisites": []
+    },
+    {
+      "id": "sci-kagaku-keisuu",
+      "name": "化学反応式の係数",
+      "set": "sci-kagaku-hannoushiki",
+      "prerequisites": ["sci-kagaku-shiki"]
+    }
+  ]
+}

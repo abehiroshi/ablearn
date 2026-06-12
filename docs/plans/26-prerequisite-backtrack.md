@@ -1,6 +1,20 @@
 # 前提概念への遡り（v1: コレクション内限定）
 
-- 状態: 未着手
+- 状態: 完了（2026-06-12）
+- 引き継ぎメモ（実装）:
+  - 宣言: `public/content/chugaku/concepts.json`（id・name・set・prerequisites）。コレクション外の前提
+    （中1範囲）は set 無しエントリとして宣言する規約にした（未定義参照の検出と「宣言してよい」を両立）
+  - 選定ロジックは `src/lib/prereq.ts` の pickPrereq（純関数・テストあり）。「習熟が低い」= 未練習 or level<1。
+    宣言順の先頭から最初の「set あり・低習熟・現在セット以外」を選ぶ。誘導先の優先順: 前提 > レッスン > links
+  - validator: concepts.json の id/name・set 実在・未宣言前提参照・循環参照を検出（エラー）。
+    set の問題に concept タグが無い場合は注意のみ（誘導はできるが習熟度が記録されないため）
+  - Breaker 修正（重要）: セッション中に前提セットへ直接ジャンプすると QuizScreen が再マウントされず
+    旧キューが残るバグを発見 → App 側で `key={session.setId}` を付与して修正。
+    従来のレッスン誘導は LessonScreen を重ねるため顕在化しなかった潜在バグ
+  - 前提タグの範囲: 既存で concept が付いている概念（shiki-doruiko・math-shiki-touhen・sci-kagaku-keisuu）
+    のみ宣言した。計画の例にある「連立方程式←式の計算」は、連立セットに concept タグ自体が無く、
+    今タグ付けすると8問が概念ラダーに畳まれて出題数が激減する（実テスト直前の挙動変更になる）ため見送り。
+    破綻条件: 連立で「前提に戻りたい」つまずきが目立ったら、変種を整備した上で概念タグ＋宣言を追加する
 - 触るファイル範囲: `src/types.ts`・`src/lib/`（recommend / content）・`scripts/validate-content.mjs`・`docs/content-generation.md`（前提宣言の項）・`public/content/chugaku/`（数学の前提タグ付け）
 - 引き継ぎメモ: 根拠は [調査レポート](../research/learning-apps-survey.md) B-2（Qubena の遡行学習）。v1 はコレクション内限定（オーナー決定 2026-06-12）
 

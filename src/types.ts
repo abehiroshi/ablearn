@@ -94,6 +94,27 @@ export interface QuestionSet {
   steps?: LessonStep[];
 }
 
+// ===== 概念メタ（content/<col>/concepts.json。計画26） =====
+
+/**
+ * 概念の宣言。前提（prerequisites）への遡り誘導に使う。
+ * set が無いエントリは「コレクション外（中1範囲など）の宣言のみ」で、誘導には使われない
+ */
+export interface ConceptMeta {
+  /** 問題の concept フィールドと同じID */
+  id: string;
+  /** 誘導ボタンに出す表示名 */
+  name: string;
+  /** この概念のラダーが属するセットID（コレクション内に実在するもののみ） */
+  set?: string;
+  /** 前提概念のID列（このファイル内で宣言されたIDのみ参照可） */
+  prerequisites?: string[];
+}
+
+export interface ConceptIndex {
+  concepts: ConceptMeta[];
+}
+
 // ===== コンテンツ目次（content/index.json） =====
 
 export interface SetMeta {

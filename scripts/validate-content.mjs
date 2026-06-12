@@ -59,6 +59,8 @@ const hasKanji = (s) => /[一-鿿]/.test(s);
 const seenSetIds = new Set();
 const seenColors = new Map();
 const seenIcons = new Map();
+// setId → そのセットの問題に付いている concept 群（concepts.json の整合チェック用）
+const conceptsBySet = new Map();
 for (const subject of index.subjects) {
   for (const key of ["id", "name", "color", "icon"]) {
     if (!subject[key]) err(`subject ${subject.id ?? "?"}: ${key} がない`);
@@ -177,8 +179,81 @@ for (const subject of index.subjects) {
           err(`${ql}: answers（受理表記）が不正`);
         if (q.concept !== undefined && typeof q.concept !== "string")
           err(`${ql}: concept が文字列でない`);
+        else if (q.concept) {
+          if (!conceptsBySet.has(meta.id)) conceptsBySet.set(meta.id, new Set());
+          conceptsBySet.get(meta.id).add(q.concept);
+        }
         if (q.links !== undefined) checkLinks(ql, q.links);
       }
+    }
+  }
+}
+
+// 概念メタ（前提宣言。計画26）。concepts.json はコレクション任意
+const conceptsPath = join(ROOT, "concepts.json");
+if (existsSync(conceptsPath)) {
+  let conceptIndex;
+  try {
+    conceptIndex = JSON.parse(readFileSync(conceptsPath, "utf8"));
+  } catch (e) {
+    err(`${collectionId}/concepts.json: JSON パース失敗 (${e.message})`);
+    conceptIndex = null;
+  }
+  if (conceptIndex) {
+    const list = conceptIndex.concepts;
+    if (!Array.isArray(list)) {
+      err(`${collectionId}/concepts.json: concepts が配列でない`);
+    } else {
+      const declared = new Map(); // id → entry
+      for (const c of list) {
+        const cl = `${collectionId}/concepts.json/${c.id ?? "?"}`;
+        if (!c.id || !c.name) err(`${cl}: id/name がない`);
+        if (declared.has(c.id)) err(`${cl}: 概念ID重複`);
+        declared.set(c.id, c);
+        if (c.set !== undefined) {
+          if (!seenSetIds.has(c.set))
+            err(`${cl}: set が index.json に無い (${c.set})`);
+          else if (!(conceptsBySet.get(c.set)?.has(c.id)))
+            // 概念タグが未付与のセットへの誘導は許す（遡り先として再生はできる）
+            warn(
+              `${cl}: set ${c.set} の問題に concept "${c.id}" が付いていない（誘導はできるが習熟度は記録されない）`
+            );
+        }
+        if (
+          c.prerequisites !== undefined &&
+          (!Array.isArray(c.prerequisites) ||
+            c.prerequisites.some((p) => typeof p !== "string"))
+        )
+          err(`${cl}: prerequisites が文字列配列でない`);
+      }
+      // 未定義 concept への前提参照（コレクション外の前提も「宣言」は必須。set 無しで宣言する）
+      for (const c of list) {
+        for (const p of c.prerequisites ?? []) {
+          if (!declared.has(p))
+            err(
+              `${collectionId}/concepts.json/${c.id}: 未宣言の前提 "${p}"（コレクション外でも set 無しエントリとして宣言する）`
+            );
+        }
+      }
+      // 循環参照の検出（前提グラフは DAG であること）
+      const visiting = new Set();
+      const done = new Set();
+      const visit = (id, path) => {
+        if (done.has(id)) return;
+        if (visiting.has(id)) {
+          err(
+            `${collectionId}/concepts.json: 前提が循環している (${[...path, id].join(" → ")})`
+          );
+          return;
+        }
+        visiting.add(id);
+        for (const p of declared.get(id)?.prerequisites ?? []) {
+          if (declared.has(p)) visit(p, [...path, id]);
+        }
+        visiting.delete(id);
+        done.add(id);
+      };
+      for (const c of list) visit(c.id, []);
     }
   }
 }

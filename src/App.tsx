@@ -1,6 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
-import type { ContentIndex, ContentLink, LessonStep, Question, SetMeta } from "./types";
-import { buildSetLookup, loadAllSets, loadIndex, loadSet } from "./lib/content";
+import type {
+  ConceptMeta,
+  ContentIndex,
+  ContentLink,
+  LessonStep,
+  Question,
+  SetMeta,
+} from "./types";
+import {
+  buildSetLookup,
+  loadAllSets,
+  loadConcepts,
+  loadIndex,
+  loadSet,
+} from "./lib/content";
+import { buildConceptMap, pickPrereq } from "./lib/prereq";
 import {
   ContentCounts,
   Milestone,
@@ -82,12 +96,15 @@ export default function App() {
   const [busy, setBusy] = useState(false);
   // 達成度の分母（全セットの問題数）。読み込み完了まで達成度系は出さない
   const [counts, setCounts] = useState<ContentCounts | null>(null);
+  // 概念メタ（前提宣言。計画26）。読み込み失敗時は空 = 遡り誘導なしで動く
+  const [concepts, setConcepts] = useState<ConceptMeta[]>([]);
 
   useEffect(() => saveState(state), [state]);
   useEffect(() => {
     loadIndex()
       .then(setIndex)
       .catch((e) => setLoadError(String(e)));
+    loadConcepts().then(setConcepts);
   }, []);
   useEffect(() => {
     if (!index) return;
@@ -128,6 +145,25 @@ export default function App() {
     }
     return map;
   }, [index]);
+
+  const conceptMap = useMemo(() => buildConceptMap(concepts), [concepts]);
+
+  /**
+   * つまずいた概念の「前提概念の復習」誘導先（計画26）。
+   * 習熟の低い前提があれば、その前提のセットを単元レッスンより優先して提示する
+   */
+  function prereqFor(
+    concept: string,
+    currentSetId: string
+  ): { name: string; set: SetMeta } | null {
+    const p = pickPrereq(concept, conceptMap, state.mastery, {
+      currentSetId,
+      setExists: (id) => lookup.has(id),
+    });
+    if (!p || !p.set) return null;
+    const entry = lookup.get(p.set);
+    return entry ? { name: p.name, set: entry.meta } : null;
+  }
 
   /** 今日のおすすめ（日常: 進行中単元 / テストモード: 範囲×試験日が近い教科優先） */
   const recommendations = useMemo(
@@ -414,6 +450,9 @@ export default function App() {
 
       {session && (
         <QuizScreen
+          // セッションを直接差し替えたとき（前提復習への誘導等）に内部state（出題キュー）を
+          // 作り直すため、セット単位で再マウントする
+          key={session.setId ?? session.title}
           title={session.title}
           items={session.items}
           onAnswer={handleAnswer}
@@ -421,6 +460,7 @@ export default function App() {
           onClose={() => setSession(null)}
           lessonFor={(setId) => unitGuide.get(setId)?.lesson ?? null}
           unitLinksFor={(setId) => unitGuide.get(setId)?.links ?? []}
+          prereqFor={prereqFor}
           onStartLesson={(meta) => void startSet(meta)}
         />
       )}
