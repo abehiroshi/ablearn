@@ -74,7 +74,17 @@ export interface AnswerSignal {
   hintsTotal: number;
   /** 写経の完了（計画25）。覚えた証明ではないので正解の連続には数えない */
   trace?: boolean;
+  /**
+   * 実際に解答した形式（計画34）。choice⇔input の手動切替で提示形式と
+   * 食い違うことがある。未指定は提示形式どおり＝従来動作
+   */
+  form?: "choice" | "input";
   today: string; // "YYYY-MM-DD"
+}
+
+/** 段が要求する形式の強さ（level 0 以下 = choice系 0 / level 1 以上 = input系 1） */
+function stageForm(level: number): number {
+  return level >= 1 ? 1 : 0;
 }
 
 /**
@@ -120,6 +130,16 @@ export function applyAnswer(
     return {
       ...m,
       streak: 0,
+      wrongStreak: 0,
+      dueDate: addDays(sig.today, reviewInterval(m.level)),
+    };
+  }
+  // 解答形式ベースの証拠（計画34）: 現在の段が要求する形式より下の形式で解いた正解は
+  // その段の証拠にならない（昇格の連続を進めない・降格もしない＝ズルにも罰にもならない）。
+  // 例: input 段の問題を choice に切り替えて正解 → choice 段の証拠どまり
+  if (sig.form && (sig.form === "input" ? 1 : 0) < stageForm(m.level)) {
+    return {
+      ...m,
       wrongStreak: 0,
       dueDate: addDays(sig.today, reviewInterval(m.level)),
     };

@@ -65,7 +65,9 @@ interface Props {
     hintsTotal?: number,
     trace?: boolean,
     rematch?: boolean,
-    fullHint?: boolean
+    fullHint?: boolean,
+    form?: "choice" | "input",
+    formSwitch?: "up" | "down"
   ) => { promotedTo: number | null; milestones: Milestone[] };
   onFinish: (score: number) => void;
   onClose: () => void;
@@ -109,6 +111,10 @@ export default function QuizScreen({
   const [hintMenu, setHintMenu] = useState(false);
   // この問題で「ぜんぶ見る」を使ったか（履歴に開示方法を記録する）
   const [fullOpened, setFullOpened] = useState(false);
+  // 出題形式の手動切替（計画34）。null = エンジンの推す形式。問題ごとにデフォルトへ戻る
+  const [formOverride, setFormOverride] = useState<"choice" | "input" | null>(
+    null
+  );
   // セッション内の初回解答の結果（スコア計算用）。再描画不要なので ref
   const firstResults = useRef(new Map<string, boolean>());
   // 現在の問題が表示された時刻。解答時間（表示→確定）の計測用
@@ -122,6 +128,40 @@ export default function QuizScreen({
 
   const total = items.length;
   const current = queue[0];
+
+  // 出題形式の切替（計画34）: 両形式をレンダリングできる問題（answers つき choice）だけ
+  // 切替を出す。写経は対象外。デフォルトはエンジンの推す形式（asInput）で、毎問デフォルトに戻る
+  const toggleable =
+    !!current &&
+    !current.asTrace &&
+    current.question.type === "choice" &&
+    !!current.question.answers &&
+    current.question.answers.length > 0;
+  const engineForm: "choice" | "input" =
+    current?.asInput && current.question.type === "choice"
+      ? "input"
+      : "choice";
+  const effectiveForm = toggleable ? (formOverride ?? engineForm) : engineForm;
+  const asInputNow =
+    !!current &&
+    current.question.type === "choice" &&
+    (current.asTrace ||
+      (toggleable ? effectiveForm === "input" : !!current.asInput));
+  /** 実際に解答した形式（習熟度の証拠・履歴用）。トグル対象外の order/flashcard/写経は undefined */
+  const answeredForm: "choice" | "input" | undefined =
+    !current || current.asTrace
+      ? undefined
+      : asInputNow || current.question.type === "input"
+        ? "input"
+        : current.question.type === "choice"
+          ? "choice"
+          : undefined;
+  const formSwitch: "up" | "down" | undefined =
+    toggleable && formOverride && formOverride !== engineForm
+      ? formOverride === "input"
+        ? "up"
+        : "down"
+      : undefined;
 
   function keyOf(item: QuizItem): string {
     return `${item.setId}/${item.question.id}`;
@@ -188,7 +228,9 @@ export default function QuizScreen({
       current.question.hints?.length ?? 0,
       current.asTrace,
       !!current.rematch,
-      fullOpened
+      fullOpened,
+      answeredForm,
+      formSwitch
     );
     sessionMilestones.current.push(...milestones);
     setSessionXp((v) => v + xp);
@@ -252,7 +294,9 @@ export default function QuizScreen({
       current.question.hints?.length ?? 0,
       false,
       !!current.rematch,
-      fullOpened
+      fullOpened,
+      answeredForm,
+      formSwitch
     );
     const q = current.question;
     const correctText =
@@ -278,6 +322,7 @@ export default function QuizScreen({
     setHintsShown(0);
     setHintMenu(false);
     setFullOpened(false);
+    setFormOverride(null);
     shownAt.current = Date.now();
     if (correct) {
       const nextDone = done + 1;
@@ -348,12 +393,12 @@ export default function QuizScreen({
   }
 
   if (!current) return null;
-  // answers つき choice は input 形式でも出せる（asInput/asTrace は12・25の出し分けが立てる）
+  // answers つき choice は input 形式でも出せる（12・25の出し分け＋34の手動切替）
   const q =
-    (current.asInput || current.asTrace) && current.question.type === "choice"
+    asInputNow && current.question.type === "choice"
       ? (choiceAsInput(current.question) ?? current.question)
       : current.question;
-  const viewKey = `${keyOf(current)}#${attempt}`;
+  const viewKey = `${keyOf(current)}#${attempt}#${effectiveForm}`;
 
   return (
     <div className="quiz-root">
@@ -394,6 +439,21 @@ export default function QuizScreen({
         {current.rematch && (
           <div className="rematch-frame">
             ⚔️ {current.rematch.daysAgo}日前はとけなかった問題
+          </div>
+        )}
+
+        {/* 出題形式の手動切替（計画34）: エンジンの推す形式への常設の上書き手段 */}
+        {toggleable && !feedback && (
+          <div className="row" style={{ marginBottom: -6 }}>
+            <span className="spacer" />
+            <button
+              className="link-btn"
+              onClick={() =>
+                setFormOverride(asInputNow ? "choice" : "input")
+              }
+            >
+              ⇄ {asInputNow ? "選択肢で解く" : "自分で入力して解く"}
+            </button>
           </div>
         )}
 

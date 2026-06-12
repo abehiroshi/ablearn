@@ -463,7 +463,9 @@ export default function App() {
     hintsTotal = 0,
     trace = false,
     rematch = false,
-    fullHint = false
+    fullHint = false,
+    form?: "choice" | "input",
+    formSwitch?: "up" | "down"
   ): { promotedTo: number | null; milestones: Milestone[] } {
     const signal = {
       correct,
@@ -471,6 +473,8 @@ export default function App() {
       hintsUsed,
       hintsTotal,
       trace,
+      // 昇降格の証拠は提示形式ではなく実際に解答した形式（計画34）
+      form,
       today: todayKey(),
     };
     // 昇格したか・跨いだ節目を呼び出し元（フィードバック/結果表示）に返す
@@ -511,7 +515,8 @@ export default function App() {
         timeMs,
         hintsUsed,
         rematch,
-        fullHint
+        fullHint,
+        formSwitch
       );
       post = addDailyLog(post, { answered: 1, correct: correct ? 1 : 0, xp });
       milestones.push(
@@ -531,7 +536,8 @@ export default function App() {
         timeMs,
         hintsUsed,
         rematch,
-        fullHint
+        fullHint,
+        formSwitch
       );
       s = addDailyLog(s, { answered: 1, correct: correct ? 1 : 0, xp });
       s = { ...s, xp: s.xp + xp };

@@ -123,6 +123,18 @@ export const V1_AFTER_27 = {
   muted: false,
 };
 
+/** 計画28（週間目標）まで・計画29-34（挑戦束・再戦・形式切替）より前の形式
+ * （goals あり・bundles なし・history に rematch/fullHint/switchUp/switchDown が無い） */
+export const V1_AFTER_28 = {
+  ...V1_AFTER_27,
+  goals: {
+    active: ["count-35"],
+    next: null,
+    weekStart: "2026-06-08",
+    introDismissed: true,
+  },
+};
+
 export const ALL_FIXTURES: Record<string, unknown> = {
   "v1-initial": V1_INITIAL,
   "v1-after-04": V1_AFTER_04,
@@ -132,4 +144,5 @@ export const ALL_FIXTURES: Record<string, unknown> = {
   "v1-after-12": V1_AFTER_12,
   "v1-after-26": V1_AFTER_26,
   "v1-after-27": V1_AFTER_27,
+  "v1-after-28": V1_AFTER_28,
 };

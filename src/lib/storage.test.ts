@@ -109,6 +109,8 @@ describe("日次ログと解答履歴", () => {
       timeMs: 15000,
       rematch: 0,
       fullHint: 0,
+      switchUp: 0,
+      switchDown: 0,
     });
   });
 
@@ -118,6 +120,15 @@ describe("日次ログと解答履歴", () => {
     const stat = s.history[todayKey()]["set1/q1"];
     expect(stat.rematch).toBe(1);
     expect(stat.fullHint).toBe(1);
+  });
+
+  it("recordHistory は出題形式の手動切替（上げ/下げ）を記録する（計画34）", () => {
+    let s = recordHistory(emptyState(), "set1", "q1", true, 1000, 0, false, false, "up");
+    s = recordHistory(s, "set1", "q1", true, 1000, 0, false, false, "down");
+    s = recordHistory(s, "set1", "q1", true, 1000, 0);
+    const stat = s.history[todayKey()]["set1/q1"];
+    expect(stat.switchUp).toBe(1);
+    expect(stat.switchDown).toBe(1);
   });
 
   it("recordHistory は負の時間を 0 に丸める", () => {
@@ -136,6 +147,8 @@ describe("日次ログと解答履歴", () => {
       timeMs: 12000,
       rematch: 0,
       fullHint: 0,
+      switchUp: 0,
+      switchDown: 0,
     });
   });
 

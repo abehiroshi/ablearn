@@ -300,3 +300,50 @@ describe("ヒント開示方法のおすすめ（計画31）", () => {
     expect(recommendHintStyle({ ...emptyMastery(), level: 2 })).toBe("step");
   });
 });
+
+describe("解答形式ベースの昇降格（計画34）", () => {
+  const inputOk = (today: string) => ({ ...ok(today), form: "input" as const });
+  const choiceOk = (today: string) => ({ ...ok(today), form: "choice" as const });
+
+  it("input 段の問題を choice に切り替えて正解 → 昇格の連続に数えない・降格もしない", () => {
+    const m = { ...emptyMastery(), level: 1, streak: 1 };
+    const next = applyAnswer(m, choiceOk("2026-06-10"));
+    expect(next.level).toBe(1); // 降格しない
+    expect(next.streak).toBe(1); // 連続も進まない（choice 段の証拠どまり）
+    expect(next.dueDate).not.toBe(""); // 定着確認は先送りされる
+  });
+
+  it("input で解いた正解は input 段以上の昇格の証拠になる", () => {
+    let m = { ...emptyMastery(), level: 1 };
+    m = applyAnswer(m, inputOk("2026-06-01"));
+    expect(m.streak).toBe(1);
+    m = applyAnswer(m, inputOk("2026-06-04"));
+    expect(m.level).toBe(2); // 応用段へ昇格
+  });
+
+  it("choice 段では choice の正解が従来どおり証拠になる（デフォルト進行を壊さない）", () => {
+    let m = applyAnswer(emptyMastery(), choiceOk("2026-06-01"));
+    expect(m.streak).toBe(1);
+    m = applyAnswer(m, choiceOk("2026-06-04"));
+    expect(m.level).toBe(1);
+  });
+
+  it("form 未指定は従来動作（後方互換: 模擬テスト・レッスン経由）", () => {
+    let m = { ...emptyMastery(), level: 1 };
+    m = applyAnswer(m, ok("2026-06-01"));
+    expect(m.streak).toBe(1);
+  });
+
+  it("下の形式でも不正解は従来どおり降格する（ズルにも罰にもならない＝失敗は失敗）", () => {
+    const m = { ...emptyMastery(), level: 1 };
+    const next = applyAnswer(m, {
+      correct: false,
+      dontKnow: false,
+      hintsUsed: 0,
+      hintsTotal: 0,
+      form: "choice",
+      today: "2026-06-10",
+    });
+    expect(next.level).toBe(0);
+  });
+});

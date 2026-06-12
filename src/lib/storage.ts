@@ -30,6 +30,9 @@ export interface QuestionDayStat {
   rematch?: number;
   /** 「ぜんぶ見る」でヒントを一括開示した解答数（計画31で記録開始。旧データには無い） */
   fullHint?: number;
+  /** 出題形式をエンジンの推奨から手動で上げた/下げた解答数（計画34で記録開始。旧データには無い） */
+  switchUp?: number;
+  switchDown?: number;
 }
 
 export interface SetRecord {
@@ -328,7 +331,8 @@ export function recordHistory(
   timeMs: number,
   hints = 0,
   rematch = false,
-  fullHint = false
+  fullHint = false,
+  formSwitch?: "up" | "down"
 ): AppState {
   const day = todayKey();
   const key = `${setId}/${questionId}`;
@@ -357,6 +361,9 @@ export function recordHistory(
           rematch: (cur.rematch ?? 0) + (rematch ? 1 : 0),
           // 計画31より前の記録には fullHint が無い
           fullHint: (cur.fullHint ?? 0) + (fullHint ? 1 : 0),
+          // 計画34より前の記録には switchUp/switchDown が無い
+          switchUp: (cur.switchUp ?? 0) + (formSwitch === "up" ? 1 : 0),
+          switchDown: (cur.switchDown ?? 0) + (formSwitch === "down" ? 1 : 0),
         },
       },
     },
