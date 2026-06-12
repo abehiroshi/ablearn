@@ -1,0 +1,247 @@
+{
+  "id": "eng-tango-unit3",
+  "title": "Unit 3 の単語（職業・夢）",
+  "description": "NEW HORIZON 2 のUnitテーマに合わせた重要単語（オリジナル選定）",
+  "questions": [
+    {
+      "id": "w1",
+      "type": "flashcard",
+      "front": "job",
+      "back": "仕事、職業"
+    },
+    {
+      "id": "w2",
+      "type": "flashcard",
+      "front": "work",
+      "back": "働く、仕事"
+    },
+    {
+      "id": "w3",
+      "type": "flashcard",
+      "front": "doctor",
+      "back": "医者"
+    },
+    {
+      "id": "w4",
+      "type": "flashcard",
+      "front": "nurse",
+      "back": "看護師"
+    },
+    {
+      "id": "w5",
+      "type": "flashcard",
+      "front": "teacher",
+      "back": "教師"
+    },
+    {
+      "id": "w6",
+      "type": "flashcard",
+      "front": "scientist",
+      "back": "科学者"
+    },
+    {
+      "id": "w7",
+      "type": "flashcard",
+      "front": "engineer",
+      "back": "技師、エンジニア"
+    },
+    {
+      "id": "w8",
+      "type": "flashcard",
+      "front": "farmer",
+      "back": "農家の人"
+    },
+    {
+      "id": "w9",
+      "type": "flashcard",
+      "front": "writer",
+      "back": "作家"
+    },
+    {
+      "id": "w10",
+      "type": "flashcard",
+      "front": "singer",
+      "back": "歌手"
+    },
+    {
+      "id": "w11",
+      "type": "flashcard",
+      "front": "artist",
+      "back": "芸術家"
+    },
+    {
+      "id": "w12",
+      "type": "flashcard",
+      "front": "musician",
+      "back": "音楽家"
+    },
+    {
+      "id": "w13",
+      "type": "flashcard",
+      "front": "pilot",
+      "back": "パイロット"
+    },
+    {
+      "id": "w14",
+      "type": "flashcard",
+      "front": "police officer",
+      "back": "警察官"
+    },
+    {
+      "id": "w15",
+      "type": "flashcard",
+      "front": "vet",
+      "back": "獣医"
+    },
+    {
+      "id": "w16",
+      "type": "flashcard",
+      "front": "programmer",
+      "back": "プログラマー"
+    },
+    {
+      "id": "w17",
+      "type": "flashcard",
+      "front": "designer",
+      "back": "デザイナー"
+    },
+    {
+      "id": "w18",
+      "type": "flashcard",
+      "front": "actor",
+      "back": "俳優"
+    },
+    {
+      "id": "w19",
+      "type": "flashcard",
+      "front": "chef",
+      "back": "料理人、シェフ"
+    },
+    {
+      "id": "w20",
+      "type": "flashcard",
+      "front": "astronaut",
+      "back": "宇宙飛行士"
+    },
+    {
+      "id": "w21",
+      "type": "flashcard",
+      "front": "become",
+      "back": "〜になる"
+    },
+    {
+      "id": "w22",
+      "type": "flashcard",
+      "front": "wish",
+      "back": "願う、願い"
+    },
+    {
+      "id": "w23",
+      "type": "flashcard",
+      "front": "study",
+      "back": "勉強する"
+    },
+    {
+      "id": "w24",
+      "type": "flashcard",
+      "front": "learn",
+      "back": "学ぶ、覚える"
+    },
+    {
+      "id": "w25",
+      "type": "flashcard",
+      "front": "practice",
+      "back": "練習する"
+    },
+    {
+      "id": "w26",
+      "type": "flashcard",
+      "front": "try",
+      "back": "やってみる、努力する"
+    },
+    {
+      "id": "w27",
+      "type": "flashcard",
+      "front": "continue",
+      "back": "続ける"
+    },
+    {
+      "id": "w28",
+      "type": "flashcard",
+      "front": "need",
+      "back": "必要とする"
+    },
+    {
+      "id": "w29",
+      "type": "flashcard",
+      "front": "help",
+      "back": "助ける、手伝う"
+    },
+    {
+      "id": "w30",
+      "type": "flashcard",
+      "front": "useful",
+      "back": "役に立つ"
+    },
+    {
+      "id": "w31",
+      "type": "flashcard",
+      "front": "difficult",
+      "back": "難しい"
+    },
+    {
+      "id": "w32",
+      "type": "flashcard",
+      "front": "easy",
+      "back": "簡単な"
+    },
+    {
+      "id": "w33",
+      "type": "flashcard",
+      "front": "interesting",
+      "back": "興味深い、おもしろい"
+    },
+    {
+      "id": "w34",
+      "type": "flashcard",
+      "front": "in the future",
+      "back": "将来は"
+    },
+    {
+      "id": "w35",
+      "type": "flashcard",
+      "front": "someday",
+      "back": "いつか"
+    },
+    {
+      "id": "w36",
+      "type": "flashcard",
+      "front": "overseas",
+      "back": "海外で、海外の"
+    },
+    {
+      "id": "w37",
+      "type": "flashcard",
+      "front": "goal",
+      "back": "目標"
+    },
+    {
+      "id": "w38",
+      "type": "flashcard",
+      "front": "skill",
+      "back": "技能、スキル"
+    },
+    {
+      "id": "w39",
+      "type": "flashcard",
+      "front": "message",
+      "back": "伝言、メッセージ"
+    },
+    {
+      "id": "w40",
+      "type": "flashcard",
+      "front": "advice",
+      "back": "助言、アドバイス"
+    }
+  ]
+}

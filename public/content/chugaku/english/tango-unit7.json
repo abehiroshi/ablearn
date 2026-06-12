@@ -1,0 +1,247 @@
+{
+  "id": "eng-tango-unit7",
+  "title": "Unit 7 の単語（世界遺産・歴史）",
+  "description": "NEW HORIZON 2 のUnitテーマに合わせた重要単語（オリジナル選定）",
+  "questions": [
+    {
+      "id": "w1",
+      "type": "flashcard",
+      "front": "heritage",
+      "back": "遺産"
+    },
+    {
+      "id": "w2",
+      "type": "flashcard",
+      "front": "site",
+      "back": "場所、遺跡"
+    },
+    {
+      "id": "w3",
+      "type": "flashcard",
+      "front": "temple",
+      "back": "寺"
+    },
+    {
+      "id": "w4",
+      "type": "flashcard",
+      "front": "shrine",
+      "back": "神社"
+    },
+    {
+      "id": "w5",
+      "type": "flashcard",
+      "front": "castle",
+      "back": "城"
+    },
+    {
+      "id": "w6",
+      "type": "flashcard",
+      "front": "build",
+      "back": "建てる"
+    },
+    {
+      "id": "w7",
+      "type": "flashcard",
+      "front": "protect",
+      "back": "守る、保護する"
+    },
+    {
+      "id": "w8",
+      "type": "flashcard",
+      "front": "save",
+      "back": "救う、保存する"
+    },
+    {
+      "id": "w9",
+      "type": "flashcard",
+      "front": "nature",
+      "back": "自然"
+    },
+    {
+      "id": "w10",
+      "type": "flashcard",
+      "front": "forest",
+      "back": "森"
+    },
+    {
+      "id": "w11",
+      "type": "flashcard",
+      "front": "lake",
+      "back": "湖"
+    },
+    {
+      "id": "w12",
+      "type": "flashcard",
+      "front": "river",
+      "back": "川"
+    },
+    {
+      "id": "w13",
+      "type": "flashcard",
+      "front": "sea",
+      "back": "海"
+    },
+    {
+      "id": "w14",
+      "type": "flashcard",
+      "front": "animal",
+      "back": "動物"
+    },
+    {
+      "id": "w15",
+      "type": "flashcard",
+      "front": "bird",
+      "back": "鳥"
+    },
+    {
+      "id": "w16",
+      "type": "flashcard",
+      "front": "fish",
+      "back": "魚"
+    },
+    {
+      "id": "w17",
+      "type": "flashcard",
+      "front": "plant",
+      "back": "植物、植える"
+    },
+    {
+      "id": "w18",
+      "type": "flashcard",
+      "front": "tree",
+      "back": "木"
+    },
+    {
+      "id": "w19",
+      "type": "flashcard",
+      "front": "stone",
+      "back": "石"
+    },
+    {
+      "id": "w20",
+      "type": "flashcard",
+      "front": "gold",
+      "back": "金"
+    },
+    {
+      "id": "w21",
+      "type": "flashcard",
+      "front": "silver",
+      "back": "銀"
+    },
+    {
+      "id": "w22",
+      "type": "flashcard",
+      "front": "ancient",
+      "back": "古代の"
+    },
+    {
+      "id": "w23",
+      "type": "flashcard",
+      "front": "modern",
+      "back": "現代の"
+    },
+    {
+      "id": "w24",
+      "type": "flashcard",
+      "front": "ago",
+      "back": "（今から）〜前に"
+    },
+    {
+      "id": "w25",
+      "type": "flashcard",
+      "front": "since",
+      "back": "〜以来"
+    },
+    {
+      "id": "w26",
+      "type": "flashcard",
+      "front": "war",
+      "back": "戦争"
+    },
+    {
+      "id": "w27",
+      "type": "flashcard",
+      "front": "peace",
+      "back": "平和"
+    },
+    {
+      "id": "w28",
+      "type": "flashcard",
+      "front": "memorial",
+      "back": "記念の、記念碑"
+    },
+    {
+      "id": "w29",
+      "type": "flashcard",
+      "front": "museum",
+      "back": "博物館"
+    },
+    {
+      "id": "w30",
+      "type": "flashcard",
+      "front": "tourist",
+      "back": "観光客"
+    },
+    {
+      "id": "w31",
+      "type": "flashcard",
+      "front": "visitor",
+      "back": "訪問者"
+    },
+    {
+      "id": "w32",
+      "type": "flashcard",
+      "front": "international",
+      "back": "国際的な"
+    },
+    {
+      "id": "w33",
+      "type": "flashcard",
+      "front": "government",
+      "back": "政府"
+    },
+    {
+      "id": "w34",
+      "type": "flashcard",
+      "front": "law",
+      "back": "法律"
+    },
+    {
+      "id": "w35",
+      "type": "flashcard",
+      "front": "area",
+      "back": "地域"
+    },
+    {
+      "id": "w36",
+      "type": "flashcard",
+      "front": "register",
+      "back": "登録する"
+    },
+    {
+      "id": "w37",
+      "type": "flashcard",
+      "front": "known",
+      "back": "知られている"
+    },
+    {
+      "id": "w38",
+      "type": "flashcard",
+      "front": "damage",
+      "back": "損害を与える、損害"
+    },
+    {
+      "id": "w39",
+      "type": "flashcard",
+      "front": "repair",
+      "back": "修理する"
+    },
+    {
+      "id": "w40",
+      "type": "flashcard",
+      "front": "rebuild",
+      "back": "建て直す"
+    }
+  ]
+}

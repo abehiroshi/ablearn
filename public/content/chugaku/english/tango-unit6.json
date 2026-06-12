@@ -1,0 +1,247 @@
+{
+  "id": "eng-tango-unit6",
+  "title": "Unit 6 の単語（調べ学習・比較）",
+  "description": "NEW HORIZON 2 のUnitテーマに合わせた重要単語（オリジナル選定）",
+  "questions": [
+    {
+      "id": "w1",
+      "type": "flashcard",
+      "front": "research",
+      "back": "調査、研究"
+    },
+    {
+      "id": "w2",
+      "type": "flashcard",
+      "front": "topic",
+      "back": "話題、テーマ"
+    },
+    {
+      "id": "w3",
+      "type": "flashcard",
+      "front": "report",
+      "back": "報告、レポート"
+    },
+    {
+      "id": "w4",
+      "type": "flashcard",
+      "front": "information",
+      "back": "情報"
+    },
+    {
+      "id": "w5",
+      "type": "flashcard",
+      "front": "internet",
+      "back": "インターネット"
+    },
+    {
+      "id": "w6",
+      "type": "flashcard",
+      "front": "website",
+      "back": "ウェブサイト"
+    },
+    {
+      "id": "w7",
+      "type": "flashcard",
+      "front": "news",
+      "back": "ニュース"
+    },
+    {
+      "id": "w8",
+      "type": "flashcard",
+      "front": "newspaper",
+      "back": "新聞"
+    },
+    {
+      "id": "w9",
+      "type": "flashcard",
+      "front": "graph",
+      "back": "グラフ"
+    },
+    {
+      "id": "w10",
+      "type": "flashcard",
+      "front": "data",
+      "back": "データ、資料"
+    },
+    {
+      "id": "w11",
+      "type": "flashcard",
+      "front": "result",
+      "back": "結果"
+    },
+    {
+      "id": "w12",
+      "type": "flashcard",
+      "front": "reason",
+      "back": "理由"
+    },
+    {
+      "id": "w13",
+      "type": "flashcard",
+      "front": "opinion",
+      "back": "意見"
+    },
+    {
+      "id": "w14",
+      "type": "flashcard",
+      "front": "fact",
+      "back": "事実"
+    },
+    {
+      "id": "w15",
+      "type": "flashcard",
+      "front": "percent",
+      "back": "パーセント"
+    },
+    {
+      "id": "w16",
+      "type": "flashcard",
+      "front": "number",
+      "back": "数、番号"
+    },
+    {
+      "id": "w17",
+      "type": "flashcard",
+      "front": "half",
+      "back": "半分"
+    },
+    {
+      "id": "w18",
+      "type": "flashcard",
+      "front": "most",
+      "back": "ほとんどの、もっとも"
+    },
+    {
+      "id": "w19",
+      "type": "flashcard",
+      "front": "more",
+      "back": "もっと多くの"
+    },
+    {
+      "id": "w20",
+      "type": "flashcard",
+      "front": "than",
+      "back": "〜よりも"
+    },
+    {
+      "id": "w21",
+      "type": "flashcard",
+      "front": "better",
+      "back": "よりよい、より好んで"
+    },
+    {
+      "id": "w22",
+      "type": "flashcard",
+      "front": "best",
+      "back": "もっともよい"
+    },
+    {
+      "id": "w23",
+      "type": "flashcard",
+      "front": "large",
+      "back": "大きい、広い"
+    },
+    {
+      "id": "w24",
+      "type": "flashcard",
+      "front": "small",
+      "back": "小さい"
+    },
+    {
+      "id": "w25",
+      "type": "flashcard",
+      "front": "high",
+      "back": "高い"
+    },
+    {
+      "id": "w26",
+      "type": "flashcard",
+      "front": "low",
+      "back": "低い"
+    },
+    {
+      "id": "w27",
+      "type": "flashcard",
+      "front": "long",
+      "back": "長い"
+    },
+    {
+      "id": "w28",
+      "type": "flashcard",
+      "front": "short",
+      "back": "短い、背が低い"
+    },
+    {
+      "id": "w29",
+      "type": "flashcard",
+      "front": "fast",
+      "back": "速い、速く"
+    },
+    {
+      "id": "w30",
+      "type": "flashcard",
+      "front": "slow",
+      "back": "遅い"
+    },
+    {
+      "id": "w31",
+      "type": "flashcard",
+      "front": "old",
+      "back": "古い、年上の"
+    },
+    {
+      "id": "w32",
+      "type": "flashcard",
+      "front": "young",
+      "back": "若い"
+    },
+    {
+      "id": "w33",
+      "type": "flashcard",
+      "front": "rich",
+      "back": "豊かな"
+    },
+    {
+      "id": "w34",
+      "type": "flashcard",
+      "front": "poor",
+      "back": "貧しい"
+    },
+    {
+      "id": "w35",
+      "type": "flashcard",
+      "front": "compare",
+      "back": "比べる"
+    },
+    {
+      "id": "w36",
+      "type": "flashcard",
+      "front": "increase",
+      "back": "増える、増やす"
+    },
+    {
+      "id": "w37",
+      "type": "flashcard",
+      "front": "decrease",
+      "back": "減る、減らす"
+    },
+    {
+      "id": "w38",
+      "type": "flashcard",
+      "front": "agree",
+      "back": "賛成する"
+    },
+    {
+      "id": "w39",
+      "type": "flashcard",
+      "front": "disagree",
+      "back": "反対する"
+    },
+    {
+      "id": "w40",
+      "type": "flashcard",
+      "front": "explain",
+      "back": "説明する"
+    }
+  ]
+}

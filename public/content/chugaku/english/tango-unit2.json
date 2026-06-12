@@ -1,0 +1,247 @@
+{
+  "id": "eng-tango-unit2",
+  "title": "Unit 2 の単語（食べ物・文化）",
+  "description": "NEW HORIZON 2 のUnitテーマに合わせた重要単語（オリジナル選定）",
+  "questions": [
+    {
+      "id": "w1",
+      "type": "flashcard",
+      "front": "food",
+      "back": "食べ物"
+    },
+    {
+      "id": "w2",
+      "type": "flashcard",
+      "front": "rice",
+      "back": "米、ごはん"
+    },
+    {
+      "id": "w3",
+      "type": "flashcard",
+      "front": "bread",
+      "back": "パン"
+    },
+    {
+      "id": "w4",
+      "type": "flashcard",
+      "front": "noodle",
+      "back": "めん"
+    },
+    {
+      "id": "w5",
+      "type": "flashcard",
+      "front": "meat",
+      "back": "肉"
+    },
+    {
+      "id": "w6",
+      "type": "flashcard",
+      "front": "vegetable",
+      "back": "野菜"
+    },
+    {
+      "id": "w7",
+      "type": "flashcard",
+      "front": "fruit",
+      "back": "果物"
+    },
+    {
+      "id": "w8",
+      "type": "flashcard",
+      "front": "dish",
+      "back": "料理、皿"
+    },
+    {
+      "id": "w9",
+      "type": "flashcard",
+      "front": "meal",
+      "back": "食事"
+    },
+    {
+      "id": "w10",
+      "type": "flashcard",
+      "front": "breakfast",
+      "back": "朝食"
+    },
+    {
+      "id": "w11",
+      "type": "flashcard",
+      "front": "lunch",
+      "back": "昼食"
+    },
+    {
+      "id": "w12",
+      "type": "flashcard",
+      "front": "dinner",
+      "back": "夕食"
+    },
+    {
+      "id": "w13",
+      "type": "flashcard",
+      "front": "restaurant",
+      "back": "レストラン"
+    },
+    {
+      "id": "w14",
+      "type": "flashcard",
+      "front": "recipe",
+      "back": "レシピ、調理法"
+    },
+    {
+      "id": "w15",
+      "type": "flashcard",
+      "front": "cook",
+      "back": "料理する"
+    },
+    {
+      "id": "w16",
+      "type": "flashcard",
+      "front": "eat",
+      "back": "食べる"
+    },
+    {
+      "id": "w17",
+      "type": "flashcard",
+      "front": "drink",
+      "back": "飲む"
+    },
+    {
+      "id": "w18",
+      "type": "flashcard",
+      "front": "taste",
+      "back": "味がする、味"
+    },
+    {
+      "id": "w19",
+      "type": "flashcard",
+      "front": "smell",
+      "back": "においがする、におい"
+    },
+    {
+      "id": "w20",
+      "type": "flashcard",
+      "front": "delicious",
+      "back": "とてもおいしい"
+    },
+    {
+      "id": "w21",
+      "type": "flashcard",
+      "front": "sweet",
+      "back": "甘い"
+    },
+    {
+      "id": "w22",
+      "type": "flashcard",
+      "front": "bitter",
+      "back": "苦い"
+    },
+    {
+      "id": "w23",
+      "type": "flashcard",
+      "front": "salty",
+      "back": "塩からい"
+    },
+    {
+      "id": "w24",
+      "type": "flashcard",
+      "front": "fresh",
+      "back": "新鮮な"
+    },
+    {
+      "id": "w25",
+      "type": "flashcard",
+      "front": "healthy",
+      "back": "健康によい"
+    },
+    {
+      "id": "w26",
+      "type": "flashcard",
+      "front": "popular",
+      "back": "人気のある"
+    },
+    {
+      "id": "w27",
+      "type": "flashcard",
+      "front": "different",
+      "back": "異なる、いろいろな"
+    },
+    {
+      "id": "w28",
+      "type": "flashcard",
+      "front": "same",
+      "back": "同じ"
+    },
+    {
+      "id": "w29",
+      "type": "flashcard",
+      "front": "originally",
+      "back": "もともとは"
+    },
+    {
+      "id": "w30",
+      "type": "flashcard",
+      "front": "spread",
+      "back": "広まる、広げる"
+    },
+    {
+      "id": "w31",
+      "type": "flashcard",
+      "front": "introduce",
+      "back": "紹介する"
+    },
+    {
+      "id": "w32",
+      "type": "flashcard",
+      "front": "history",
+      "back": "歴史"
+    },
+    {
+      "id": "w33",
+      "type": "flashcard",
+      "front": "world",
+      "back": "世界"
+    },
+    {
+      "id": "w34",
+      "type": "flashcard",
+      "front": "century",
+      "back": "世紀"
+    },
+    {
+      "id": "w35",
+      "type": "flashcard",
+      "front": "among",
+      "back": "〜の間で"
+    },
+    {
+      "id": "w36",
+      "type": "flashcard",
+      "front": "however",
+      "back": "しかしながら"
+    },
+    {
+      "id": "w37",
+      "type": "flashcard",
+      "front": "also",
+      "back": "〜もまた"
+    },
+    {
+      "id": "w38",
+      "type": "flashcard",
+      "front": "share",
+      "back": "分け合う、共有する"
+    },
+    {
+      "id": "w39",
+      "type": "flashcard",
+      "front": "order",
+      "back": "注文する、順序"
+    },
+    {
+      "id": "w40",
+      "type": "flashcard",
+      "front": "serve",
+      "back": "（料理を）出す"
+    }
+  ]
+}

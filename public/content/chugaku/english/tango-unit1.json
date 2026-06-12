@@ -1,0 +1,247 @@
+{
+  "id": "eng-tango-unit1",
+  "title": "Unit 1 の単語（旅行・予定）",
+  "description": "NEW HORIZON 2 のUnitテーマに合わせた重要単語（オリジナル選定）",
+  "questions": [
+    {
+      "id": "w1",
+      "type": "flashcard",
+      "front": "plane",
+      "back": "飛行機"
+    },
+    {
+      "id": "w2",
+      "type": "flashcard",
+      "front": "airport",
+      "back": "空港"
+    },
+    {
+      "id": "w3",
+      "type": "flashcard",
+      "front": "station",
+      "back": "駅"
+    },
+    {
+      "id": "w4",
+      "type": "flashcard",
+      "front": "ticket",
+      "back": "切符、チケット"
+    },
+    {
+      "id": "w5",
+      "type": "flashcard",
+      "front": "map",
+      "back": "地図"
+    },
+    {
+      "id": "w6",
+      "type": "flashcard",
+      "front": "country",
+      "back": "国"
+    },
+    {
+      "id": "w7",
+      "type": "flashcard",
+      "front": "city",
+      "back": "都市"
+    },
+    {
+      "id": "w8",
+      "type": "flashcard",
+      "front": "island",
+      "back": "島"
+    },
+    {
+      "id": "w9",
+      "type": "flashcard",
+      "front": "beach",
+      "back": "浜辺"
+    },
+    {
+      "id": "w10",
+      "type": "flashcard",
+      "front": "mountain",
+      "back": "山"
+    },
+    {
+      "id": "w11",
+      "type": "flashcard",
+      "front": "weekend",
+      "back": "週末"
+    },
+    {
+      "id": "w12",
+      "type": "flashcard",
+      "front": "tomorrow",
+      "back": "明日"
+    },
+    {
+      "id": "w13",
+      "type": "flashcard",
+      "front": "tonight",
+      "back": "今夜"
+    },
+    {
+      "id": "w14",
+      "type": "flashcard",
+      "front": "soon",
+      "back": "すぐに"
+    },
+    {
+      "id": "w15",
+      "type": "flashcard",
+      "front": "later",
+      "back": "あとで"
+    },
+    {
+      "id": "w16",
+      "type": "flashcard",
+      "front": "leave",
+      "back": "出発する、去る"
+    },
+    {
+      "id": "w17",
+      "type": "flashcard",
+      "front": "return",
+      "back": "戻る、帰る"
+    },
+    {
+      "id": "w18",
+      "type": "flashcard",
+      "front": "visit",
+      "back": "訪れる"
+    },
+    {
+      "id": "w19",
+      "type": "flashcard",
+      "front": "stay",
+      "back": "滞在する"
+    },
+    {
+      "id": "w20",
+      "type": "flashcard",
+      "front": "travel",
+      "back": "旅行する"
+    },
+    {
+      "id": "w21",
+      "type": "flashcard",
+      "front": "enjoy",
+      "back": "楽しむ"
+    },
+    {
+      "id": "w22",
+      "type": "flashcard",
+      "front": "forget",
+      "back": "忘れる"
+    },
+    {
+      "id": "w23",
+      "type": "flashcard",
+      "front": "remember",
+      "back": "覚えている、思い出す"
+    },
+    {
+      "id": "w24",
+      "type": "flashcard",
+      "front": "bring",
+      "back": "持ってくる"
+    },
+    {
+      "id": "w25",
+      "type": "flashcard",
+      "front": "take",
+      "back": "持っていく、連れていく"
+    },
+    {
+      "id": "w26",
+      "type": "flashcard",
+      "front": "meet",
+      "back": "会う"
+    },
+    {
+      "id": "w27",
+      "type": "flashcard",
+      "front": "show",
+      "back": "見せる"
+    },
+    {
+      "id": "w28",
+      "type": "flashcard",
+      "front": "give",
+      "back": "与える"
+    },
+    {
+      "id": "w29",
+      "type": "flashcard",
+      "front": "send",
+      "back": "送る"
+    },
+    {
+      "id": "w30",
+      "type": "flashcard",
+      "front": "tell",
+      "back": "伝える、言う"
+    },
+    {
+      "id": "w31",
+      "type": "flashcard",
+      "front": "buy",
+      "back": "買う"
+    },
+    {
+      "id": "w32",
+      "type": "flashcard",
+      "front": "find",
+      "back": "見つける"
+    },
+    {
+      "id": "w33",
+      "type": "flashcard",
+      "front": "hope",
+      "back": "望む"
+    },
+    {
+      "id": "w34",
+      "type": "flashcard",
+      "front": "excited",
+      "back": "わくわくした"
+    },
+    {
+      "id": "w35",
+      "type": "flashcard",
+      "front": "ready",
+      "back": "用意ができた"
+    },
+    {
+      "id": "w36",
+      "type": "flashcard",
+      "front": "wonderful",
+      "back": "すばらしい"
+    },
+    {
+      "id": "w37",
+      "type": "flashcard",
+      "front": "beautiful",
+      "back": "美しい"
+    },
+    {
+      "id": "w38",
+      "type": "flashcard",
+      "front": "expensive",
+      "back": "高価な"
+    },
+    {
+      "id": "w39",
+      "type": "flashcard",
+      "front": "cheap",
+      "back": "安い"
+    },
+    {
+      "id": "w40",
+      "type": "flashcard",
+      "front": "special",
+      "back": "特別な"
+    }
+  ]
+}

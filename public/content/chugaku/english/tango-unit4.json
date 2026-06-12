@@ -1,0 +1,247 @@
+{
+  "id": "eng-tango-unit4",
+  "title": "Unit 4 の単語（ホームステイ・生活のルール）",
+  "description": "NEW HORIZON 2 のUnitテーマに合わせた重要単語（オリジナル選定）",
+  "questions": [
+    {
+      "id": "w1",
+      "type": "flashcard",
+      "front": "homestay",
+      "back": "ホームステイ"
+    },
+    {
+      "id": "w2",
+      "type": "flashcard",
+      "front": "host family",
+      "back": "ホストファミリー、受け入れ家庭"
+    },
+    {
+      "id": "w3",
+      "type": "flashcard",
+      "front": "rule",
+      "back": "規則、ルール"
+    },
+    {
+      "id": "w4",
+      "type": "flashcard",
+      "front": "family",
+      "back": "家族"
+    },
+    {
+      "id": "w5",
+      "type": "flashcard",
+      "front": "guest",
+      "back": "客"
+    },
+    {
+      "id": "w6",
+      "type": "flashcard",
+      "front": "room",
+      "back": "部屋"
+    },
+    {
+      "id": "w7",
+      "type": "flashcard",
+      "front": "kitchen",
+      "back": "台所"
+    },
+    {
+      "id": "w8",
+      "type": "flashcard",
+      "front": "bathroom",
+      "back": "浴室、トイレ"
+    },
+    {
+      "id": "w9",
+      "type": "flashcard",
+      "front": "shoes",
+      "back": "くつ"
+    },
+    {
+      "id": "w10",
+      "type": "flashcard",
+      "front": "slippers",
+      "back": "スリッパ"
+    },
+    {
+      "id": "w11",
+      "type": "flashcard",
+      "front": "towel",
+      "back": "タオル"
+    },
+    {
+      "id": "w12",
+      "type": "flashcard",
+      "front": "clean",
+      "back": "そうじする、きれいな"
+    },
+    {
+      "id": "w13",
+      "type": "flashcard",
+      "front": "wash",
+      "back": "洗う"
+    },
+    {
+      "id": "w14",
+      "type": "flashcard",
+      "front": "use",
+      "back": "使う"
+    },
+    {
+      "id": "w15",
+      "type": "flashcard",
+      "front": "follow",
+      "back": "（規則に）従う、ついていく"
+    },
+    {
+      "id": "w16",
+      "type": "flashcard",
+      "front": "keep",
+      "back": "保つ、守る"
+    },
+    {
+      "id": "w17",
+      "type": "flashcard",
+      "front": "take off",
+      "back": "（くつなどを）脱ぐ"
+    },
+    {
+      "id": "w18",
+      "type": "flashcard",
+      "front": "put on",
+      "back": "身につける"
+    },
+    {
+      "id": "w19",
+      "type": "flashcard",
+      "front": "open",
+      "back": "開ける"
+    },
+    {
+      "id": "w20",
+      "type": "flashcard",
+      "front": "close",
+      "back": "閉める"
+    },
+    {
+      "id": "w21",
+      "type": "flashcard",
+      "front": "finish",
+      "back": "終える"
+    },
+    {
+      "id": "w22",
+      "type": "flashcard",
+      "front": "before",
+      "back": "〜の前に"
+    },
+    {
+      "id": "w23",
+      "type": "flashcard",
+      "front": "after",
+      "back": "〜のあとに"
+    },
+    {
+      "id": "w24",
+      "type": "flashcard",
+      "front": "early",
+      "back": "早く"
+    },
+    {
+      "id": "w25",
+      "type": "flashcard",
+      "front": "late",
+      "back": "遅く、遅い"
+    },
+    {
+      "id": "w26",
+      "type": "flashcard",
+      "front": "careful",
+      "back": "注意深い"
+    },
+    {
+      "id": "w27",
+      "type": "flashcard",
+      "front": "quiet",
+      "back": "静かな"
+    },
+    {
+      "id": "w28",
+      "type": "flashcard",
+      "front": "polite",
+      "back": "ていねいな、礼儀正しい"
+    },
+    {
+      "id": "w29",
+      "type": "flashcard",
+      "front": "kind",
+      "back": "親切な、種類"
+    },
+    {
+      "id": "w30",
+      "type": "flashcard",
+      "front": "helpful",
+      "back": "助けになる"
+    },
+    {
+      "id": "w31",
+      "type": "flashcard",
+      "front": "each other",
+      "back": "おたがい"
+    },
+    {
+      "id": "w32",
+      "type": "flashcard",
+      "front": "problem",
+      "back": "問題"
+    },
+    {
+      "id": "w33",
+      "type": "flashcard",
+      "front": "question",
+      "back": "質問"
+    },
+    {
+      "id": "w34",
+      "type": "flashcard",
+      "front": "answer",
+      "back": "答える、答え"
+    },
+    {
+      "id": "w35",
+      "type": "flashcard",
+      "front": "ask",
+      "back": "たずねる、頼む"
+    },
+    {
+      "id": "w36",
+      "type": "flashcard",
+      "front": "understand",
+      "back": "理解する"
+    },
+    {
+      "id": "w37",
+      "type": "flashcard",
+      "front": "speak",
+      "back": "話す"
+    },
+    {
+      "id": "w38",
+      "type": "flashcard",
+      "front": "listen",
+      "back": "聞く"
+    },
+    {
+      "id": "w39",
+      "type": "flashcard",
+      "front": "respect",
+      "back": "尊重する、尊敬する"
+    },
+    {
+      "id": "w40",
+      "type": "flashcard",
+      "front": "custom",
+      "back": "習慣"
+    }
+  ]
+}

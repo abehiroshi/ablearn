@@ -1,0 +1,247 @@
+{
+  "id": "eng-tango-unit5",
+  "title": "Unit 5 の単語（ユニバーサルデザイン・社会）",
+  "description": "NEW HORIZON 2 のUnitテーマに合わせた重要単語（オリジナル選定）",
+  "questions": [
+    {
+      "id": "w1",
+      "type": "flashcard",
+      "front": "design",
+      "back": "設計、デザイン"
+    },
+    {
+      "id": "w2",
+      "type": "flashcard",
+      "front": "universal",
+      "back": "すべての人の、共通の"
+    },
+    {
+      "id": "w3",
+      "type": "flashcard",
+      "front": "society",
+      "back": "社会"
+    },
+    {
+      "id": "w4",
+      "type": "flashcard",
+      "front": "people",
+      "back": "人々"
+    },
+    {
+      "id": "w5",
+      "type": "flashcard",
+      "front": "everyone",
+      "back": "みんな、だれでも"
+    },
+    {
+      "id": "w6",
+      "type": "flashcard",
+      "front": "elderly",
+      "back": "年配の"
+    },
+    {
+      "id": "w7",
+      "type": "flashcard",
+      "front": "blind",
+      "back": "目の不自由な"
+    },
+    {
+      "id": "w8",
+      "type": "flashcard",
+      "front": "wheelchair",
+      "back": "車いす"
+    },
+    {
+      "id": "w9",
+      "type": "flashcard",
+      "front": "ramp",
+      "back": "スロープ、傾斜路"
+    },
+    {
+      "id": "w10",
+      "type": "flashcard",
+      "front": "braille",
+      "back": "点字"
+    },
+    {
+      "id": "w11",
+      "type": "flashcard",
+      "front": "sign",
+      "back": "標識、記号"
+    },
+    {
+      "id": "w12",
+      "type": "flashcard",
+      "front": "symbol",
+      "back": "記号、シンボル"
+    },
+    {
+      "id": "w13",
+      "type": "flashcard",
+      "front": "product",
+      "back": "製品"
+    },
+    {
+      "id": "w14",
+      "type": "flashcard",
+      "front": "idea",
+      "back": "考え、アイデア"
+    },
+    {
+      "id": "w15",
+      "type": "flashcard",
+      "front": "example",
+      "back": "例"
+    },
+    {
+      "id": "w16",
+      "type": "flashcard",
+      "front": "invent",
+      "back": "発明する"
+    },
+    {
+      "id": "w17",
+      "type": "flashcard",
+      "front": "create",
+      "back": "つくり出す"
+    },
+    {
+      "id": "w18",
+      "type": "flashcard",
+      "front": "improve",
+      "back": "改善する"
+    },
+    {
+      "id": "w19",
+      "type": "flashcard",
+      "front": "support",
+      "back": "支える、支援する"
+    },
+    {
+      "id": "w20",
+      "type": "flashcard",
+      "front": "carry",
+      "back": "運ぶ"
+    },
+    {
+      "id": "w21",
+      "type": "flashcard",
+      "front": "hold",
+      "back": "持つ、にぎる"
+    },
+    {
+      "id": "w22",
+      "type": "flashcard",
+      "front": "push",
+      "back": "押す"
+    },
+    {
+      "id": "w23",
+      "type": "flashcard",
+      "front": "pull",
+      "back": "引く"
+    },
+    {
+      "id": "w24",
+      "type": "flashcard",
+      "front": "touch",
+      "back": "さわる"
+    },
+    {
+      "id": "w25",
+      "type": "flashcard",
+      "front": "feel",
+      "back": "感じる"
+    },
+    {
+      "id": "w26",
+      "type": "flashcard",
+      "front": "see",
+      "back": "見える、見る"
+    },
+    {
+      "id": "w27",
+      "type": "flashcard",
+      "front": "hear",
+      "back": "聞こえる"
+    },
+    {
+      "id": "w28",
+      "type": "flashcard",
+      "front": "move",
+      "back": "動く、動かす"
+    },
+    {
+      "id": "w29",
+      "type": "flashcard",
+      "front": "walk",
+      "back": "歩く"
+    },
+    {
+      "id": "w30",
+      "type": "flashcard",
+      "front": "stairs",
+      "back": "階段"
+    },
+    {
+      "id": "w31",
+      "type": "flashcard",
+      "front": "elevator",
+      "back": "エレベーター"
+    },
+    {
+      "id": "w32",
+      "type": "flashcard",
+      "front": "escalator",
+      "back": "エスカレーター"
+    },
+    {
+      "id": "w33",
+      "type": "flashcard",
+      "front": "entrance",
+      "back": "入り口"
+    },
+    {
+      "id": "w34",
+      "type": "flashcard",
+      "front": "exit",
+      "back": "出口"
+    },
+    {
+      "id": "w35",
+      "type": "flashcard",
+      "front": "public",
+      "back": "公共の"
+    },
+    {
+      "id": "w36",
+      "type": "flashcard",
+      "front": "safe",
+      "back": "安全な"
+    },
+    {
+      "id": "w37",
+      "type": "flashcard",
+      "front": "dangerous",
+      "back": "危険な"
+    },
+    {
+      "id": "w38",
+      "type": "flashcard",
+      "front": "everywhere",
+      "back": "いたるところに"
+    },
+    {
+      "id": "w39",
+      "type": "flashcard",
+      "front": "without",
+      "back": "〜なしで"
+    },
+    {
+      "id": "w40",
+      "type": "flashcard",
+      "front": "anyone",
+      "back": "だれでも、だれも"
+    }
+  ]
+}
