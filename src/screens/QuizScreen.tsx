@@ -18,6 +18,7 @@ import {
   OrderView,
 } from "../components/QuestionViews";
 import Abler from "../components/Abler";
+import { Encouragement, pickEncouragement } from "../lib/encouragement";
 import ScratchPad from "../components/ScratchPad";
 import { RANK_LABELS } from "../lib/mastery";
 import type { Milestone } from "../lib/milestones";
@@ -32,8 +33,12 @@ interface Feedback {
   promotedTo?: number | null;
   /** この解答で跨いだ節目（軽いチップで祝福） */
   milestones?: Milestone[];
-  /** つまずき検知（計画13）: レッスンや授業動画への誘導 */
-  struggle?: { lesson: SetMeta | null; links: ContentLink[] };
+  /** つまずき検知（計画13・24）: 励まし＋レッスンや授業動画への誘導 */
+  struggle?: {
+    encouragement: Encouragement;
+    lesson: SetMeta | null;
+    links: ContentLink[];
+  };
 }
 
 interface Props {
@@ -99,12 +104,11 @@ export default function QuizScreen({
   }
 
   /**
-   * つまずきカウンタを進め、誘導を出すべきなら誘導先を返す。
-   * 「繰り返し外し続ける体験」を断つための導線（無視して続けることもできる）
+   * つまずきカウンタを進め、検知したら励まし＋誘導先を返す（計画13・24）。
+   * 「繰り返し外し続ける体験」を断つための導線（無視して続けることもできる）。
+   * 誘導先が無くても励ましだけは出す（責めずに次の一歩を示す）
    */
-  function trackStruggle(
-    correct: boolean
-  ): { lesson: SetMeta | null; links: ContentLink[] } | undefined {
+  function trackStruggle(correct: boolean): Feedback["struggle"] {
     const q = current!.question;
     const key = q.concept ?? keyOf(current!);
     const hintsTotal = q.hints?.length ?? 0;
@@ -117,9 +121,8 @@ export default function QuizScreen({
       return undefined;
     const lesson = lessonFor?.(current!.setId) ?? null;
     const links = unitLinksFor?.(current!.setId) ?? [];
-    if (!lesson && links.length === 0) return undefined;
     struggleShown.current.add(key);
-    return { lesson, links };
+    return { encouragement: pickEncouragement(), lesson, links };
   }
 
   function submit(correct: boolean, correctText?: string) {
@@ -151,9 +154,14 @@ export default function QuizScreen({
     sessionMilestones.current.push(...milestones);
     setSessionXp((v) => v + xp);
 
-    const struggle = trackStruggle(correct);
+    // フラッシュカードは自己申告でフィードバックを挟まないため、
+    // つまずき検知に数えると励まし・誘導が表示されないまま
+    // 「セッション内1回」を消費してしまう。対象外にする
+    const struggle =
+      current.question.type === "flashcard"
+        ? undefined
+        : trackStruggle(correct);
 
-    // フラッシュカードは自己申告なのでフィードバックを挟まず次へ
     if (current.question.type === "flashcard") {
       advance(correct);
     } else {
@@ -375,9 +383,11 @@ export default function QuizScreen({
                 pose={
                   feedback.correct
                     ? "iine"
-                    : feedback.dontKnow
-                      ? "kangaechu"
-                      : "kuyashii"
+                    : feedback.struggle
+                      ? feedback.struggle.encouragement.pose
+                      : feedback.dontKnow
+                        ? "kangaechu"
+                        : "kuyashii"
                 }
                 size={60}
               />
@@ -385,9 +395,11 @@ export default function QuizScreen({
                 <div className="head">
                   {feedback.correct
                     ? "せいかい！ 🎉"
-                    : feedback.dontKnow
-                      ? "だいじょうぶ！いっしょに確認しよう"
-                      : "ざんねん…"}
+                    : feedback.struggle
+                      ? feedback.struggle.encouragement.text
+                      : feedback.dontKnow
+                        ? "だいじょうぶ！いっしょに確認しよう"
+                        : "ざんねん…"}
                 </div>
                 {feedback.promotedTo != null && (
                   <div className="rank-up">
@@ -417,10 +429,12 @@ export default function QuizScreen({
                       ))}
                     </div>
                   )}
-                {feedback.struggle && (
+                {feedback.struggle &&
+                  (feedback.struggle.lesson ||
+                    feedback.struggle.links.length > 0) && (
                   <div className="struggle-box">
                     <div style={{ fontWeight: 700, marginBottom: 8 }}>
-                      なんどもむずかしいときは、きほんにもどるのが近道だよ！
+                      きほんにもどるのが近道だよ！
                     </div>
                     {feedback.struggle.lesson ? (
                       <button
