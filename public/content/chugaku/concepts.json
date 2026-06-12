@@ -415,6 +415,112 @@
       "prerequisites": [
         "eng-ukemi-kihon"
       ]
+    },
+    {
+      "id": "soc-chiri-chikei",
+      "name": "日本の地形の区別（山地・扇状地・三角州）",
+      "set": "soc-chiri-tokushoku",
+      "prerequisites": []
+    },
+    {
+      "id": "soc-chiri-kikou",
+      "name": "気候区分と季節風の因果",
+      "set": "soc-chiri-tokushoku",
+      "prerequisites": [
+        "soc-chiri-chikei"
+      ]
+    },
+    {
+      "id": "soc-chiri-jinkou-sangyou",
+      "name": "人口・資源・産業の特色",
+      "set": "soc-chiri-tokushoku",
+      "prerequisites": []
+    },
+    {
+      "id": "soc-chiri-kyushu",
+      "name": "九州地方の自然と産業",
+      "set": "soc-chiri-shochiiki",
+      "prerequisites": [
+        "soc-chiri-kikou"
+      ]
+    },
+    {
+      "id": "soc-chiri-nishinihon",
+      "name": "中国・四国・近畿の特色",
+      "set": "soc-chiri-shochiiki",
+      "prerequisites": [
+        "soc-chiri-kikou"
+      ]
+    },
+    {
+      "id": "soc-chiri-tohoku",
+      "name": "東北地方の自然と災害の因果",
+      "set": "soc-chiri-higashinihon",
+      "prerequisites": [
+        "soc-chiri-kikou"
+      ]
+    },
+    {
+      "id": "soc-chiri-kanto-hokkaido",
+      "name": "関東・北海道の特色",
+      "set": "soc-chiri-higashinihon",
+      "prerequisites": [
+        "soc-chiri-chikei"
+      ]
+    },
+    {
+      "id": "soc-kinsei-nobunaga",
+      "name": "信長の統一事業（目的で覚える）",
+      "set": "soc-rekishi-kinsei",
+      "prerequisites": []
+    },
+    {
+      "id": "soc-kinsei-hideyoshi",
+      "name": "秀吉の政策と兵農分離",
+      "set": "soc-rekishi-kinsei",
+      "prerequisites": [
+        "soc-kinsei-nobunaga"
+      ]
+    },
+    {
+      "id": "soc-edo-bakuhan",
+      "name": "江戸幕府の大名統制のしくみ",
+      "set": "soc-edo-basic",
+      "prerequisites": [
+        "soc-kinsei-hideyoshi"
+      ]
+    },
+    {
+      "id": "soc-meiji-kaikoku",
+      "name": "開国と不平等条約（和親と通商の区別）",
+      "set": "soc-meiji-ishin",
+      "prerequisites": [
+        "soc-edo-bakuhan"
+      ]
+    },
+    {
+      "id": "soc-meiji-kaikaku",
+      "name": "明治政府の改革",
+      "set": "soc-meiji-ishin",
+      "prerequisites": [
+        "soc-meiji-kaikoku"
+      ]
+    },
+    {
+      "id": "soc-kindai-sensou",
+      "name": "日清・日露戦争の対比（講和条約）",
+      "set": "soc-kindai-sangyou",
+      "prerequisites": [
+        "soc-meiji-kaikaku"
+      ]
+    },
+    {
+      "id": "soc-kindai-jouyaku-sangyou",
+      "name": "条約改正と産業革命",
+      "set": "soc-kindai-sangyou",
+      "prerequisites": [
+        "soc-meiji-kaikoku"
+      ]
     }
   ]
 }

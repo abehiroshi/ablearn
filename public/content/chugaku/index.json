@@ -520,6 +520,11 @@
               "id": "soc-chiri-tokushoku",
               "name": "日本の地域的特色",
               "file": "social/chiri-nihon-tokushoku.json"
+            },
+            {
+              "id": "soc-chiri-tokushoku-cards",
+              "name": "地域的特色の用語カード",
+              "file": "social/chiri-tokushoku-cards.json"
             }
           ]
         },
@@ -553,6 +558,11 @@
               "id": "soc-chiri-shochiiki",
               "name": "日本の諸地域（九州・中国四国・近畿）",
               "file": "social/chiri-shochiiki.json"
+            },
+            {
+              "id": "soc-chiri-shochiiki-cards",
+              "name": "西日本の用語カード",
+              "file": "social/chiri-shochiiki-cards.json"
             }
           ]
         },
@@ -567,6 +577,11 @@
               "id": "soc-meiji-ishin",
               "name": "開国と明治維新",
               "file": "social/meiji-ishin.json"
+            },
+            {
+              "id": "soc-meiji-cards",
+              "name": "明治維新の用語カード",
+              "file": "social/meiji-cards.json"
             }
           ]
         },
@@ -581,6 +596,11 @@
               "id": "soc-chiri-higashinihon",
               "name": "日本の諸地域（東日本）",
               "file": "social/chiri-higashinihon.json"
+            },
+            {
+              "id": "soc-chiri-higashi-cards",
+              "name": "東日本の用語カード",
+              "file": "social/chiri-higashi-cards.json"
             }
           ]
         },
@@ -595,6 +615,11 @@
               "id": "soc-kindai-sangyou",
               "name": "日清・日露戦争と近代産業",
               "file": "social/kindai-sangyou.json"
+            },
+            {
+              "id": "soc-kindai-cards",
+              "name": "日清・日露の用語カード",
+              "file": "social/kindai-cards.json"
             }
           ]
         }
