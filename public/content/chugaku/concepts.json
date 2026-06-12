@@ -67,6 +67,35 @@
       "name": "化学反応式の係数",
       "set": "sci-kagaku-hannoushiki",
       "prerequisites": ["sci-kagaku-shiki"]
+    },
+    {
+      "id": "sci-saibou-tsukuri",
+      "name": "細胞のつくり",
+      "set": "sci-seibutsu-saibou",
+      "prerequisites": []
+    },
+    {
+      "id": "sci-kougousei",
+      "name": "光合成のしくみ",
+      "set": "sci-seibutsu-saibou",
+      "prerequisites": ["sci-saibou-tsukuri"]
+    },
+    {
+      "id": "sci-shouka-kouso",
+      "name": "消化酵素のはたらき",
+      "set": "sci-karada-hataraki",
+      "prerequisites": []
+    },
+    {
+      "id": "sho-wariai",
+      "name": "小学: 割合の計算",
+      "prerequisites": []
+    },
+    {
+      "id": "sci-shitsudo-keisan",
+      "name": "湿度の計算",
+      "set": "sci-tenki-shitsudo",
+      "prerequisites": ["sho-wariai"]
     }
   ]
 }

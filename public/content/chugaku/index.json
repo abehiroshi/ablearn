@@ -228,6 +228,97 @@
               "url": "https://www.youtube.com/@ponyoani"
             }
           ]
+        },
+        {
+          "id": "seibutsu-karada",
+          "name": "生物のからだのつくりとはたらき",
+          "sets": [
+            {
+              "id": "sci-seibutsu-saibou",
+              "name": "細胞と植物のはたらき",
+              "file": "science/seibutsu-saibou.json"
+            },
+            {
+              "id": "sci-karada-hataraki",
+              "name": "消化・呼吸・血液のはたらき",
+              "file": "science/karada-hataraki.json"
+            }
+          ],
+          "links": [
+            {
+              "label": "動画b01: 細胞と組織",
+              "url": "https://youtu.be/NHxNRpMbfwo"
+            },
+            {
+              "label": "動画b02: 細胞のつくり・細胞呼吸",
+              "url": "https://youtu.be/WfrCFQde3ws"
+            },
+            {
+              "label": "動画b03: 光合成",
+              "url": "https://youtu.be/ZiKXqfdq3xc"
+            },
+            {
+              "label": "動画b04: 維管束",
+              "url": "https://youtu.be/kuAogZZE52U"
+            },
+            {
+              "label": "動画b05: 気孔と蒸散",
+              "url": "https://youtu.be/juDCCxzZ3Ek"
+            },
+            {
+              "label": "動画b06: だ液と消化",
+              "url": "https://youtu.be/k0RaKgzukO0"
+            },
+            {
+              "label": "動画b07: 消化酵素と吸収",
+              "url": "https://youtu.be/0tJirPg33L0"
+            },
+            {
+              "label": "動画b08: 肺呼吸と排出",
+              "url": "https://youtu.be/jKRdfUK_Mmw"
+            },
+            {
+              "label": "動画b09: 血液と循環",
+              "url": "https://youtu.be/-nJZyUayUo4"
+            },
+            {
+              "label": "動画b10: 感覚器官",
+              "url": "https://youtu.be/Aj9H0DR6_2o"
+            },
+            {
+              "label": "動画b11: 刺激と反応・神経",
+              "url": "https://youtu.be/A1a1Cbhvv7g"
+            }
+          ]
+        },
+        {
+          "id": "tenki",
+          "name": "天気とその変化",
+          "sets": [
+            {
+              "id": "sci-tenki-shitsudo",
+              "name": "湿度と雲のでき方",
+              "file": "science/tenki-shitsudo.json"
+            }
+          ],
+          "links": [
+            {
+              "label": "動画e01: 大気圧",
+              "url": "https://youtu.be/VvAtPl915_s"
+            },
+            {
+              "label": "動画e02: 気象観測と天気図",
+              "url": "https://youtu.be/CSsPJHJcVXk"
+            },
+            {
+              "label": "動画e03: 霧と雲のでき方",
+              "url": "https://youtu.be/yC-A00sx3FE"
+            },
+            {
+              "label": "動画: 湿度の計算復習",
+              "url": "https://youtu.be/jBPQRXP22sI"
+            }
+          ]
         }
       ]
     },
