@@ -1,0 +1,77 @@
+{
+  "title": "漢検 準2級",
+  "subjects": [
+    {
+      "id": "pre2",
+      "name": "準2級",
+      "color": "#d0454c",
+      "icon": "✍️",
+      "units": [
+        {
+          "id": "yomi",
+          "name": "読み",
+          "sets": [
+            { "id": "pre2-yomi-1", "name": "読み 基本1", "file": "pre2/yomi-1.json" }
+          ]
+        },
+        {
+          "id": "bushu",
+          "name": "部首",
+          "sets": [
+            { "id": "pre2-bushu-1", "name": "部首 基本1", "file": "pre2/bushu-1.json" }
+          ]
+        },
+        {
+          "id": "jukugo-kousei",
+          "name": "熟語の構成",
+          "sets": [
+            { "id": "pre2-jukugo-kousei-1", "name": "熟語の構成 基本1", "file": "pre2/jukugo-kousei-1.json" }
+          ]
+        },
+        {
+          "id": "yoji",
+          "name": "四字熟語",
+          "sets": [
+            { "id": "pre2-yoji-kaki-1", "name": "四字熟語（書き）基本1", "file": "pre2/yoji-kaki-1.json" },
+            { "id": "pre2-yoji-imi-1", "name": "四字熟語（意味）基本1", "file": "pre2/yoji-imi-1.json" }
+          ]
+        },
+        {
+          "id": "taigi-ruigi",
+          "name": "対義語・類義語",
+          "sets": [
+            { "id": "pre2-taigi-ruigi-1", "name": "対義語・類義語 基本1", "file": "pre2/taigi-ruigi-1.json" }
+          ]
+        },
+        {
+          "id": "doon-dokun",
+          "name": "同音・同訓異字",
+          "sets": [
+            { "id": "pre2-doon-dokun-1", "name": "同音・同訓異字 基本1", "file": "pre2/doon-dokun-1.json" }
+          ]
+        },
+        {
+          "id": "goji-teisei",
+          "name": "誤字訂正",
+          "sets": [
+            { "id": "pre2-goji-teisei-1", "name": "誤字訂正 基本1", "file": "pre2/goji-teisei-1.json" }
+          ]
+        },
+        {
+          "id": "okurigana",
+          "name": "漢字と送りがな",
+          "sets": [
+            { "id": "pre2-okurigana-1", "name": "漢字と送りがな 基本1", "file": "pre2/okurigana-1.json" }
+          ]
+        },
+        {
+          "id": "kakitori",
+          "name": "書き取り",
+          "sets": [
+            { "id": "pre2-kakitori-1", "name": "書き取り 基本1", "file": "pre2/kakitori-1.json" }
+          ]
+        }
+      ]
+    }
+  ]
+}

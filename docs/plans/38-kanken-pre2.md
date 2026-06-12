@@ -1,8 +1,8 @@
 # 漢検 準2級コレクション（kanken）
 
-- 状態: 未着手
+- 状態: 完了（2026-06-12）
 - 触るファイル範囲: `public/content/kanken/`・`public/content/collections.json`・`kanken/index.html`＋`vite.config.ts`（input追加）・`public/manifest-kanken` 関連・`docs/content-generation.md`（漢検向け注意の追記）。`src/` は原則触らない（既存4形式で構成できなくなった場合のみ別計画に切り出す）
-- 引き継ぎメモ: なし
+- 引き継ぎメモ: 実装済み。`src/` は無変更（既存4形式のみで構成）。器＝collections.json＋`kanken/index.html`＋vite input＋`manifest-kanken.webmanifest`（PWA名「漢検問題集」・テーマ色 #d0454c）。アイコン `icons/kanken-{192,512}.png` は gen-icons.mjs を色違い拡張したプレースホルダ（正式版は外部制作で差し替え可）。コンテンツは `public/content/kanken/pre2/` に10セット約102問（読み=input、部首・熟語の構成・四字熟語の意味=choice、書き系=flashcard で手書き→自己採点。flashcard 画面に既存の手書き余白が出ることを確認済み）。Breaker レビュー実施（major 1件=部首の覚え方の事実誤り→修正・再確認済み。minor のうち誤字訂正の同音型統一・範囲外字の差し替えも対応）。**残り（次セッション向け）**: 四字熟語2セットは4〜3級レベル寄りなので「基本2」以降で準2配当の四字熟語を補強する。配当漢字のカバー率はまだ低く、セット追加は docs/content-generation.md の「漢検コレクション（kanken）の注意」に従う
 
 ## 目的
 

@@ -15,6 +15,7 @@ export default defineConfig({
       input: {
         landing: resolve(__dirname, "index.html"),
         chugaku: resolve(__dirname, "chugaku/index.html"),
+        kanken: resolve(__dirname, "kanken/index.html"),
       },
     },
   },
