@@ -7,6 +7,23 @@ import { join } from "node:path";
 
 const CHECK_LINKS = process.argv.includes("--links");
 const CONTENT = "public/content";
+
+// ===== 品質基準（計画41: 高水準化プログラムの土台） =====
+// 「高水準」の数値定義。コレクション別に持つ（kanken は flashcard・一問一答中心で
+// 性質が違うため適用しない）。対象は演習セット（kind が lesson 以外）の
+// choice / input / order 問題。flashcard は concept・難易度の対象外。
+// conceptRate と概念別チェック（変種数・input可能数・難度展開）は計画42〜45で
+// コンテンツを引き上げる移行期間中は警告扱いとし、計画45完了時にエラーへ昇格する。
+const QUALITY = {
+  chugaku: {
+    explanationRate: 1.0, // explanation（ステップ＋理由）100%
+    twoHintRate: 1.0, // 2段ヒント（弱→強）100%
+    advancedRate: 0.15, // 教科ごとの難易度3（応用）比率
+    conceptRate: 0.85, // 教科ごとの concept 付与率（移行中: 警告）
+    conceptVariants: 5, // 概念ごとの変種数（移行中: 警告）
+    conceptInputCapable: 2, // 概念ごとの input 可能変種数（移行中: 警告）
+  },
+};
 const errors = [];
 const warnings = [];
 const err = (msg) => errors.push(msg);
@@ -42,6 +59,8 @@ for (const collection of collections) {
 
 function validateCollection(ROOT, collectionId) {
 const index = JSON.parse(readFileSync(join(ROOT, "index.json"), "utf8"));
+const quality = QUALITY[collectionId];
+const EXERCISE_TYPES = new Set(["choice", "input", "order"]);
 
 function checkLinks(label, links) {
   if (!Array.isArray(links)) return err(`${label}: links が配列でない`);
@@ -71,6 +90,9 @@ for (const subject of index.subjects) {
   if (seenIcons.has(subject.icon))
     err(`subject ${subject.id}: icon が ${seenIcons.get(subject.icon)} と重複`);
   seenIcons.set(subject.icon, subject.id);
+  // 品質基準の集計（計画41）。演習セットの choice/input/order のみ対象
+  const qstat = { ex: 0, concept: 0, adv: 0 };
+  const ladders = new Map(); // `${setId}/${concept}` → 変種の配列
   for (const unit of subject.units ?? []) {
     if (unit.links) checkLinks(`${subject.id}/${unit.id}`, unit.links);
     // 定期テストの語彙（計画35）。src/types.ts の TERM_TESTS と揃える
@@ -196,7 +218,52 @@ for (const subject of index.subjects) {
           conceptsBySet.get(meta.id).add(q.concept);
         }
         if (q.links !== undefined) checkLinks(ql, q.links);
+        // 品質基準（計画41）: 演習問題は explanation と2段ヒントを必須にする
+        if (quality && set.kind !== "lesson" && EXERCISE_TYPES.has(q.type)) {
+          qstat.ex++;
+          if (!q.explanation)
+            err(`${ql}: explanation がない（品質基準: ステップ＋理由で100%）`);
+          if ((q.hints?.length ?? 0) < 2)
+            err(`${ql}: ヒントが2段ない（品質基準: 弱→強の2段で100%）`);
+          if (q.concept) {
+            qstat.concept++;
+            const lk = `${meta.id}/${q.concept}`;
+            if (!ladders.has(lk)) ladders.set(lk, []);
+            ladders.get(lk).push(q);
+          }
+          if (q.difficulty === 3) qstat.adv++;
+        }
       }
+    }
+  }
+  // 品質基準（計画41）: 教科ごとの集計チェック
+  if (quality && qstat.ex > 0) {
+    const pct = (n) => Math.round((n / qstat.ex) * 100);
+    if (qstat.adv / qstat.ex < quality.advancedRate)
+      err(
+        `${subject.id}: 難易度3（応用）が ${qstat.adv}/${qstat.ex} 問 = ${pct(qstat.adv)}%（基準 ${quality.advancedRate * 100}% 以上）`
+      );
+    if (qstat.concept / qstat.ex < quality.conceptRate)
+      warn(
+        `${subject.id}: concept 付与率 ${pct(qstat.concept)}%（目標 ${quality.conceptRate * 100}%。計画42〜45で引き上げ・45完了時にエラー昇格）`
+      );
+    // 概念別チェック（移行中は警告。計画45完了時にエラーへ昇格）
+    for (const [lk, vs] of ladders) {
+      const fails = [];
+      if (vs.length < quality.conceptVariants)
+        fails.push(`変種${vs.length}/${quality.conceptVariants}`);
+      const inputCapable = vs.filter(
+        (v) => v.type === "input" || (v.type === "choice" && v.answers?.length)
+      ).length;
+      if (inputCapable < quality.conceptInputCapable)
+        fails.push(`input可${inputCapable}/${quality.conceptInputCapable}`);
+      const stages = new Set(
+        vs.map((v) => ((v.difficulty ?? 2) >= 3 ? 2 : v.type === "choice" ? 0 : 1))
+      );
+      if (!(stages.has(0) && stages.has(1) && stages.has(2)))
+        fails.push(`難度展開 stage{${[...stages].sort().join(",")}}`);
+      if (fails.length)
+        warn(`${lk}: 概念別基準が未達 [${fails.join(" / ")}]（計画42〜45で解消）`);
     }
   }
 }
