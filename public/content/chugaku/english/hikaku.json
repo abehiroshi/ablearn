@@ -7,42 +7,61 @@
       "id": "q1",
       "type": "choice",
       "question": "This bag is ( ) than mine.",
-      "choices": ["bigger", "big", "biggest", "more big"],
+      "choices": [
+        "bigger",
+        "big",
+        "biggest",
+        "more big"
+      ],
       "answer": 0,
-      "answers": ["bigger"],
+      "answers": [
+        "bigger"
+      ],
       "difficulty": 1,
       "explanation": "①than（〜より）があるので比較級。②big は短い語なので -er をつける（g を重ねて bigger）。more big とは言わない。",
       "hints": [
         "than があるときの形容詞の形は？",
         "big + er（つづりに注意）"
-      ]
+      ],
+      "concept": "eng-hikaku-katachi"
     },
     {
       "id": "q2",
       "type": "choice",
       "question": "Tom is the ( ) in his class.",
-      "choices": ["tallest", "taller", "tall", "most tall"],
+      "choices": [
+        "tallest",
+        "taller",
+        "tall",
+        "most tall"
+      ],
       "answer": 0,
-      "answers": ["tallest"],
+      "answers": [
+        "tallest"
+      ],
       "difficulty": 2,
       "explanation": "①「クラスの中でいちばん〜」は最上級。the + 最上級 + in（範囲）。②tall は短い語なので -est。the を忘れないこと。",
       "hints": [
         "「いちばん」を表す形は？",
         "the + 〜est + in 範囲"
-      ]
+      ],
+      "concept": "eng-hikaku-katachi"
     },
     {
       "id": "q3",
       "type": "input",
       "question": "This question is ( ) difficult than that one.（「あの問題より難しい」になるように1語で）",
-      "answers": ["more"],
+      "answers": [
+        "more"
+      ],
       "placeholder": "1語で答えよう",
       "difficulty": 2,
       "explanation": "①difficult のような長い形容詞は -er をつけず、前に more を置いて比較級にする。②長い語（difficult・beautiful・interesting・popular など）= more / most のグループ。",
       "hints": [
         "difficult に -er はつけられる？",
         "長い形容詞の比較級は「○○○ + 形容詞」"
-      ]
+      ],
+      "concept": "eng-hikaku-katachi"
     },
     {
       "id": "q4",
@@ -60,59 +79,115 @@
       "hints": [
         "in と of の使い分けのルールを思い出そう",
         "Japan は「場所・範囲」？「複数のもの」？"
-      ]
+      ],
+      "concept": "eng-hikaku-kubun"
     },
     {
       "id": "q5",
       "type": "order",
       "question": "「私の犬はあなたの犬と同じくらい大きい。」",
-      "tokens": ["My dog", "is", "as big as", "yours."],
+      "tokens": [
+        "My dog",
+        "is",
+        "as big as",
+        "yours."
+      ],
       "difficulty": 2,
       "explanation": "①「同じくらい〜」は as + 原級 + as（形容詞は元の形のまま）。②as bigger as としないこと。",
       "hints": [
         "「同じくらい」は as 〜 as ではさむ",
         "as と as の間の形容詞は元の形"
-      ]
+      ],
+      "concept": "eng-hikaku-kubun"
     },
     {
       "id": "q6",
       "type": "choice",
       "question": "I like summer ( ) than winter.",
-      "choices": ["better", "more good", "well", "best"],
+      "choices": [
+        "better",
+        "more good",
+        "well",
+        "best"
+      ],
       "answer": 0,
-      "answers": ["better"],
+      "answers": [
+        "better"
+      ],
       "difficulty": 2,
       "explanation": "①like A better than B = 「BよりAが好き」。②good / well の比較級は better（不規則変化）。more good とは言わない。",
       "hints": [
         "「〜より好き」は like 〜 ( ) than",
         "good の比較級は不規則"
-      ]
+      ],
+      "concept": "eng-hikaku-kubun"
     },
     {
       "id": "q7",
       "type": "input",
       "question": "「富士山は日本でいちばん高い山です。」 Mt. Fuji is the ( ) mountain in Japan.（1語で）",
-      "answers": ["highest", "tallest"],
+      "answers": [
+        "highest",
+        "tallest"
+      ],
       "placeholder": "例: highest",
       "difficulty": 3,
       "explanation": "「いちばん高い」は the + 最上級。山の高さはふつう high を使い、the highest mountain。範囲が場所（Japan）なので in Japan。",
       "hints": [
         "「いちばん」なので最上級",
         "high + est"
-      ]
+      ],
+      "concept": "eng-hikaku-katachi"
     },
     {
       "id": "q8",
       "type": "choice",
       "question": "\"Which do you like ( ), tea or coffee?\"",
-      "choices": ["better", "best", "well", "more better"],
+      "choices": [
+        "better",
+        "best",
+        "well",
+        "more better"
+      ],
       "answer": 0,
-      "answers": ["better"],
+      "answers": [
+        "better"
+      ],
       "difficulty": 3,
       "explanation": "①2つのものを比べて「どちらが好き？」は Which do you like better, A or B?。②3つ以上の中から「どれがいちばん？」なら the best を使う。比べる数で better / best を使い分ける。",
       "hints": [
         "tea or coffee は2つの比較",
         "2つなら比較級、3つ以上なら最上級"
+      ],
+      "concept": "eng-hikaku-kubun"
+    },
+    {
+      "id": "q9",
+      "type": "choice",
+      "question": "long（長い）の比較級は？",
+      "choices": ["longer", "more long", "longest", "longger"],
+      "answer": 0,
+      "answers": ["longer"],
+      "concept": "eng-hikaku-katachi",
+      "difficulty": 1,
+      "explanation": "long は短い語なので -er をつけて longer。big のように最後の文字を重ねるのは「短母音＋子音1つ」で終わる語だけで、long はそのまま -er。",
+      "hints": [
+        "long は短い語。短い語の比較級の作り方は？",
+        "そのまま -er をつける。g は重ねない"
+      ]
+    },
+    {
+      "id": "q10",
+      "type": "input",
+      "question": "「トムはケンと同じくらい背が高い。」 Tom is as ( ) as Ken.（1語で）",
+      "answers": ["tall"],
+      "placeholder": "1語で答えよう",
+      "concept": "eng-hikaku-kubun",
+      "difficulty": 2,
+      "explanation": "①「同じくらい〜」は as + 原級 + as。②as と as の間の形容詞は元の形（原級）のままなので tall。taller としないこと。",
+      "hints": [
+        "as 〜 as の間に入る形容詞の形は？",
+        "比較級にはしない。「背が高い」の元の形のまま"
       ]
     }
   ]

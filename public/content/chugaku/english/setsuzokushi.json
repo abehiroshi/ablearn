@@ -9,6 +9,9 @@
       "question": "( ) I got home, my mother was cooking.\n「私が家に着いたとき、母は料理をしていた」",
       "choices": ["When", "If", "That", "Because"],
       "answer": 0,
+      "answers": ["when"],
+      "concept": "eng-setsuzoku-sentaku",
+      "difficulty": 1,
       "explanation": "「〜するとき」は when。when 〜 のまとまりが文の前半に来るときは、区切りにコンマを置く。",
       "hints": [
         "日本語訳の「〜とき」に注目",
@@ -21,22 +24,13 @@
       "question": "( ) it is sunny tomorrow, let's go to the park.\n「もし明日晴れたら、公園に行こう」",
       "choices": ["If", "That", "Because", "But"],
       "answer": 0,
+      "answers": ["if"],
+      "concept": "eng-setsuzoku-sentaku",
+      "difficulty": 1,
       "explanation": "「もし〜なら」は if。",
       "hints": [
         "日本語訳の「もし〜たら」に注目",
         "「もし〜なら」を表す接続詞は if"
-      ]
-    },
-    {
-      "id": "q3",
-      "type": "choice",
-      "question": "I think ( ) this book is interesting.\n「私はこの本はおもしろいと思います」",
-      "choices": ["that", "when", "if", "because"],
-      "answer": 0,
-      "explanation": "「〜ということ」を表す that。I think (that) 〜 の that は省略できる。",
-      "hints": [
-        "think のあとに「〜ということ」の文をつなぐ語は？",
-        "I think that + 主語 + 動詞。「〜と思う」のセットで覚えよう"
       ]
     },
     {
@@ -45,67 +39,13 @@
       "question": "I stayed home ( ) I was sick.\n「病気だったので家にいました」",
       "choices": ["because", "if", "that", "when"],
       "answer": 0,
+      "answers": ["because"],
+      "concept": "eng-setsuzoku-sentaku",
+      "difficulty": 1,
       "explanation": "理由「〜だから」は because。",
       "hints": [
         "日本語訳の「〜ので」＝理由を表している",
         "理由「〜だから・〜なので」を表す接続詞は because"
-      ]
-    },
-    {
-      "id": "q5",
-      "type": "choice",
-      "question": "If it ( ) tomorrow, we will not play outside.\n「もし明日雨が降ったら、外では遊びません」",
-      "choices": ["rains", "will rain", "rained", "raining"],
-      "answer": 0,
-      "explanation": "if のまとまりの中では、未来のことでも現在形で表す。if it will rain とは言わない。",
-      "hints": [
-        "tomorrow（未来）だけど、if のまとまりの中では特別ルールがある",
-        "if の中は未来でも現在形。主語が it だから三単現の s も忘れずに"
-      ]
-    },
-    {
-      "id": "q6",
-      "type": "order",
-      "question": "「私は彼が親切だと思います」になるように並べよう",
-      "tokens": ["I", "think", "that", "he", "is kind"],
-      "explanation": "I think that 〜。that のあとは 主語 + 動詞 の文が続く。",
-      "hints": [
-        "まず「私は思う」、そのあとに「〜ということ」をつなぐ",
-        "I think that のあとに 主語（he）+ 動詞（is kind）の文を続ける"
-      ]
-    },
-    {
-      "id": "q7",
-      "type": "order",
-      "question": "「もし暇なら、私を手伝ってください」になるように並べよう",
-      "tokens": ["Please help me", "if", "you", "are free"],
-      "explanation": "Please help me if you are free. if 〜 は文の後半にも置ける（その場合コンマは不要）。",
-      "hints": [
-        "お願いの文を先に置いて、「もし〜なら」をあとに足す形",
-        "Please help me + if + 主語 + 動詞。if のまとまりは後半にも置ける"
-      ]
-    },
-    {
-      "id": "q8",
-      "type": "order",
-      "question": "「私が彼に電話したとき、彼は眠っていました」になるように並べよう",
-      "tokens": ["He", "was sleeping", "when", "I called him"],
-      "explanation": "He was sleeping when I called him. 「〜していた」は過去進行形 was/were + ing。",
-      "hints": [
-        "「彼は眠っていた」を先に置き、「〜したとき」をあとにつなぐ",
-        "He was sleeping + when + I called him の順"
-      ]
-    },
-    {
-      "id": "q9",
-      "type": "choice",
-      "question": "I hope ( ) you will like this present.\n「あなたがこのプレゼントを気に入ってくれるといいな」",
-      "choices": ["that", "because", "if", "but"],
-      "answer": 0,
-      "explanation": "hope (that) 〜 で「〜だといいなと思う」。think / know / hope などのあとに that の文が続く。",
-      "hints": [
-        "hope は think と同じく「〜ということ」の文を続けられる動詞",
-        "I hope that + 主語 + 動詞。「〜だといいな」のセット"
       ]
     },
     {
@@ -114,10 +54,103 @@
       "question": "I was watching TV ( ) my father came home.\n「父が帰宅したとき、私はテレビを見ていた」",
       "choices": ["when", "that", "if", "or"],
       "answer": 0,
+      "answers": ["when"],
+      "concept": "eng-setsuzoku-sentaku",
+      "difficulty": 2,
       "explanation": "「〜したとき」は when。過去進行形（was watching）と過去形（came）の組み合わせは定期テスト頻出。",
       "hints": [
         "日本語訳の「〜とき」に注目",
         "「〜したとき」は when。「見ていた最中に父が帰ってきた」という時の関係"
+      ]
+    },
+    {
+      "id": "q12",
+      "type": "input",
+      "question": "「なぜ家にいたの？」への答え:\n「疲れていたからです」 ( ) I was tired.（1語で）",
+      "answers": ["because"],
+      "placeholder": "1語で答えよう",
+      "concept": "eng-setsuzoku-sentaku",
+      "difficulty": 2,
+      "explanation": "①Why 〜? の質問に理由で答えるときは Because 〜. を使う。②「疲れていたから」= Because I was tired.",
+      "hints": [
+        "理由を表す接続詞",
+        "Why（なぜ）に答えるときの決まった1語。b で始まる"
+      ]
+    },
+    {
+      "id": "q13",
+      "type": "choice",
+      "question": "意味が通る文になるように、適切な方を選ぼう。\n「雨がやんだら出かけよう」",
+      "choices": [
+        "Let's go out if the rain stops.",
+        "Let's go out because the rain stops.",
+        "Let's go out that the rain stops.",
+        "Let's go out, the rain stops."
+      ],
+      "answer": 0,
+      "concept": "eng-setsuzoku-sentaku",
+      "difficulty": 3,
+      "explanation": "①「雨がやんだら」＝まだやんでいない仮定の話なので if。②because にすると「雨がやむから出かける」という理由になり不自然。③接続詞なしでコンマだけで文はつなげない。日本語の「〜たら」が if（仮定）か when（時）かを文脈で判断するのが応用ポイント。",
+      "hints": [
+        "「やんだら」は仮定？理由？",
+        "まだ起きていないことを仮定してつなぐ接続詞は if"
+      ]
+    },
+    {
+      "id": "q3",
+      "type": "choice",
+      "question": "I think ( ) this book is interesting.\n「私はこの本はおもしろいと思います」",
+      "choices": ["that", "when", "if", "because"],
+      "answer": 0,
+      "answers": ["that"],
+      "concept": "eng-setsuzoku-that",
+      "difficulty": 1,
+      "explanation": "「〜ということ」を表す that。I think (that) 〜 の that は省略できる。",
+      "hints": [
+        "think のあとに「〜ということ」の文をつなぐ語は？",
+        "I think that + 主語 + 動詞。「〜と思う」のセットで覚えよう"
+      ]
+    },
+    {
+      "id": "q6",
+      "type": "order",
+      "question": "「私は彼が親切だと思います」になるように並べよう",
+      "tokens": ["I", "think", "that", "he", "is kind"],
+      "concept": "eng-setsuzoku-that",
+      "difficulty": 2,
+      "explanation": "I think that 〜。that のあとは 主語 + 動詞 の文が続く。",
+      "hints": [
+        "まず「私は思う」、そのあとに「〜ということ」をつなぐ",
+        "I think that のあとに 主語（he）+ 動詞（is kind）の文を続ける"
+      ]
+    },
+    {
+      "id": "q9",
+      "type": "choice",
+      "question": "I hope ( ) you will like this present.\n「あなたがこのプレゼントを気に入ってくれるといいな」",
+      "choices": ["that", "because", "if", "but"],
+      "answer": 0,
+      "answers": ["that"],
+      "concept": "eng-setsuzoku-that",
+      "difficulty": 2,
+      "explanation": "hope (that) 〜 で「〜だといいなと思う」。think / know / hope などのあとに that の文が続く。",
+      "hints": [
+        "hope は think と同じく「〜ということ」の文を続けられる動詞",
+        "I hope that + 主語 + 動詞。「〜だといいな」のセット"
+      ]
+    },
+    {
+      "id": "q14",
+      "type": "input",
+      "question": "「私は彼女が正しいと知っています」 I know ( ) she is right.（1語で。省略しない形で書こう）",
+      "answers": ["that"],
+      "placeholder": "1語で答えよう",
+      "concept": "eng-setsuzoku-that",
+      "difficulty": 2,
+      "explanation": "①know のあとに「〜ということ」の文を続けるときは that でつなぐ。②think / know / hope / say などのあとの that は省略してもよいが、ここでは省略しない形を書く。",
+      "hints": [
+        "「〜ということ」を表す接続詞",
+        "I know that + 主語 + 動詞 の形"
       ]
     },
     {
@@ -126,11 +159,89 @@
       "question": "I think that he ( ) busy tomorrow.\n「彼は明日忙しいだろうと思います」",
       "choices": ["will be", "is going", "be", "was"],
       "answer": 0,
-      "explanation": "that のあとは普通の文が続くので、未来のことは will + 原形で表す（if の中のような現在形ルールはない）。busy の前なので be動詞の原形 be を使い will be。is going は to が無いので不可。",
+      "answers": ["will be", "willbe"],
+      "concept": "eng-setsuzoku-that",
       "difficulty": 3,
+      "explanation": "that のあとは普通の文が続くので、未来のことは will + 原形で表す（if の中のような現在形ルールはない）。busy の前なので be動詞の原形 be を使い will be。is going は to が無いので不可。",
       "hints": [
         "tomorrow＝未来。that のあとの文は、if の中と違って未来形をそのまま使う",
         "「忙しい」busy の前には be動詞。will のあとは原形だから will ◯◯"
+      ]
+    },
+    {
+      "id": "q5",
+      "type": "choice",
+      "question": "If it ( ) tomorrow, we will not play outside.\n「もし明日雨が降ったら、外では遊びません」",
+      "choices": ["rains", "will rain", "rained", "raining"],
+      "answer": 0,
+      "answers": ["rains"],
+      "concept": "eng-setsuzoku-jisei",
+      "difficulty": 2,
+      "explanation": "if のまとまりの中では、未来のことでも現在形で表す。if it will rain とは言わない。",
+      "hints": [
+        "tomorrow（未来）だけど、if のまとまりの中では特別ルールがある",
+        "if の中は未来でも現在形。主語が it だから三単現の s も忘れずに"
+      ]
+    },
+    {
+      "id": "q15",
+      "type": "choice",
+      "question": "if や when のまとまりの中で、未来のことを表すときの動詞の形は？",
+      "choices": ["現在形", "will + 原形", "過去形", "ing形"],
+      "answer": 0,
+      "answers": ["現在形", "げんざいけい"],
+      "concept": "eng-setsuzoku-jisei",
+      "difficulty": 1,
+      "explanation": "if / when のまとまり（条件・時を表す部分）の中では、未来の内容でも現在形を使う。will は主節（文の本体）の方で使う。",
+      "hints": [
+        "If it rains tomorrow, … の rains はどんな形だった？",
+        "if の中に will は入れない。代わりに使う形は？"
+      ]
+    },
+    {
+      "id": "q16",
+      "type": "input",
+      "question": "「もし明日晴れたら、私たちは泳ぎに行くつもりです」\nIf it ( ) sunny tomorrow, we will go swimming.（be動詞を適する形にして1語で）",
+      "answers": ["is"],
+      "placeholder": "1語で答えよう",
+      "concept": "eng-setsuzoku-jisei",
+      "difficulty": 2,
+      "explanation": "①if の中は未来のことでも現在形なので、will be ではなく is。②主語が it（三人称単数）なので be動詞は is。",
+      "hints": [
+        "if の中は未来でも現在形",
+        "主語 it に合う be動詞の現在形は？"
+      ]
+    },
+    {
+      "id": "q17",
+      "type": "order",
+      "question": "「彼が来たら、私たちはゲームを始めます」になるように並べよう",
+      "tokens": ["When", "he", "comes,", "we will", "start the game."],
+      "concept": "eng-setsuzoku-jisei",
+      "difficulty": 2,
+      "explanation": "①「彼が来たら」は When he comes（when の中は未来でも現在形・三単現の s）。②文の本体は we will start the game（こちらは未来形のまま）。",
+      "hints": [
+        "「来たら」のまとまりが先。when の中の動詞は現在形",
+        "When he comes, + we will start the game. の順"
+      ]
+    },
+    {
+      "id": "q18",
+      "type": "choice",
+      "question": "次の文のどこが間違い？\n\"If it will rain tomorrow, I will stay home.\"",
+      "choices": [
+        "if の中の will rain。if の中は未来でも現在形（rains）にする",
+        "I will stay の will が不要",
+        "tomorrow の位置が違う",
+        "間違いはない"
+      ],
+      "answer": 0,
+      "concept": "eng-setsuzoku-jisei",
+      "difficulty": 3,
+      "explanation": "①if のまとまりの中は未来でも現在形にするので、will rain → rains が正しい。②文の本体（I will stay home）の will はそのままでよい。「if の中だけ現在形」という非対称がこのルールの核心で、両方とも will にしてしまうのが定番ミス。",
+      "hints": [
+        "if の中と文の本体、will を使ってよいのはどっち？",
+        "if it will rain とは言わない。正しくは if it ◯◯◯◯"
       ]
     }
   ]

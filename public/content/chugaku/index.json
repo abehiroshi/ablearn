@@ -143,6 +143,11 @@
               "id": "eng-mirai-bunkouzou",
               "name": "未来の表現と文構造",
               "file": "english/mirai-bunkouzou.json"
+            },
+            {
+              "id": "eng-tango-unit1",
+              "name": "Unit 1 の単語（旅行・予定）",
+              "file": "english/tango-unit1.json"
             }
           ]
         },
@@ -157,6 +162,11 @@
               "id": "eng-setsuzokushi",
               "name": "接続詞",
               "file": "english/setsuzokushi.json"
+            },
+            {
+              "id": "eng-tango-unit2",
+              "name": "Unit 2 の単語（食べ物・文化）",
+              "file": "english/tango-unit2.json"
             }
           ]
         },
@@ -171,6 +181,11 @@
               "id": "eng-futeishi-basic",
               "name": "不定詞の基本",
               "file": "english/futeishi-basic.json"
+            },
+            {
+              "id": "eng-tango-unit3",
+              "name": "Unit 3 の単語（職業・夢）",
+              "file": "english/tango-unit3.json"
             }
           ]
         },
@@ -185,6 +200,11 @@
               "id": "eng-jodoushi",
               "name": "must と have to",
               "file": "english/jodoushi.json"
+            },
+            {
+              "id": "eng-tango-unit4",
+              "name": "Unit 4 の単語（ホームステイ・生活のルール）",
+              "file": "english/tango-unit4.json"
             }
           ]
         },
@@ -199,6 +219,11 @@
               "id": "eng-dou-meishi",
               "name": "動名詞",
               "file": "english/dou-meishi.json"
+            },
+            {
+              "id": "eng-tango-unit5",
+              "name": "Unit 5 の単語（ユニバーサルデザイン・社会）",
+              "file": "english/tango-unit5.json"
             }
           ]
         },
@@ -213,6 +238,11 @@
               "id": "eng-hikaku",
               "name": "比較",
               "file": "english/hikaku.json"
+            },
+            {
+              "id": "eng-tango-unit6",
+              "name": "Unit 6 の単語（調べ学習・比較）",
+              "file": "english/tango-unit6.json"
             }
           ]
         },
@@ -227,6 +257,11 @@
               "id": "eng-ukemi",
               "name": "受け身",
               "file": "english/ukemi.json"
+            },
+            {
+              "id": "eng-tango-unit7",
+              "name": "Unit 7 の単語（世界遺産・歴史）",
+              "file": "english/tango-unit7.json"
             }
           ]
         },

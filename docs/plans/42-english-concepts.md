@@ -1,9 +1,20 @@
 # 英語の概念体系化と増強
 
-- 状態: 未着手
+- 状態: 完了（2026-06-13）
 - 触るファイル範囲: `public/content/chugaku/english/`・`public/content/chugaku/concepts.json`・`public/content/chugaku/index.json`。アプリコードには触れない
-- 引き継ぎメモ: 計画41（品質基準）の完了後に着手。
-  ベースライン: 86問・concept率 0%・ヒント率 42%・answers率 31%・難易度3 8問・各Unit 1セット
+- 引き継ぎメモ: 実装済み。結果: 演習93問・concept率99%・2段ヒント100%・難易度3=20%・語彙302語。
+  **概念設計（19概念）**: Unit1=will/be going to/SVOO-SVOC、Unit2=接続詞選択/that節/if-when中の時制、
+  Unit3=不定詞の名詞的/形容詞副詞的/It-is-to、Unit4=義務/否定の区別、Unit5=動詞区分/動名詞の位置、
+  Unit6=比較の形/構文の使い分け、Unit7=受け身基本/否定疑問/文をつくる。
+  concepts.json に19概念＋中1前提3件（eng1-be-doushi / eng1-ippan-doushi / eng1-kako。set無し宣言）。
+  既存問題は concept・answers・difficulty の追補とファイル内並べ替えのみ（ID不変）。新規変種28問は新ID。
+  唯一 jodoushi/q6（May I）は概念外のまま（85%基準内のため意図的に未タグ）。
+  **語彙**: words-1/2 は履歴保全のため温存し、Unit別 eng-tango-unit1〜7（各40語・計280語）を新設して
+  各Unitの sets に登録（「再編」は新設方式で実現。各Unit2セット以上の受け入れ条件も充足）。
+  **昇格の手元確認**: プレビューで初見→写経モード→完了で level 0 保存→level 1 で語順整序が
+  出ることを確認済み。英作文 answers は normalizeAnswer（小文字化・空白全除去）前提で作成し、
+  短縮形はアポストロフィ2種（' と ’）＋非短縮形を列挙（won't 等）。
+  残り注意: なし（概念別チェックの警告も英語分は解消）
 
 ## 目的
 

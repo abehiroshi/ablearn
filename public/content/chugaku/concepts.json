@@ -252,6 +252,169 @@
       "prerequisites": [
         "jpn-fuzokugo-shikibetsu"
       ]
+    },
+    {
+      "id": "eng1-be-doushi",
+      "name": "中1: be動詞の文",
+      "prerequisites": []
+    },
+    {
+      "id": "eng1-ippan-doushi",
+      "name": "中1: 一般動詞の文と三単現",
+      "prerequisites": []
+    },
+    {
+      "id": "eng1-kako",
+      "name": "中1: 過去形",
+      "prerequisites": [
+        "eng1-ippan-doushi"
+      ]
+    },
+    {
+      "id": "eng-mirai-will",
+      "name": "will の文（未来）",
+      "set": "eng-mirai-bunkouzou",
+      "prerequisites": [
+        "eng1-ippan-doushi"
+      ]
+    },
+    {
+      "id": "eng-mirai-begoingto",
+      "name": "be going to の文",
+      "set": "eng-mirai-bunkouzou",
+      "prerequisites": [
+        "eng1-be-doushi"
+      ]
+    },
+    {
+      "id": "eng-svoo-svoc",
+      "name": "動詞 + 人 + 物 / call A B の語順",
+      "set": "eng-mirai-bunkouzou",
+      "prerequisites": [
+        "eng1-ippan-doushi"
+      ]
+    },
+    {
+      "id": "eng-setsuzoku-sentaku",
+      "name": "接続詞 when / if / because の使い分け",
+      "set": "eng-setsuzokushi",
+      "prerequisites": [
+        "eng1-ippan-doushi"
+      ]
+    },
+    {
+      "id": "eng-setsuzoku-that",
+      "name": "think / know + that 〜",
+      "set": "eng-setsuzokushi",
+      "prerequisites": [
+        "eng-setsuzoku-sentaku"
+      ]
+    },
+    {
+      "id": "eng-setsuzoku-jisei",
+      "name": "if / when の中の時制（未来でも現在形）",
+      "set": "eng-setsuzokushi",
+      "prerequisites": [
+        "eng-setsuzoku-sentaku",
+        "eng-mirai-will"
+      ]
+    },
+    {
+      "id": "eng-futeishi-meishi",
+      "name": "不定詞の名詞的用法（〜すること）",
+      "set": "eng-futeishi-basic",
+      "prerequisites": [
+        "eng1-ippan-doushi"
+      ]
+    },
+    {
+      "id": "eng-futeishi-keifuku",
+      "name": "不定詞の形容詞的・副詞的用法",
+      "set": "eng-futeishi-basic",
+      "prerequisites": [
+        "eng-futeishi-meishi"
+      ]
+    },
+    {
+      "id": "eng-futeishi-itto",
+      "name": "It is … to 〜 の文",
+      "set": "eng-futeishi-basic",
+      "prerequisites": [
+        "eng-futeishi-meishi"
+      ]
+    },
+    {
+      "id": "eng-jodoushi-gimu",
+      "name": "must / have to（義務）",
+      "set": "eng-jodoushi",
+      "prerequisites": [
+        "eng1-ippan-doushi"
+      ]
+    },
+    {
+      "id": "eng-jodoushi-hitei",
+      "name": "must not と don't have to の区別",
+      "set": "eng-jodoushi",
+      "prerequisites": [
+        "eng-jodoushi-gimu"
+      ]
+    },
+    {
+      "id": "eng-doumeishi-kubun",
+      "name": "動名詞のみ / 不定詞のみの動詞",
+      "set": "eng-dou-meishi",
+      "prerequisites": [
+        "eng-futeishi-meishi"
+      ]
+    },
+    {
+      "id": "eng-doumeishi-ichi",
+      "name": "動名詞の位置（主語・補語・前置詞のあと）",
+      "set": "eng-dou-meishi",
+      "prerequisites": [
+        "eng-doumeishi-kubun"
+      ]
+    },
+    {
+      "id": "eng-hikaku-katachi",
+      "name": "比較級・最上級の形（-er / -est / more / most）",
+      "set": "eng-hikaku",
+      "prerequisites": [
+        "eng1-ippan-doushi"
+      ]
+    },
+    {
+      "id": "eng-hikaku-kubun",
+      "name": "比較の構文の使い分け（as〜as / in・of / better・best）",
+      "set": "eng-hikaku",
+      "prerequisites": [
+        "eng-hikaku-katachi"
+      ]
+    },
+    {
+      "id": "eng-ukemi-kihon",
+      "name": "受け身の基本（be動詞 + 過去分詞）",
+      "set": "eng-ukemi",
+      "prerequisites": [
+        "eng1-be-doushi",
+        "eng1-kako"
+      ]
+    },
+    {
+      "id": "eng-ukemi-hitei-gimon",
+      "name": "受け身の否定文・疑問文",
+      "set": "eng-ukemi",
+      "prerequisites": [
+        "eng-ukemi-kihon"
+      ]
+    },
+    {
+      "id": "eng-ukemi-bun",
+      "name": "受け身の文をつくる（by 〜・能動との区別）",
+      "set": "eng-ukemi",
+      "prerequisites": [
+        "eng-ukemi-kihon"
+      ]
     }
   ]
 }

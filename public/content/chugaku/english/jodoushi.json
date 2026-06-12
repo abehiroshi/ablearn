@@ -7,42 +7,63 @@
       "id": "q1",
       "type": "choice",
       "question": "「私は毎日英語を勉強しなければならない。」 I ( ) study English every day.",
-      "choices": ["must", "can", "may", "will"],
+      "choices": [
+        "must",
+        "can",
+        "may",
+        "will"
+      ],
       "answer": 0,
-      "answers": ["must"],
+      "answers": [
+        "must"
+      ],
       "difficulty": 1,
       "explanation": "①「〜しなければならない」は must（または have to）。②must のあとは動詞の原形（to はつけない）。",
       "hints": [
         "「〜しなければならない」を1語で表す助動詞",
         "m で始まる"
-      ]
+      ],
+      "concept": "eng-jodoushi-gimu"
     },
     {
       "id": "q2",
       "type": "choice",
       "question": "She ( ) to clean her room every day.",
-      "choices": ["has", "have", "must", "is"],
+      "choices": [
+        "has",
+        "have",
+        "must",
+        "is"
+      ],
       "answer": 0,
-      "answers": ["has"],
+      "answers": [
+        "has"
+      ],
       "difficulty": 2,
       "explanation": "①あとに to clean が続いているので have to の文（must なら to は不要）。②主語が三人称単数（She）なので has to になる。",
       "hints": [
         "空所のあとの to に注目。must は使える？",
         "主語が She のとき have はどう変わる？"
-      ]
+      ],
+      "concept": "eng-jodoushi-gimu"
     },
     {
       "id": "q3",
       "type": "input",
       "question": "「あなたは今日宿題をする必要はありません。」 You ( ) have to do your homework today.（短縮形1語で）",
-      "answers": ["don't", "dont", "do not"],
+      "answers": [
+        "don't",
+        "dont",
+        "do not"
+      ],
       "placeholder": "例: don't",
       "difficulty": 2,
       "explanation": "①don't have to = 「〜する必要はない」（不必要）。②must not は「〜してはいけない」（禁止）で意味がまったく違う。この2つの区別が Unit 4 の最重要ポイント。",
       "hints": [
         "「必要はない」は have to の否定",
         "have to の前に置く否定の1語（短縮形）"
-      ]
+      ],
+      "concept": "eng-jodoushi-hitei"
     },
     {
       "id": "q4",
@@ -60,27 +81,43 @@
       "hints": [
         "「禁止」と「不必要」のどちらの意味？",
         "must not と don't have to の違いを思い出そう"
-      ]
+      ],
+      "concept": "eng-jodoushi-hitei"
     },
     {
       "id": "q5",
       "type": "order",
       "question": "「私は昨日早く起きなければなりませんでした。」",
-      "tokens": ["I", "had to", "get up", "early", "yesterday."],
+      "tokens": [
+        "I",
+        "had to",
+        "get up",
+        "early",
+        "yesterday."
+      ],
       "difficulty": 2,
       "explanation": "①must には過去形がないので、過去の義務は have to の過去形 had to で表す。②I had to get up early yesterday. の語順。",
       "hints": [
         "「しなければならなかった」は had to",
         "主語 → had to → 動詞の原形 → 残り"
-      ]
+      ],
+      "concept": "eng-jodoushi-gimu"
     },
     {
       "id": "q6",
       "type": "choice",
       "question": "「あなたのペンを使ってもいいですか。」 ( ) I use your pen?",
-      "choices": ["May", "Must", "Do", "Am"],
+      "choices": [
+        "May",
+        "Must",
+        "Do",
+        "Am"
+      ],
       "answer": 0,
-      "answers": ["may", "May"],
+      "answers": [
+        "may",
+        "May"
+      ],
       "difficulty": 1,
       "explanation": "①May I 〜? = 「〜してもいいですか」（許可を求める表現）。②Can I 〜? も同じ意味で使える（May のほうがていねい）。",
       "hints": [
@@ -92,14 +129,17 @@
       "id": "q7",
       "type": "input",
       "question": "「彼は昨日働かなければなりませんでした。」 He ( ) to work yesterday.（1語で）",
-      "answers": ["had"],
+      "answers": [
+        "had"
+      ],
       "placeholder": "1語で答えよう",
       "difficulty": 3,
       "explanation": "must は過去形がないため、過去の義務は had to。主語が He でも過去形は had のまま（has の過去も had）。",
       "hints": [
         "yesterday があるので過去の文",
         "have to を過去形にすると？"
-      ]
+      ],
+      "concept": "eng-jodoushi-gimu"
     },
     {
       "id": "q8",
@@ -117,6 +157,55 @@
       "hints": [
         "「その必要はない」はどの表現だった？",
         "must not だと「禁止」になってしまう"
+      ],
+      "concept": "eng-jodoushi-hitei"
+    },
+    {
+      "id": "q9",
+      "type": "input",
+      "question": "「私の妹は毎朝7時に起きなければなりません。」 My sister ( ) ( ) get up at seven every morning.（2語で）",
+      "answers": ["has to", "hasto"],
+      "placeholder": "例: has to",
+      "concept": "eng-jodoushi-gimu",
+      "difficulty": 2,
+      "explanation": "①「〜しなければならない」は have to + 動詞の原形。②主語が My sister（三人称単数）なので have が has になり、has to get up となる。must には三単現の s がつかないが、have to は一般動詞と同じく変化する。",
+      "hints": [
+        "「しなければならない」は must か have to。2語と指定されているのは？",
+        "主語が三人称単数のとき have はどう変わる？"
+      ]
+    },
+    {
+      "id": "q10",
+      "type": "choice",
+      "question": "must not（mustn't）の意味は？",
+      "choices": [
+        "〜してはいけない（禁止）",
+        "〜する必要はない（不必要）",
+        "〜しないかもしれない",
+        "〜できない"
+      ],
+      "answer": 0,
+      "answers": ["してはいけない", "〜してはいけない", "きんし", "禁止"],
+      "concept": "eng-jodoushi-hitei",
+      "difficulty": 1,
+      "explanation": "must not は「〜してはいけない」という強い禁止。「〜する必要はない」は don't have to で、否定になると must と have to は意味が分かれる。",
+      "hints": [
+        "must（しなければならない）の否定だけど、「しなくてよい」ではない",
+        "標識の「立入禁止」のような強い言い方"
+      ]
+    },
+    {
+      "id": "q11",
+      "type": "input",
+      "question": "「ここで泳いではいけません。」 You ( ) ( ) swim here.（2語で）",
+      "answers": ["must not", "mustnot"],
+      "placeholder": "例: must not",
+      "concept": "eng-jodoushi-hitei",
+      "difficulty": 2,
+      "explanation": "①「〜してはいけない」（禁止）は must not + 動詞の原形。②don't have to にすると「泳ぐ必要はない」になり、危険を伝える文として意味が変わってしまう。",
+      "hints": [
+        "「禁止」を表す2語",
+        "must の否定。not の位置は must のすぐあと"
       ]
     }
   ]

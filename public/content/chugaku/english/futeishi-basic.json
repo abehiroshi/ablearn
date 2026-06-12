@@ -9,6 +9,9 @@
       "question": "I want ( ) tennis.\n「私はテニスをしたい」",
       "choices": ["to play", "playing", "play", "played"],
       "answer": 0,
+      "answers": ["to play", "toplay"],
+      "concept": "eng-futeishi-meishi",
+      "difficulty": 1,
       "explanation": "want to + 動詞の原形 で「〜したい」。不定詞の名詞的用法。",
       "hints": [
         "「〜したい」は want のあとに何をつなぐ？",
@@ -21,22 +24,13 @@
       "question": "My dream is ( ) a teacher.\n「私の夢は先生になることです」",
       "choices": ["to be", "be", "am", "being to"],
       "answer": 0,
+      "answers": ["to be", "tobe"],
+      "concept": "eng-futeishi-meishi",
+      "difficulty": 1,
       "explanation": "「〜になること」は to be 〜。不定詞の名詞的用法（補語）。",
       "hints": [
         "「なること」＝「〜すること」の形。to + ？",
         "「〜になる」は be動詞の原形 be。to be a teacher で「先生になること」"
-      ]
-    },
-    {
-      "id": "q3",
-      "type": "choice",
-      "question": "I have a lot of homework ( ) today.\n「今日やるべき宿題がたくさんある」",
-      "choices": ["to do", "do", "doing", "did"],
-      "answer": 0,
-      "explanation": "homework to do で「やるべき宿題」。名詞をうしろから説明する形容詞的用法。",
-      "hints": [
-        "「やるべき宿題」＝ homework をうしろから説明する形",
-        "名詞 + to + 動詞の原形 で「〜すべき◯◯」。homework to do"
       ]
     },
     {
@@ -50,6 +44,8 @@
         "to + 動詞の三人称単数形"
       ],
       "answer": 0,
+      "concept": "eng-futeishi-meishi",
+      "difficulty": 1,
       "explanation": "不定詞は主語や時制に関係なく、いつでも to + 動詞の原形。",
       "hints": [
         "want to play / to be / to do … 全部に共通する動詞の形は？",
@@ -61,6 +57,8 @@
       "type": "order",
       "question": "「私は医者になりたい」になるように並べよう",
       "tokens": ["I", "want", "to", "be", "a doctor"],
+      "concept": "eng-futeishi-meishi",
+      "difficulty": 2,
       "explanation": "want to be 〜 で「〜になりたい」。I want to be a doctor.",
       "hints": [
         "「なりたい」＝ want to be のセット",
@@ -68,14 +66,32 @@
       ]
     },
     {
-      "id": "q6",
-      "type": "order",
-      "question": "「サッカーをすることは楽しい」になるように並べよう",
-      "tokens": ["It", "is", "fun", "to play", "soccer"],
-      "explanation": "It is … to 〜 で「〜することは…だ」。It is fun to play soccer.",
+      "id": "q9",
+      "type": "input",
+      "question": "「彼は医者になりたがっています」 He ( ) to be a doctor.（1語で）",
+      "answers": ["wants"],
+      "placeholder": "1語で答えよう",
+      "concept": "eng-futeishi-meishi",
+      "difficulty": 3,
+      "explanation": "①「〜になりたがっている」は want to be。②主語が He（三人称単数）の現在の文なので、want に s がついて wants。三単現の s は不定詞 to be の方にはつかず、文の動詞 want につく。",
       "hints": [
-        "英語では「それは楽しい、サッカーをすることは」の順で言う",
-        "It is + 感想（fun）+ to + 動詞 の型。It is fun to play soccer"
+        "「なりたい」は want to be。主語は He",
+        "三単現の s がつくのは want と to be のどっち？"
+      ]
+    },
+    {
+      "id": "q3",
+      "type": "choice",
+      "question": "I have a lot of homework ( ) today.\n「今日やるべき宿題がたくさんある」",
+      "choices": ["to do", "do", "doing", "did"],
+      "answer": 0,
+      "answers": ["to do", "todo"],
+      "concept": "eng-futeishi-keifuku",
+      "difficulty": 1,
+      "explanation": "homework to do で「やるべき宿題」。名詞をうしろから説明する形容詞的用法。",
+      "hints": [
+        "「やるべき宿題」＝ homework をうしろから説明する形",
+        "名詞 + to + 動詞の原形 で「〜すべき◯◯」。homework to do"
       ]
     },
     {
@@ -83,6 +99,8 @@
       "type": "order",
       "question": "「私は友達に会うために大阪へ行った」になるように並べよう",
       "tokens": ["I", "went", "to Osaka", "to see", "my friend"],
+      "concept": "eng-futeishi-keifuku",
+      "difficulty": 2,
       "explanation": "to see my friend が「会うために」という目的を表す副詞的用法。",
       "hints": [
         "まず「大阪へ行った」を完成させ、「会うために」をあとに足す",
@@ -90,14 +108,125 @@
       ]
     },
     {
+      "id": "q10",
+      "type": "choice",
+      "question": "I was happy ( ) the news.\n「私はその知らせを聞いてうれしかった」",
+      "choices": ["to hear", "hear", "hearing to", "heard"],
+      "answer": 0,
+      "answers": ["to hear", "tohear"],
+      "concept": "eng-futeishi-keifuku",
+      "difficulty": 1,
+      "explanation": "感情の形容詞（happy / sad / glad など）のあとの to + 原形 は「〜して」という感情の原因を表す（副詞的用法）。happy to hear 〜 = 「〜を聞いてうれしい」。",
+      "hints": [
+        "「聞いて」うれしい＝うれしさの原因を to で続ける",
+        "happy のあとに to + 動詞の原形"
+      ]
+    },
+    {
+      "id": "q11",
+      "type": "input",
+      "question": "「何か飲むものがほしい」 I want something ( ) ( ).（2語で）",
+      "answers": ["to drink", "todrink"],
+      "placeholder": "例: to eat",
+      "concept": "eng-futeishi-keifuku",
+      "difficulty": 2,
+      "explanation": "①「飲むもの」は something をうしろから to drink が説明する形（形容詞的用法）。②something to drink = 「何か飲むためのもの」。something to eat（食べもの）と同じ型。",
+      "hints": [
+        "something をうしろから「飲むための」と説明する",
+        "to + 動詞の原形。「飲む」は drink"
+      ]
+    },
+    {
+      "id": "q12",
+      "type": "choice",
+      "question": "次の2文の to 〜 の用法の組み合わせとして正しいのは？\nA: I went to the library to study.\nB: I have many books to read.",
+      "choices": [
+        "A=目的（〜するために） B=名詞の説明（〜すべき）",
+        "A=名詞の説明 B=目的",
+        "A=「〜すること」 B=目的",
+        "AもBも「〜すること」"
+      ],
+      "answer": 0,
+      "concept": "eng-futeishi-keifuku",
+      "difficulty": 3,
+      "explanation": "①A の to study は went（行った）の目的「勉強するために」（副詞的用法）。②B の to read は books をうしろから説明する「読むべき本」（形容詞的用法）。見分け方: 直前が動詞の流れなら目的、直前の名詞を説明していれば形容詞的。",
+      "hints": [
+        "A は「何のために行った？」、B は「どんな本？」に答えている",
+        "直前の名詞（books）を説明しているのはどっち？"
+      ]
+    },
+    {
+      "id": "q6",
+      "type": "order",
+      "question": "「サッカーをすることは楽しい」になるように並べよう",
+      "tokens": ["It", "is", "fun", "to play", "soccer"],
+      "concept": "eng-futeishi-itto",
+      "difficulty": 2,
+      "explanation": "It is … to 〜 で「〜することは…だ」。It is fun to play soccer.",
+      "hints": [
+        "英語では「それは楽しい、サッカーをすることは」の順で言う",
+        "It is + 感想（fun）+ to + 動詞 の型。It is fun to play soccer"
+      ]
+    },
+    {
       "id": "q8",
       "type": "order",
       "question": "「英語を勉強することは大切です」になるように並べよう",
       "tokens": ["It", "is", "important", "to study", "English"],
+      "concept": "eng-futeishi-itto",
+      "difficulty": 2,
       "explanation": "It is important to 〜 で「〜することは大切だ」。",
       "hints": [
         "英語では「それは大切だ、英語を勉強することは」の順で言う",
         "It is + important + to study + English"
+      ]
+    },
+    {
+      "id": "q13",
+      "type": "choice",
+      "question": "( ) is interesting to learn about other countries.\n「外国について学ぶことはおもしろい」",
+      "choices": ["It", "That", "This", "There"],
+      "answer": 0,
+      "answers": ["it"],
+      "concept": "eng-futeishi-itto",
+      "difficulty": 1,
+      "explanation": "「〜することは…だ」は It is … to 〜 の型。先頭の It は「それ」と訳さない形だけの主語（to 以下の内容を指す）。",
+      "hints": [
+        "「〜することは…だ」の文の先頭に置く決まった語",
+        "It is … to 〜 の型。この It は「それ」と訳さない"
+      ]
+    },
+    {
+      "id": "q14",
+      "type": "input",
+      "question": "「本を読むことは大切です」 It is important ( ) ( ) books.（2語で）",
+      "answers": ["to read", "toread"],
+      "placeholder": "例: to read",
+      "concept": "eng-futeishi-itto",
+      "difficulty": 2,
+      "explanation": "①It is … to 〜 の型で「〜すること」の部分は to + 動詞の原形。②「読む」は read なので to read books。",
+      "hints": [
+        "It is important のあとに「〜すること」を to で続ける",
+        "to + 動詞の原形。「読む」は read"
+      ]
+    },
+    {
+      "id": "q15",
+      "type": "choice",
+      "question": "To swim in this river is dangerous. とほぼ同じ意味の文は？",
+      "choices": [
+        "It is dangerous to swim in this river.",
+        "This river is dangerous to it.",
+        "Swimming is dangerous it in this river.",
+        "It is to swim dangerous in this river."
+      ],
+      "answer": 0,
+      "concept": "eng-futeishi-itto",
+      "difficulty": 3,
+      "explanation": "①To swim in this river（この川で泳ぐこと）が主語の文は、It を先頭に置いて It is dangerous to swim 〜 に書き換えられる。②英語は長い主語を嫌うので It is … to 〜 の形のほうがよく使われる。語順は It is + 形容詞 + to 〜 で固定。",
+      "hints": [
+        "長い主語（To swim 〜）を It に置きかえて後ろへ回す書き換え",
+        "It is + 形容詞（dangerous）+ to 〜 の順"
       ]
     }
   ]

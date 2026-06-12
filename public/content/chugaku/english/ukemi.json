@@ -7,134 +7,198 @@
       "id": "q1",
       "type": "choice",
       "question": "English is ( ) in many countries.（英語は多くの国で話されています）",
-      "choices": ["spoken", "speak", "spoke", "speaking"],
+      "choices": [
+        "spoken",
+        "speak",
+        "spoke",
+        "speaking"
+      ],
       "answer": 0,
-      "answers": ["spoken"],
+      "answers": [
+        "spoken"
+      ],
       "difficulty": 1,
       "explanation": "①「〜される」は受け身で、be動詞 + 過去分詞 の形。②speak は不規則動詞で speak - spoke - spoken と変化する。過去形の spoke ではなく過去分詞の spoken を選ぶ。",
       "hints": [
         "「〜される」= be動詞 + 過去分詞",
         "speak - spoke - spoken。be動詞の後ろに置くのは3番目の形"
-      ]
+      ],
+      "concept": "eng-ukemi-kihon"
     },
     {
       "id": "q2",
       "type": "choice",
       "question": "This room ( ) cleaned every day.（この部屋は毎日そうじされます）",
-      "choices": ["is", "does", "has", "be"],
+      "choices": [
+        "is",
+        "does",
+        "has",
+        "be"
+      ],
       "answer": 0,
-      "answers": ["is"],
+      "answers": [
+        "is"
+      ],
       "difficulty": 1,
       "explanation": "①受け身は be動詞 + 過去分詞 のセット。過去分詞の前には be動詞を置く。②主語 This room は3人称単数で、現在の文なので is。",
       "hints": [
         "過去分詞（cleaned）の前に置くのは何動詞？",
         "主語が This room（単数）・現在の文の be動詞は？"
-      ]
+      ],
+      "concept": "eng-ukemi-kihon"
     },
     {
       "id": "q3",
       "type": "input",
       "question": "speak の過去分詞は？（1語で答えよう）",
-      "answers": ["spoken"],
+      "answers": [
+        "spoken"
+      ],
       "placeholder": "例: written",
       "difficulty": 1,
       "explanation": "speak - spoke - spoken（不規則変化）。受け身で使うのは3番目の過去分詞。write - wrote - written、take - took - taken、make - made - made も同じく不規則なのでセットで覚える。",
       "hints": [
         "speak - spoke - ？",
         "spo___n の形"
-      ]
+      ],
+      "concept": "eng-ukemi-kihon"
     },
     {
       "id": "q4",
       "type": "input",
       "question": "This book was ( ) by Natsume Soseki.（この本は夏目漱石によって書かれました。write を適する形にして1語で）",
-      "answers": ["written"],
+      "answers": [
+        "written"
+      ],
       "placeholder": "1語で答えよう",
       "difficulty": 2,
       "explanation": "①「〜によって…された」は be動詞 + 過去分詞 + by 〜。②write は不規則動詞で write - wrote - written。過去分詞は written（t が2つ）。過去形 wrote と混同しやすいので注意。",
       "hints": [
         "be動詞（was）の後ろは過去分詞",
         "write - wrote - written。つづりの t は2つ"
-      ]
+      ],
+      "concept": "eng-ukemi-kihon"
     },
     {
       "id": "q5",
       "type": "order",
       "question": "「この歌は多くの人に愛されています。」",
-      "tokens": ["This song", "is loved", "by", "many people."],
+      "tokens": [
+        "This song",
+        "is loved",
+        "by",
+        "many people."
+      ],
       "difficulty": 2,
       "explanation": "①主語（This song）+ be動詞 + 過去分詞（is loved）の順に並べる（受け身の基本形だから）。②「〜に（よって）」は by を過去分詞の後ろに置き、by many people とする。",
       "hints": [
         "受け身の語順は 主語 + be動詞 + 過去分詞",
         "「〜によって」の by は過去分詞のすぐ後ろ"
-      ]
+      ],
+      "concept": "eng-ukemi-bun"
     },
     {
       "id": "q6",
       "type": "choice",
       "question": "Soccer ( ) played at this school.（この学校ではサッカーは行われていません）",
-      "choices": ["is not", "does not", "not is", "has not"],
+      "choices": [
+        "is not",
+        "does not",
+        "not is",
+        "has not"
+      ],
       "answer": 0,
-      "answers": ["is not", "isn't"],
+      "answers": [
+        "is not",
+        "isn't"
+      ],
       "difficulty": 2,
       "explanation": "①受け身の否定文は be動詞のあとに not を置く（be動詞の文の否定の作り方と同じだから）。②Soccer is not (isn't) played となる。一般動詞の否定と混同して does not played とするのが定番ミス。",
       "hints": [
         "受け身の否定は be動詞 + not",
         "do/does は使わない。played の前に is not"
-      ]
+      ],
+      "concept": "eng-ukemi-hitei-gimon"
     },
     {
       "id": "q7",
       "type": "input",
       "question": "These pictures ( ) taken in Kyoto.（これらの写真は京都で撮られたのではありません。2語または短縮形1語で）",
-      "answers": ["were not", "weren't"],
+      "answers": [
+        "were not",
+        "weren't"
+      ],
       "placeholder": "例: were not",
       "difficulty": 2,
       "explanation": "①「撮られたのではない」は過去の受け身の否定文 = be動詞の過去形 + not + 過去分詞。②主語 These pictures は複数なので be動詞は were。were not（短縮形 weren't）taken となる。",
       "hints": [
         "過去の文で、主語は複数。be動詞は？",
         "were + not（短縮形は weren't）"
-      ]
+      ],
+      "concept": "eng-ukemi-hitei-gimon"
     },
     {
       "id": "q8",
       "type": "choice",
       "question": "( ) this car made in Japan?（この車は日本で作られましたか）",
-      "choices": ["Was", "Did", "Is", "Does"],
+      "choices": [
+        "Was",
+        "Did",
+        "Is",
+        "Does"
+      ],
       "answer": 0,
-      "answers": ["was", "Was"],
+      "answers": [
+        "was",
+        "Was"
+      ],
       "difficulty": 2,
       "explanation": "①受け身の疑問文は be動詞を主語の前に出す（be動詞の文の疑問文と同じ作り方だから）。②「作られましたか」と過去の文なので、be動詞は過去形の Was。Did を使うと一般動詞の疑問文になってしまい、made（過去分詞）と合わない。",
       "hints": [
         "受け身の疑問文は be動詞を文の先頭に",
         "「作られました」は過去。be動詞の過去形は？"
-      ]
+      ],
+      "concept": "eng-ukemi-hitei-gimon"
     },
     {
       "id": "q9",
       "type": "order",
       "question": "「この部屋は毎日そうじされますか。」",
-      "tokens": ["Is", "this room", "cleaned", "every day?"],
+      "tokens": [
+        "Is",
+        "this room",
+        "cleaned",
+        "every day?"
+      ],
       "difficulty": 2,
       "explanation": "①受け身の疑問文は be動詞（Is）を主語（this room）の前に出す。②そのあとは過去分詞（cleaned）、最後に every day?。Do/Does で始めないことがポイント。",
       "hints": [
         "疑問文の先頭に出すのは be動詞",
         "Is + 主語 + 過去分詞 の順"
-      ]
+      ],
+      "concept": "eng-ukemi-hitei-gimon"
     },
     {
       "id": "q10",
       "type": "choice",
       "question": "Many languages ( ) in India.（インドでは多くの言語が話されています）",
-      "choices": ["are spoken", "is spoken", "are speaking", "speak"],
+      "choices": [
+        "are spoken",
+        "is spoken",
+        "are speaking",
+        "speak"
+      ],
       "answer": 0,
-      "answers": ["are spoken"],
+      "answers": [
+        "are spoken"
+      ],
       "difficulty": 3,
       "explanation": "①主語 Many languages は「話す」のではなく「話される」側なので受け身（be動詞 + 過去分詞）。②主語が複数なので be動詞は are。are spoken となる。are speaking（進行形）だと「言語が話している」ことになってしまう。",
       "hints": [
         "言語は「話す」側？「話される」側？",
         "主語が複数のときの be動詞 + 過去分詞"
-      ]
+      ],
+      "concept": "eng-ukemi-bun"
     },
     {
       "id": "q11",
@@ -152,19 +216,81 @@
       "hints": [
         "be動詞の後ろの動詞の形に注目",
         "make の過去分詞は？"
-      ]
+      ],
+      "concept": "eng-ukemi-kihon"
     },
     {
       "id": "q12",
       "type": "input",
       "question": "「この寺は約400年前に建てられました。」 This temple ( ) ( ) about 400 years ago.（2語で答えよう）",
-      "answers": ["was built", "Was built"],
+      "answers": [
+        "was built",
+        "Was built"
+      ],
       "placeholder": "例: was built",
       "difficulty": 3,
       "explanation": "①「建てられました」は過去の受け身 = be動詞の過去形 + 過去分詞。②主語 This temple は単数なので was。build は不規則動詞で build - built - built。was built となる。builded という形は存在しない。",
       "hints": [
         "過去の受け身。主語は単数",
         "build - built - built。was + 過去分詞"
+      ],
+      "concept": "eng-ukemi-bun"
+    },
+    {
+      "id": "q13",
+      "type": "input",
+      "question": "「この歌は世界中の子どもたちに歌われています。」 This song is ( ) by children around the world.（sing を適する形にして1語で）",
+      "answers": ["sung"],
+      "placeholder": "1語で答えよう",
+      "concept": "eng-ukemi-kihon",
+      "difficulty": 3,
+      "explanation": "①受け身は be動詞 + 過去分詞。②sing は不規則動詞で sing - sang - sung と変化し、過去分詞は sung。過去形の sang と混同しやすい。song（歌）とのつづりの違いにも注意。",
+      "hints": [
+        "be動詞（is）の後ろは過去分詞",
+        "sing - sang - sung。3番目の形"
+      ]
+    },
+    {
+      "id": "q14",
+      "type": "choice",
+      "question": "「Was this car made in Japan?」に「はい」と答えるとき正しいのは？",
+      "choices": ["Yes, it was.", "Yes, it did.", "Yes, it is.", "Yes, this was."],
+      "answer": 0,
+      "concept": "eng-ukemi-hitei-gimon",
+      "difficulty": 3,
+      "explanation": "①be動詞で聞かれたら be動詞で答える。Was 〜? → Yes, it was. / No, it wasn't.。②Did で答えると一般動詞の応答になり、聞かれた形とかみ合わない。③this car は答えの文では it で受ける。時制（was）も質問に合わせる。",
+      "hints": [
+        "Was で聞かれたら、答えに使う動詞も同じもの",
+        "this car は答えでは it。時制は過去のまま"
+      ]
+    },
+    {
+      "id": "q15",
+      "type": "choice",
+      "question": "受け身の文で「〜によって」と動作をする人を表す語は？",
+      "choices": ["by", "from", "with", "of"],
+      "answer": 0,
+      "answers": ["by"],
+      "concept": "eng-ukemi-bun",
+      "difficulty": 1,
+      "explanation": "「〜によって」は by。This book was written by Soseki. のように過去分詞のあとに置く。",
+      "hints": [
+        "written ( ) Soseki の ( ) に入る語",
+        "b で始まる2文字"
+      ]
+    },
+    {
+      "id": "q16",
+      "type": "input",
+      "question": "「この図書館は多くの人に利用されています。」 This library is ( ) by many people.（use を適する形にして1語で）",
+      "answers": ["used"],
+      "placeholder": "1語で答えよう",
+      "concept": "eng-ukemi-bun",
+      "difficulty": 2,
+      "explanation": "①「利用されている」は受け身 = be動詞 + 過去分詞。②use は規則動詞なので過去分詞は used。「〜に（よって）」は by many people と続ける。",
+      "hints": [
+        "be動詞（is）の後ろは過去分詞",
+        "use は規則動詞。-d をつけるだけ"
       ]
     }
   ]

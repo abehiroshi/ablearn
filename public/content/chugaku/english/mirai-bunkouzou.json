@@ -9,22 +9,13 @@
       "question": "I ( ) visit Kyoto next week.\n「私は来週京都を訪れるつもりです」",
       "choices": ["will", "am", "did", "was"],
       "answer": 0,
+      "answers": ["will"],
+      "concept": "eng-mirai-will",
+      "difficulty": 1,
       "explanation": "未来のことは will + 動詞の原形。am だけでは未来を表せない（am going to なら可）。",
       "hints": [
         "next week（来週）＝未来の話。未来を表す助動詞は？",
         "「〜するつもり」は will + 動詞の原形。( ) の直後が visit（原形）なのもヒント"
-      ]
-    },
-    {
-      "id": "q2",
-      "type": "choice",
-      "question": "We are ( ) to play soccer tomorrow.\n「私たちは明日サッカーをする予定です」",
-      "choices": ["going", "go", "went", "goes"],
-      "answer": 0,
-      "explanation": "be going to + 動詞の原形 で「〜する予定だ」。前から決めていた予定によく使う。",
-      "hints": [
-        "are ( ) to … の形。「〜する予定だ」のセットの言い方を思い出そう",
-        "be going to + 動詞の原形。be動詞（are）の直後は going"
       ]
     },
     {
@@ -33,6 +24,9 @@
       "question": "It ( ) be sunny tomorrow.\n「明日は晴れるでしょう」",
       "choices": ["will", "is", "does", "has"],
       "answer": 0,
+      "answers": ["will"],
+      "concept": "eng-mirai-will",
+      "difficulty": 1,
       "explanation": "天気の予測など「〜でしょう」は will。will のあとの be動詞は原形の be になる。",
       "hints": [
         "( ) のあとに be（原形）が残っている。原形を従えるのはどんな語？",
@@ -45,6 +39,9 @@
       "question": "will のあとに続く動詞の形は？",
       "choices": ["原形", "過去形", "ing形", "三人称単数形"],
       "answer": 0,
+      "answers": ["原形", "げんけい"],
+      "concept": "eng-mirai-will",
+      "difficulty": 1,
       "explanation": "will は助動詞なので、主語が何でもあとの動詞はいつも原形。He will plays は誤り。",
       "hints": [
         "will は can や must と同じ「助動詞」のなかま",
@@ -52,10 +49,54 @@
       ]
     },
     {
+      "id": "q6",
+      "type": "order",
+      "question": "「彼は次の日曜日、忙しいでしょう」になるように並べよう",
+      "tokens": ["He", "will", "be", "busy", "next Sunday"],
+      "concept": "eng-mirai-will",
+      "difficulty": 2,
+      "explanation": "will のあとの be動詞は原形 be。He will be busy next Sunday.",
+      "hints": [
+        "「忙しい」busy の前には be動詞が必要。will のあとだとどの形？",
+        "He will be busy … と並べて、最後に「いつ」を置く"
+      ]
+    },
+    {
+      "id": "q12",
+      "type": "input",
+      "question": "「彼は明日忙しくないでしょう」 He ( ) be busy tomorrow.（短縮形1語、または2語で）",
+      "answers": ["won't", "won’t", "wont", "will not", "willnot"],
+      "placeholder": "例: won't",
+      "concept": "eng-mirai-will",
+      "difficulty": 3,
+      "explanation": "①will の否定文は will のあとに not を置く（will not）。②短縮形は won't（will not → won't と形が大きく変わる不規則な短縮）。③そのあとの be は原形のまま。",
+      "hints": [
+        "will の文の否定は will + not。busy の前の be は原形のまま",
+        "will not の短縮形は won't（つづりが大きく変わる）"
+      ]
+    },
+    {
+      "id": "q2",
+      "type": "choice",
+      "question": "We are ( ) to play soccer tomorrow.\n「私たちは明日サッカーをする予定です」",
+      "choices": ["going", "go", "went", "goes"],
+      "answer": 0,
+      "answers": ["going"],
+      "concept": "eng-mirai-begoingto",
+      "difficulty": 1,
+      "explanation": "be going to + 動詞の原形 で「〜する予定だ」。前から決めていた予定によく使う。",
+      "hints": [
+        "are ( ) to … の形。「〜する予定だ」のセットの言い方を思い出そう",
+        "be going to + 動詞の原形。be動詞（are）の直後は going"
+      ]
+    },
+    {
       "id": "q5",
       "type": "order",
       "question": "「私は明日テニスをするつもりです」になるように並べよう",
       "tokens": ["I", "am", "going to", "play tennis", "tomorrow"],
+      "concept": "eng-mirai-begoingto",
+      "difficulty": 2,
       "explanation": "be going to + 動詞の原形。I am going to play tennis tomorrow.",
       "hints": [
         "主語 + be動詞 + going to + 動詞の原形… の順",
@@ -63,14 +104,46 @@
       ]
     },
     {
-      "id": "q6",
-      "type": "order",
-      "question": "「彼は次の日曜日、忙しいでしょう」になるように並べよう",
-      "tokens": ["He", "will", "be", "busy", "next Sunday"],
-      "explanation": "will のあとの be動詞は原形 be。He will be busy next Sunday.",
+      "id": "q10",
+      "type": "choice",
+      "question": "Are you going to study tonight? に「はい」と答えるときの正しい応答は？",
+      "choices": ["Yes, I am.", "Yes, I do.", "Yes, I will going.", "Yes, you are."],
+      "answer": 0,
+      "concept": "eng-mirai-begoingto",
+      "difficulty": 2,
+      "explanation": "be going to の疑問文は be動詞で答える。Are you 〜? → Yes, I am. / No, I'm not.",
       "hints": [
-        "「忙しい」busy の前には be動詞が必要。will のあとだとどの形？",
-        "He will be busy … と並べて、最後に「いつ」を置く"
+        "Are で聞かれたら、答えにも同じなかまの動詞を使う",
+        "be動詞の疑問文には be動詞で返す。聞かれたのは you だから答えの主語は I"
+      ]
+    },
+    {
+      "id": "q13",
+      "type": "input",
+      "question": "「私たちは明日、おじを訪ねる予定です」 We ( ) ( ) to visit our uncle tomorrow.（2語で）",
+      "answers": ["are going", "aregoing"],
+      "placeholder": "例: are going",
+      "concept": "eng-mirai-begoingto",
+      "difficulty": 2,
+      "explanation": "①「〜する予定だ」は be going to + 動詞の原形。②主語が We なので be動詞は are。are going to visit となる。",
+      "hints": [
+        "「〜する予定」は be going to のセット",
+        "主語 We に合う be動詞 + going"
+      ]
+    },
+    {
+      "id": "q14",
+      "type": "choice",
+      "question": "「あなたは次の日曜日、何をする予定ですか」 What ( ) you going to do next Sunday?",
+      "choices": ["are", "will", "do", "did"],
+      "answer": 0,
+      "answers": ["are"],
+      "concept": "eng-mirai-begoingto",
+      "difficulty": 3,
+      "explanation": "①going to がある＝be going to の文なので、疑問文で主語の前に出るのは be動詞。②疑問詞 What はその前に置く。What are you going to do 〜? は会話・テストとも頻出の型。will と be going to を混ぜて What will you going…としないこと。",
+      "hints": [
+        "あとに going to が残っている。be going to の文の疑問文で前に出るのは？",
+        "will と going to は同時に使わない。you の前に出るのは be動詞"
       ]
     },
     {
@@ -79,6 +152,9 @@
       "question": "My father gave ( ).\n「父は私に腕時計をくれた」",
       "choices": ["me a watch", "a watch me", "I a watch", "me to a watch"],
       "answer": 0,
+      "answers": ["me a watch", "meawatch"],
+      "concept": "eng-svoo-svoc",
+      "difficulty": 2,
       "explanation": "give + 人 + 物（SVOO）の語順。「人」が先、「物」があと。give a watch to me と言いかえることもできる。",
       "hints": [
         "give は「人」と「物」を2つ続けられる動詞。先に来るのはどっち？",
@@ -91,6 +167,9 @@
       "question": "We call ( ).\n「私たちはその犬をポチと呼びます」",
       "choices": ["the dog Pochi", "Pochi the dog", "to the dog Pochi", "the dog to Pochi"],
       "answer": 0,
+      "answers": ["the dog Pochi", "thedogpochi"],
+      "concept": "eng-svoo-svoc",
+      "difficulty": 2,
       "explanation": "call + A + B で「AをBと呼ぶ」（SVOC）。A（目的語）が先、B（呼び名）があと。",
       "hints": [
         "call A B で「AをBと呼ぶ」。A＝呼ばれるもの、B＝呼び名",
@@ -102,6 +181,8 @@
       "type": "order",
       "question": "「あなたに私の写真を見せましょう」になるように並べよう",
       "tokens": ["I", "will", "show", "you", "my pictures"],
+      "concept": "eng-svoo-svoc",
+      "difficulty": 2,
       "explanation": "show + 人 + 物 の語順。I will show you my pictures.",
       "hints": [
         "show も give と同じく「人 + 物」を続けられる動詞",
@@ -109,15 +190,17 @@
       ]
     },
     {
-      "id": "q10",
-      "type": "choice",
-      "question": "Are you going to study tonight? に「はい」と答えるときの正しい応答は？",
-      "choices": ["Yes, I am.", "Yes, I do.", "Yes, I will going.", "Yes, you are."],
-      "answer": 0,
-      "explanation": "be going to の疑問文は be動詞で答える。Are you 〜? → Yes, I am. / No, I'm not.",
+      "id": "q15",
+      "type": "input",
+      "question": "「私はあなたに私のノートを見せましょう」 I will ( ) ( ) my notebook.（2語で）",
+      "answers": ["show you", "showyou"],
+      "placeholder": "例: give him",
+      "concept": "eng-svoo-svoc",
+      "difficulty": 2,
+      "explanation": "①「見せる」は show。②show + 人 + 物 の語順なので、show you my notebook。「人」が先に来る。",
       "hints": [
-        "Are で聞かれたら、答えにも同じなかまの動詞を使う",
-        "be動詞の疑問文には be動詞で返す。聞かれたのは you だから答えの主語は I"
+        "「見せる」の動詞 + 「人」の順で2語",
+        "show + you。物（my notebook）はそのあと"
       ]
     },
     {
@@ -126,8 +209,10 @@
       "question": "My mother bought me a bag. をほぼ同じ意味の文に書き換える。\nMy mother bought a bag ( ) me. の ( ) に入る語は？",
       "choices": ["for", "to", "at", "on"],
       "answer": 0,
-      "explanation": "「物」を先に言う形では、buy / make などは for、give / show / teach などは to を使う。「〜のために買う」と考えると for が選べる。",
+      "answers": ["for"],
+      "concept": "eng-svoo-svoc",
       "difficulty": 3,
+      "explanation": "「物」を先に言う形では、buy / make などは for、give / show / teach などは to を使う。「〜のために買う」と考えると for が選べる。",
       "hints": [
         "「人 + 物」を「物 + 前置詞 + 人」に直す書き換え。buy はどっち？",
         "give 型は to、buy / make 型は for。「私のために買った」と考えよう"
