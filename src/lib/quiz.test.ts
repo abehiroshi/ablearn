@@ -39,6 +39,19 @@ describe("normalizeAnswer / checkInputAnswer", () => {
     expect(checkInputAnswer("3x+6y", ["2x+6y", "6y+2x"])).toBe(false);
     expect(checkInputAnswer("   ", ["2x+6y"])).toBe(false);
   });
+
+  it("カタカナ/ひらがなのゆれを吸収する（計画39）", () => {
+    // ひらがな指定の読み問題にカタカナで答えても受理
+    expect(checkInputAnswer("ゼンジ", ["ぜんじ"])).toBe(true);
+    // カタカナ表記が正解の用語にひらがなで答えても受理（既存の手動別表記と同じ意図）
+    expect(checkInputAnswer("あみらーぜ", ["アミラーゼ"])).toBe(true);
+    // 長音符は変換対象外（ー はそのまま比較される）
+    expect(normalizeAnswer("ペリー")).toBe("ぺりー");
+    // 漢字はそのまま
+    expect(checkInputAnswer("把握", ["把握"])).toBe(true);
+    // 半角カタカナも NFKC で全角に正規化されてから折りたたまれる
+    expect(checkInputAnswer("ｾﾞﾝｼﾞ", ["ぜんじ"])).toBe(true);
+  });
 });
 
 describe("checkOrder", () => {

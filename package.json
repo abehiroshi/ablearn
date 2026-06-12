@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "validate:content": "node scripts/validate-content.mjs"
+    "validate:content": "node scripts/validate-content.mjs",
+    "coverage:kanken": "node scripts/kanken-coverage.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

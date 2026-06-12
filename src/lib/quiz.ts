@@ -45,10 +45,12 @@ export function shuffle<T>(arr: T[]): T[] {
 
 /**
  * 入力式の解答を正規化して比較する。
- * 全角/半角、大文字/小文字、空白、句読点の揺れを吸収する。
+ * 全角/半角、大文字/小文字、空白、句読点、カタカナ/ひらがなの揺れを吸収する。
  */
 export function normalizeAnswer(s: string): string {
   return s
+    // 半角カタカナ→全角・濁点合成など互換文字の正規化（カナ折りたたみの前に行う）
+    .normalize("NFKC")
     .trim()
     // 全角英数字・記号 → 半角
     .replace(/[！-～]/g, (ch) =>
@@ -56,6 +58,11 @@ export function normalizeAnswer(s: string): string {
     )
     .replace(/　/g, " ")
     .toLowerCase()
+    // カタカナ → ひらがな（計画39。「ひらがなで答えよ」にカタカナで答えても受理する。
+    // 既存コンテンツも手動でひらがな別表記を併記しており、表記を区別する問題は無い）
+    .replace(/[ァ-ヶ]/g, (ch) =>
+      String.fromCharCode(ch.charCodeAt(0) - 0x60)
+    )
     // 空白除去・カンマ/読点の統一
     .replace(/\s+/g, "")
     .replace(/[、，]/g, ",")
