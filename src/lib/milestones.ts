@@ -294,6 +294,11 @@ export function describeMilestone(
         big: true,
       };
     }
+    case "sugoroku": {
+      // 単元すごろくの全マスクリア（計画33）
+      const name = counts?.unitNames[a] ?? a;
+      return { id, emoji: "🎲", label: `すごろく踏破: ${name}`, big: true };
+    }
     default:
       return null;
   }

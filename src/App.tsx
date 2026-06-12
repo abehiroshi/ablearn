@@ -7,6 +7,7 @@ import type {
   Question,
   QuestionSet,
   SetMeta,
+  Unit,
 } from "./types";
 import {
   buildSetLookup,
@@ -57,6 +58,7 @@ import {
   pickRematches,
   tagRematchItems,
 } from "./lib/rematch";
+import { buildTrack, sugorokuMilestoneId } from "./lib/sugoroku";
 import { shuffle } from "./lib/quiz";
 import { playTap, setSoundMuted } from "./lib/sound";
 import HomeScreen from "./screens/HomeScreen";
@@ -198,6 +200,33 @@ export default function App() {
   }, [index]);
 
   const conceptMap = useMemo(() => buildConceptMap(concepts), [concepts]);
+
+  /** setId → その単元（すごろくの踏破判定用。計画33） */
+  const setUnit = useMemo(() => {
+    const map = new Map<string, { subjectId: string; unit: Unit }>();
+    if (!index) return map;
+    for (const subject of index.subjects) {
+      for (const unit of subject.units) {
+        for (const meta of unit.sets) {
+          map.set(meta.id, { subjectId: subject.id, unit });
+        }
+      }
+    }
+    return map;
+  }, [index]);
+
+  /**
+   * セット完走後、単元すごろくの全マスクリアなら祝福を記録する（計画33。
+   * 18の体系に相乗り＝バッジ棚に残る。一度きり）
+   */
+  function celebrateSugoroku(s: AppState, setId: string): AppState {
+    const entry = setUnit.get(setId);
+    if (!entry) return s;
+    if (!buildTrack(entry.unit, s).allClear) return s;
+    const id = sugorokuMilestoneId(entry.subjectId, entry.unit.id);
+    if (s.celebrated.includes(id)) return s;
+    return { ...s, celebrated: [...s.celebrated, id] };
+  }
 
   /**
    * つまずいた概念の「前提概念の復習」誘導先（計画26）。
@@ -530,7 +559,10 @@ export default function App() {
 
   function handleFinish(score: number) {
     const setId = session?.setId;
-    if (setId) setState((prev) => recordSetResult(prev, setId, score));
+    if (setId)
+      setState((prev) =>
+        celebrateSugoroku(recordSetResult(prev, setId, score), setId)
+      );
     // 挑戦束の完走（計画29）: 完遂を記録し、寄与同等で達成した週目標があれば祝福を記録
     if (session?.kind === "challenge") {
       setState((prev) => {
@@ -745,7 +777,12 @@ export default function App() {
           revisit={!!state.setRecords[lesson.setId]}
           onAnswer={handleAnswer}
           onFinish={(score) =>
-            setState((prev) => recordSetResult(prev, lesson.setId, score))
+            setState((prev) =>
+              celebrateSugoroku(
+                recordSetResult(prev, lesson.setId, score),
+                lesson.setId
+              )
+            )
           }
           onClose={() => setLesson(null)}
         />

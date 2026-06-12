@@ -726,6 +726,71 @@ input {
   animation: fadein 0.3s ease;
 }
 
+/* 単元すごろく（計画33）: 一本道のマス目 */
+.sugoroku {
+  margin-bottom: 12px;
+}
+.sugo-row {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+.sugo-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40px;
+  flex-shrink: 0;
+}
+.sugo-node {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 15px;
+  border: 2px solid #ddd;
+  background: #f3f3f5;
+  color: var(--text-2);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.sugo-node.clear {
+  background: var(--green-soft);
+  border-color: var(--green);
+  color: var(--green);
+}
+.sugo-node.passed {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.sugo-line {
+  flex: 1;
+  width: 3px;
+  min-height: 10px;
+  background: #e0e0e6;
+}
+.sugo-cell {
+  flex: 1;
+  margin-bottom: 10px;
+}
+.sugo-cell.current {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.sugo-cell.hidden-cell {
+  opacity: 0.6;
+}
+.sugo-mini {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
 /* 再戦フレーム（計画30）: 過去の自分への挑戦を示すバナー */
 .rematch-frame {
   display: inline-block;

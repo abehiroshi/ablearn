@@ -6,6 +6,8 @@ import {
   achievedCount,
   achievementPct,
 } from "../lib/milestones";
+import { buildTrack } from "../lib/sugoroku";
+import Abler from "../components/Abler";
 
 interface Props {
   index: ContentIndex;
@@ -90,41 +92,83 @@ export default function LibraryScreen({
                 ))}
               </div>
             )}
-            <div className="set-grid">
-            {unit.sets.map((meta) => {
-              const rec = state.setRecords[meta.id];
-              const isLesson = meta.kind === "lesson";
+            {/* 単元すごろく（計画33）: 一本道のマス目。1マス=1セット・ロックなし */}
+            {(() => {
+              const track = buildTrack(unit, state);
               return (
-                <button
-                  key={meta.id}
-                  className="set-row"
-                  onClick={() => onStartSet(meta)}
-                >
-                  <span style={{ fontWeight: 600, flex: 1 }}>
-                    {isLesson && <span className="lesson-pill">📖 レッスン</span>}
-                    {meta.name}
-                    {meta.origin && (
-                      <span className="origin-pill">📋 {meta.origin}</span>
-                    )}
-                  </span>
-                  {isLesson ? (
-                    <span className={`score-pill ${rec ? "done" : ""}`}>
-                      {rec ? "完了" : "未学習"}
-                    </span>
-                  ) : rec ? (
-                    <span
-                      className={`score-pill ${rec.best >= 80 ? "done" : ""}`}
-                    >
-                      ベスト {rec.best}%
-                    </span>
-                  ) : (
-                    <span className="score-pill">未挑戦</span>
+                <div className="sugoroku">
+                  {track.cells.map((c, i) => {
+                    const rec = state.setRecords[c.meta.id];
+                    const isLesson = c.meta.kind === "lesson";
+                    return (
+                      <div key={c.meta.id} className="sugo-row">
+                        <div className="sugo-rail">
+                          <span className={`sugo-node ${c.state}`}>
+                            {c.current ? (
+                              <Abler pose="main" size={30} />
+                            ) : c.state === "clear" ? (
+                              "★"
+                            ) : c.state === "passed" ? (
+                              "●"
+                            ) : (
+                              "？"
+                            )}
+                          </span>
+                          {i < track.cells.length - 1 && (
+                            <span className="sugo-line" />
+                          )}
+                        </div>
+                        <button
+                          className={`set-row sugo-cell ${c.current ? "current" : ""} ${c.revealed ? "" : "hidden-cell"}`}
+                          onClick={() => onStartSet(c.meta)}
+                        >
+                          <span style={{ fontWeight: 600, flex: 1 }}>
+                            {c.revealed ? (
+                              <>
+                                {isLesson && (
+                                  <span className="lesson-pill">
+                                    📖 レッスン
+                                  </span>
+                                )}
+                                {c.meta.name}
+                                {c.meta.origin && (
+                                  <span className="origin-pill">
+                                    📋 {c.meta.origin}
+                                  </span>
+                                )}
+                              </>
+                            ) : (
+                              "？？？"
+                            )}
+                          </span>
+                          {isLesson ? (
+                            <span className={`score-pill ${rec ? "done" : ""}`}>
+                              {rec ? "完了" : c.current ? "つぎはここ" : "未学習"}
+                            </span>
+                          ) : rec ? (
+                            <span
+                              className={`score-pill ${rec.best >= 80 ? "done" : ""}`}
+                            >
+                              ベスト {rec.best}%
+                            </span>
+                          ) : (
+                            <span className="score-pill">
+                              {c.current ? "つぎはここ" : "？"}
+                            </span>
+                          )}
+                          <span className="chevron">›</span>
+                        </button>
+                      </div>
+                    );
+                  })}
+                  {track.allClear && (
+                    <div className="muted" style={{ margin: "4px 0 12px 54px", fontSize: 13 }}>
+                      🎲 この単元のすごろくは踏破ずみ！
+                    </div>
                   )}
-                  <span className="chevron">›</span>
-                </button>
+                </div>
               );
-            })}
-            </div>
+            })()}
           </div>
           );
         })}

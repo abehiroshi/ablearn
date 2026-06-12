@@ -19,6 +19,7 @@ import {
   challengeQuota,
   recommendedBundle,
 } from "../lib/goals";
+import { buildTrack, miniTrack } from "../lib/sugoroku";
 import Abler from "../components/Abler";
 
 interface Props {
@@ -544,6 +545,41 @@ export default function HomeScreen({
           ))}
         </div>
       )}
+
+      {/* 進行中単元のミニすごろく（計画33）: 全体量と現在地をマス目で見せる */}
+      {(() => {
+        const rows = subjects.flatMap((s) =>
+          (state.currentUnits[s.id] ?? [])
+            .map((uid) => s.units.find((u) => u.id === uid))
+            .filter((u) => !!u)
+            .map((u) => ({ subject: s, unit: u!, track: buildTrack(u!, state) }))
+        );
+        if (rows.length === 0) return null;
+        return (
+          <div className="card">
+            <div className="muted" style={{ marginBottom: 4 }}>
+              進行中の単元
+            </div>
+            {rows.map(({ subject, unit, track }) => (
+              <button
+                key={`${subject.id}/${unit.id}`}
+                className="list-row"
+                style={{ width: "100%", textAlign: "left" }}
+                onClick={() => onOpenSubject(subject.id)}
+              >
+                <span>{subject.icon}</span>
+                <span style={{ flex: 1, fontWeight: 600 }}>{unit.name}</span>
+                <span className="sugo-mini">{miniTrack(track)}</span>
+                <span className="muted" style={{ fontSize: 12 }}>
+                  {track.remaining === 0
+                    ? "ゴール！"
+                    : `あと${track.remaining}マス`}
+                </span>
+              </button>
+            ))}
+          </div>
+        );
+      })()}
 
       {/* 再戦カード（計画30）: 解ける見込みが立った過去の不正解問題への成長確認イベント */}
       {rematchCount > 0 && (
