@@ -78,6 +78,8 @@ export interface AppState {
   celebrated: string[];
   /** 選択中のマスコットスキン（計画19。解放状態は celebrated から導出） */
   selectedSkin: string;
+  /** 効果音ミュート（計画27。デフォルトOFF=音あり） */
+  muted: boolean;
   /** concept → 習熟度（計画12。型は src/lib/mastery.ts の ConceptMastery） */
   mastery: Record<
     string,
@@ -109,6 +111,7 @@ export function emptyState(): AppState {
     mockResults: [],
     celebrated: [],
     selectedSkin: "main",
+    muted: false,
     mastery: {},
   };
 }

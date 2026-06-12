@@ -8,6 +8,7 @@ import {
   OrderView,
 } from "../components/QuestionViews";
 import Abler from "../components/Abler";
+import { playCorrect, playWrong } from "../lib/sound";
 import type { Milestone } from "../lib/milestones";
 
 interface Feedback {
@@ -70,6 +71,8 @@ export default function LessonScreen({
     );
     milestones.current.push(...res.milestones);
     setSessionXp((v) => v + xp);
+    if (correct) playCorrect();
+    else playWrong();
     // 間違えてもその場で解説して先へ進む（リトライはしない）
     setFeedback({ correct, correctText });
   }

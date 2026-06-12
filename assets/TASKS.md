@@ -104,3 +104,14 @@
     p07 静電気 https://youtu.be/Q3NDjEhjlbM ／ p08 磁界 https://youtu.be/7sfHnp0diWo ／
     p09 電流が磁界から受ける力 https://youtu.be/okBt9HPnZDY ／ p10 電磁誘導 https://youtu.be/-kgLoGhfxVs ／
     回路図問題の演習 https://youtu.be/_EOrSXC-kvs
+
+## T-004: 正解音・祝福音の CC0 素材選定
+
+- 状態: 依頼中
+- 内容: 効果音（[計画27](../docs/plans/27-sound-effects.md)）の正解音・祝福音を CC0 素材から選ぶ。
+  現状はコード合成のプレースホルダ（成績タブ「おと」の試聴ボタンで聞ける）。本人と一緒に聞き比べて決める
+- 仕様: **CC0 のみ**（public リポジトリのため CC0 以外はコミット禁止）。候補: Kenney UI Audio（kenney.nl/assets/ui-audio）等。
+  正解音=短い上昇系・控えめ／祝福音=少しリッチ、の性格は維持する
+- 納品先: `public/sounds/` に音声ファイル＋ `public/sounds/LICENSES.md` に出典を記録
+- 取込手順: `src/lib/sound.ts` の playCorrect / playFanfare をサンプル再生に置き換える（差し替え口はコメントで明示済み）
+- メモ: 合成音で十分クセになるなら差し替え不要。急がない

@@ -17,6 +17,7 @@ import {
   weekAnswers,
 } from "../lib/milestones";
 import { SKINS, isUnlocked } from "../lib/skins";
+import { playCorrect, playFanfare, playTap, playWrong } from "../lib/sound";
 import Abler from "../components/Abler";
 import {
   AccuracyBars,
@@ -32,6 +33,7 @@ interface Props {
   counts: ContentCounts | null;
   onImport: (state: AppState) => void;
   onSelectSkin: (id: string) => void;
+  onToggleMute: () => void;
 }
 
 const DOW = ["日", "月", "火", "水", "木", "金", "土"];
@@ -42,6 +44,7 @@ export default function StatsScreen({
   counts,
   onImport,
   onSelectSkin,
+  onToggleMute,
 }: Props) {
   const bySubject = useMemo(
     () => subjectAccuracy(index, state),
@@ -283,6 +286,40 @@ export default function StatsScreen({
           </div>
         </div>
       )}
+
+      <div className="card">
+        <div style={{ fontWeight: 700, marginBottom: 4 }}>おと</div>
+        <div className="list-row">
+          <span style={{ flex: 1 }}>効果音</span>
+          <button
+            className="secondary-btn"
+            style={{ width: "auto", padding: "8px 16px" }}
+            onClick={onToggleMute}
+          >
+            {state.muted ? "🔇 ミュート中" : "🔊 オン"}
+          </button>
+        </div>
+        {!state.muted && (
+          <div className="row" style={{ flexWrap: "wrap", gap: 8 }}>
+            {(
+              [
+                ["タップ", playTap],
+                ["せいかい", playCorrect],
+                ["ざんねん", playWrong],
+                ["おいわい", playFanfare],
+              ] as const
+            ).map(([label, play]) => (
+              <button
+                key={label}
+                className="score-pill"
+                onClick={() => play()}
+              >
+                ♪ {label}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
 
       <div className="card">
         <div style={{ fontWeight: 700, marginBottom: 4 }}>バックアップ</div>

@@ -20,6 +20,7 @@ import {
 } from "../components/QuestionViews";
 import Abler from "../components/Abler";
 import { Encouragement, pickEncouragement } from "../lib/encouragement";
+import { playCorrect, playFanfare, playWrong } from "../lib/sound";
 import ScratchPad from "../components/ScratchPad";
 import { RANK_LABELS } from "../lib/mastery";
 import type { Milestone } from "../lib/milestones";
@@ -174,6 +175,11 @@ export default function QuizScreen({
     sessionMilestones.current.push(...milestones);
     setSessionXp((v) => v + xp);
 
+    // 効果音（計画27）: 祝福があるときは祝福音だけ鳴らす（重ねない）
+    if (milestones.length > 0 || promotedTo != null) playFanfare();
+    else if (correct) playCorrect();
+    else playWrong();
+
     // フラッシュカードは自己申告でフィードバックを挟まないため、
     // つまずき検知に数えると励まし・誘導が表示されないまま
     // 「セッション内1回」を消費してしまう。対象外にする
@@ -228,6 +234,7 @@ export default function QuizScreen({
             : undefined;
     // わからない もつまずきのシグナルとして数える
     const struggle = trackStruggle(false);
+    playWrong(); // 不正解と同じ柔らかい音（罰の音にしない）
     setFeedback({ correct: false, dontKnow: true, correctText, struggle });
     setScratchOpen(false);
   }

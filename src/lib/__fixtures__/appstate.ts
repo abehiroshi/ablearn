@@ -101,6 +101,22 @@ export const V1_AFTER_12 = {
   },
 };
 
+/** 計画26（前提遡り）まで・計画27（効果音）より前の形式（muted なし・wrongStreak あり） */
+export const V1_AFTER_26 = {
+  ...V1_AFTER_12,
+  mastery: {
+    ...V1_AFTER_12.mastery,
+    "math-shiki-touhen": {
+      level: -1,
+      streak: 0,
+      wrongStreak: 2,
+      lastCorrectDate: "",
+      dueDate: "2026-06-13",
+      setId: "math-shiki-touhen",
+    },
+  },
+};
+
 export const ALL_FIXTURES: Record<string, unknown> = {
   "v1-initial": V1_INITIAL,
   "v1-after-04": V1_AFTER_04,
@@ -108,4 +124,5 @@ export const ALL_FIXTURES: Record<string, unknown> = {
   "v1-after-06": V1_AFTER_06,
   "v1-after-17": V1_AFTER_17,
   "v1-after-12": V1_AFTER_12,
+  "v1-after-26": V1_AFTER_26,
 };

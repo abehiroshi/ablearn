@@ -39,6 +39,7 @@ import {
 import { recommend } from "./lib/recommend";
 import { applyAnswer, buildAdaptiveItems, emptyMastery } from "./lib/mastery";
 import { shuffle } from "./lib/quiz";
+import { playTap, setSoundMuted } from "./lib/sound";
 import HomeScreen from "./screens/HomeScreen";
 import LibraryScreen from "./screens/LibraryScreen";
 import ReviewScreen from "./screens/ReviewScreen";
@@ -105,6 +106,20 @@ export default function App() {
       .then(setIndex)
       .catch((e) => setLoadError(String(e)));
     loadConcepts().then(setConcepts);
+  }, []);
+  // 効果音（計画27）: ミュート設定の反映と、ボタン・リンクへのタップ音の一括取り付け。
+  // pointerdown（ユーザー操作）起点なので AudioContext の作成・resume が許可される
+  useEffect(() => setSoundMuted(state.muted), [state.muted]);
+  useEffect(() => {
+    const onDown = (e: PointerEvent) => {
+      const el = e.target as Element | null;
+      if (el?.closest?.("button, a")) playTap();
+    };
+    document.addEventListener("pointerdown", onDown, {
+      capture: true,
+      passive: true,
+    });
+    return () => document.removeEventListener("pointerdown", onDown, true);
   }, []);
   useEffect(() => {
     if (!index) return;
@@ -415,6 +430,9 @@ export default function App() {
           onImport={(s) => setState(s)}
           onSelectSkin={(id) =>
             setState((prev) => ({ ...prev, selectedSkin: id }))
+          }
+          onToggleMute={() =>
+            setState((prev) => ({ ...prev, muted: !prev.muted }))
           }
         />
       )}
