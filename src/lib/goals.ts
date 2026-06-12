@@ -64,20 +64,20 @@ export const GOAL_CATALOG: GoalDef[] = [
   // 日常モード用
   { id: "days-3", mode: "daily", label: "週に3日学習する", target: 3 },
   { id: "days-5", mode: "daily", label: "週に5日学習する", target: 5 },
-  { id: "count-35", mode: "daily", label: "週に35問とく", target: 35 },
-  { id: "count-70", mode: "daily", label: "週に70問とく", target: 70 },
-  { id: "count-105", mode: "daily", label: "週に105問とく", target: 105 },
+  { id: "count-35", mode: "daily", label: "週に35問解く", target: 35 },
+  { id: "count-70", mode: "daily", label: "週に70問解く", target: 70 },
+  { id: "count-105", mode: "daily", label: "週に105問解く", target: 105 },
   { id: "review-10", mode: "daily", label: "苦手を10問やっつける", target: 10 },
   { id: "review-20", mode: "daily", label: "苦手を20問やっつける", target: 20 },
   { id: "subjects-3", mode: "daily", label: "3教科以上にさわる", target: 3 },
-  { id: "lesson-1", mode: "daily", label: "レッスンを1本すすめる", target: 1 },
-  { id: "lesson-2", mode: "daily", label: "レッスンを2本すすめる", target: 2 },
+  { id: "lesson-1", mode: "daily", label: "レッスンを1本進める", target: 1 },
+  { id: "lesson-2", mode: "daily", label: "レッスンを2本進める", target: 2 },
   // テストモード用（テスト登録中だけ提案される。常設の週目標の上に乗る）
   { id: "range-50", mode: "test", label: "範囲の達成度を50%にする", target: 50 },
   { id: "range-80", mode: "test", label: "範囲の達成度を80%にする", target: 80 },
   { id: "range-100", mode: "test", label: "範囲の達成度を100%にする", target: 100 },
-  { id: "mock-1", mode: "test", label: "模擬テストを1回うける", target: 1 },
-  { id: "mock-2", mode: "test", label: "模擬テストを2回うける", target: 2 },
+  { id: "mock-1", mode: "test", label: "模擬テストを1回受ける", target: 1 },
+  { id: "mock-2", mode: "test", label: "模擬テストを2回受ける", target: 2 },
   { id: "range-review-0", mode: "test", label: "範囲の苦手をゼロにする", target: 0 },
 ];
 
@@ -222,7 +222,7 @@ export function goalProgress(
         if (weekDays.includes(rec.lastAt.slice(0, 10))) n++;
       }
       current = n;
-      todayTask = "きょうレッスンを1本すすめよう";
+      todayTask = "きょうレッスンを1本進めよう";
       break;
     }
     case "range": {
@@ -262,7 +262,7 @@ export function goalProgress(
       current = state.mockResults.filter((r) =>
         weekDays.includes(r.at.slice(0, 10))
       ).length;
-      todayTask = "模擬テストを1回うけてみよう";
+      todayTask = "模擬テストを1回受けてみよう";
       break;
     }
     default:

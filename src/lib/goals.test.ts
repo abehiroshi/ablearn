@@ -174,7 +174,7 @@ describe("目標カタログの進捗", () => {
     expect(p.achieved).toBe(false);
   });
 
-  it("mock: 今週うけた模擬テストの回数", () => {
+  it("mock: 今週受けた模擬テストの回数", () => {
     const s = emptyState();
     s.mockResults = [
       { at: "2026-06-09T18:00:00.000Z", score: 70, correct: 7, total: 10, rangeLabel: "", durationMin: 20 },

@@ -190,7 +190,7 @@ export default function HomeScreen({
               style={{ flex: 1 }}
               onClick={() => onChooseBundle("normal", quota)}
             >
-              ふつう（{quota}問とく）
+              ふつう（{quota}問解く）
             </button>
             <button
               className={
