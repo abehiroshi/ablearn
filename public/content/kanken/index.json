@@ -13,7 +13,16 @@
           "sets": [
             { "id": "pre2-yomi-1", "name": "読み 基本1", "file": "pre2/yomi-1.json" },
             { "id": "pre2-yomi-2", "name": "読み 基本2", "file": "pre2/yomi-2.json" },
-            { "id": "pre2-yomi-3", "name": "読み 基本3", "file": "pre2/yomi-3.json" }
+            { "id": "pre2-yomi-3", "name": "読み 基本3", "file": "pre2/yomi-3.json" },
+            { "id": "pre2-yomi-4", "name": "読み 配当字1", "file": "pre2/yomi-4.json" },
+            { "id": "pre2-yomi-5", "name": "読み 配当字2", "file": "pre2/yomi-5.json" },
+            { "id": "pre2-yomi-6", "name": "読み 配当字3", "file": "pre2/yomi-6.json" },
+            { "id": "pre2-yomi-7", "name": "読み 訓読み中心", "file": "pre2/yomi-7.json" },
+            { "id": "pre2-yomi-8", "name": "読み 配当字4", "file": "pre2/yomi-8.json" },
+            { "id": "pre2-yomi-9", "name": "読み 配当字5", "file": "pre2/yomi-9.json" },
+            { "id": "pre2-yomi-10", "name": "読み 配当字6", "file": "pre2/yomi-10.json" },
+            { "id": "pre2-yomi-11", "name": "読み 配当字7", "file": "pre2/yomi-11.json" },
+            { "id": "pre2-yomi-12", "name": "読み 配当字8", "file": "pre2/yomi-12.json" }
           ]
         },
         {
