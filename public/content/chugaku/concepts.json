@@ -657,6 +657,127 @@
       "prerequisites": [
         "sci-shitsudo-keisan"
       ]
+    },
+    {
+      "id": "math-shibunni",
+      "name": "四分位数と四分位範囲",
+      "set": "math-hakohige",
+      "prerequisites": []
+    },
+    {
+      "id": "math-hakohige",
+      "name": "箱ひげ図の読みとり",
+      "set": "math-hakohige",
+      "prerequisites": [
+        "math-shibunni"
+      ]
+    },
+    {
+      "id": "math-ichiji-graph",
+      "name": "一次関数のグラフ",
+      "set": "math-ichiji-ouyou",
+      "prerequisites": [
+        "math-ichiji-henka"
+      ]
+    },
+    {
+      "id": "math-ichiji-heniki",
+      "name": "一次関数の変域",
+      "set": "math-ichiji-ouyou",
+      "prerequisites": [
+        "math-ichiji-graph"
+      ]
+    },
+    {
+      "id": "math-ichiji-kousaten",
+      "name": "2直線の交点と連立方程式",
+      "set": "math-ichiji-ouyou",
+      "prerequisites": [
+        "math-ichiji-shiki",
+        "math-renritsu-toku"
+      ]
+    },
+    {
+      "id": "math-ichiji-riyou",
+      "name": "一次関数の利用",
+      "set": "math-ichiji-ouyou",
+      "prerequisites": [
+        "math-ichiji-shiki"
+      ]
+    },
+    {
+      "id": "sci-denryoku",
+      "name": "電力・電力量・発熱量の計算",
+      "set": "sci-denki-denryoku",
+      "prerequisites": [
+        "sci-ohm-keisan"
+      ]
+    },
+    {
+      "id": "sci-seidenki",
+      "name": "静電気と電子",
+      "set": "sci-denki-jiba",
+      "prerequisites": []
+    },
+    {
+      "id": "sci-jiba",
+      "name": "電流がつくる磁界と受ける力",
+      "set": "sci-denki-jiba",
+      "prerequisites": [
+        "sci-kairo-denryuu"
+      ]
+    },
+    {
+      "id": "sci-denjiyudo",
+      "name": "電磁誘導と発電",
+      "set": "sci-denki-jiba",
+      "prerequisites": [
+        "sci-jiba"
+      ]
+    },
+    {
+      "id": "sci-kumo",
+      "name": "露点と雲のでき方",
+      "set": "sci-tenki-kishou",
+      "prerequisites": [
+        "sci-shitsudo-keisan"
+      ]
+    },
+    {
+      "id": "sci-nihon-kishou",
+      "name": "気団と日本の四季の天気",
+      "set": "sci-tenki-kishou",
+      "prerequisites": [
+        "sci-zensen-tenki"
+      ]
+    },
+    {
+      "id": "sci-hatsunetsu",
+      "name": "発熱反応と吸熱反応",
+      "set": "sci-kagaku-netsu",
+      "prerequisites": [
+        "sci-kagaku-henka-shurui"
+      ]
+    },
+    {
+      "id": "soc-chiri-chubu",
+      "name": "中部地方の特色（3区分と産業）",
+      "set": "soc-chiri-chubu",
+      "prerequisites": [
+        "soc-chiri-kikou"
+      ]
+    },
+    {
+      "id": "jpn-keigo-shurui",
+      "name": "敬語の種類と使い方",
+      "set": "jpn-keigo",
+      "prerequisites": []
+    },
+    {
+      "id": "jpn-tanka-kihon",
+      "name": "短歌の形式と表現技法",
+      "set": "jpn-tanka",
+      "prerequisites": []
     }
   ]
 }

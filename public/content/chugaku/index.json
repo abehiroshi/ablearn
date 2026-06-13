@@ -73,6 +73,11 @@
               "id": "math-ichiji-kihon",
               "name": "一次関数の基本",
               "file": "math/ichiji-kihon.json"
+            },
+            {
+              "id": "math-ichiji-ouyou",
+              "name": "一次関数の応用（グラフ・変域・交点・利用）",
+              "file": "math/ichiji-ouyou.json"
             }
           ]
         },
@@ -121,6 +126,20 @@
               "id": "math-kakuritsu",
               "name": "場合の数と確率",
               "file": "math/kakuritsu.json"
+            }
+          ]
+        },
+        {
+          "id": "data",
+          "name": "箱ひげ図とデータの活用",
+          "terms": [
+            "学年末"
+          ],
+          "sets": [
+            {
+              "id": "math-hakohige",
+              "name": "四分位数と箱ひげ図",
+              "file": "math/hakohige.json"
             }
           ]
         }
@@ -322,6 +341,11 @@
               "id": "sci-kagaku-hannoushiki",
               "name": "化学反応式の係数",
               "file": "science/kagaku-hannoushiki.json"
+            },
+            {
+              "id": "sci-kagaku-netsu",
+              "name": "化学変化と熱（発熱・吸熱）",
+              "file": "science/kagaku-netsu.json"
             }
           ],
           "links": [
@@ -455,6 +479,11 @@
               "id": "sci-tenki-shitsudo",
               "name": "湿度と雲のでき方",
               "file": "science/tenki-shitsudo.json"
+            },
+            {
+              "id": "sci-tenki-kishou",
+              "name": "雲のでき方と日本の気象",
+              "file": "science/tenki-kishou.json"
             }
           ],
           "links": [
@@ -498,6 +527,16 @@
               "id": "sci-denki-ohm",
               "name": "オームの法則",
               "file": "science/denki-ohm.json"
+            },
+            {
+              "id": "sci-denki-denryoku",
+              "name": "電力と電力量・発熱量",
+              "file": "science/denki-denryoku.json"
+            },
+            {
+              "id": "sci-denki-jiba",
+              "name": "静電気・磁界・電磁誘導",
+              "file": "science/denki-jiba.json"
             }
           ]
         }
@@ -582,6 +621,25 @@
               "id": "soc-meiji-cards",
               "name": "明治維新の用語カード",
               "file": "social/meiji-cards.json"
+            }
+          ]
+        },
+        {
+          "id": "chiri-chubu",
+          "name": "地理（日本の諸地域・中部地方）",
+          "terms": [
+            "学年末"
+          ],
+          "sets": [
+            {
+              "id": "soc-chiri-chubu",
+              "name": "中部地方の特色",
+              "file": "social/chiri-chubu.json"
+            },
+            {
+              "id": "soc-chiri-chubu-cards",
+              "name": "中部地方の用語カード",
+              "file": "social/chiri-chubu-cards.json"
             }
           ]
         },
@@ -693,6 +751,20 @@
           ]
         },
         {
+          "id": "tanka",
+          "name": "短歌",
+          "terms": [
+            "2学期中間"
+          ],
+          "sets": [
+            {
+              "id": "jpn-tanka",
+              "name": "短歌（形式と表現技法）",
+              "file": "japanese/tanka.json"
+            }
+          ]
+        },
+        {
           "id": "koten",
           "name": "古典（平家物語・徒然草）",
           "terms": [
@@ -703,6 +775,20 @@
               "id": "jpn-koten-kihon",
               "name": "古典の基本",
               "file": "japanese/koten-kihon.json"
+            }
+          ]
+        },
+        {
+          "id": "keigo",
+          "name": "敬語",
+          "terms": [
+            "2学期期末"
+          ],
+          "sets": [
+            {
+              "id": "jpn-keigo",
+              "name": "敬語（尊敬語・謙譲語・丁寧語）",
+              "file": "japanese/keigo.json"
             }
           ]
         },
