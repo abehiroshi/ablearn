@@ -159,6 +159,47 @@
         "代入法",
         "だいにゅうほう"
       ]
+    },
+    {
+      "id": "q9",
+      "type": "choice",
+      "question": "連立方程式\n2x + y = 7\n3x − y = 8\nの解はどれ？",
+      "choices": [
+        "x = 3, y = 1",
+        "x = 3, y = −1",
+        "x = 2, y = 3",
+        "x = 1, y = 5"
+      ],
+      "answer": 0,
+      "explanation": "①+y と −y なので、2つの式を足すと y が消える（係数の絶対値が同じで符号が逆だから）: 5x = 15 → x = 3。②上の式に代入する: 6 + y = 7 → y = 1。",
+      "difficulty": 2,
+      "hints": [
+        "+y と −y。2つの式をそのまま足すと y が消える",
+        "足すと 5x = 15 → x = 3。上の式に代入して y を求めよう"
+      ],
+      "concept": "math-renritsu-toku",
+      "answers": [
+        "x=3,y=1",
+        "x=3, y=1"
+      ]
+    },
+    {
+      "id": "q10",
+      "type": "input",
+      "question": "連立方程式\ny = x − 1\n2x + y = 11\nのとき、x の値は？",
+      "answers": [
+        "4",
+        "x=4",
+        "４"
+      ],
+      "placeholder": "数字で答えよう",
+      "explanation": "①y = x − 1 を下の式の y に代入する（文字を1つ消すため）: 2x + (x − 1) = 11。②整理して解く: 3x = 12 → x = 4。（y = 3）",
+      "difficulty": 2,
+      "hints": [
+        "上の式が y = … の形。下の式の y にそのまま入れよう（代入法）",
+        "2x + x − 1 = 11 → 3x = 12"
+      ],
+      "concept": "math-renritsu-toku"
     }
   ]
 }

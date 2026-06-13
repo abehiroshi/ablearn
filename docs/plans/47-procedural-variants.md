@@ -1,11 +1,29 @@
 # 計算系概念の変種深掘り（数字替えの量稽古を10変種以上に）
 
-- 状態: 未着手
-- 触るファイル範囲: `public/content/chugaku/{math,science}/`・`public/content/chugaku/concepts.json`・
-  `scripts/validate-content.mjs`（procedural 閾値の追加のみ）。アプリコード（pickVariant 等）には触れない
-- 引き継ぎメモ: 2026-06-13 の監査結果に基づく。反復の両面のうち**機構は揃っている**
+- 状態: 完了（2026-06-13）
+- 触るファイル範囲: `public/content/chugaku/concepts.json`（procedural タグ22個）・
+  `public/content/chugaku/{math,science}/` の演習セット11ファイル（変種を10以上へ増強）・
+  `scripts/validate-content.mjs`（procedural 閾値の追加）。アプリコード（pickVariant 等）は不変
+- 引き継ぎメモ: コンテンツ増強と validate ゲートの両方を実装し完了。
+  **コンテンツ部分（タグ＋変種増強）は当初並行セッションが進めていたが、オーナー指示（2026-06-13）で
+  本セッションが全量を引き取って1コミットに統合した**（並行セッションは停止前提）。
+  - concepts.json: 対象22概念に `kind: "procedural"` を付与（数学16・理科6）。
+    「単位換算」は sci-ohm-tani（mA⇔A）。証明・合同条件など判断系には付けていない
+  - 演習セット: 対象22概念すべてを変種10以上・input可4以上・難度ステージ{0,1,2}展開へ。
+    d1〜d2の数字替え中心、誤答に符号ミス・移項ミス・係数掛け忘れ等を埋め込み、explanation/2段ヒントは
+    変種ごとに数値反映。既存問題の id 変更はゼロ（追補のみ）
+  - validate: `QUALITY.chugaku` に `proceduralVariants:10`／`proceduralInputCapable:4` を追加。
+    subject ループ前で concepts.json を先読みして `proceduralConcepts` 集合を作り、概念別チェックで
+    ladder の concept id が procedural なら深い閾値を適用（知識系は 5/2 のまま）。
+    ladder キーは `${setId}/${concept}` で、set id にスラッシュが無い前提で `slice(indexOf("/")+1)` で concept を取り出す。
+    CI（deploy.yml）が `npm run validate:content` を回すので、以後 procedural 概念が10/4を割るとデプロイが落ちる。
+    負テスト（閾値を一時的に12にすると22概念だけエラー・知識系は無反応）で発火を確認済み。
+
+  ## 着手時の旧引き継ぎメモ（参考・経緯）
+
+  2026-06-13 の監査結果に基づく。反復の両面のうち機構は揃っている
   （同じ問題=再戦・計画30／違う問題=変種ローテーション・計画40＋SRS・計画12）。
-  不足はプールの深さのみ: 演習つき概念の大半が品質ゲート下限の**変種5丁度**（最大でも10）。
+  不足はプールの深さのみ: 演習つき概念の大半が品質ゲート下限の変種5丁度（最大でも10）。
   SRS の復習周回＋再戦が回ると 5 変種では数周で「答えを覚えた」状態に戻る。
   計算ミスを減らす数字替えの量稽古は、知識系より深いプールが必要。
 

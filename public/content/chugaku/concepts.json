@@ -18,7 +18,8 @@
       "set": "math-shiki-keisan",
       "prerequisites": [
         "math1-moji-shiki"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "math-shiki-touhen",
@@ -27,7 +28,8 @@
       "prerequisites": [
         "shiki-doruiko",
         "math1-houteishiki"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "math1-hirei",
@@ -45,7 +47,8 @@
       "set": "math-ichiji-kihon",
       "prerequisites": [
         "math1-hirei"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "math-ichiji-shiki",
@@ -54,7 +57,8 @@
       "prerequisites": [
         "math-ichiji-henka",
         "math-shiki-touhen"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "math-heikou-kaku",
@@ -62,7 +66,8 @@
       "set": "math-zukei-kakudo",
       "prerequisites": [
         "math1-heimen-zukei"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "math-naikaku-gaikaku",
@@ -70,7 +75,8 @@
       "set": "math-zukei-kakudo",
       "prerequisites": [
         "math-heikou-kaku"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "sci-kagaku-shiki",
@@ -84,7 +90,8 @@
       "set": "sci-kagaku-hannoushiki",
       "prerequisites": [
         "sci-kagaku-shiki"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "sci-saibou-tsukuri",
@@ -117,7 +124,8 @@
       "set": "sci-tenki-shitsudo",
       "prerequisites": [
         "sho-wariai"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "math-goudou-jouken",
@@ -161,7 +169,8 @@
       "id": "math-baai-kazoeage",
       "name": "場合の数を数える（樹形図）",
       "set": "math-kakuritsu",
-      "prerequisites": []
+      "prerequisites": [],
+      "kind": "procedural"
     },
     {
       "id": "math-kakuritsu-keisan",
@@ -170,7 +179,8 @@
       "prerequisites": [
         "math-baai-kazoeage",
         "sho-bunsuu"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "math-okoranai-kakuritsu",
@@ -178,7 +188,8 @@
       "set": "math-kakuritsu",
       "prerequisites": [
         "math-kakuritsu-keisan"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "sho-denki",
@@ -205,7 +216,8 @@
       "id": "sci-ohm-tani",
       "name": "電流の単位換算（mA⇔A）",
       "set": "sci-denki-ohm",
-      "prerequisites": []
+      "prerequisites": [],
+      "kind": "procedural"
     },
     {
       "id": "sci-ohm-keisan",
@@ -214,7 +226,8 @@
       "prerequisites": [
         "sci-ohm-tani",
         "math1-houteishiki"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "jpn1-bunsetsu-tango",
@@ -570,7 +583,8 @@
       "set": "math-shiki-keisan",
       "prerequisites": [
         "shiki-doruiko"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "math-shiki-setsumei",
@@ -587,7 +601,8 @@
       "prerequisites": [
         "shiki-doruiko",
         "math1-houteishiki"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "math-renritsu-toku",
@@ -596,7 +611,8 @@
       "prerequisites": [
         "math1-houteishiki",
         "math-touhen-kihon"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "math-renritsu-bunshou",
@@ -604,7 +620,8 @@
       "set": "math-renritsu-ouyou",
       "prerequisites": [
         "math-renritsu-toku"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "sci-genshi-gainen",
@@ -626,7 +643,8 @@
       "set": "sci-kagaku-shitsuryou",
       "prerequisites": [
         "sci-kagaku-henka-shurui"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "sci-jouhatsu-kikou",
@@ -662,7 +680,8 @@
       "id": "math-shibunni",
       "name": "四分位数と四分位範囲",
       "set": "math-hakohige",
-      "prerequisites": []
+      "prerequisites": [],
+      "kind": "procedural"
     },
     {
       "id": "math-hakohige",
@@ -686,7 +705,8 @@
       "set": "math-ichiji-ouyou",
       "prerequisites": [
         "math-ichiji-graph"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "math-ichiji-kousaten",
@@ -695,7 +715,8 @@
       "prerequisites": [
         "math-ichiji-shiki",
         "math-renritsu-toku"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "math-ichiji-riyou",
@@ -711,7 +732,8 @@
       "set": "sci-denki-denryoku",
       "prerequisites": [
         "sci-ohm-keisan"
-      ]
+      ],
+      "kind": "procedural"
     },
     {
       "id": "sci-seidenki",

@@ -258,6 +258,184 @@
         "係数・a・b を別々に処理しよう",
         "a²×a は a が 2+1=3 個で a³"
       ]
+    },
+    {
+      "id": "q13",
+      "type": "choice",
+      "question": "5x + 3y − 2x + y を計算すると？",
+      "choices": [
+        "3x + 4y",
+        "3x + 2y",
+        "7x + 4y",
+        "3x + 3y"
+      ],
+      "answer": 0,
+      "explanation": "①x の項どうしをまとめる（同類項しか足し引きできないため）: 5x − 2x = 3x。②y の項どうしをまとめる: 3y + y = 4y。よって 3x + 4y。",
+      "difficulty": 1,
+      "hints": [
+        "x の項と y の項に分けて、それぞれまとめよう",
+        "x の項は 5x − 2x。y の項は 3y + y。係数1の y を忘れずに"
+      ],
+      "concept": "shiki-doruiko",
+      "answers": [
+        "3x+4y",
+        "4y+3x"
+      ]
+    },
+    {
+      "id": "q14",
+      "type": "input",
+      "question": "6m + 2n − m − 5n を計算すると？",
+      "answers": [
+        "5m-3n",
+        "5m−3n",
+        "-3n+5m",
+        "−3n+5m"
+      ],
+      "placeholder": "例: 3m+2n",
+      "explanation": "①m の項をまとめる（同類項どうしだけが計算できるため）: 6m − m = 5m。②n の項をまとめる: 2n − 5n = −3n。よって 5m − 3n。",
+      "difficulty": 1,
+      "hints": [
+        "m の項どうし、n の項どうしを集めよう",
+        "6m − m = 5m。n の項は 2n − 5n。符号はどうなる？"
+      ],
+      "concept": "shiki-doruiko"
+    },
+    {
+      "id": "q15",
+      "type": "choice",
+      "question": "(4x − y) + (2x + 3y) を計算すると？",
+      "choices": [
+        "6x + 2y",
+        "6x − 2y",
+        "6x + 4y",
+        "6x + 3y"
+      ],
+      "answer": 0,
+      "explanation": "①足し算なのでかっこをそのままはずす（符号は変わらない）: 4x − y + 2x + 3y。②同類項をまとめる: 4x + 2x = 6x、−y + 3y = 2y。よって 6x + 2y。",
+      "difficulty": 1,
+      "hints": [
+        "足し算はかっこをそのままはずして同類項をまとめる",
+        "x の項は 4x + 2x。y の項は −y + 3y。−y は係数 −1 として計算"
+      ],
+      "concept": "shiki-doruiko",
+      "answers": [
+        "6x+2y",
+        "2y+6x"
+      ]
+    },
+    {
+      "id": "q16",
+      "type": "choice",
+      "question": "(5a − 2b) − (3a + 4b) を計算すると？",
+      "choices": [
+        "2a − 6b",
+        "2a + 2b",
+        "2a + 6b",
+        "8a − 6b"
+      ],
+      "answer": 0,
+      "explanation": "①ひき算はひく式の符号がすべて変わる（両辺から同じ式を引く操作だから）: 5a − 2b − 3a − 4b。②同類項をまとめる: 5a − 3a = 2a、−2b − 4b = −6b。よって 2a − 6b。",
+      "difficulty": 2,
+      "hints": [
+        "ひき算は、ひく式のかっこの中の符号が全部ひっくり返る",
+        "5a − 2b − 3a − 4b になる。+4b が −4b に変わるのがポイント"
+      ],
+      "concept": "shiki-doruiko",
+      "answers": [
+        "2a-6b",
+        "2a−6b",
+        "-6b+2a",
+        "−6b+2a"
+      ]
+    },
+    {
+      "id": "q17",
+      "type": "choice",
+      "question": "3(2a − 4b) − 2(a − 5b) を計算すると？",
+      "choices": [
+        "4a − 2b",
+        "4a − 22b",
+        "4a − 17b",
+        "8a − 2b"
+      ],
+      "answer": 0,
+      "explanation": "①分配法則でかっこをはずす（かっこの中の全部の項に係数をかける）: 3(2a − 4b) = 6a − 12b、−2(a − 5b) = −2a + 10b。−2 × (−5b) = +10b に注意。②同類項をまとめる: 6a − 2a = 4a、−12b + 10b = −2b。よって 4a − 2b。",
+      "difficulty": 3,
+      "hints": [
+        "分配法則でかっこをはずそう。後ろの −2 をかけるときの符号に注意",
+        "6a − 12b − 2a + 10b まで来たら、あとは同類項をまとめるだけ"
+      ],
+      "concept": "shiki-doruiko",
+      "answers": [
+        "4a-2b",
+        "4a−2b",
+        "-2b+4a",
+        "−2b+4a"
+      ]
+    },
+    {
+      "id": "q18",
+      "type": "input",
+      "question": "8ab ÷ 4a を計算すると？",
+      "answers": [
+        "2b",
+        "２b"
+      ],
+      "placeholder": "例: 3y",
+      "explanation": "①分数の形にする（約分できる組を見つけやすくするため）: 8ab/4a。②係数は 8 ÷ 4 = 2。③a は分子と分母の両方にあるので約分で消える。残るのは 2b。",
+      "difficulty": 1,
+      "hints": [
+        "わり算は分数の形 8ab/4a にすると見やすい",
+        "8 ÷ 4 = 2。a は分子と分母で約分される。残る文字は？"
+      ],
+      "concept": "math-tanko-shiki"
+    },
+    {
+      "id": "q19",
+      "type": "choice",
+      "question": "12x²y ÷ 3xy を計算すると？",
+      "choices": [
+        "4x",
+        "4xy",
+        "4y",
+        "9x"
+      ],
+      "answer": 0,
+      "explanation": "①分数の形にする: 12x²y/3xy。②係数は 12 ÷ 3 = 4。③x²/x = x（x が 2−1=1 個残る）、y/y = 1（約分で消える）。よって 4x。係数は「わる」のであって 12 − 3 = 9 と引くのではない。",
+      "difficulty": 2,
+      "hints": [
+        "分数の形 12x²y/3xy にして、係数と文字を別々に約分しよう",
+        "12 ÷ 3 = 4。x² ÷ x で x が1個残り、y ÷ y は消える"
+      ],
+      "concept": "math-tanko-shiki",
+      "answers": [
+        "4x",
+        "４x"
+      ]
+    },
+    {
+      "id": "q20",
+      "type": "choice",
+      "question": "x = 3, y = −2 のとき、4x + 3y の値は？",
+      "choices": [
+        "6",
+        "18",
+        "−6",
+        "13"
+      ],
+      "answer": 0,
+      "explanation": "①x と y に値を代入する（負の数はかっこをつけると符号ミスを防げる）: 4 × 3 + 3 × (−2)。②それぞれ計算する: 12 + (−6) = 6。3y は「3 × y」であって 3 + y ではない。",
+      "difficulty": 2,
+      "hints": [
+        "x と y にそれぞれの数を代入する。負の数はかっこをつけて",
+        "4 × 3 + 3 × (−2)。それぞれ計算すると 12 と −6"
+      ],
+      "concept": "math-tanko-shiki",
+      "answers": [
+        "6",
+        "６"
+      ]
     }
   ]
 }

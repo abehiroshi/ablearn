@@ -19,8 +19,12 @@ const QUALITY = {
     twoHintRate: 1.0, // 2段ヒント（弱→強）100%
     advancedRate: 0.15, // 教科ごとの難易度3（応用）比率
     conceptRate: 0.85, // 教科ごとの concept 付与率
-    conceptVariants: 5, // 概念ごとの変種数
-    conceptInputCapable: 2, // 概念ごとの input 可能変種数
+    conceptVariants: 5, // 概念ごとの変種数（知識系）
+    conceptInputCapable: 2, // 概念ごとの input 可能変種数（知識系）
+    // 計算手続き型（concepts.json で kind: "procedural"）は数字替えの量稽古が
+    // 計算ミス削減に直結するため、変種下限を深くする（計画47）。
+    proceduralVariants: 10, // procedural 概念の変種数
+    proceduralInputCapable: 4, // procedural 概念の input 可能変種数
     // concept率の対象外（計画45）: 実技は知識中心で習熟ラダーを組まない。
     // kanji の読み・書きは「量で回す」設計（1字1知識を概念化すると適応出題が1問に
     // 圧縮され量が回らない）。どちらも concept 付与率の分母から除外する。
@@ -84,6 +88,22 @@ const seenColors = new Map();
 const seenIcons = new Map();
 // setId → そのセットの問題に付いている concept 群（concepts.json の整合チェック用）
 const conceptsBySet = new Map();
+// 計算手続き型の概念 id（計画47）。概念別チェックで深い変種下限を適用する。
+// concepts.json は下の整合チェックブロックで本格パースするが、閾値判定は subject
+// ループ内で先に要るためここで軽く先読みする（壊れていてもエラーは下のブロックが出す）。
+const proceduralConcepts = new Set();
+{
+  const cp = join(ROOT, "concepts.json");
+  if (existsSync(cp)) {
+    try {
+      const ci = JSON.parse(readFileSync(cp, "utf8"));
+      for (const c of ci.concepts ?? [])
+        if (c.kind === "procedural" && c.id) proceduralConcepts.add(c.id);
+    } catch {
+      // パースエラーは下の concepts.json ブロックが報告する
+    }
+  }
+}
 for (const subject of index.subjects) {
   for (const key of ["id", "name", "color", "icon"]) {
     if (!subject[key]) err(`subject ${subject.id ?? "?"}: ${key} がない`);
@@ -262,16 +282,25 @@ for (const subject of index.subjects) {
       err(
         `${subject.id}: concept 付与率 ${Math.round((qstat.concept / qstat.conceptDenom) * 100)}%（基準 ${quality.conceptRate * 100}% 以上。量で回す系セットは分母から除外済み）`
       );
-    // 概念別チェック（計画45でエラー昇格）
+    // 概念別チェック（計画45でエラー昇格）。計算手続き型は深い下限（計画47）
     for (const [lk, vs] of ladders) {
       const fails = [];
-      if (vs.length < quality.conceptVariants)
-        fails.push(`変種${vs.length}/${quality.conceptVariants}`);
+      // ladder キーは `${setId}/${concept}`。concept id で procedural を判定
+      const conceptId = lk.slice(lk.indexOf("/") + 1);
+      const isProcedural = proceduralConcepts.has(conceptId);
+      const minVariants = isProcedural
+        ? quality.proceduralVariants
+        : quality.conceptVariants;
+      const minInputCapable = isProcedural
+        ? quality.proceduralInputCapable
+        : quality.conceptInputCapable;
+      if (vs.length < minVariants)
+        fails.push(`変種${vs.length}/${minVariants}`);
       const inputCapable = vs.filter(
         (v) => v.type === "input" || (v.type === "choice" && v.answers?.length)
       ).length;
-      if (inputCapable < quality.conceptInputCapable)
-        fails.push(`input可${inputCapable}/${quality.conceptInputCapable}`);
+      if (inputCapable < minInputCapable)
+        fails.push(`input可${inputCapable}/${minInputCapable}`);
       const stages = new Set(
         vs.map((v) => ((v.difficulty ?? 2) >= 3 ? 2 : v.type === "choice" ? 0 : 1))
       );
