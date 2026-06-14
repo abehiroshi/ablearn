@@ -452,15 +452,23 @@
     {
       "id": "soc-chiri-kyushu",
       "name": "九州地方の自然と産業",
-      "set": "soc-chiri-shochiiki",
+      "set": "soc-chiri-kyushu",
       "prerequisites": [
         "soc-chiri-kikou"
       ]
     },
     {
-      "id": "soc-chiri-nishinihon",
-      "name": "中国・四国・近畿の特色",
-      "set": "soc-chiri-shochiiki",
+      "id": "soc-chiri-chugoku-shikoku",
+      "name": "中国・四国地方の特色",
+      "set": "soc-chiri-chugoku-shikoku",
+      "prerequisites": [
+        "soc-chiri-kikou"
+      ]
+    },
+    {
+      "id": "soc-chiri-kinki",
+      "name": "近畿地方の特色",
+      "set": "soc-chiri-kinki",
       "prerequisites": [
         "soc-chiri-kikou"
       ]
@@ -468,15 +476,23 @@
     {
       "id": "soc-chiri-tohoku",
       "name": "東北地方の自然と災害の因果",
-      "set": "soc-chiri-higashinihon",
+      "set": "soc-chiri-tohoku",
       "prerequisites": [
         "soc-chiri-kikou"
       ]
     },
     {
-      "id": "soc-chiri-kanto-hokkaido",
-      "name": "関東・北海道の特色",
-      "set": "soc-chiri-higashinihon",
+      "id": "soc-chiri-kanto",
+      "name": "関東地方の特色",
+      "set": "soc-chiri-kanto",
+      "prerequisites": [
+        "soc-chiri-chikei"
+      ]
+    },
+    {
+      "id": "soc-chiri-hokkaido",
+      "name": "北海道地方の特色",
+      "set": "soc-chiri-hokkaido",
       "prerequisites": [
         "soc-chiri-chikei"
       ]

@@ -550,7 +550,7 @@
       "units": [
         {
           "id": "chiri-nihon",
-          "name": "地理（日本の地域的特色）",
+          "name": "日本の特色と地域区分",
           "terms": [
             "1学期中間"
           ],
@@ -587,21 +587,21 @@
           ]
         },
         {
-          "id": "chiri-shochiiki",
-          "name": "地理（日本の諸地域・西日本）",
+          "id": "chiri-kyushu",
+          "name": "日本の諸地域　九州地方",
           "terms": [
             "2学期中間"
           ],
           "sets": [
             {
-              "id": "soc-chiri-shochiiki",
-              "name": "日本の諸地域（九州・中国四国・近畿）",
-              "file": "social/chiri-shochiiki.json"
+              "id": "soc-chiri-kyushu",
+              "name": "九州地方の自然・産業・環境",
+              "file": "social/chiri-kyushu.json"
             },
             {
-              "id": "soc-chiri-shochiiki-cards",
-              "name": "西日本の用語カード",
-              "file": "social/chiri-shochiiki-cards.json"
+              "id": "soc-chiri-kyushu-cards",
+              "name": "九州地方の用語カード",
+              "file": "social/chiri-kyushu-cards.json"
             }
           ]
         },
@@ -625,8 +625,46 @@
           ]
         },
         {
+          "id": "chiri-chugoku-shikoku",
+          "name": "日本の諸地域　中国・四国地方",
+          "terms": [
+            "2学期期末"
+          ],
+          "sets": [
+            {
+              "id": "soc-chiri-chugoku-shikoku",
+              "name": "中国・四国地方の特色",
+              "file": "social/chiri-chugoku-shikoku.json"
+            },
+            {
+              "id": "soc-chiri-chugoku-shikoku-cards",
+              "name": "中国・四国地方の用語カード",
+              "file": "social/chiri-chugoku-shikoku-cards.json"
+            }
+          ]
+        },
+        {
+          "id": "chiri-kinki",
+          "name": "日本の諸地域　近畿地方",
+          "terms": [
+            "2学期期末"
+          ],
+          "sets": [
+            {
+              "id": "soc-chiri-kinki",
+              "name": "近畿地方の特色",
+              "file": "social/chiri-kinki.json"
+            },
+            {
+              "id": "soc-chiri-kinki-cards",
+              "name": "近畿地方の用語カード",
+              "file": "social/chiri-kinki-cards.json"
+            }
+          ]
+        },
+        {
           "id": "chiri-chubu",
-          "name": "地理（日本の諸地域・中部地方）",
+          "name": "日本の諸地域　中部地方",
           "terms": [
             "学年末"
           ],
@@ -644,21 +682,59 @@
           ]
         },
         {
-          "id": "chiri-higashi",
-          "name": "地理（日本の諸地域・東日本）",
+          "id": "chiri-kanto",
+          "name": "日本の諸地域　関東地方",
           "terms": [
             "学年末"
           ],
           "sets": [
             {
-              "id": "soc-chiri-higashinihon",
-              "name": "日本の諸地域（東日本）",
-              "file": "social/chiri-higashinihon.json"
+              "id": "soc-chiri-kanto",
+              "name": "関東地方の特色",
+              "file": "social/chiri-kanto.json"
             },
             {
-              "id": "soc-chiri-higashi-cards",
-              "name": "東日本の用語カード",
-              "file": "social/chiri-higashi-cards.json"
+              "id": "soc-chiri-kanto-cards",
+              "name": "関東地方の用語カード",
+              "file": "social/chiri-kanto-cards.json"
+            }
+          ]
+        },
+        {
+          "id": "chiri-tohoku",
+          "name": "日本の諸地域　東北地方",
+          "terms": [
+            "学年末"
+          ],
+          "sets": [
+            {
+              "id": "soc-chiri-tohoku",
+              "name": "東北地方の特色",
+              "file": "social/chiri-tohoku.json"
+            },
+            {
+              "id": "soc-chiri-tohoku-cards",
+              "name": "東北地方の用語カード",
+              "file": "social/chiri-tohoku-cards.json"
+            }
+          ]
+        },
+        {
+          "id": "chiri-hokkaido",
+          "name": "日本の諸地域　北海道地方",
+          "terms": [
+            "学年末"
+          ],
+          "sets": [
+            {
+              "id": "soc-chiri-hokkaido",
+              "name": "北海道地方の特色",
+              "file": "social/chiri-hokkaido.json"
+            },
+            {
+              "id": "soc-chiri-hokkaido-cards",
+              "name": "北海道地方の用語カード",
+              "file": "social/chiri-hokkaido-cards.json"
             }
           ]
         },
